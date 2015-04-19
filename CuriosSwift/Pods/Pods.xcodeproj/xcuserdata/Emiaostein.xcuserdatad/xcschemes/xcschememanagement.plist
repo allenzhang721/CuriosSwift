@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-CuriosSwift-Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CuriosSwift-Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CuriosSwift-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CuriosSwift-pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CuriosSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>56B93131B17E7F4D2CA1C2D8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>661A2C982D75395312A626C3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>777B1C1FE6841857BA4BE801</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC5170DB84A88B9A8D603F60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD851A45F8451441DBAD16FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
