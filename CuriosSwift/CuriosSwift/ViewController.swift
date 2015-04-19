@@ -9,17 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    struct MainStoryboard {
+       static let name = "Main"
+        struct viewControllers {
+            static let editViewController = "editViewController"
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        let editVC = UIStoryboard(name: MainStoryboard.name, bundle: nil) .instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.editViewController) as! EditViewController
+        
+        self.presentViewController(editVC, animated: false, completion: nil)
     }
-
-
 }
 

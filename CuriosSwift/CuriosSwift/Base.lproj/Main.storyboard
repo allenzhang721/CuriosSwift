@@ -21,10 +21,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="kL1-EK-viT">
             <objects>
-                <viewController id="8KY-Ld-6of" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editViewController" id="8KY-Ld-6of" customClass="EditViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NAo-0r-le2"/>
                         <viewControllerLayoutGuide type="bottom" id="yA7-i7-bxC"/>
@@ -32,12 +32,43 @@
                     <view key="view" contentMode="scaleToFill" id="efE-wc-SZt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oQp-6G-LwW">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3ni-qn-lib">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="pcq-6w-VMe" customClass="PageCell" customModule="CuriosSwift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="U6E-OZ-bJ4"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="X0G-oO-BoB"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="eND-aM-2yp"/>
+                            <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="oU9-Gk-juT"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKO-E8-RrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1203" y="389"/>
+            <point key="canvasLocation" x="1112" y="389"/>
         </scene>
     </scenes>
 </document>
