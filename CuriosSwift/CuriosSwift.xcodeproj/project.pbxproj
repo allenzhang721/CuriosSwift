@@ -15,7 +15,7 @@
 		2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */; };
 		2CB4BD6A1AE337EB00DF6019 /* CuriosSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD691AE337EB00DF6019 /* CuriosSwiftTests.swift */; };
 		2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD731AE33A8D00DF6019 /* Models.swift */; };
-		2CB4BD781AE33AD600DF6019 /* aa.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD771AE33AD600DF6019 /* aa.m */; };
+		2CB4BD7A1AE463F400DF6019 /* LayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD791AE463F400DF6019 /* LayoutSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +41,7 @@
 		2CB4BD691AE337EB00DF6019 /* CuriosSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuriosSwiftTests.swift; sourceTree = "<group>"; };
 		2CB4BD731AE33A8D00DF6019 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CuriosSwift-Bridging-Header.h"; sourceTree = "<group>"; };
-		2CB4BD761AE33AD600DF6019 /* aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aa.h; sourceTree = "<group>"; };
-		2CB4BD771AE33AD600DF6019 /* aa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aa.m; sourceTree = "<group>"; };
+		2CB4BD791AE463F400DF6019 /* LayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSpec.swift; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2CB4BD791AE463F400DF6019 /* LayoutSpec.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
@@ -105,8 +105,6 @@
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
 				2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */,
 				2CB4BD511AE337EA00DF6019 /* Supporting Files */,
-				2CB4BD761AE33AD600DF6019 /* aa.h */,
-				2CB4BD771AE33AD600DF6019 /* aa.m */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 			);
 			path = CuriosSwift;
@@ -298,7 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
-				2CB4BD781AE33AD600DF6019 /* aa.m in Sources */,
+				2CB4BD7A1AE463F400DF6019 /* LayoutSpec.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 			);
