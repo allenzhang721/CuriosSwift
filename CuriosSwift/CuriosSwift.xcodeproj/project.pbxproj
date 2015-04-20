@@ -18,6 +18,9 @@
 		2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */; };
 		2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */; };
 		2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD811AE476A500DF6019 /* PageCell.swift */; };
+		2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */; };
+		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
+		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layouts.swift; sourceTree = "<group>"; };
 		2CB4BD811AE476A500DF6019 /* PageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
+		2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
+		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +62,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */,
+				2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */,
+				2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */,
 				15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +82,9 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CB4BD8A1AE47A1500DF6019 /* Photos.framework */,
+				2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */,
+				2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */,
 				3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */,
 			);
 			name = Frameworks;
@@ -463,6 +475,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Emiaostein/mine/Github/CuriosSwift/AsyncDisplayKit-master/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"Mantle\"",
+					"-framework",
+					"\"pop\"",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -477,6 +505,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Emiaostein/mine/Github/CuriosSwift/AsyncDisplayKit-master/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"Mantle\"",
+					"-framework",
+					"\"pop\"",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 			};

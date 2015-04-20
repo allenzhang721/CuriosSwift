@@ -29,7 +29,7 @@ class PageCell: UICollectionViewCell {
         containerNode = nil
     }
     
-    func configCell(cellVM: cellViewModel, queue: NSOperationQueue) {
+    func configCell(cellVM: PageModel, queue: NSOperationQueue) {
         
         if let oldOperation = nodeConstructionOperation {
             oldOperation.cancel()
@@ -42,9 +42,9 @@ class PageCell: UICollectionViewCell {
 }
 
 // MARK - private
-extension pageCollectionViewCell {
+extension PageCell {
     
-    private func configCellTaskBy(cellVM: cellViewModel, queue: NSOperationQueue) -> NSOperation {
+    private func configCellTaskBy(cellVM: PageModel, queue: NSOperationQueue) -> NSOperation {
         
         let operation = NSBlockOperation()
         operation.addExecutionBlock { [weak self, unowned operation] in
@@ -86,14 +86,14 @@ extension pageCollectionViewCell {
         return operation
     }
     
-    private func renderNodesBy(cellVM: cellViewModel) -> ASDisplayNode {
+    private func renderNodesBy(cellVM: PageModel) -> ASDisplayNode {
         
         let aContainerNode = ASDisplayNode()
         aContainerNode.layerBacked = false
         aContainerNode.frame = self.bounds
         aContainerNode.userInteractionEnabled = true
         
-        for itemVM in cellVM.itemVMs {
+        for itemVM in cellVM.items {
             
             let node = ASEditableTextNode()
             node.layerBacked = false
