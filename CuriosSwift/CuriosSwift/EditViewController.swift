@@ -11,6 +11,7 @@ import UIKit
 class EditViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    let queue = NSOperationQueue()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +34,8 @@ extension EditViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCell
+
         
-        cell.backgroundColor = UIColor.redColor()
         
         return cell
     }

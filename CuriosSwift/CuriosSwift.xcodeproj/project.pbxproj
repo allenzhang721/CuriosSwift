@@ -21,6 +21,11 @@
 		2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */; };
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
+		2CB4BD8D1AE47B5C00DF6019 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8C1AE47B5C00DF6019 /* DataManager.swift */; };
+		2CB4BD901AE47CBC00DF6019 /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8F1AE47CBC00DF6019 /* main.json */; };
+		2CB4BD921AE47CD400DF6019 /* page_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD911AE47CD400DF6019 /* page_1.json */; };
+		2CB4BD951AE47CF000DF6019 /* page_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD941AE47CF000DF6019 /* page_2.json */; };
+		2CB4BD971AE47D0E00DF6019 /* page_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD961AE47D0E00DF6019 /* page_3.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +57,11 @@
 		2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		2CB4BD8C1AE47B5C00DF6019 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		2CB4BD8F1AE47CBC00DF6019 /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
+		2CB4BD911AE47CD400DF6019 /* page_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_1.json; sourceTree = "<group>"; };
+		2CB4BD941AE47CF000DF6019 /* page_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_2.json; sourceTree = "<group>"; };
+		2CB4BD961AE47D0E00DF6019 /* page_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_3.json; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +123,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2CB4BD8E1AE47C8100DF6019 /* demobook */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
 				2CB4BD851AE476D900DF6019 /* Layouts */,
@@ -165,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2CB4BD8C1AE47B5C00DF6019 /* DataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -175,6 +187,49 @@
 				2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */,
 			);
 			name = Layouts;
+			sourceTree = "<group>";
+		};
+		2CB4BD8E1AE47C8100DF6019 /* demobook */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4BD981AE47D1F00DF6019 /* Resources */,
+				2CB4BD931AE47CD900DF6019 /* Pages */,
+				2CB4BD8F1AE47CBC00DF6019 /* main.json */,
+			);
+			name = demobook;
+			sourceTree = "<group>";
+		};
+		2CB4BD931AE47CD900DF6019 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4BD911AE47CD400DF6019 /* page_1.json */,
+				2CB4BD941AE47CF000DF6019 /* page_2.json */,
+				2CB4BD961AE47D0E00DF6019 /* page_3.json */,
+			);
+			name = Pages;
+			sourceTree = "<group>";
+		};
+		2CB4BD981AE47D1F00DF6019 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4BD991AE47D4B00DF6019 /* images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2CB4BD991AE47D4B00DF6019 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4BD9A1AE47D5F00DF6019 /* page_1 */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		2CB4BD9A1AE47D5F00DF6019 /* page_1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = page_1;
 			sourceTree = "<group>";
 		};
 		8EFBC8624DF4F2C3D0A1107A /* Pods */ = {
@@ -270,8 +325,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
+				2CB4BD951AE47CF000DF6019 /* page_2.json in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
+				2CB4BD921AE47CD400DF6019 /* page_1.json in Resources */,
+				2CB4BD901AE47CBC00DF6019 /* main.json in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
+				2CB4BD971AE47D0E00DF6019 /* page_3.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +399,7 @@
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
+				2CB4BD8D1AE47B5C00DF6019 /* DataManager.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
