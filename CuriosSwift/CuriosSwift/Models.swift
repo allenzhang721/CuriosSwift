@@ -9,6 +9,20 @@
 import UIKit
 import Mantle
 
+extension MTLJSONAdapter {
+    class func modelOfClass<T: MTLModel>(T.Type, fromJSONDictionary: [String: AnyObject]?) -> (T?, NSError?) {
+        var error: NSError?
+        let model = modelOfClass(T.self, fromJSONDictionary: fromJSONDictionary, error: &error) as? T
+        return (model, error)
+    }
+    
+    class func modelsOfClass<T: MTLModel>(T.Type, fromJSONArray: [AnyObject]!) -> ([T]?, NSError?) {
+        var error: NSError?
+        let models = modelsOfClass(T.self, fromJSONArray: fromJSONArray, error: &error)
+        return (models as? [T], error)
+    }
+}
+
 class Model: MTLModel {
    
 }
@@ -18,6 +32,7 @@ class BookModel: Model {
 }
 
 class PageModel: Model {
+    var size = CGSizeZero
     var items: [ItemModel] = []
 }
 
@@ -29,11 +44,22 @@ class ItemModel: Model {
     }
     
     var center = CGPointZero
-    var size = CGSizeZero
-    var rotation: CGFloat = 0
-    var editable = true
+    var size = NSValue(CGSize: CGSizeZero)
+    var rotation = NSNumber(float: 0)
+    var editable = NSNumber(bool: true)
     var animation :animations = .None
     var content = NoneContentModel()
+    
+    class override func dictionaryWithValuesForKeys(keys: [AnyObject]) -> [NSObject : AnyObject] {
+        return ["size" : "size",
+                "center" : "center",
+                "rotation" : "rotation",
+                "content" : "content"]
+    }
+    
+    class func sizeJSONTransformer() -> NSValueTransformer {
+    }
+    
 }
 
 class ContentModel: Model {
@@ -45,7 +71,7 @@ class NoneContentModel: ContentModel {
 }
 
 class ImageContentModel: ContentModel {
-    var image = UIImage()
+    var imageName = ""
 }
 
 class TextContentModel: ContentModel {
