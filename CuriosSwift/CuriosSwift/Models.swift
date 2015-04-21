@@ -24,7 +24,10 @@ extension MTLJSONAdapter {
 }
 
 class Model: MTLModel {
-   
+    struct jsonGeometryKey {
+        static let size = "size" + "."
+        static let center = "center" + "."
+    }
 }
 
 class BookModel: Model {
@@ -32,38 +35,55 @@ class BookModel: Model {
 }
 
 class PageModel: Model {
-    var size = CGSizeZero
+    var width = 0
+    var height = 0
     var items: [ItemModel] = []
+    
+    class override func dictionaryWithValuesForKeys(keys: [AnyObject]) -> [NSObject : AnyObject] {
+        return ["width" : jsonGeometryKey.size + "width",
+            "height" : jsonGeometryKey.size + "height",
+            "items" : "items"]
+    }
 }
 
 
 class ItemModel: Model {
-
-    enum animations {
+    
+    @objc enum animations: Int {
         case None, FadeIn, FadeOut
     }
     
-    var center = CGPointZero
-    var size = NSValue(CGSize: CGSizeZero)
-    var rotation = NSNumber(float: 0)
-    var editable = NSNumber(bool: true)
+    var x = 0 // center.x
+    var y = 0 // center.y
+    var width = 0 // size.width
+    var height = 0 // size.height
+    var rotation = 0
+    var editable = true
     var animation :animations = .None
     var content = NoneContentModel()
     
     class override func dictionaryWithValuesForKeys(keys: [AnyObject]) -> [NSObject : AnyObject] {
-        return ["size" : "size",
-                "center" : "center",
-                "rotation" : "rotation",
-                "content" : "content"]
+        return [
+            
+                "x" : jsonGeometryKey.center + "x",
+                "y" : jsonGeometryKey.center + "y",
+                "width" : jsonGeometryKey.size + "width",
+                "height" : jsonGeometryKey.size + "height",
+        ]
     }
     
-    class func sizeJSONTransformer() -> NSValueTransformer {
+    class func animaitonJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":animations.None.rawValue,
+            "FadeIn":animations.FadeIn.rawValue,
+            "FadeOut":animations.FadeOut.rawValue
+            ])
     }
-    
 }
 
 class ContentModel: Model {
-    
+
 }
 
 class NoneContentModel: ContentModel {

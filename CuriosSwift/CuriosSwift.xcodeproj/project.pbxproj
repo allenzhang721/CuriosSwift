@@ -24,8 +24,6 @@
 		2CB4BD8D1AE47B5C00DF6019 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8C1AE47B5C00DF6019 /* DataManager.swift */; };
 		2CB4BD901AE47CBC00DF6019 /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8F1AE47CBC00DF6019 /* main.json */; };
 		2CB4BD921AE47CD400DF6019 /* page_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD911AE47CD400DF6019 /* page_1.json */; };
-		2CB4BD951AE47CF000DF6019 /* page_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD941AE47CF000DF6019 /* page_2.json */; };
-		2CB4BD971AE47D0E00DF6019 /* page_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD961AE47D0E00DF6019 /* page_3.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +58,6 @@
 		2CB4BD8C1AE47B5C00DF6019 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2CB4BD8F1AE47CBC00DF6019 /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
 		2CB4BD911AE47CD400DF6019 /* page_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_1.json; sourceTree = "<group>"; };
-		2CB4BD941AE47CF000DF6019 /* page_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_2.json; sourceTree = "<group>"; };
-		2CB4BD961AE47D0E00DF6019 /* page_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page_3.json; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,8 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD911AE47CD400DF6019 /* page_1.json */,
-				2CB4BD941AE47CF000DF6019 /* page_2.json */,
-				2CB4BD961AE47D0E00DF6019 /* page_3.json */,
 			);
 			name = Pages;
 			sourceTree = "<group>";
@@ -325,12 +319,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
-				2CB4BD951AE47CF000DF6019 /* page_2.json in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD921AE47CD400DF6019 /* page_1.json in Resources */,
 				2CB4BD901AE47CBC00DF6019 /* main.json in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
-				2CB4BD971AE47D0E00DF6019 /* page_3.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
