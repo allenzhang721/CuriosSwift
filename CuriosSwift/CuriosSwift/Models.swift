@@ -73,11 +73,11 @@ class ItemModel: Model {
         case None, FadeIn, FadeOut
     }
     
-    var x = 100 // center.x
-    var y = 100 // center.y
-    var width = 100 // size.width
-    var height = 100 // size.height
-    var rotation = 0
+    var x = 100.0 // center.x
+    var y = 100.0 // center.y
+    var width = 100.0 // size.width
+    var height = 100.0 // size.height
+    var rotation = 0.0
     var editable = true
     var animation :animations = .None
     var content = NoneContentModel()

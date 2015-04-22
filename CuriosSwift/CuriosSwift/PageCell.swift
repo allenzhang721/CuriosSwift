@@ -98,13 +98,14 @@ extension PageCell {
             let node = ASEditableTextNode()
             node.layerBacked = false
             node.attributedText = NSAttributedString(string: "EMiaostein")
-            node.frame.origin.x = itemVM.center.x - itemVM.size.width / 2.0
-            node.frame.origin.y = itemVM.center.y - itemVM.size.height / 2.0
-            node.bounds.size = itemVM.size
+            node.frame.origin.x = CGFloat(itemVM.x - itemVM.width)
+            node.frame.origin.y = CGFloat(itemVM.y - itemVM.height)
+            node.bounds.size.width = CGFloat(itemVM.width)
+            node.bounds.size.height = CGFloat(itemVM.height)
             //            let image = UIImage(named: "Cycling Tours.jpeg")
             //            node.image = image
             //            node.transform = CATransform3DMakeRotation(itemVM.rotation, 0, 0, 1)
-            node.backgroundColor = UIColor(red: CGFloat(Double(itemVM.size.width % 255) / 255.0), green: CGFloat(Double(itemVM.size.width) / 255.0), blue: CGFloat(Double(itemVM.size.width) / 255.0), alpha: 1)
+            node.backgroundColor = UIColor(red: CGFloat(Double(itemVM.width % 255) / 255.0), green: CGFloat(Double(itemVM.width) / 255.0), blue: CGFloat(Double(itemVM.width) / 255.0), alpha: 1)
             aContainerNode.addSubnode(node)
         }
         
