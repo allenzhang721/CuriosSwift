@@ -1,10 +1,21 @@
 {
+    "mainWidth":320,
+    "mainHeight":504,
+    "mainTitle":"美好生活",
+    "mainDesc":"美好的一天需要一个美好的早上，这个早上需要别人来给予",
+    "flipDirection":"ver",
+    "flipType":"translate3d",
+    "mainBackground":"imags/background.jpg",
+    "mainMusic":"http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
     "pagesPath": "/Pages/",
-    "pages": [
-              {
-              "page_1": "page_1",
-              "page_2": "page_2",
-              "page_3": "page_3"
-              }
-              ]
+    "pages":[
+             {
+             "path": "page_1",
+             "index": "page_1.json"
+             },
+             {
+             "path": "page_2",
+             "index": "page_2.json"
+             }
+             ]
 }
