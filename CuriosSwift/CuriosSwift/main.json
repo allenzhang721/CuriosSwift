@@ -1,21 +1,26 @@
 {
-    "mainWidth":320,
-    "mainHeight":504,
-    "mainTitle":"美好生活",
-    "mainDesc":"美好的一天需要一个美好的早上，这个早上需要别人来给予",
-    "flipDirection":"ver",
-    "flipType":"translate3d",
-    "mainBackground":"imags/background.jpg",
-    "mainMusic":"http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
-    "pagesPath": "/Pages/",
-    "pages":[
+    "ID":"asdwqfsafsadsa",
+    "MainWidth":640,
+    "MainHeight":1008,
+    "MainTitle":"Good Day",
+    "MainDesc":"Good Day have good idea!",
+    "FlipDirection":"ver",
+    "FlipType":"translate3d",
+    "MainBackground":"/images/background.jpg",
+    "MainMusic":"http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
+    "PagesPath": "/Pages",
+    "Pages":[
              {
-             "path": "page_1",
-             "index": "page_1.json"
+             "PageID":"dsadsafdagdafda",
+             "Path": "/page_1",
+             "Index": "/page_1.json"
              },
              {
-             "path": "page_2",
-             "index": "page_2.json"
+             "PageID":"2215484asdsadas",
+             "Path": "/page_2",
+             "Index": "/page_2.json"
              }
-             ]
+             ],
+    "AutherID":"1fdklaafdllfda",
+    "PublishDate":"2015-04-23"
 }

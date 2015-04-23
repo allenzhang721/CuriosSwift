@@ -23,9 +23,22 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         
+        setupEditViewController()
+    }
+}
+
+extension ViewController {
+    
+    private func setupEditViewController() {
+        
         let editVC = UIStoryboard(name: MainStoryboard.name, bundle: nil) .instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.editViewController) as! EditViewController
         
         self.presentViewController(editVC, animated: false, completion: nil)
+    }
+    
+    private func loadbook() {
+        
+        
     }
 }
 

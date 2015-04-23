@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
 		2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD571AE337EA00DF6019 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGenerator.swift; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */,
 				2CB4BD8E1AE47C8100DF6019 /* demobook */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
@@ -392,6 +395,7 @@
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
 				2CB4BD8D1AE47B5C00DF6019 /* DataManager.swift in Sources */,
+				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
