@@ -19,11 +19,11 @@ class Model: MTLModel, MTLJSONSerializing {
 
 class BookModel: Model {
     
-    enum flipDirections {
+    @objc enum FlipDirections: Int {
         case ver, hor
     }
     
-    enum flipTypes {
+    @objc  enum FlipTypes: Int {
         case aa, bb
     }
     
@@ -32,14 +32,14 @@ class BookModel: Model {
     var height = 0
     var title = ""
     var desc = ""
-    var flipDirection: flipDirections = .ver
-    var flipType: flipTypes = .aa
+    var flipDirection: FlipDirections = .ver
+    var flipType: FlipTypes = .aa
     var background = ""
     var backgroundMusic = ""
     var pagesPath = ""
     var autherID = ""
     var publishDate: NSDate!
-    var pagesInfo: [[String:String]] = [[:]]
+    var pagesInfo: [[String : String]] = [[:]]
     var pageModels: [PageModel] = []
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -61,13 +61,63 @@ class BookModel: Model {
         ]
     }
     
-    //TODO: flipDirection
+    // flipDirection
+    class func flipDirectionJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "ver":FlipDirections.ver.rawValue,
+            "hor":FlipDirections.hor.rawValue
+            ])
+    }
     
-    //TODO: fliptypes
+    // fliptypes
+    class func flipTypeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "aa":FlipTypes.aa.rawValue,
+            "bb":FlipTypes.bb.rawValue
+            ])
+    }
     
-    //TODO: publishDate
+    // publishDate
+    class func publishDateJSONTransformer() -> NSValueTransformer {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (dateStr: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            return dateFormatter.dateFromString(dateStr as! String)
+        }
+
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (date: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            return dateFormatter.stringFromDate(date as! NSDate)
+        }
+
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
     
-    //TODO: pageModels
+    // pageModels
+    class func pageModelsJSONTransformer() -> NSValueTransformer {
+
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+
+//            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(PageModel.self, fromJSONArray: jsonArray as! [PageModel], error: nil)
+            return something
+        }
+
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (pages: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(pages as! [PageModel], error: nil)
+            return something
+        }
+
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
+    
 }
 
 class PageModel: Model {
@@ -87,7 +137,25 @@ class PageModel: Model {
         ]
     }
     
-    //TODO: congtainers
+    // congtainers
+    class func containersJSONTransformer() -> NSValueTransformer {
+        
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            
+            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(ContainerModel.self, fromJSONArray: jsonArray as! [ContainerModel], error: nil)
+            return something
+        }
+        
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [ContainerModel], error: nil)
+            return something
+        }
+        
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
 }
 
 class ContainerModel: Model {
@@ -123,57 +191,101 @@ class ContainerModel: Model {
         ]
     }
     
-    //TODO: animations
+    // animations
+    class func animationsJSONTransformer() -> NSValueTransformer {
+        
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            
+            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Animation.self, fromJSONArray: jsonArray as! [Animation], error: nil)
+            return something
+        }
+        
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [Animation], error: nil)
+            return something
+        }
+        
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
     
-    //TODO: behaviors
+    // behaviors
+    class func behaviorsJSONTransformer() -> NSValueTransformer {
+        
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            
+            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Behavior.self, fromJSONArray: jsonArray as! [Behavior], error: nil)
+            return something
+        }
+        
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [Behavior], error: nil)
+            return something
+        }
+        
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
     
-    //TODO: effects
+    // effects
+    class func effectsJSONTransformer() -> NSValueTransformer {
+        
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            
+            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Effect.self, fromJSONArray: jsonArray as! [Effect], error: nil)
+            return something
+        }
+        
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [Effect], error: nil)
+            return something
+        }
+        
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
     
-    //TODO: component
-    
-//    class func animaitonJSONTransformer() -> NSValueTransformer {
-//        
-//        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
-//            "None":animations.None.rawValue,
-//            "FadeIn":animations.FadeIn.rawValue,
-//            "FadeOut":animations.FadeOut.rawValue
-//            ])
-//    }
-//    
-//    class func contentJSONTransformer() -> NSValueTransformer {
-//        
-//        let forwardBlock: MTLValueTransformerBlock! = {
-//            (jsonDic: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-//
-//            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
-//            return something
-//        }
-//        
-//        let reverseBlock: MTLValueTransformerBlock! = {
-//            (contentModel: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-//            let something: AnyObject! = MTLJSONAdapter.JSONDictionaryFromModel(contentModel as! ComponentModel, error: error)
-//            return something
-//        }
-//        
-//        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
-//    }
+    // component
+    class func componentJSONTransformer() -> NSValueTransformer {
+
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (jsonDic: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+
+            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+            return something
+        }
+
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (componentModel: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            let something: AnyObject! = MTLJSONAdapter.JSONDictionaryFromModel(componentModel as! ComponentModel, error: error)
+            return something
+        }
+
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
 }
 
 class Animation: Model {
     
-    enum types {
+    @objc enum Types: Int {
         case None, Rotation, FlowUp
     }
     
-    enum easeTypes {
+    @objc enum EaseTypes: Int {
         case  Linear, EaseIn, EaseOut, EaseInOut
     }
     
-    var type: types = .None
+    var type: Types = .None
     var delay: NSTimeInterval = 0
     var duration: NSTimeInterval = 0
     var repeat: Int = 0
-    var easeType: easeTypes = .Linear
+    var easeType: EaseTypes = .Linear
     var attributes: [String : String] = [:]
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -189,18 +301,35 @@ class Animation: Model {
         ]
     }
     
-    //TODO: type
+    // type
+    class func typeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":Types.None.rawValue,
+            "Rotation":Types.Rotation.rawValue,
+            "FlowUp":Types.FlowUp.rawValue
+            ])
+    }
     
-    //TODO: easeType
+    // easeType
+    class func easeTypeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "Linear":EaseTypes.Linear.rawValue,
+            "EaseIn":EaseTypes.EaseIn.rawValue,
+            "EaseOut":EaseTypes.EaseOut.rawValue,
+            "EaseInOut":EaseTypes.EaseInOut.rawValue,
+            ])
+    }
 }
 
 class Behavior: Model {
     
-    enum EventType {
+    @objc enum EventType: Int {
         case None, Click ,DoubleClick
     }
     
-    enum FunctionType {
+    @objc enum FunctionType: Int {
         case None, playMuisc
     }
     
@@ -222,19 +351,34 @@ class Behavior: Model {
         ]
     }
     
-    //TODO: type
+    // eventType
+    class func eventTypeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":EventType.None.rawValue,
+            "Click":EventType.Click.rawValue,
+            "DoubleClick":EventType.DoubleClick.rawValue
+            ])
+    }
     
-    //TODO: functionName
+    // functionName
+    class func functionNameJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":FunctionType.None.rawValue,
+            "playMuisc":FunctionType.playMuisc.rawValue
+            ])
+    }
 }
 
 class Effect: Model {
     
-    enum EffectType {
+    @objc enum EffectType: Int {
         case None, Shadow
     }
     
     var type: EffectType = .None
-    var attributes: [String : String] = [:]
+    var attributes: [String : AnyObject] = [:]
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
@@ -245,16 +389,23 @@ class Effect: Model {
         ]
     }
     
-    //TODO: type
+    // EffectType
+    class func typeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":EffectType.None.rawValue,
+            "Shadow":EffectType.Shadow.rawValue
+            ])
+    }
 }
 
 class ComponentModel: Model  {
     
-    enum Type: String {
-        case Text = "Text", Image = "Image", None = "None"
+    @objc enum Type: Int {
+        case None, Text, Image
     }
     
-    var type = "None"
+    var type: Type = .None
     var attributes: [String : AnyObject] = [:]
     
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
@@ -262,11 +413,11 @@ class ComponentModel: Model  {
         if let type = JSONDictionary["ComponentType"] as? NSString {
             
             switch type {
-            case Type.Text.rawValue:
+            case "Text":
                 
                 return TextContentModel.self
                 
-            case Type.Image.rawValue:
+            case "Image":
                 
                 return ImageContentModel.self
             default:
@@ -289,6 +440,14 @@ class ComponentModel: Model  {
     }
     
     //TODO: type
+    class func typeJSONTransformer() -> NSValueTransformer {
+        
+        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+            "None":Type.None.rawValue,
+            "Text":Type.Text.rawValue,
+            "Image":Type.Image.rawValue,
+            ])
+    }
 }
 
 class NoneContentModel: ComponentModel {
@@ -299,7 +458,6 @@ class ImageContentModel: ComponentModel {
 
 class TextContentModel: ComponentModel {
 }
-
 
 extension MTLJSONAdapter {
     
