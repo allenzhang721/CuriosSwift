@@ -14,5 +14,7 @@ class BookDataManager: NSObject {
     
     func setupBookWith(file: String) {
         
+        
+        
     }
 }

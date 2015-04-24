@@ -1,0 +1,75 @@
+{
+    "ID":"dsadsafdagdafda",
+    "PageWidth":640,
+    "PageHeight":1008,
+    "Containers": [
+        {
+            "ID":"123154564",
+            "ContainerX":50,
+            "ContainerY":200,
+            "ContaienrWidth":100,
+            "ContainerHeight":100,
+            "ContainerRotation":45,
+            "ContainerAplha":0.5,
+            "Editable":true,
+            "Component": {
+                "ComponentType": "Image",
+                "ComponentData":{
+                    "ImagePath":"/images/aaaa.png",
+                    "ImageFilter":{
+                        "FilterType":"black",
+                        "FilterData":{
+
+                        }
+                    }
+                }
+            },
+            "Animations": [
+                {
+                    "AnimationType":"FloatUp",
+                    "AnimationDelay":1000,
+                    "AnimationDuration":2000,
+                    "AnimationRepeat":2,
+                    "AnimationEaseType":"",
+                    "AnimationData":{
+
+                    }
+                },
+                {
+                    "AnimationType":"Retation",
+                    "AnimationDelay":1000,
+                    "AnimationDuration":2000,
+                    "AnimationRepeat":2,
+                    "AnimationEaseType":"",
+                    "AnimationData":{
+
+                    }
+                }
+            ],
+            "Behaviors":[
+                {
+                    "EventName":"Click",
+                    "EventValue":"1",
+                    "ObjectID":"dsadsadsa",
+                    "FunctionName":"PlayMusic",
+                    "FunctionValue":"2"
+                },
+                {
+                    "EventName":"Click",
+                    "EventValue":"2",
+                    "ObjectID":"dsadsadsa",
+                    "FunctionName":"PlayAnimation",
+                    "FunctionValue":"1"
+                }
+            ],
+           "Effect":[
+                {
+                    "EffectType":"Shadow",
+                    "EffectData":{
+
+                    }
+                }
+           ]
+        }
+      ]
+}
