@@ -41,7 +41,23 @@ class NormalLayout: UICollectionViewFlowLayout {
 
 class smallLayout: UICollectionViewFlowLayout {
     
+    override init() {
+        super.init()
+        setuoProperties()
+    }
     
+    required init(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setuoProperties()
+    }
+    
+    private func setuoProperties() {
+        
+        itemSize = LayoutSpec.layoutConstants.smallLayout.itemSize
+        sectionInset = LayoutSpec.layoutConstants.smallLayout.sectionInsets
+        scrollDirection = .Horizontal
+    }
 }
 
 class LayoutSpec: NSObject {

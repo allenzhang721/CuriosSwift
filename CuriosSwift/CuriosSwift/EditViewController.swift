@@ -26,6 +26,18 @@ class EditViewController: UIViewController {
     }
 }
 
+
+// MARK - IBAction
+extension EditViewController {
+    
+    @IBAction func PanAction(sender: UIPanGestureRecognizer) {
+    
+        
+    }
+}
+
+
+// MARK - Delegate and DateSource
 extension EditViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -43,6 +55,7 @@ extension EditViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK - Private Method
 extension EditViewController {
     
     private func getPageModels() -> [PageModel] {
