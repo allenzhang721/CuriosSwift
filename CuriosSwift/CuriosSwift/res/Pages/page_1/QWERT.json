@@ -1,12 +1,12 @@
 {
-    "ID":"dsadsafdagdafda",
+    "ID":"QWERT",
     "PageWidth":640,
     "PageHeight":1008,
     "Containers": [
         {
             "ID":"123154564",
-            "ContainerX":50,
-            "ContainerY":200,
+            "ContainerX":200,
+            "ContainerY":50,
             "ContaienrWidth":100,
             "ContainerHeight":100,
             "ContainerRotation":45,
@@ -26,21 +26,21 @@
             },
             "Animations": [
                 {
-                    "AnimationType":"FloatUp",
+                    "AnimationType":"FlowUp",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
-                    "AnimationEaseType":"",
+                    "AnimationEaseType":"Linear",
                     "AnimationData":{
 
                     }
                 },
                 {
-                    "AnimationType":"Retation",
+                    "AnimationType":"Rotation",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
-                    "AnimationEaseType":"",
+                    "AnimationEaseType":"Linear",
                     "AnimationData":{
 
                     }

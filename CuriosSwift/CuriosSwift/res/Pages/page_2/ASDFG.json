@@ -1,5 +1,5 @@
 {
-  "ID":"2215484asdsadas",
+  "ID":"ASDFG",
   "PageWidth":640,
   "PageHeight":1008,
   "Containers": [
@@ -26,21 +26,21 @@
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"FlowUp",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
-          "AnimationEaseType":"",
+          "AnimationEaseType":"Linear",
           "AnimationData":{
 
           }
         },
         {
-          "AnimationType":"Retation",
+          "AnimationType":"Rotation",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
-          "AnimationEaseType":"",
+          "AnimationEaseType":"Linear",
           "AnimationData":{
 
           }

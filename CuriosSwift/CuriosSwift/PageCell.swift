@@ -92,19 +92,12 @@ extension PageCell {
         aContainerNode.layerBacked = false
         aContainerNode.frame = self.bounds
         aContainerNode.userInteractionEnabled = true
+        let containerModels = cellVM.containers
         
-        for itemVM in 0...20 {
+        for containerM in containerModels {
             
-            let node = ASEditableTextNode()
-            node.layerBacked = false
-            node.attributedText = NSAttributedString(string: "EMiaostein")
-            node.frame.origin.x = 100
-            node.frame.origin.y = 100
-            node.bounds.size.width = 100
-            node.bounds.size.height = 100
-            //            let image = UIImage(named: "Cycling Tours.jpeg")
-            //            node.image = image
-            //            node.transform = CATransform3DMakeRotation(itemVM.rotation, 0, 0, 1)
+            let containtVM = ContainerViewModel(model: containerM)
+            let node = CUEditableTextNode(viewModel: containtVM)
             node.backgroundColor = UIColor.lightGrayColor()
             aContainerNode.addSubnode(node)
         }

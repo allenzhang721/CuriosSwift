@@ -161,12 +161,12 @@ class PageModel: Model {
 class ContainerModel: Model {
     
     var Id = ""
-    var x = 100.0
-    var y = 100.0
-    var width = 100.0 // bounds.width
-    var height = 100.0 // bounds.height
-    var rotation = 0.0
-    var alpha = 0.0
+    var x: CGFloat = 100.0
+    var y: CGFloat = 100.0
+    var width: CGFloat = 100.0 // bounds.width
+    var height: CGFloat = 100.0 // bounds.height
+    var rotation: CGFloat = 0.0
+    var alpha: CGFloat = 0.0
     var editable = true
     var animations:[Animation] = []
     var behaviors: [Behavior] = []

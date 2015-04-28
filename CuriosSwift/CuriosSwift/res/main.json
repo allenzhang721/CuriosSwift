@@ -5,7 +5,7 @@
     "MainTitle": "Good Day",
     "MainDesc": "Good Day have good idea!",
     "FlipDirection": "ver",
-    "FlipType": "",
+    "FlipType": "aa",
     "MainBackground": "/images/background.jpg",
     "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
     "PagesPath": "/Pages",
@@ -13,14 +13,14 @@
     "PublishDate": "2015-04-23",
     "Pages": [
               {
-              "PageID": "dsadsafdagdafda",
+              "PageID": "QWERT",
               "Path": "/page_1",
-              "Index": "/page_1.json"
+              "Index": "/QWERT.json"
               },
               {
-              "PageID": "2215484asdsadas",
+              "PageID": "ASDFG",
               "Path": "/page_2",
-              "Index": "/page_2.json"
+              "Index": "/ASDFG.json"
               }
               ]
 }
