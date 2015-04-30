@@ -78,7 +78,7 @@ extension PageCell {
                         aContaierNode.setNeedsDisplay()
                         strongSelf.containerNodeView = aContaierNode.view
                         strongSelf.containerNode = aContaierNode
-                        println("end")
+//                        println("end")
                     }
                     })
             }

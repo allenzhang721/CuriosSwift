@@ -22,6 +22,10 @@ class NormalLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         
         var offsetAdjustment: CGFloat = CGFloat(MAXFLOAT)
@@ -46,6 +50,10 @@ class smallLayout: UICollectionViewFlowLayout {
         setuoProperties()
     }
     
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
     required init(coder aDecoder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
@@ -58,6 +66,30 @@ class smallLayout: UICollectionViewFlowLayout {
         sectionInset = LayoutSpec.layoutConstants.smallLayout.sectionInsets
         scrollDirection = .Horizontal
     }
+}
+
+class TransitionLayout: UICollectionViewTransitionLayout {
+    
+    let smallHeight = LayoutSpec.layoutConstants.smallLayout.itemSize.height
+    let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+    let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+    let minScale = LayoutSpec.layoutConstants.smallLayout.shrinkScale
+    
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+        
+        let att = super.layoutAttributesForElementsInRect(rect)
+        if let attributes = att {
+            for attribute in attributes as! [UICollectionViewLayoutAttributes] {
+            }
+        }
+     
+        return att
+    }
+    
 }
 
 class LayoutSpec: NSObject {
@@ -75,7 +107,7 @@ class LayoutSpec: NSObject {
         static var screenSize:CGSize = UIScreen.mainScreen().bounds.size
         
         static var normalLayout: layoutAttributeStyle {
-            println("normalLayout")
+//            println("normalLayout")
             let width = floorf(Float(screenSize.width - normalLayoutInsetLeft * 2.0))
             let height = CGFloat(width) / aspectRatio
             let itemSize = CGSizeMake(CGFloat(width), CGFloat(height))
@@ -90,7 +122,7 @@ class LayoutSpec: NSObject {
         }
         
         static var smallLayout: layoutAttributeStyle {
-            println("smallLayout")
+//            println("smallLayout")
             let height = floorf(Float(screenSize.height * (1 - goldRatio) - smallLayoutInsetTop * 2.0))
             let width = floorf(height * Float(aspectRatio))
             let itemSize = CGSize(width: CGFloat(width), height: CGFloat(height))
@@ -99,7 +131,7 @@ class LayoutSpec: NSObject {
             let bottom = screenSize.height - CGFloat(top) - CGFloat(height)
             let left = (screenSize.width - CGFloat(width)) / 2.0
             let right = left
-            let sectionInset = UIEdgeInsetsMake(bottom, left, top, right)
+            let sectionInset = UIEdgeInsetsMake(top, left, bottom, right)
             let scale = CGFloat(height) / normalLayout.itemSize.height
             
             return layoutAttributeStyle(itemSize: itemSize, sectionInsets: sectionInset, shrinkScale: scale)
