@@ -19,6 +19,11 @@ class EditViewController: UIViewController {
     var progress: Float = 0.0 {
         didSet {
             
+            if transitionLayout != nil {
+                
+                transitionByProgress(progress)
+            }
+            
         }
     }
     
@@ -47,25 +52,24 @@ extension EditViewController {
         switch sender.state {
         case .Began:
             
-            let small = smallLayout()
-            transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(small, completion: { [unowned self] (finished, completed) -> Void in
-                
-                if finished {
+            let nextLayout = collectionView.collectionViewLayout is NormalLayout ? smallLayout() : NormalLayout()
+            transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
+
                     self.transitionLayout = nil
-                }
-                if completed {
-                    self.transitionLayout = nil
-                }
-                
+                    self.progress = 0
+
                 }) as! TransitionLayout
             
         case .Changed:
             collectionView.transform = CGAffineTransformTranslate(collectionView.transform, 0, 5)
+            progress += 0.01
+            
             
         case .Ended:
             
             if transitionLayout != nil {
-                collectionView.finishInteractiveTransition()
+                let animation = togglePopAnimation(true)
+                
             }
             
         default:
@@ -110,6 +114,11 @@ extension EditViewController: UIGestureRecognizerDelegate {
 // MARK: - Private Methods
 extension EditViewController {
     
+    private func POPTransition(progress: Float, startValue: Float, endValue: Float) -> CGFloat {
+        
+        return CGFloat(startValue + (progress * (endValue - startValue)))
+    }
+    
     private func getPageModels() -> [PageModel] {
         
         let demobookPath: String = NSBundle.mainBundle().pathForResource("main", ofType: "json", inDirectory: "res")!
@@ -134,12 +143,12 @@ extension EditViewController {
         return pageArray
     }
     
-    private func togglePopAnimation(on: Bool) {
+    private func togglePopAnimation(on: Bool) -> POPSpringAnimation {
         var animation: POPSpringAnimation! = self.pop_animationForKey("Pop") as! POPSpringAnimation!
         if animation == nil {
             animation = POPSpringAnimation()
             animation.springBounciness = 5
-            animation.springSpeed = 10
+            animation.springSpeed = 5
             
             typealias PopInitializer = ((POPMutableAnimatableProperty!) -> Void)!
             
@@ -175,12 +184,20 @@ extension EditViewController {
                 
             }
         }
-    }
-    
-    private func POPTransition(progress: Float, startValue: Float, endValue: Float) -> CGFloat {
         
-        return CGFloat(startValue + (progress * (endValue - startValue)))
+        return animation
     }
+
     
-    
+    private func transitionByProgress(aProgress: Float) {
+        
+        // collectionView Translation 0 ~ 1
+        
+        // layout Transition  0 ~ 1
+        if transitionLayout != nil {
+            transitionLayout.transitionProgress = CGFloat(aProgress)
+            transitionLayout.invalidateLayout()
+        }
+    }
+
 }
