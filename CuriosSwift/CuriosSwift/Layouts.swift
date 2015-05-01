@@ -2,12 +2,17 @@
 //  Layouts.swift
 //  CuriosSwift
 //
-//  Created by 星宇陈 on 4/20/15.
+//  Created by Emiaostein on 4/20/15.
 //  Copyright (c) 2015 botai. All rights reserved.
 //
 
 import Foundation
 import UIKit
+
+ func POPTransition(progress: CGFloat, startValue: CGFloat, endValue: CGFloat) -> CGFloat {
+    
+    return CGFloat(startValue + (progress * (endValue - startValue)))
+}
 
 class NormalLayout: UICollectionViewFlowLayout {
     
@@ -73,7 +78,7 @@ class TransitionLayout: UICollectionViewTransitionLayout {
     let smallHeight = LayoutSpec.layoutConstants.smallLayout.itemSize.height
     let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
     let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
-    let minScale = LayoutSpec.layoutConstants.smallLayout.shrinkScale
+    let minScale = floor(LayoutSpec.layoutConstants.smallLayout.shrinkScale * 1000)/1000.0
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
         return true
@@ -84,12 +89,20 @@ class TransitionLayout: UICollectionViewTransitionLayout {
         let att = super.layoutAttributesForElementsInRect(rect)
         if let attributes = att {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
+                let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as! PageCell
+                if let containerNode = cell.containerNode {
+                    let isNor = currentLayout is NormalLayout
+                    let scale = POPTransition(transitionProgress, isNor ? 1.0 : minScale, isNor ? minScale : 1.0)
+                    containerNode.transform = CATransform3DMakeScale(scale, scale, 1)
+                    containerNode.view.center = cell.contentView.center;
+                    
+                }
             }
         }
      
         return att
     }
-    
+
 }
 
 class LayoutSpec: NSObject {
@@ -104,7 +117,8 @@ class LayoutSpec: NSObject {
         static let aspectRatio: CGFloat = 320.0 / 504.0
         static let normalLayoutInsetLeft: CGFloat = 30.0
         static let smallLayoutInsetTop: CGFloat = 20.0
-        static var screenSize:CGSize = UIScreen.mainScreen().bounds.size
+        static let screenSize:CGSize = UIScreen.mainScreen().bounds.size
+        static let maxTransitionLayoutY = UIScreen.mainScreen().bounds.size.height * 0.618
         
         static var normalLayout: layoutAttributeStyle {
 //            println("normalLayout")

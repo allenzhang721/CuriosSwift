@@ -2,7 +2,7 @@
 //  EditViewController.swift
 //  CuriosSwift
 //
-//  Created by 星宇陈 on 4/20/15.
+//  Created by Emiaostein on 4/20/15.
 //  Copyright (c) 2015 botai. All rights reserved.
 //
 
@@ -16,14 +16,15 @@ class EditViewController: UIViewController {
     var pageModels: [PageModel] = []
     let queue = NSOperationQueue()
     var transitionLayout: TransitionLayout!
+    let maxY = Float(LayoutSpec.layoutConstants.maxTransitionLayoutY)
+    var beganPanY: CGFloat = 0.0
+    var isToSmallLayout = false
     var progress: Float = 0.0 {
         didSet {
             
             if transitionLayout != nil {
-                
                 transitionByProgress(progress)
             }
-            
         }
     }
     
@@ -52,7 +53,9 @@ extension EditViewController {
         switch sender.state {
         case .Began:
             
-            let nextLayout = collectionView.collectionViewLayout is NormalLayout ? smallLayout() : NormalLayout()
+            beganPanY = LayoutSpec.layoutConstants.screenSize.height - sender.locationInView(view).y
+            isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
+            let nextLayout = isToSmallLayout ? smallLayout() : NormalLayout()
             transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
 
                     self.transitionLayout = nil
@@ -61,22 +64,18 @@ extension EditViewController {
                 }) as! TransitionLayout
             
         case .Changed:
-            collectionView.transform = CGAffineTransformTranslate(collectionView.transform, 0, 5)
-            progress += 0.01
+            progress = isToSmallLayout ? Float(transition.y / beganPanY) : -Float(transition.y / beganPanY)
             
             
         case .Ended:
             
             if transitionLayout != nil {
-                let animation = togglePopAnimation(true)
-                
+                let animation = togglePopAnimation(progress >= 0.5 ? true : false)
             }
             
         default:
             return
-            
         }
-        sender.setTranslation(CGPointZero, inView: view)
     }
 }
 
@@ -179,8 +178,12 @@ extension EditViewController {
             (pop: POPAnimation!, finished: Bool) -> Void in
             
             if finished {
+                if on {
+                    self.collectionView.finishInteractiveTransition()
+                } else {
+                    self.collectionView.cancelInteractiveTransition()
+                }
                 
-                self.collectionView.finishInteractiveTransition()
                 
             }
         }
@@ -192,10 +195,17 @@ extension EditViewController {
     private func transitionByProgress(aProgress: Float) {
         
         // collectionView Translation 0 ~ 1
+        if transitionLayout != nil {
+        
+            let y = POPTransition(aProgress, startValue: isToSmallLayout ? 0 : maxY, endValue: isToSmallLayout ? maxY : 0)
+            let yTran = min(max(y, 0), CGFloat(maxY))
+            collectionView.transform = CGAffineTransformMakeTranslation(0, yTran)
+        }
         
         // layout Transition  0 ~ 1
         if transitionLayout != nil {
-            transitionLayout.transitionProgress = CGFloat(aProgress)
+            let pro = min(max(aProgress, 0), 1)
+            transitionLayout.transitionProgress = CGFloat(pro)
             transitionLayout.invalidateLayout()
         }
     }
