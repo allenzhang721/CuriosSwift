@@ -13,8 +13,21 @@ class PageCell: UICollectionViewCell {
     var containerNode: ASDisplayNode?
     var containerNodeView: UIView?
     var nodeConstructionOperation: NSOperation?
+    var pageModel: PageModel!
+    var containerViewModels: [ContainerViewModel] = []
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        let tap = UITapGestureRecognizer(target: self, action: "tapAction:")
+        self.addGestureRecognizer(tap)
+    }
+    
+    func tapAction(sender: UITapGestureRecognizer) {
+        
+        for cm in containerViewModels {
+            
+            cm.y.value += 30
+        }
     }
     
     override func prepareForReuse() {
@@ -25,6 +38,7 @@ class PageCell: UICollectionViewCell {
         
         containerNode?.recursivelySetDisplaySuspended(true)
         containerNodeView?.removeFromSuperview()
+        containerViewModels.removeAll(keepCapacity: false)
         containerNodeView = nil
         containerNode = nil
     }
@@ -35,6 +49,9 @@ class PageCell: UICollectionViewCell {
             oldOperation.cancel()
         }
         
+        pageModel = cellVM
+        containerViewModels = getContainerViewModel(cellVM)
+//        println("y = \(pageModel.containers[0].y)")
         let newOperation = configCellTaskBy(cellVM, queue: queue)
         nodeConstructionOperation = newOperation
         queue.addOperation(newOperation)
@@ -79,7 +96,6 @@ extension PageCell {
                         aContaierNode.setNeedsDisplay()
                         strongSelf.containerNodeView = aContaierNode.view
                         strongSelf.containerNode = aContaierNode
-//                        println("end")
                     }
                     })
             }
@@ -102,7 +118,6 @@ extension PageCell {
             let nodeHeight = cellVM.height * aspectRatio
             let x = (normalWidth - nodeWidth) / 2.0
             let y = (normalHeight - nodeHeight) / 2.0
-            
             return CGRectMake(x, y, nodeWidth, nodeHeight)
         }
         
@@ -112,16 +127,34 @@ extension PageCell {
         aContainerNode.layerBacked = false
         aContainerNode.frame = nodeFrome
         aContainerNode.userInteractionEnabled = true
-        let containerModels = cellVM.containers
         
-        for containerM in containerModels {
-            
-            let containtVM = ContainerViewModel(model: containerM, aspectRatio:aspectRatio)
-            let node = CUEditableTextNode(viewModel: containtVM)
+        for containerVM in containerViewModels {
+            let node = ContainerNode(viewModel: containerVM, aspectR: aspectRatio)
+//            let node = ContainerNode()
+//            node.viewModel = containerVM
+//            node.frame = CGRectMake(containerVM.x.value, containerVM.y.value, containerVM.width.value, containerVM.height.value)
             node.backgroundColor = UIColor.lightGrayColor()
             aContainerNode.addSubnode(node)
         }
         
         return aContainerNode
+    }
+    
+    private func getContainerViewModel(cellVM: PageModel) -> [ContainerViewModel] {
+        
+        var array: [ContainerViewModel] = []
+        let containerModels = cellVM.containers
+        
+        func getAspectRatio(cellVM: PageModel) -> CGFloat {
+            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+        }
+        
+        for containerM in containerModels {
+            let containtVM = ContainerViewModel(model: containerM, aspectRatio:getAspectRatio(cellVM))
+            array.append(containtVM)
+        }
+        return array
     }
 }

@@ -66,7 +66,6 @@ extension EditViewController {
         case .Changed:
             progress = isToSmallLayout ? Float(transition.y / beganPanY) : -Float(transition.y / beganPanY)
             
-            
         case .Ended:
             
             if transitionLayout != nil {
@@ -94,6 +93,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCell
         cell.backgroundColor = UIColor.darkGrayColor()
         cell.configCell(pageModels[indexPath.item], queue: queue)
+
         return cell
     }
     
@@ -123,20 +123,14 @@ extension EditViewController {
         let demobookPath: String = NSBundle.mainBundle().pathForResource("main", ofType: "json", inDirectory: "res")!
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-        
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-        //        println(book)
-        
         var pageArray: [PageModel] = []
         for pageInfo in book.pagesInfo {
-            
-            //            println(pageInfo)
-            
+
             let pagePath = NSBundle.mainBundle().pathForResource(pageInfo["PageID"]!, ofType: "json", inDirectory: "res/Pages" + pageInfo["Path"]!)!
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            //            println(page.containers[0].animations[0].delay)
             pageArray.append(page)
         }
         return pageArray

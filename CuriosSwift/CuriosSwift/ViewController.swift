@@ -39,11 +39,8 @@ extension ViewController {
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-//        println(book)
         
         for pageInfo in book.pagesInfo {
-            
-//            println(pageInfo)
             
             let pagePath = NSBundle.mainBundle().pathForResource(pageInfo["PageID"]!, ofType: "json", inDirectory: "res/Pages" + pageInfo["Path"]!)!
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)

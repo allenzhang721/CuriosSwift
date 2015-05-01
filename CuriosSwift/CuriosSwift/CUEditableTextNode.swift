@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CUEditableTextNode: ASDisplayNode {
+class CUEditableTextNode: ASEditableTextNode {
 
     var viewModel: ContainerViewModel! {
         didSet {

@@ -82,7 +82,6 @@ class smallLayout: UICollectionViewFlowLayout {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
                 if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCell {
                     if let containerNode = cell.containerNode {
-                        println(minScale)
                         containerNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
                         containerNode.view.center = cell.contentView.center
 //                        containerNode.transform = CATransform3DTranslate(containerNode.transform, CGFloat(100.0), CGFloat(100.0), 0)
@@ -148,7 +147,6 @@ class LayoutSpec: NSObject {
         static let maxTransitionLayoutY = UIScreen.mainScreen().bounds.size.height * 0.618
         
         static var normalLayout: layoutAttributeStyle {
-//            println("normalLayout")
             let width = floorf(Float(screenSize.width - normalLayoutInsetLeft * 2.0))
             let height = CGFloat(width) / aspectRatio
             let itemSize = CGSizeMake(CGFloat(width), CGFloat(height))
@@ -163,7 +161,6 @@ class LayoutSpec: NSObject {
         }
         
         static var smallLayout: layoutAttributeStyle {
-//            println("smallLayout")
             let height = floorf(Float(screenSize.height * (1 - goldRatio) - smallLayoutInsetTop * 2.0))
             let width = floorf(height * Float(aspectRatio))
             let itemSize = CGSize(width: CGFloat(width), height: CGFloat(height))
