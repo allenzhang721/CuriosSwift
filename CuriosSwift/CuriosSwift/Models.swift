@@ -123,8 +123,8 @@ class BookModel: Model {
 class PageModel: Model {
     
     var Id = ""
-    var width = 0
-    var height = 0
+    var width: CGFloat = 0.0
+    var height: CGFloat = 0.0
     var containers: [ContainerModel] = []
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

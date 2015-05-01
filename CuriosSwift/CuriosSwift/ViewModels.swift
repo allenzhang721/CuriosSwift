@@ -46,13 +46,13 @@ class ContainerViewModel: BaseViewModel {
     let rotation: Dynamic<CGFloat>
     let alpha: Dynamic<CGFloat>
     
-    init(model: ContainerModel) {
+    init(model: ContainerModel, aspectRatio: CGFloat) {
         
         self.model = model
-        x = Dynamic(model.x)
-        y = Dynamic(model.y)
-        width = Dynamic(model.width)
-        height = Dynamic(model.height)
+        x = Dynamic(model.x * aspectRatio)
+        y = Dynamic(model.y  * aspectRatio)
+        width = Dynamic(model.width  * aspectRatio)
+        height = Dynamic(model.height * aspectRatio)
         rotation = Dynamic(model.rotation)
         alpha = Dynamic(model.alpha)
     }

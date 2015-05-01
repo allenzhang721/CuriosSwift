@@ -50,13 +50,11 @@ class NormalLayout: UICollectionViewFlowLayout {
 
 class smallLayout: UICollectionViewFlowLayout {
     
+    let minScale = floor(LayoutSpec.layoutConstants.smallLayout.shrinkScale * 1000)/1000.0
+    
     override init() {
         super.init()
         setuoProperties()
-    }
-    
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        return true
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -70,6 +68,32 @@ class smallLayout: UICollectionViewFlowLayout {
         itemSize = LayoutSpec.layoutConstants.smallLayout.itemSize
         sectionInset = LayoutSpec.layoutConstants.smallLayout.sectionInsets
         scrollDirection = .Horizontal
+    }
+    
+    
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+        
+        let att = super.layoutAttributesForElementsInRect(rect)
+        if let attributes = att {
+            for attribute in attributes as! [UICollectionViewLayoutAttributes] {
+                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCell {
+                    if let containerNode = cell.containerNode {
+                        println(minScale)
+                        containerNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
+                        containerNode.view.center = cell.contentView.center
+//                        containerNode.transform = CATransform3DTranslate(containerNode.transform, CGFloat(100.0), CGFloat(100.0), 0)
+                    }
+                }
+                
+                
+            }
+        }
+        
+        return att
     }
 }
 
@@ -89,14 +113,17 @@ class TransitionLayout: UICollectionViewTransitionLayout {
         let att = super.layoutAttributesForElementsInRect(rect)
         if let attributes = att {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
-                let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as! PageCell
-                if let containerNode = cell.containerNode {
-                    let isNor = currentLayout is NormalLayout
-                    let scale = POPTransition(transitionProgress, isNor ? 1.0 : minScale, isNor ? minScale : 1.0)
-                    containerNode.transform = CATransform3DMakeScale(scale, scale, 1)
-                    containerNode.view.center = cell.contentView.center;
-                    
+                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCell {
+                    if let containerNode = cell.containerNode {
+                        let isNor = currentLayout is NormalLayout
+                        let scale = POPTransition(transitionProgress, isNor ? 1.0 : minScale, isNor ? minScale : 1.0)
+                        containerNode.transform = CATransform3DMakeScale(scale, scale, 1)
+                        containerNode.view.center = cell.contentView.center;
+                        
+                    }
+
                 }
+                
             }
         }
      

@@ -56,6 +56,7 @@ extension PageCell {
             if let strongSelf = self {
                 
                 let aContaierNode = strongSelf.renderNodesBy(cellVM)
+                aContaierNode.backgroundColor = UIColor.orangeColor()
                 
                 if operation.cancelled {
                     return
@@ -88,15 +89,34 @@ extension PageCell {
     
     private func renderNodesBy(cellVM: PageModel) -> ASDisplayNode {
         
+        func getAspectRatio(cellVM: PageModel) -> CGFloat {
+            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+        }
+        
+        func getNodeFrame(cellVM: PageModel, aspectRatio: CGFloat) -> CGRect {
+            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+            let nodeWidth = cellVM.width * aspectRatio
+            let nodeHeight = cellVM.height * aspectRatio
+            let x = (normalWidth - nodeWidth) / 2.0
+            let y = (normalHeight - nodeHeight) / 2.0
+            
+            return CGRectMake(x, y, nodeWidth, nodeHeight)
+        }
+        
+        let aspectRatio = getAspectRatio(cellVM)
+        let nodeFrome = getNodeFrame(cellVM, aspectRatio)
         let aContainerNode = ASDisplayNode()
         aContainerNode.layerBacked = false
-        aContainerNode.frame = self.bounds
+        aContainerNode.frame = nodeFrome
         aContainerNode.userInteractionEnabled = true
         let containerModels = cellVM.containers
         
         for containerM in containerModels {
             
-            let containtVM = ContainerViewModel(model: containerM)
+            let containtVM = ContainerViewModel(model: containerM, aspectRatio:aspectRatio)
             let node = CUEditableTextNode(viewModel: containtVM)
             node.backgroundColor = UIColor.lightGrayColor()
             aContainerNode.addSubnode(node)
