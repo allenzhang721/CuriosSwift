@@ -11,6 +11,7 @@ import Mantle
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var imageView: UIImageView!
     struct MainStoryboard {
        static let name = "Main"
         struct viewControllers {
@@ -21,12 +22,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let bundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res/Pages/page_1/images/aaaa.jpeg")
+        imageView.image = UIImage(contentsOfFile: bundlePath)
+        
         showDemoBook()
     }
     
     override func viewDidAppear(animated: Bool) {
         
-        setupEditViewController()
+//        setupEditViewController()
     }
 }
 

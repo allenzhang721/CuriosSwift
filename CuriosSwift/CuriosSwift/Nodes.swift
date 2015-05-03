@@ -11,6 +11,7 @@ import UIKit
 class ContainerNode: ASDisplayNode {
     
     var aspectRatio: CGFloat = 1.0
+    var componentNode:ASDisplayNode!
     var viewModel: ContainerViewModel! {
         didSet {
             viewModel.width.bindAndFire {
@@ -40,13 +41,87 @@ class ContainerNode: ASDisplayNode {
     }
     
     init(viewModel: ContainerViewModel, aspectR: CGFloat) {
+        
         super.init()
         aspectRatio = aspectR
         setupBy(viewModel)
+        setupComponentNode()
     }
     
     func setupBy(viewModel: ContainerViewModel) {
         self.viewModel = viewModel
+    }
+    
+    func setupComponentNode() {
+        switch viewModel.model.component.type {
+        case .None:
+            self.componentNode = ComponentNode(aComponentModel: viewModel.model.component)
+        case .Image:
+            self.componentNode = ImageNode(aComponentModel: viewModel.model.component)
+        case .Text:
+            self.componentNode = ImageNode(aComponentModel: viewModel.model.component)
+        default:
+            println("componnetModel")
+        }
+        self.addSubnode(componentNode)
+        println(self.componentNode)
+    }
+    
+    override func layout() {
+        
+        componentNode.frame = CGRectMake(0,0,self.bounds.size.width,bounds.size.height)
+    }
+}
+
+protocol ComponentNodeAttribute {
+    
+    var componentModel: ComponentModel {get set}
+}
+
+class ComponentNode: ASDisplayNode,ComponentNodeAttribute {
+
+    var componentModel: ComponentModel
+    
+    init!(aComponentModel: ComponentModel) {
+        self.componentModel = aComponentModel
+        super.init()
+    }
+}
+
+class ImageNode: ASImageNode,ComponentNodeAttribute {
+    
+    var componentModel: ComponentModel
+    var ImagePath: String = "" {
+        didSet {
+            componentModel.attributes["ImagePath"] = ImagePath
+            
+            let bundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/" + ImagePath)
+            self.image = UIImage(contentsOfFile: bundlePath)
+        }
+    }
+    
+    init!(aComponentModel: ComponentModel) {
+        self.componentModel = aComponentModel
+        self.ImagePath = componentModel.attributes["ImagePath"] as! String
+        super.init()
+        self.backgroundColor = UIColor.redColor()
+        let bundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res/Pages/page_1/images/aaaa.jpeg")
+        self.image = UIImage(contentsOfFile: bundlePath)
+    }
+}
+
+class TextNode: ASEditableTextNode,ComponentNodeAttribute {
+    var componentModel: ComponentModel
+    var contentText: String {
+        didSet {
+            componentModel.attributes["contentText"] = contentText
+        }
+    }
+    
+    init!(aComponentModel: ComponentModel) {
+        self.componentModel = aComponentModel
+        self.contentText = componentModel.attributes["contentText"] as! String
+        super.init()
     }
 }
 

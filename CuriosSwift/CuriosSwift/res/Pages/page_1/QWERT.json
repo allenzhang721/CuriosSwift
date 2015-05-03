@@ -15,7 +15,7 @@
             "Component": {
                 "ComponentType": "Image",
                 "ComponentData":{
-                    "ImagePath":"/images/aaaa.png",
+                    "ImagePath":"res/Pages/page_1/images/aaaa.png",
                     "ImageFilter":{
                         "FilterType":"black",
                         "FilterData":{
