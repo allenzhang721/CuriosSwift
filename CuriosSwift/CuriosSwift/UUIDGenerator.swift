@@ -8,12 +8,12 @@
 
 import Foundation
 
-func RandomIdString() -> String {
+func UniqueIDString() -> String {
     
     var error:NSError?
     
     let regex = NSRegularExpression(pattern: "-", options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-    let uuid = NSUUID().UUIDString
+    let uuid = NSProcessInfo.processInfo().globallyUniqueString
     let result = regex?.stringByReplacingMatchesInString(uuid, options:NSMatchingOptions(0), range: NSMakeRange(0,uuid.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)), withTemplate: "")
     
     return result!

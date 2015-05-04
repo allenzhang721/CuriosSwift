@@ -105,7 +105,15 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
         self.ImagePath = componentModel.attributes["ImagePath"] as! String
         super.init()
         self.backgroundColor = UIColor.redColor()
-        let bundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res/Pages/page_1/images/aaaa.jpeg")
+        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
+        let bundlePath = docuPath.stringByAppendingString("/Pages/page_1" + ImagePath)
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            println(bundlePath)
+        })
+        
+        
         self.image = UIImage(contentsOfFile: bundlePath)
     }
 }

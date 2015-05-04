@@ -31,14 +31,12 @@ class BookManager: NSObject {
     
     class func deletePageWith(path: String) -> Bool {
         
-        
         return true
     }
    
     
    class func bookWith(path: String) -> BookModel {
-        
-        
+    
         return BookModel()
     }
     

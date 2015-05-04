@@ -131,30 +131,30 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         */
         
-        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
-        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
-        let page1 = docuPath.stringByAppendingString("/Pages/page_1/images/22222.jpg")
-        let page1url = NSURL.fileURLWithPath(page1)
-       let aContainer  = self.pageModels[0].containers[0].copy() as! ContainerModel
+//        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
+//        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
+//        let page1 = docuPath.stringByAppendingString("/Pages/page_1/images/22222.jpg")
+//        let page1url = NSURL.fileURLWithPath(page1)
+//       let aContainer  = self.pageModels[0].containers[0].copy() as! ContainerModel
+//        
+//        aContainer.x = 220
+//        aContainer.y = 300
+//        aContainer.component.attributes["ImagePath"] = "/images/22222.jpg"
+//        self.pageModels[0].containers.append(aContainer)
+////        println(aContainer)
+////        println(info)
+//        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+//        let selectedUrl = info["UIImagePickerControllerReferenceURL"] as! NSURL
+//        let file = NSFileManager.defaultManager()
+//        let error = NSErrorPointer()
+//       if file.copyItemAtURL(selectedUrl, toURL: page1url!, error: error) {
+//        println(error)
         
-        aContainer.x = 220
-        aContainer.y = 300
-        aContainer.component.attributes["ImagePath"] = "images/22222.jpg"
-        self.pageModels[0].containers.append(aContainer)
-        println(aContainer)
-//        println(info)
-        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-        let selectedUrl = info["UIImagePickerControllerReferenceURL"] as! NSURL
-        println(page1url)
-        let file = NSFileManager.defaultManager()
-        let error = NSErrorPointer()
-       if !file.copyItemAtURL(selectedUrl, toURL: page1url!, error: error) {
-        println(error)
-        
-       } else {
-        println("image copy success")
-        
-        }
+//       } else {
+//        
+//        println("image copy success")
+//        
+//        }
         collectionView.reloadData()
         picker.dismissViewControllerAnimated(true, completion: { () -> Void in
             
@@ -205,12 +205,13 @@ extension EditViewController {
         return pageArray
     }
     
-    private func togglePopAnimation(on: Bool) -> POPSpringAnimation {
-        var animation: POPSpringAnimation! = self.pop_animationForKey("Pop") as! POPSpringAnimation!
+    private func togglePopAnimation(on: Bool) -> POPBasicAnimation {
+        var animation: POPBasicAnimation! = self.pop_animationForKey("Pop") as! POPBasicAnimation!
         if animation == nil {
-            animation = POPSpringAnimation()
-            animation.springBounciness = 5
-            animation.springSpeed = 5
+            animation = POPBasicAnimation()
+//            animation.deceleration = 0.5
+//            animation.springBounciness = 5
+//            animation.springSpeed = 5
             
             typealias PopInitializer = ((POPMutableAnimatableProperty!) -> Void)!
             
@@ -259,7 +260,7 @@ extension EditViewController {
         
         // collectionView Translation 0 ~ 1
         if transitionLayout != nil {
-        
+        println(aProgress)
             let y = POPTransition(aProgress, startValue: isToSmallLayout ? 0 : maxY, endValue: isToSmallLayout ? maxY : 0)
             let yTran = min(max(y, 0), CGFloat(maxY))
             collectionView.transform = CGAffineTransformMakeTranslation(0, yTran)
