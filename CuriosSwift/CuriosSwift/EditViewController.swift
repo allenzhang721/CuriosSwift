@@ -31,6 +31,8 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         let normal = NormalLayout()
@@ -209,9 +211,6 @@ extension EditViewController {
         var animation: POPBasicAnimation! = self.pop_animationForKey("Pop") as! POPBasicAnimation!
         if animation == nil {
             animation = POPBasicAnimation()
-//            animation.deceleration = 0.5
-//            animation.springBounciness = 5
-//            animation.springSpeed = 5
             
             typealias PopInitializer = ((POPMutableAnimatableProperty!) -> Void)!
             

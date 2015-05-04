@@ -27,18 +27,18 @@ class BookModel: Model {
         case aa, bb
     }
     
-    var Id = ""
-    var width = 0
-    var height = 0
-    var title = ""
+    var Id = UniqueIDString()
+    var width = 640
+    var height = 1008
+    var title = "New Book"
     var desc = ""
     var flipDirection: FlipDirections = .ver
     var flipType: FlipTypes = .aa
     var background = ""
     var backgroundMusic = ""
-    var pagesPath = ""
+    var pagesPath = "/Pages"
     var autherID = ""
-    var publishDate: NSDate!
+    var publishDate: NSDate! = NSDate(timeIntervalSinceNow: 0)
     var pagesInfo: [[String : String]] = [[:]]
     var pageModels: [PageModel] = []
     
@@ -122,9 +122,9 @@ class BookModel: Model {
 
 class PageModel: Model {
     
-    var Id = ""
-    var width: CGFloat = 0.0
-    var height: CGFloat = 0.0
+    var Id = UniqueIDString()
+    var width: CGFloat = 640.0
+    var height: CGFloat = 1008.0
     var containers: [ContainerModel] = []
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -166,7 +166,7 @@ class ContainerModel: Model {
     var width: CGFloat = 100.0 // bounds.width
     var height: CGFloat = 100.0 // bounds.height
     var rotation: CGFloat = 0.0
-    var alpha: CGFloat = 0.0
+    var alpha: CGFloat = 1.0
     var editable = true
     var animations:[Animation] = []
     var behaviors: [Behavior] = []
