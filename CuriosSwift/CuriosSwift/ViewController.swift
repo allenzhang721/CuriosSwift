@@ -30,7 +30,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         
-//        setupEditViewController()
     }
 }
 
@@ -50,7 +49,6 @@ extension ViewController {
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            println(page.containers[0].animations[0].delay)
         }
     }
     

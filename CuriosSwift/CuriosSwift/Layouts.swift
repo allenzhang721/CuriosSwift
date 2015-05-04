@@ -47,8 +47,29 @@ class NormalLayout: UICollectionViewFlowLayout {
     }
 }
 
+protocol SmallLayoutDelegate {
+    func didMoveInAtIndexPath(indexPath: NSIndexPath)
+    func willMoveOutAtIndexPath(indexPath: NSIndexPath)
+    func didMoveOutAtIndexPath(indexPath: NSIndexPath)
+    func didMoveEndAtIndexPath(indexPath: NSIndexPath)
+    func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+}
+
+//MARK: - SmallLayout
 
 class smallLayout: UICollectionViewFlowLayout {
+    
+    enum AutoScrollDirection {
+        case Stay, Top, End
+    }
+    
+    var delegate: SmallLayoutDelegate?
+    var placeholderIndexPath: NSIndexPath?
+   private var reordering = false
+   private var pointMoveIn = false
+   private var fakeCellCenter = CGPointZero
+   private var autoScrollDirection: AutoScrollDirection = .Stay
+   private var displayLink: CADisplayLink?
     
     let minScale = floor(LayoutSpec.layoutConstants.smallLayout.shrinkScale * 1000)/1000.0
     
@@ -87,12 +108,251 @@ class smallLayout: UICollectionViewFlowLayout {
 //                        containerNode.transform = CATransform3DTranslate(containerNode.transform, CGFloat(100.0), CGFloat(100.0), 0)
                     }
                 }
-                
-                
             }
         }
         
         return att
+    }
+    
+    func responsetoPointMoveEnd() {
+        
+        if let aPlaceholderIndexPath = placeholderIndexPath {
+            self.delegate?.didMoveOutAtIndexPath(aPlaceholderIndexPath)
+        }
+        
+        collectionView?.scrollsToTop = true
+        fakeCellCenter = CGPointZero
+        placeholderIndexPath = nil
+        reordering = false
+        invalidateDisplayLink()
+        invalidateLayout()
+        collectionView?.performBatchUpdates({ () -> Void in
+        }, completion: nil)
+    }
+    
+    func shouldRespondsToGestureLocation(location: CGPoint) -> Bool {
+        if let indexPath = collectionView?.indexPathForItemAtPoint(location) {
+            placeholderIndexPath = indexPath
+            reordering = true
+            collectionView?.performBatchUpdates({ () -> Void in
+            }, completion: { (completion) -> Void in
+            })
+            return true
+        } else {
+            reordering = false
+            return false
+        }
+    }
+    
+    func getResponseViewSnapShot() -> UIView? {
+        
+        if let selectedIndexPath = placeholderIndexPath {
+            let cell = collectionView?.cellForItemAtIndexPath(selectedIndexPath)
+            return cell?.snapshotViewAfterScreenUpdates(false)
+        } else {
+            return nil
+        }
+    }
+    
+    func responseToPointMoveInIfNeed(moveIn: Bool, AtPoint point: CGPoint) {
+        
+        if moveIn {
+            if !pointMoveIn {
+                pointMoveIn = true
+                if placeholderIndexPath == nil {
+                    placeholderIndexPath = getIndexPathByPointInBounds(point)
+                    fakeCellCenter = point
+                    if let aDelegate = delegate {
+                        aDelegate.didMoveInAtIndexPath(placeholderIndexPath!)
+                        collectionView?.performBatchUpdates({ () -> Void in
+                            }, completion: { (completed) -> Void in
+                        })
+                    }
+                }
+            }
+            
+            responseToPointMove(point)
+            
+        } else { // move out or out of here
+            if pointMoveIn {
+                pointMoveIn = false
+                responseToPointMoveOut()
+            }
+        }
+    }
+    
+    private func getIndexPathByPointInBounds(point: CGPoint) -> NSIndexPath {
+        let contentSize = collectionView?.contentSize
+        let leftEdge = sectionInset.left
+        let rigthEdge = contentSize!.width - sectionInset.right
+        let visualCells = collectionView?.visibleCells()
+        let x = point.x
+        var placeHolderIndexpath = NSIndexPath(forItem: 0, inSection: 0)
+        
+        if visualCells?.count > 0 {
+            
+            switch x {
+            case let x where x < leftEdge:
+                    placeholderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+            case let x where x > rigthEdge:
+                let lastCell = visualCells?.last as! UICollectionViewCell
+                let lastIndexPath = collectionView?.indexPathForCell(lastCell)
+                placeholderIndexPath = NSIndexPath(forItem: lastIndexPath!.item + 1, inSection: 0)
+                
+            default:
+                var find = false
+                for cell in visualCells as! [UICollectionViewCell] {
+                    if cell.center.x > x {
+                        find = true
+                        placeholderIndexPath = collectionView?.indexPathForCell(cell)
+                        break
+                    }
+                }
+                
+                if find == false {
+                    let lastCell = visualCells?.last as! UICollectionViewCell
+                    let lastIndexPath = collectionView?.indexPathForCell(lastCell)
+                    placeholderIndexPath = NSIndexPath(forItem: lastIndexPath!.item + 1, inSection: 0)
+                }
+            }
+        } else {
+            placeholderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+        }
+        
+        return placeholderIndexPath!
+    }
+    
+    private func responseToPointMove(point: CGPoint) {
+        if placeholderIndexPath == nil {
+            return
+        }
+        fakeCellCenter = point
+        autoScrollIfNeed(fakeCellCenter)
+        changeItemIfNeed()
+    }
+    
+    private func responseToPointMoveOut() {
+        
+        if let aPlacehoderIndexPath = placeholderIndexPath {
+            self.delegate?.willMoveOutAtIndexPath(aPlacehoderIndexPath)
+            collectionView?.performBatchUpdates({ () -> Void in
+            }, completion: { [unowned self] (completed) -> Void in
+                
+                if completed {
+                    self.delegate?.didMoveOutAtIndexPath(aPlacehoderIndexPath)
+                }
+                self.collectionView?.scrollsToTop = true
+                self.fakeCellCenter = CGPointZero
+                self.placeholderIndexPath = nil
+                self.invalidateDisplayLink()
+                self.invalidateLayout()
+                self.collectionView?.performBatchUpdates({ () -> Void in
+                }, completion: nil)
+            })
+        }
+    }
+    
+    private func autoScrollIfNeed(point: CGPoint) {
+        let offset = collectionView?.contentOffset
+        let triggerInsetTop: CGFloat = 100.0
+        let triggerInsetEnd: CGFloat = 100.0
+        let contentLength = CGRectGetWidth(collectionView!.bounds)
+        switch point.x {
+        case let x where x <= (offset!.x + triggerInsetTop):
+            autoScrollDirection = .Top
+            setupDisplayLink()
+        case let x where x >= offset!.x + contentLength - triggerInsetEnd:
+            autoScrollDirection = .End
+            setupDisplayLink()
+        default:
+            invalidateDisplayLink()
+        }
+    }
+    
+    private func changeItemIfNeed() {
+        var fromIndexPath: NSIndexPath?
+        var toIndexPath: NSIndexPath?
+        if let aPlaceholderIndexPath = placeholderIndexPath {
+            fromIndexPath = aPlaceholderIndexPath
+            toIndexPath = collectionView?.indexPathForItemAtPoint(fakeCellCenter)
+        }
+        if fromIndexPath == nil || toIndexPath == nil {
+            return
+        }
+        if fromIndexPath == toIndexPath {
+            return
+        }
+        
+        //TODO: delegate can move item
+        //...
+        
+        self.delegate?.didChangeFromIndexPath(fromIndexPath!, toIndexPath: toIndexPath!)
+        collectionView?.performBatchUpdates({ [unowned self] () -> Void in
+            self.placeholderIndexPath = toIndexPath
+            self.collectionView?.moveItemAtIndexPath(fromIndexPath!, toIndexPath: toIndexPath!)
+        }, completion: nil)
+    }
+    
+    private func invalidateDisplayLink() {
+        autoScrollDirection = .Stay
+        displayLink?.invalidate()
+        displayLink = nil
+        
+    }
+    
+    private func setupDisplayLink() {
+        if displayLink != nil {
+            return
+        }
+        displayLink = CADisplayLink(target: self, selector: "continueScrollIfNeed")
+        displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+    }
+    
+     func continueScrollIfNeed() {
+        if placeholderIndexPath == nil {
+            return
+        }
+        let percentage: CGFloat = 0.5
+        var scrollRate = calcscrollRateIfNeedWithSpeed(10.0, percentage: percentage)
+        let offsetTop = collectionView!.contentOffset.x
+        let insetTop: CGFloat = 100.0
+        let insetEnd: CGFloat = 100.0
+        let length = CGRectGetWidth(collectionView!.bounds)
+        let contentLength = collectionView!.contentSize.width
+        if contentLength + insetTop + insetEnd <= length {
+            return
+        }
+        
+        if offsetTop + scrollRate <= -insetTop {
+            scrollRate = -insetTop - offsetTop
+        } else if offsetTop + scrollRate >= contentLength + insetEnd - length {
+            scrollRate = contentLength + insetEnd - length - offsetTop
+        }
+        
+        collectionView?.performBatchUpdates({ [unowned self] () -> Void in
+            self.fakeCellCenter.x += scrollRate
+            let contentOffset = CGPoint(x: self.collectionView!.contentOffset.x + scrollRate, y: self.collectionView!.contentOffset.y)
+            self.collectionView?.contentOffset = contentOffset
+        }, completion: nil)
+    }
+    
+    private func calcscrollRateIfNeedWithSpeed(speed: CGFloat, percentage: CGFloat) -> CGFloat {
+        if placeholderIndexPath == nil {
+            return 0.0
+        }
+        func scrollRate(value: CGFloat) -> CGFloat {
+            return value * max(0 , min(1.0, percentage))
+        }
+        switch autoScrollDirection {
+        case .Stay:
+            return scrollRate(0)
+        case .Top:
+            return scrollRate(-speed)
+        case .End:
+            return scrollRate(speed)
+        default:
+            return scrollRate(0)
+        }
     }
 }
 
@@ -176,3 +436,4 @@ class LayoutSpec: NSObject {
         }
     }
 }
+

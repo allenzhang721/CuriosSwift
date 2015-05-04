@@ -89,6 +89,7 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
+                            <outletCollection property="gestureRecognizers" destination="hkI-aC-bZe" appends="YES" id="JLm-bR-rW0"/>
                         </connections>
                     </view>
                     <connections>
@@ -102,8 +103,14 @@
                         <outlet property="delegate" destination="8KY-Ld-6of" id="eu6-uP-j4m"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="hkI-aC-bZe">
+                    <connections>
+                        <action selector="longPressAction:" destination="8KY-Ld-6of" id="nzv-1r-v9m"/>
+                        <outlet property="delegate" destination="8KY-Ld-6of" id="L4a-L1-B94"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1073" y="389"/>
+            <point key="canvasLocation" x="1027" y="389"/>
         </scene>
     </scenes>
 </document>

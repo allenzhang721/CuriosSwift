@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18D83A1AF37C4C00722179 /* Nodes.swift */; };
+		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */; };
 		2C7AE8EA1AEA21D700ACEB65 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8E91AEA21D700ACEB65 /* res */; };
 		2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A041AEF43F8004D4223 /* ViewModels.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		2C18D83A1AF37C4C00722179 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
+		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGenerator.swift; sourceTree = "<group>"; };
 		2C7AE8E91AEA21D700ACEB65 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		2C828A041AEF43F8004D4223 /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD811AE476A500DF6019 /* PageCell.swift */,
+				2C4388881AF7BCB40084236F /* FakePageView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
+				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,

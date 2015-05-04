@@ -15,6 +15,7 @@ class EditViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var pageModels: [PageModel] = []
     let queue = NSOperationQueue()
+    var fakePageView: FakePageView?
     var transitionLayout: TransitionLayout!
     let maxY = Float(LayoutSpec.layoutConstants.maxTransitionLayoutY)
     var beganPanY: CGFloat = 0.0
@@ -59,10 +60,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
             let nextLayout = isToSmallLayout ? smallLayout() : NormalLayout()
             transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
-
-                    self.transitionLayout = nil
-                    self.progress = 0
-
+                
+                self.transitionLayout = nil
+                self.progress = 0
+                
                 }) as! TransitionLayout
             
         case .Changed:
@@ -78,6 +79,54 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             return
         }
     }
+    
+    @IBAction func longPressAction(sender: UILongPressGestureRecognizer) {
+        
+        println("longpress")
+        let location = sender.locationInView(view)
+        switch sender.state {
+        case .Began:
+            if CGRectContainsPoint(collectionView.frame, location) {
+                let pageLocation = sender.locationInView(collectionView)
+                if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
+                    println("shouldRespondsToGestureLocation")
+                    if let snapShot = aSmallLayout.getResponseViewSnapShot() {
+                        fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageModels[aSmallLayout.placeholderIndexPath!.item]])
+                        fakePageView?.center = location
+                        view.addSubview(fakePageView!)
+                    }
+                }
+            }
+        case .Changed:
+            
+            if let fake = fakePageView {
+                fake.center = location
+                
+                if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+                    let inEditBoundsLocation = sender.locationInView(collectionView)
+                    aSmallLyout.responseToPointMoveInIfNeed(CGRectContainsPoint(collectionView.frame, location), AtPoint: inEditBoundsLocation)
+                }
+            }
+            
+            return
+            
+        case .Cancelled, .Ended:
+            if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+                if CGRectContainsPoint(collectionView.frame, location) {
+                    aSmallLyout.responsetoPointMoveEnd()
+                }
+            }
+            
+            fakePageView?.removeFromSuperview()
+            fakePageView = nil
+            
+        default:
+            return
+            
+        }
+    }
+    
+    
     @IBAction func ImageAction(sender: UIBarButtonItem) {
         
         var imagePickerController = UIImagePickerController()
@@ -105,7 +154,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCell
         cell.backgroundColor = UIColor.darkGrayColor()
         cell.configCell(pageModels[indexPath.item], queue: queue)
-
+        
         return cell
     }
     
@@ -116,53 +165,66 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - Gesture Delegate
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return transitionLayout == nil ? true : false
+        
+        switch gestureRecognizer {
+        case let gesture where gesture is UIPanGestureRecognizer:
+            return transitionLayout == nil ? true : false
+        case let gesture where gesture is UILongPressGestureRecognizer:
+            return collectionView.collectionViewLayout is smallLayout ? true : false
+            
+        default:
+            return true
+        }
     }
     
-    // MARK: -
+    // MARK: - imagePicker
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         
         /*
         
-        [UIImagePickerControllerEditedImage: <UIImage: 0x7ff24c99ac20> 
-        size {638, 426} orientation 0 scale 1.000000, 
-        UIImagePickerControllerOriginalImage: <UIImage: 0x7ff24c990730> 
-        size {1500, 1001} orientation 0 
-        scale 1.000000, 
+        [UIImagePickerControllerEditedImage: <UIImage: 0x7ff24c99ac20>
+        size {638, 426} orientation 0 scale 1.000000,
+        UIImagePickerControllerOriginalImage: <UIImage: 0x7ff24c990730>
+        size {1500, 1001} orientation 0
+        scale 1.000000,
         UIImagePickerControllerCropRect: NSRect: {{0, 0}, {1500, 1003}}, UIImagePickerControllerReferenceURL: assets-library://asset/asset.JPG?id=B6C0A21C-07C3-493D-8B44-3BA4C9981C25&ext=JPG, UIImagePickerControllerMediaType: public.image]
         
         */
         
-//        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
-//        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
-//        let page1 = docuPath.stringByAppendingString("/Pages/page_1/images/22222.jpg")
-//        let page1url = NSURL.fileURLWithPath(page1)
-//       let aContainer  = self.pageModels[0].containers[0].copy() as! ContainerModel
-//        
-//        aContainer.x = 220
-//        aContainer.y = 300
-//        aContainer.component.attributes["ImagePath"] = "/images/22222.jpg"
-//        self.pageModels[0].containers.append(aContainer)
-////        println(aContainer)
-////        println(info)
-//        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-//        let selectedUrl = info["UIImagePickerControllerReferenceURL"] as! NSURL
-//        let file = NSFileManager.defaultManager()
-//        let error = NSErrorPointer()
-//       if file.copyItemAtURL(selectedUrl, toURL: page1url!, error: error) {
-//        println(error)
+        //        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
+        //        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
+        //        let page1 = docuPath.stringByAppendingString("/Pages/page_1/images/22222.jpg")
+        //        let page1url = NSURL.fileURLWithPath(page1)
+        //       let aContainer  = self.pageModels[0].containers[0].copy() as! ContainerModel
+        //
+        //        aContainer.x = 220
+        //        aContainer.y = 300
+        //        aContainer.component.attributes["ImagePath"] = "/images/22222.jpg"
+        //        self.pageModels[0].containers.append(aContainer)
+        ////        println(aContainer)
+        ////        println(info)
+        //        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+        //        let selectedUrl = info["UIImagePickerControllerReferenceURL"] as! NSURL
+        //        let file = NSFileManager.defaultManager()
+        //        let error = NSErrorPointer()
+        //       if file.copyItemAtURL(selectedUrl, toURL: page1url!, error: error) {
+        //        println(error)
         
-//       } else {
-//        
-//        println("image copy success")
-//        
-//        }
+        //       } else {
+        //
+        //        println("image copy success")
+        //
+        //        }
         collectionView.reloadData()
         picker.dismissViewControllerAnimated(true, completion: { () -> Void in
             
             
         })
     }
+    
+    //TODO: SmallLayout autoscroll delegate
+    //MARK: - SmallLayout Delegate
+    
 }
 
 extension EditViewController: UIGestureRecognizerDelegate {
@@ -183,21 +245,18 @@ extension EditViewController {
         let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
         let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
         
-        println(resPath)
-        println(docuPath)
         if  NSFileManager.defaultManager().copyItemAtPath(resPath, toPath: docuPath, error: nil) {
             
-            println("success")
         }
         let file = docuPath.stringByAppendingString("/main.json")
-//        let demobookPath: String = NSBundle.mainBundle().pathForResource("main", ofType: "json", inDirectory: "res")!
+        //        let demobookPath: String = NSBundle.mainBundle().pathForResource("main", ofType: "json", inDirectory: "res")!
         let demobookPath = file
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
         var pageArray: [PageModel] = []
         for pageInfo in book.pagesInfo {
-
+            
             let pagePath = NSBundle.mainBundle().pathForResource(pageInfo["PageID"]!, ofType: "json", inDirectory: "res/Pages" + pageInfo["Path"]!)!
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
@@ -253,13 +312,12 @@ extension EditViewController {
         
         return animation
     }
-
+    
     
     private func transitionByProgress(aProgress: Float) {
         
         // collectionView Translation 0 ~ 1
         if transitionLayout != nil {
-        println(aProgress)
             let y = POPTransition(aProgress, startValue: isToSmallLayout ? 0 : maxY, endValue: isToSmallLayout ? maxY : 0)
             let yTran = min(max(y, 0), CGFloat(maxY))
             collectionView.transform = CGAffineTransformMakeTranslation(0, yTran)
@@ -272,5 +330,5 @@ extension EditViewController {
             transitionLayout.invalidateLayout()
         }
     }
-
+    
 }

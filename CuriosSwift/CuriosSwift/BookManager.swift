@@ -39,7 +39,7 @@ class BookManager: NSObject {
         let url = NSURL.fileURLWithPath(bookDirectoryPath, isDirectory: true)!
         NSFileManager.defaultManager().createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil, error: nil)
         let bookDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-        println(bookDic)
+
         let bookjson = NSJSONSerialization.dataWithJSONObject(bookDic, options: NSJSONWritingOptions(0), error: nil)
         let bookJsonPath = bookDirectoryPath.stringByAppendingPathComponent(bookID + ".json")
         let bookjsonUrl = NSURL.fileURLWithPath(bookJsonPath, isDirectory: false)
@@ -105,7 +105,7 @@ private struct FileSave {
         // Add requested save path
         savePath += newPath
         
-        println(savePath)
+
         // Save the file and see if it was successful
         var ok:Bool = NSFileManager.defaultManager().createFileAtPath(savePath,contents:fileData, attributes:nil)
         

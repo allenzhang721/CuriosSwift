@@ -64,7 +64,6 @@ class ContainerNode: ASDisplayNode {
             println("componnetModel")
         }
         self.addSubnode(componentNode)
-        println(self.componentNode)
     }
     
     override func layout() {
@@ -109,8 +108,6 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
         let bundlePath = docuPath.stringByAppendingString("/Pages/page_1" + ImagePath)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            
-            println(bundlePath)
         })
         
         
