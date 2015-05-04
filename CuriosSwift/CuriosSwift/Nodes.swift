@@ -69,7 +69,7 @@ class ContainerNode: ASDisplayNode {
     
     override func layout() {
         
-        componentNode.frame = CGRectMake(0,0,self.bounds.size.width,bounds.size.height)
+        componentNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.width)
     }
 }
 

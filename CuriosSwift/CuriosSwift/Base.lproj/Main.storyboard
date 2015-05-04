@@ -63,14 +63,29 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OzN-v5-MCP">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kpx-08-Uda"/>
+                                    <barButtonItem title="Add Image" id="I9e-MR-LYE">
+                                        <connections>
+                                            <action selector="ImageAction:" destination="8KY-Ld-6of" id="ldU-qt-Ccz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6HH-4B-3H7"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="Cnx-6H-5aB"/>
                             <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="IA1-5R-5dq"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="leading" secondItem="oQp-6G-LwW" secondAttribute="leading" id="Rc5-sh-Ne4"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="ZaN-gT-cnH"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="gml-Ym-0kx"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="ilv-7J-OKU"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="xb2-dt-yyS"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
