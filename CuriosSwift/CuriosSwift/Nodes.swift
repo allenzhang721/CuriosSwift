@@ -24,11 +24,11 @@ class ContainerNode: ASDisplayNode {
             }
             listener.lX.bindAndFire {
                 [weak self] in
-                self!.frame.origin.x = $0 * self!.aspectRatio
+                self!.position.x = ($0 + self!.frame.size.width / 2.0) * self!.aspectRatio
             }
             listener.lY.bindAndFire {
                 [weak self] in
-                self!.frame.origin.y = $0 * self!.aspectRatio
+                self!.position.y = ($0 + self!.frame.size.height / 2.0) * self!.aspectRatio
             }
             
             listener.lRotation.bindAndFire {
@@ -106,7 +106,7 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
         let imagePath = NSTemporaryDirectory().stringByAppendingString(ImagePath)
         self.image = UIImage(contentsOfFile: imagePath)
         
-        self.clipsToBounds = true // 
+        self.clipsToBounds = true //
     }
 }
 

@@ -13,53 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/Nodes.swift"
-            timestampString = "452513616.552034"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "layout()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CuriosSwift.ContainerNode.layout (CuriosSwift.ContainerNode)() -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452514049.668578"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68"
-                  offsetFromSymbolStart = "19">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "@objc CuriosSwift.ContainerNode.layout (CuriosSwift.ContainerNode)() -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452514049.668739"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68"
-                  offsetFromSymbolStart = "19">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

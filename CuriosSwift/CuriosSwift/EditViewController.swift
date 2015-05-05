@@ -62,7 +62,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         let aPageModel = pageModels[indexpath!.item]
         let aContainer = aPageModel.containers[0]
         
-        let asss = ASDMask(aListener: aContainer)
+        let asss = ContainerMaskView(aListener: aContainer)
 //        asss.name = "Emiaostein"
 //        asss.listener = aContainer
         asss.backgroundColor = UIColor.blackColor()

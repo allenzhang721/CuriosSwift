@@ -1,5 +1,5 @@
 //
-//  ASDMask.swift
+//  ContainerMaskView.swift
 //  CuriosSwift
 //
 //  Created by Emiaostein on 5/5/15.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ASDMask: UIView {
-    
+class ContainerMaskView: UIView {
+
     var listener: containerListener! {
         didSet {
             listener.lX.bindAndFire {
@@ -31,7 +31,7 @@ class ASDMask: UIView {
         super.init(frame: CGRectZero)
         setupBy(aListener)
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,13 +39,5 @@ class ASDMask: UIView {
     func setupBy(aListener: containerListener) {
         listener = aListener
     }
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
