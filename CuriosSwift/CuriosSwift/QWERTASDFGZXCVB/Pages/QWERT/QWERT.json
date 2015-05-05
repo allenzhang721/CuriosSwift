@@ -9,7 +9,7 @@
             "ContainerY":100,
             "ContaienrWidth":500,
             "ContainerHeight":500,
-            "ContainerRotation":0,
+            "ContainerRotation":45,
             "ContainerAplha":0.5,
             "Editable":true,
             "Component": {

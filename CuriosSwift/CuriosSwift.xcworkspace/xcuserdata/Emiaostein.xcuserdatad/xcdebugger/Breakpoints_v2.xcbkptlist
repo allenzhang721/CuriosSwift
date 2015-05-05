@@ -36,12 +36,12 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452513616.628022"
+                  timestampString = "452514049.668578"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "19">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -51,12 +51,12 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452513616.628213"
+                  timestampString = "452514049.668739"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -99,15 +99,14 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
     
     init!(aComponentModel: ComponentModel) {
         self.componentModel = aComponentModel
+//        self.contentMode = .ScaleToFill
         self.ImagePath = componentModel.attributes["ImagePath"] as! String
         super.init()
         self.backgroundColor = UIColor.redColor()
         let imagePath = NSTemporaryDirectory().stringByAppendingString(ImagePath)
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            
-//            println(imagePath)
-        })
         self.image = UIImage(contentsOfFile: imagePath)
+        
+        self.clipsToBounds = true // 
     }
 }
 
