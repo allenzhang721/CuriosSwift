@@ -13,6 +13,7 @@ import pop
 class EditViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    var bookModel: BookModel!
     var pageModels: [PageModel] = []
     let queue = NSOperationQueue()
     var fakePageView: FakePageView?
@@ -32,7 +33,12 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
+        if BookManager.copyDemoBook() {
+            
+            println("copyDemoBook success")
+        }
+        
+//        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -242,22 +248,17 @@ extension EditViewController {
     
     private func getPageModels() -> [PageModel] {
         
-        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
-        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
-        
-        if  NSFileManager.defaultManager().copyItemAtPath(resPath, toPath: docuPath, error: nil) {
-            
-        }
-        let file = docuPath.stringByAppendingString("/main.json")
-        //        let demobookPath: String = NSBundle.mainBundle().pathForResource("main", ofType: "json", inDirectory: "res")!
-        let demobookPath = file
+        let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
+        let demobookPath = file.stringByAppendingPathComponent("/main.json")
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
         var pageArray: [PageModel] = []
         for pageInfo in book.pagesInfo {
-            
-            let pagePath = NSBundle.mainBundle().pathForResource(pageInfo["PageID"]!, ofType: "json", inDirectory: "res/Pages" + pageInfo["Path"]!)!
+            let path: String = pageInfo["Path"]!
+            let index: String = pageInfo["Index"]!
+            let relpagePath = path + index
+            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel

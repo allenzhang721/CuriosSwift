@@ -92,10 +92,10 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
     var componentModel: ComponentModel
     var ImagePath: String = "" {
         didSet {
-            componentModel.attributes["ImagePath"] = ImagePath
+            componentModel.attributes["ImagePath"] = ImagePath // pageID/images/imageID
             
-            let bundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/" + ImagePath)
-            self.image = UIImage(contentsOfFile: bundlePath)
+            let imagePath = NSTemporaryDirectory().stringByAppendingString(ImagePath)
+            self.image = UIImage(contentsOfFile: imagePath)
         }
     }
     
@@ -104,14 +104,12 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
         self.ImagePath = componentModel.attributes["ImagePath"] as! String
         super.init()
         self.backgroundColor = UIColor.redColor()
-        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
-        let bundlePath = docuPath.stringByAppendingString("/Pages/page_1" + ImagePath)
-        
+        let imagePath = NSTemporaryDirectory().stringByAppendingString(ImagePath)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            println(imagePath)
         })
-        
-        
-        self.image = UIImage(contentsOfFile: bundlePath)
+        self.image = UIImage(contentsOfFile: imagePath)
     }
 }
 

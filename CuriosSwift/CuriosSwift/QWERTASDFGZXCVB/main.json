@@ -1,5 +1,5 @@
 {
-    "ID": "asdwqfsafsadsa",
+    "ID": "QWERTASDFGZXCVB",
     "MainWidth": 640,
     "MainHeight": 1008,
     "MainTitle": "Good Day",
@@ -14,7 +14,7 @@
     "Pages": [
               {
               "PageID": "QWERT",
-              "Path": "/page_1",
+              "Path": "/QWERT",
               "Index": "/QWERT.json"
               },
               {

@@ -30,6 +30,18 @@ class BookManager: NSObject {
         return []
     }
     
+    class func copyDemoBook() -> Bool {
+        
+        let demoBookID = "QWERTASDFGZXCVB"
+        let demobookPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(demoBookID)
+        let demoBookURL = NSURL.fileURLWithPath(demobookPath!, isDirectory: true)
+        let toBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
+        let toBookURL = NSURL.fileURLWithPath(toBookPath, isDirectory: true)
+        println("demoBookURL = \(demoBookURL)\ntoBookURL = \(toBookURL)")
+        NSFileManager.defaultManager().removeItemAtURL(toBookURL!, error: nil)
+        return NSFileManager.defaultManager().copyItemAtURL(demoBookURL!, toURL: toBookURL!, error: nil)
+    }
+    
     
     class func createBookAtURL(path: NSURL) -> BookModel {
         
