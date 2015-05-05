@@ -158,20 +158,54 @@ class PageModel: Model {
     }
 }
 
-class ContainerModel: Model {
+protocol containerListener {
+    var lX: Dynamic<CGFloat> {get}
+    var lY: Dynamic<CGFloat> {get}
+    var lWidth: Dynamic<CGFloat> {get}
+    var lHeight: Dynamic<CGFloat> {get}
+    var lRotation: Dynamic<CGFloat> {get}
+}
+
+class ContainerModel: Model, containerListener {
     
     var Id = ""
-    var x: CGFloat = (CGFloat(rand() % 300)) + 100
-    var y: CGFloat = (CGFloat(rand() % 300)) + 100
-    var width: CGFloat = (CGFloat(rand() % 300)) + 200 // bounds.width
-    var height: CGFloat = (CGFloat(rand() % 300)) + 300 // bounds.height
-    var rotation: CGFloat = 0.0
+    var x: CGFloat = (CGFloat(rand() % 300)) + 100 {
+        didSet {
+            lX.value = x
+        }
+    }
+    var y: CGFloat = (CGFloat(rand() % 300)) + 100 {
+        didSet {
+            lY.value = y
+        }
+    }
+    var width: CGFloat = (CGFloat(rand() % 300)) + 200  {
+        didSet {
+            lWidth.value = width
+        }
+    }// bounds.width
+    var height: CGFloat = (CGFloat(rand() % 300)) + 300 {
+        didSet {
+            lHeight.value = height
+        }
+    } // bounds.height
+    var rotation: CGFloat = 0.0 {
+        didSet {
+            lRotation.value = rotation
+        }
+    }
     var alpha: CGFloat = 1.0
     var editable = true
     var animations:[Animation] = []
     var behaviors: [Behavior] = []
     var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
+    
+    let lX: Dynamic<CGFloat>
+    let lY: Dynamic<CGFloat>
+    let lWidth: Dynamic<CGFloat>
+    let lHeight: Dynamic<CGFloat>
+    let lRotation: Dynamic<CGFloat>
 
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
@@ -189,6 +223,27 @@ class ContainerModel: Model {
           "effects" : "Effect",
         "component" : "Component"
         ]
+    }
+    
+   override init!() {
+    lX = Dynamic(x)
+    lY = Dynamic(y)
+    lWidth = Dynamic(width)
+    lHeight = Dynamic(height)
+    lRotation = Dynamic(rotation)
+        super.init()
+        
+    }
+
+    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+//        fatalError("init(dictionary:error:) has not been implemented")
+        lX = Dynamic(x)
+        lY = Dynamic(y)
+        lWidth = Dynamic(width)
+        lHeight = Dynamic(height)
+        lRotation = Dynamic(rotation)
+        super.init(dictionary: dictionaryValue, error: error)
+        
     }
     
     // animations

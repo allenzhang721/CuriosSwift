@@ -90,6 +90,7 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
                             <outletCollection property="gestureRecognizers" destination="hkI-aC-bZe" appends="YES" id="JLm-bR-rW0"/>
+                            <outletCollection property="gestureRecognizers" destination="SEq-lk-81G" appends="YES" id="QPd-PG-sRG"/>
                         </connections>
                     </view>
                     <connections>
@@ -109,8 +110,14 @@
                         <outlet property="delegate" destination="8KY-Ld-6of" id="L4a-L1-B94"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="SEq-lk-81G">
+                    <connections>
+                        <action selector="TapAction:" destination="8KY-Ld-6of" id="Ou2-MY-fL9"/>
+                        <outlet property="delegate" destination="8KY-Ld-6of" id="XAG-RB-0Ib"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1027" y="389"/>
+            <point key="canvasLocation" x="1022" y="389"/>
         </scene>
     </scenes>
 </document>

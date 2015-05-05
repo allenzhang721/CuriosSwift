@@ -55,6 +55,21 @@ class EditViewController: UIViewController {
 // MARK: - IBActions
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    
+    @IBAction func TapAction(sender: UITapGestureRecognizer) {
+        
+        let indexpath = getCurrentIndexPath()
+        let aPageModel = pageModels[indexpath!.item]
+        let aContainer = aPageModel.containers[0]
+        
+        let asss = ASDMask(aListener: aContainer)
+//        asss.name = "Emiaostein"
+//        asss.listener = aContainer
+        asss.backgroundColor = UIColor.blackColor()
+        view.addSubview(asss)
+        
+    }
+    
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
         
         let transition = sender.translationInView(view)

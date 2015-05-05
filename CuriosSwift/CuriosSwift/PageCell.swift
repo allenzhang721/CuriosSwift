@@ -24,9 +24,9 @@ class PageCell: UICollectionViewCell {
     
     func tapAction(sender: UITapGestureRecognizer) {
         
-        for cm in containerViewModels {
+        for cm in pageModel.containers {
             
-            cm.y.value += 30
+            cm.height += 30
         }
     }
     
@@ -50,15 +50,26 @@ class PageCell: UICollectionViewCell {
         }
         
         pageModel = cellVM
-        containerViewModels = getContainerViewModel(cellVM)
+//        containerViewModels = getContainerViewModel(cellVM)
 //        println("y = \(pageModel.containers[0].y)")
         let newOperation = configCellTaskBy(cellVM, queue: queue)
         nodeConstructionOperation = newOperation
         queue.addOperation(newOperation)
     }
+    
+    func respondsToTapAction(sender: UITapGestureRecognizer) {
+        
+        
+    }
 }
 
-// MARK - private
+// MARK: - multi Selection
+extension PageCell {
+    
+    
+}
+
+// MARK: - private
 extension PageCell {
     
     private func configCellTaskBy(cellVM: PageModel, queue: NSOperationQueue) -> NSOperation {
@@ -128,8 +139,8 @@ extension PageCell {
         aContainerNode.frame = nodeFrome
         aContainerNode.userInteractionEnabled = true
         
-        for containerVM in containerViewModels {
-            let node = ContainerNode(viewModel: containerVM, aspectR: aspectRatio)
+        for containerVM in cellVM.containers {
+            let node = ContainerNode(aListener: containerVM, aspectR: aspectRatio)
 //            let node = ContainerNode()
 //            node.viewModel = containerVM
 //            node.frame = CGRectMake(containerVM.x.value, containerVM.y.value, containerVM.width.value, containerVM.height.value)
@@ -140,21 +151,21 @@ extension PageCell {
         return aContainerNode
     }
     
-    private func getContainerViewModel(cellVM: PageModel) -> [ContainerViewModel] {
-        
-        var array: [ContainerViewModel] = []
-        let containerModels = cellVM.containers
-        
-        func getAspectRatio(cellVM: PageModel) -> CGFloat {
-            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
-            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
-            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
-        }
-        
-        for containerM in containerModels {
-            let containtVM = ContainerViewModel(model: containerM, aspectRatio:getAspectRatio(cellVM))
-            array.append(containtVM)
-        }
-        return array
-    }
+//    private func getContainerViewModel(cellVM: PageModel) -> [ContainerViewModel] {
+//        
+//        var array: [ContainerViewModel] = []
+//        let containerModels = cellVM.containers
+//        
+//        func getAspectRatio(cellVM: PageModel) -> CGFloat {
+//            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+//            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+//            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+//        }
+//        
+//        for containerM in containerModels {
+//            let containtVM = ContainerViewModel(model: containerM, aspectRatio:getAspectRatio(cellVM))
+//            array.append(containtVM)
+//        }
+//        return array
+//    }
 }

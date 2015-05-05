@@ -12,54 +12,52 @@ class ContainerNode: ASDisplayNode {
     
     var aspectRatio: CGFloat = 1.0
     var componentNode:ASDisplayNode!
-    var viewModel: ContainerViewModel! {
+    var listener: ContainerModel! {
         didSet {
-            viewModel.width.bindAndFire {
-                [unowned self] in
-                self.bounds.size.width = $0
+            listener.lWidth.bindAndFire {
+                [weak self] in
+                self!.bounds.size.width = $0 * self!.aspectRatio
             }
-            viewModel.height.bindAndFire {
-                [unowned self] in
-                self.bounds.size.height = $0
+            listener.lHeight.bindAndFire {
+                [weak self] in
+                self!.bounds.size.height = $0  * self!.aspectRatio
             }
-            viewModel.x.bindAndFire {
-                [unowned self] in
-                self.frame.origin.x = $0
-                self.viewModel.model.x = $0 / self.aspectRatio
+            listener.lX.bindAndFire {
+                [weak self] in
+                self!.frame.origin.x = $0 * self!.aspectRatio
             }
-            viewModel.y.bindAndFire {
-                [unowned self] in
-                self.frame.origin.y = $0
-                self.viewModel.model.y = $0 / self.aspectRatio
+            listener.lY.bindAndFire {
+                [weak self] in
+                self!.frame.origin.y = $0 * self!.aspectRatio
             }
             
-            viewModel.rotation.bindAndFire {
-                [unowned self] in
-                self.transform = CATransform3DMakeRotation($0, 0, 0, 1)
+            listener.lRotation.bindAndFire {
+                [weak self] in
+                self!.transform = CATransform3DMakeRotation($0, 0, 0, 1)
             }
         }
     }
     
-    init(viewModel: ContainerViewModel, aspectR: CGFloat) {
+    init(aListener: ContainerModel, aspectR: CGFloat) {
         
         super.init()
         aspectRatio = aspectR
-        setupBy(viewModel)
+        setupBy(aListener)
         setupComponentNode()
     }
     
-    func setupBy(viewModel: ContainerViewModel) {
-        self.viewModel = viewModel
+    func setupBy(aListener: ContainerModel) {
+        listener = aListener
     }
     
     func setupComponentNode() {
-        switch viewModel.model.component.type {
+        switch listener.component.type {
         case .None:
-            self.componentNode = ComponentNode(aComponentModel: viewModel.model.component)
+            self.componentNode = ComponentNode(aComponentModel: listener.component)
         case .Image:
-            self.componentNode = ImageNode(aComponentModel: viewModel.model.component)
+            self.componentNode = ImageNode(aComponentModel: listener.component)
         case .Text:
-            self.componentNode = ImageNode(aComponentModel: viewModel.model.component)
+            self.componentNode = ImageNode(aComponentModel: listener.component)
         default:
             println("componnetModel")
         }
@@ -67,7 +65,7 @@ class ContainerNode: ASDisplayNode {
     }
     
     override func layout() {
-        
+        println(self.bounds)
         componentNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height)
     }
 }
