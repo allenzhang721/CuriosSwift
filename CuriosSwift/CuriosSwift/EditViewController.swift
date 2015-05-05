@@ -40,6 +40,8 @@ class EditViewController: UIViewController {
         
 //        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
         
+        
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         let normal = NormalLayout()
@@ -62,12 +64,17 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         let aPageModel = pageModels[indexpath!.item]
         let aContainer = aPageModel.containers[0]
         
-        let asss = ContainerMaskView(aListener: aContainer)
-//        asss.name = "Emiaostein"
-//        asss.listener = aContainer
+        func getAspectRatio(cellVM: PageModel) -> CGFloat {
+            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+        }
+        
+        let ra = getAspectRatio(aPageModel)
+        
+        let asss = ContainerMaskView(aListener: aContainer,  Ratio: ra)
         asss.backgroundColor = UIColor.blackColor()
         view.addSubview(asss)
-        
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -107,39 +114,60 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         let location = sender.locationInView(view)
         switch sender.state {
         case .Began:
-            if CGRectContainsPoint(collectionView.frame, location) {
-                let pageLocation = sender.locationInView(collectionView)
-                if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
-                    println("shouldRespondsToGestureLocation")
-                    if let snapShot = aSmallLayout.getResponseViewSnapShot() {
-                        fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageModels[aSmallLayout.placeholderIndexPath!.item]])
-                        fakePageView?.center = location
-                        view.addSubview(fakePageView!)
+            
+            if collectionView.collectionViewLayout is smallLayout {
+                if CGRectContainsPoint(collectionView.frame, location) {
+                    let pageLocation = sender.locationInView(collectionView)
+                    if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
+                        println("shouldRespondsToGestureLocation")
+                        if let snapShot = aSmallLayout.getResponseViewSnapShot() {
+                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageModels[aSmallLayout.placeholderIndexPath!.item]])
+                            fakePageView?.center = location
+                            view.addSubview(fakePageView!)
+                        }
                     }
                 }
+                
+            } else if collectionView.collectionViewLayout is NormalLayout {
+                
+                // TODO: Mask
             }
+            
         case .Changed:
             
-            if let fake = fakePageView {
-                fake.center = location
-                
-                if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-                    let inEditBoundsLocation = sender.locationInView(collectionView)
-                    aSmallLyout.responseToPointMoveInIfNeed(CGRectContainsPoint(collectionView.frame, location), AtPoint: inEditBoundsLocation)
+            if collectionView.collectionViewLayout is smallLayout {
+                if let fake = fakePageView {
+                    fake.center = location
+                    
+                    if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+                        let inEditBoundsLocation = sender.locationInView(collectionView)
+                        aSmallLyout.responseToPointMoveInIfNeed(CGRectContainsPoint(collectionView.frame, location), AtPoint: inEditBoundsLocation)
+                    }
                 }
+                
+            } else if collectionView.collectionViewLayout is NormalLayout {
+                
+                // TODO: Mask
             }
-            
-            return
             
         case .Cancelled, .Ended:
-            if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-                if CGRectContainsPoint(collectionView.frame, location) {
-                    aSmallLyout.responsetoPointMoveEnd()
+            
+            if collectionView.collectionViewLayout is smallLayout {
+                if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+                    if CGRectContainsPoint(collectionView.frame, location) {
+                        aSmallLyout.responsetoPointMoveEnd()
+                    }
                 }
+                
+                fakePageView?.removeFromSuperview()
+                fakePageView = nil
+                
+            } else if collectionView.collectionViewLayout is NormalLayout {
+                
+                
+                // TODO: Mask
             }
             
-            fakePageView?.removeFromSuperview()
-            fakePageView = nil
             
         default:
             return
@@ -191,7 +219,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         case let gesture where gesture is UIPanGestureRecognizer:
             return transitionLayout == nil ? true : false
         case let gesture where gesture is UILongPressGestureRecognizer:
-            return collectionView.collectionViewLayout is smallLayout ? true : false
+            return true
             
         default:
             return true
