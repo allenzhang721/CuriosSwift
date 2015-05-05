@@ -161,10 +161,10 @@ class PageModel: Model {
 class ContainerModel: Model {
     
     var Id = ""
-    var x: CGFloat = 100.0
-    var y: CGFloat = 100.0
-    var width: CGFloat = 100.0 // bounds.width
-    var height: CGFloat = 100.0 // bounds.height
+    var x: CGFloat = (CGFloat(rand() % 300)) + 100
+    var y: CGFloat = (CGFloat(rand() % 300)) + 100
+    var width: CGFloat = (CGFloat(rand() % 300)) + 200 // bounds.width
+    var height: CGFloat = (CGFloat(rand() % 300)) + 300 // bounds.height
     var rotation: CGFloat = 0.0
     var alpha: CGFloat = 1.0
     var editable = true

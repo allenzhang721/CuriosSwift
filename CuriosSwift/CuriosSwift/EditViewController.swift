@@ -196,32 +196,33 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         UIImagePickerControllerCropRect: NSRect: {{0, 0}, {1500, 1003}}, UIImagePickerControllerReferenceURL: assets-library://asset/asset.JPG?id=B6C0A21C-07C3-493D-8B44-3BA4C9981C25&ext=JPG, UIImagePickerControllerMediaType: public.image]
         
         */
+        if let indexPath = getCurrentIndexPath() {
+            
+            println("imageURl = \(indexPath)")
+            
+            let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+            let imageData = UIImagePNGRepresentation(selectedImage)
+            
+            let currentPageModel = pageModels[indexPath.item]
+            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageModel.Id)/images/\(UniqueIDString()).png"
+            let imagePath = NSTemporaryDirectory().stringByAppendingString(relativeImagePath)
+            let imageURl = NSURL.fileURLWithPath(imagePath, isDirectory: false)
+            
+            
+            let aError = NSErrorPointer()
+            if NSFileManager.defaultManager().createFileAtPath(imagePath, contents: imageData, attributes: nil) {
+                println("save image success")
+            }
+            
+            let imageComponentModel = ImageContentModel()
+            imageComponentModel.type = .Image
+            imageComponentModel.attributes = ["ImagePath": relativeImagePath]
+            let aContainer = ContainerModel()
+            aContainer.component = imageComponentModel
+            currentPageModel.containers.append(aContainer)
+            collectionView.reloadItemsAtIndexPaths([indexPath])
+        }
         
-        //        let resPath = NSBundle.mainBundle().bundlePath.stringByAppendingString("/res")
-        //        let docuPath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingString("/res")
-        //        let page1 = docuPath.stringByAppendingString("/Pages/page_1/images/22222.jpg")
-        //        let page1url = NSURL.fileURLWithPath(page1)
-        //       let aContainer  = self.pageModels[0].containers[0].copy() as! ContainerModel
-        //
-        //        aContainer.x = 220
-        //        aContainer.y = 300
-        //        aContainer.component.attributes["ImagePath"] = "/images/22222.jpg"
-        //        self.pageModels[0].containers.append(aContainer)
-        ////        println(aContainer)
-        ////        println(info)
-        //        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-        //        let selectedUrl = info["UIImagePickerControllerReferenceURL"] as! NSURL
-        //        let file = NSFileManager.defaultManager()
-        //        let error = NSErrorPointer()
-        //       if file.copyItemAtURL(selectedUrl, toURL: page1url!, error: error) {
-        //        println(error)
-        
-        //       } else {
-        //
-        //        println("image copy success")
-        //
-        //        }
-        collectionView.reloadData()
         picker.dismissViewControllerAnimated(true, completion: { () -> Void in
             
             
@@ -244,6 +245,24 @@ extension EditViewController {
     private func POPTransition(progress: Float, startValue: Float, endValue: Float) -> CGFloat {
         
         return CGFloat(startValue + (progress * (endValue - startValue)))
+    }
+    
+    private func getCurrentIndexPath() -> NSIndexPath? {
+        
+        var visualCells = collectionView.visibleCells() as! [UICollectionViewCell]
+        
+        if visualCells.count <= 0 {
+            return nil
+        }
+        
+        let offsetMiddleX = collectionView.contentOffset.x + CGRectGetWidth(collectionView.bounds) / 2.0
+        println("offsetMiddleX = \(offsetMiddleX)")
+        let sortedVisualCells: [UICollectionViewCell] = visualCells.sorted{ (CellA: UICollectionViewCell, CellB: UICollectionViewCell) -> Bool in
+            
+            return fabs(CellA.center.x - offsetMiddleX) < fabs(CellB.center.x - offsetMiddleX)
+        }
+        
+        return collectionView.indexPathForCell(sortedVisualCells[0])
     }
     
     private func getPageModels() -> [PageModel] {

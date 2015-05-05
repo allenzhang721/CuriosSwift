@@ -24,12 +24,12 @@ class BookManager: NSObject {
     }
     
     // TODO:
-    class func checkBookFromTemporaryDirectory() -> [BookModel] {
-        
-        let fileManager = NSFileManager.defaultManager()
-        return []
-    }
-    
+//    class func checkTemparoryBook() -> BookModel? {
+//        
+//        let fileManager = NSFileManager.defaultManager().enumeratorAtPath(BookManager.constants.temporaryDirectoryURL?.relativePath!)
+//        return []
+//    }
+//    
     class func copyDemoBook() -> Bool {
         
         let demoBookID = "QWERTASDFGZXCVB"
@@ -37,7 +37,7 @@ class BookManager: NSObject {
         let demoBookURL = NSURL.fileURLWithPath(demobookPath!, isDirectory: true)
         let toBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
         let toBookURL = NSURL.fileURLWithPath(toBookPath, isDirectory: true)
-        println("demoBookURL = \(demoBookURL)\ntoBookURL = \(toBookURL)")
+//        println("demoBookURL = \(demoBookURL)\ntoBookURL = \(toBookURL)")
         NSFileManager.defaultManager().removeItemAtURL(toBookURL!, error: nil)
         return NSFileManager.defaultManager().copyItemAtURL(demoBookURL!, toURL: toBookURL!, error: nil)
     }

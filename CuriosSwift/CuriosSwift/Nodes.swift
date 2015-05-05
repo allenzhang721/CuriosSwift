@@ -68,7 +68,7 @@ class ContainerNode: ASDisplayNode {
     
     override func layout() {
         
-        componentNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.width)
+        componentNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height)
     }
 }
 
@@ -107,7 +107,7 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
         let imagePath = NSTemporaryDirectory().stringByAppendingString(ImagePath)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            println(imagePath)
+//            println(imagePath)
         })
         self.image = UIImage(contentsOfFile: imagePath)
     }
