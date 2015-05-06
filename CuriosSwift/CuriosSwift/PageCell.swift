@@ -140,7 +140,7 @@ extension PageCell {
         aContainerNode.userInteractionEnabled = true
         
         for containerVM in cellVM.containers {
-            let node = ContainerNode(aListener: containerVM, aspectR: aspectRatio)
+            let node = ContainerNode(aContainerModel: containerVM, aspectR: aspectRatio)
 //            let node = ContainerNode()
 //            node.viewModel = containerVM
 //            node.frame = CGRectMake(containerVM.x.value, containerVM.y.value, containerVM.width.value, containerVM.height.value)

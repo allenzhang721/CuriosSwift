@@ -454,6 +454,10 @@ class Effect: Model {
     }
 }
 
+protocol ComponentListener {
+    var lIsFirstResponder: Dynamic<Bool> {get}
+}
+
 class ComponentModel: Model  {
     
     @objc enum Type: Int {
@@ -462,6 +466,9 @@ class ComponentModel: Model  {
     
     var type: Type = .None
     var attributes: [String : AnyObject] = [:]
+    
+    // listener
+    let lIsFirstResponder: Dynamic<Bool>
     
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
         
@@ -483,6 +490,18 @@ class ComponentModel: Model  {
         } else {
             return NoneContentModel.self
         }
+    }
+    
+    override init!() {
+        lIsFirstResponder = Dynamic(false)
+        super.init()
+        
+    }
+    
+    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+        //        fatalError("init(dictionary:error:) has not been implemented")
+        lIsFirstResponder = Dynamic(false)
+        super.init(dictionary: dictionaryValue, error: error)
     }
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

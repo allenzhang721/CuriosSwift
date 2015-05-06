@@ -12,52 +12,52 @@ class ContainerNode: ASDisplayNode {
     
     var aspectRatio: CGFloat = 1.0
     var componentNode:ASDisplayNode!
-    var listener: ContainerModel! {
+    var containerModel: ContainerModel! {
         didSet {
-            listener.lWidth.bindAndFire {
+            containerModel.lWidth.bindAndFire {
                 [weak self] in
                 self!.bounds.size.width = $0 * self!.aspectRatio
             }
-            listener.lHeight.bindAndFire {
+            containerModel.lHeight.bindAndFire {
                 [weak self] in
                 self!.bounds.size.height = $0  * self!.aspectRatio
             }
-            listener.lX.bindAndFire {
+            containerModel.lX.bindAndFire {
                 [weak self] in
                 self!.position.x = ($0 + self!.frame.size.width / 2.0) * self!.aspectRatio
             }
-            listener.lY.bindAndFire {
+            containerModel.lY.bindAndFire {
                 [weak self] in
                 self!.position.y = ($0 + self!.frame.size.height / 2.0) * self!.aspectRatio
             }
             
-            listener.lRotation.bindAndFire {
+            containerModel.lRotation.bindAndFire {
                 [weak self] in
                 self!.transform = CATransform3DMakeRotation($0, 0, 0, 1)
             }
         }
     }
     
-    init(aListener: ContainerModel, aspectR: CGFloat) {
+    init(aContainerModel: ContainerModel, aspectR: CGFloat) {
         
         super.init()
         aspectRatio = aspectR
-        setupBy(aListener)
+        setupBy(aContainerModel)
         setupComponentNode()
     }
     
-    func setupBy(aListener: ContainerModel) {
-        listener = aListener
+    func setupBy(aContainerModel: ContainerModel) {
+        containerModel = aContainerModel
     }
     
     func setupComponentNode() {
-        switch listener.component.type {
+        switch containerModel.component.type {
         case .None:
-            self.componentNode = ComponentNode(aComponentModel: listener.component)
+            self.componentNode = ComponentNode(aComponentModel: containerModel.component)
         case .Image:
-            self.componentNode = ImageNode(aComponentModel: listener.component)
+            self.componentNode = ImageNode(aComponentModel: containerModel.component)
         case .Text:
-            self.componentNode = ImageNode(aComponentModel: listener.component)
+            self.componentNode = ImageNode(aComponentModel: containerModel.component)
         default:
             println("componnetModel")
         }
@@ -110,8 +110,20 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
     }
 }
 
-class TextNode: ASEditableTextNode,ComponentNodeAttribute {
-    var componentModel: ComponentModel
+class TextNode: ASEditableTextNode,ComponentNodeAttribute,ASEditableTextNodeDelegate {
+    var componentModel: ComponentModel {
+        didSet {
+            componentModel.lIsFirstResponder.bindAndFire {
+                [unowned self] in
+                self.userInteractionEnabled = $0
+                if $0 {
+                    self.becomeFirstResponder()
+                } else {
+                    self.resignFirstResponder()
+                }
+            }
+        }
+    }
     var contentText: String {
         didSet {
             componentModel.attributes["contentText"] = contentText
@@ -122,6 +134,13 @@ class TextNode: ASEditableTextNode,ComponentNodeAttribute {
         self.componentModel = aComponentModel
         self.contentText = componentModel.attributes["contentText"] as! String
         super.init()
+        delegate = self
+    }
+}
+
+extension TextNode {
+    func editableTextNodeDidUpdateText(editableTextNode: ASEditableTextNode!) {
+        contentText = editableTextNode.attributedText.string
     }
 }
 
