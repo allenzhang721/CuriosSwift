@@ -26,7 +26,7 @@ class ContainerNode: ASDisplayNode {
             }
             containerViewModel.x.bindAndFire {
                 [weak self] in
-                println("node.x = \($0)")
+
                 self!.position.x = $0 + self!.frame.size.width / 2.0
                 self!.containerViewModel.model.x = $0 / self!.aspectRatio
             }
@@ -59,7 +59,8 @@ class ContainerNode: ASDisplayNode {
                     }
                     
                 default:
-                    println("componnetModel")
+                    return
+
                 }
             }
         }
@@ -87,13 +88,13 @@ class ContainerNode: ASDisplayNode {
         case .Text:
             self.componentNode = TextNode(aComponentModel: aComponentModel)
         default:
-            println("componnetModel")
+            return
+
         }
         self.addSubnode(componentNode)
     }
     
     override func layout() {
-        println(self.bounds)
         componentNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height)
     }
 }

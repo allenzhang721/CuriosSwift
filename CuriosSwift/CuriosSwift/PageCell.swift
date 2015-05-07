@@ -39,8 +39,6 @@ class PageCell: UICollectionViewCell {
         }
         
         pageViewModel = cellVM
-//        containerViewModels = getContainerViewModel(cellVM)
-//        println("y = \(pageModel.containers[0].y)")
         let newOperation = configCellTaskBy(pageViewModel, queue: queue)
         nodeConstructionOperation = newOperation
         queue.addOperation(newOperation)

@@ -93,7 +93,7 @@ class ContainerViewModel: BaseViewModel, ContainerAttributes {
         rotation = Dynamic(model.rotation)
         alpha = Dynamic(model.alpha)
         lIsFirstResponder = Dynamic(false)
-//        println("x = \(x.value), y = \(y.value)")
+
     }
     
 }
@@ -115,7 +115,7 @@ class MaskViewModel: BaseViewModel {
         width = Dynamic(model.width.value)
         height = Dynamic(model.height.value)
         rotation = Dynamic(model.rotation.value)
-        //        println("x = \(x.value), y = \(y.value)")
+
     }
     
 }

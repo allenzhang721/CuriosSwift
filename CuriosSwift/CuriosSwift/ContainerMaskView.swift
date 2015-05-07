@@ -47,37 +47,55 @@ class Control {
 
 
 class ContainerMaskView: UIView {
-        
-        let viewModel: ContainerViewModel
-        
-        init(postion: CGPoint, size: CGSize, rotation: CGFloat, forViewModel aViewModel: ContainerViewModel) {
-    viewModel = aViewModel
-    super.init(frame: CGRectZero)
-    self.center = postion
-    self.bounds.size = size
-    self.transform = CGAffineTransformMakeRotation(rotation)
-    self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.3)
-    self.layer.borderColor = UIColor.redColor().CGColor
-    self.layer.borderWidth = 1
-    let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
-    self.addGestureRecognizer(pan)
-        }
-        
-        
-        required init(coder aDecoder: NSCoder) {
+    
+    let viewModel: ContainerViewModel
+    
+    init(postion: CGPoint, size: CGSize, rotation: CGFloat, forViewModel aViewModel: ContainerViewModel) {
+        viewModel = aViewModel
+        super.init(frame: CGRectZero)
+        self.center = postion
+        self.bounds.size = size
+        self.transform = CGAffineTransformMakeRotation(rotation)
+        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.3)
+        self.layer.borderColor = UIColor.redColor().CGColor
+        self.layer.borderWidth = 1
+        let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
+        self.addGestureRecognizer(pan)
+    }
+    
+    
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        
+        if viewModel.lIsFirstResponder.value == true {
+            if viewModel.model.component.type == .Text {
+                
+                let ignoreRect = CGRectInset(self.bounds, 10, 10)
+                if CGRectContainsPoint(ignoreRect, point) {
+                    return false
+                } else {
+                    return true
+                }
+            }
         }
         
-        func panAction(sender: UIPanGestureRecognizer) {
-            
-            let transition = sender.translationInView(self.superview!)
-            
-            
-            viewModel.x.value += transition.x
-            viewModel.y.value += transition.y
-            self.center.x += transition.x
-            self.center.y += transition.y
-
-            sender.setTranslation(CGPointZero, inView: self.superview)
-        }
+        
+        return true
+    }
+    
+    func panAction(sender: UIPanGestureRecognizer) {
+        
+        let transition = sender.translationInView(self.superview!)
+        
+        
+        viewModel.x.value += transition.x
+        viewModel.y.value += transition.y
+        self.center.x += transition.x
+        self.center.y += transition.y
+        
+        sender.setTranslation(CGPointZero, inView: self.superview)
+    }
 }

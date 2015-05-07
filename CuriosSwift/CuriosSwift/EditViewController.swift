@@ -42,7 +42,6 @@ class EditViewController: UIViewController {
         
         if BookManager.copyDemoBook() {
             
-            println("copyDemoBook success")
         }
         
 //        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
@@ -66,23 +65,63 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
         
-    }
-    
-    @IBAction func TapAction(sender: UITapGestureRecognizer) {
-        
         if let currentIndexPath = getCurrentIndexPath() {
             
             if multiSection == false {
                 let pageViewModel = pageViewModels[currentIndexPath.item]
                 let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
                 if let contentNode = cell.containerNode {
-                    onContainer(contentNode, location: sender.locationInView(contentNode.view))
+                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: true)
                 }
                 
             } else {
                 
             }
         }
+        
+        
+    }
+    
+    @IBAction func TapAction(sender: UITapGestureRecognizer) {
+        
+        let Tap1BeganRemove = CFAbsoluteTimeGetCurrent()
+        
+        let aView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+        aView.backgroundColor = UIColor.darkGrayColor()
+        view.addSubview(aView)
+        
+        let Tap1endRemove = CFAbsoluteTimeGetCurrent()
+        println("CreatSomeTime = \(Tap1endRemove - Tap1BeganRemove)")
+        
+        let TapBeganRemove = CFAbsoluteTimeGetCurrent()
+        
+        let startRemove = CFAbsoluteTimeGetCurrent()
+        if let currentIndexPath = getCurrentIndexPath() {
+            
+            let endRemove = CFAbsoluteTimeGetCurrent()
+            println("getCurrentIndexPath = \(endRemove - startRemove)")
+            
+            if multiSection == false {
+                let pageViewModel = pageViewModels[currentIndexPath.item]
+                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
+                let startRemove = CFAbsoluteTimeGetCurrent()
+                if let contentNode = cell.containerNode {
+                    let endRemove = CFAbsoluteTimeGetCurrent()
+                    println("getcontentNode = \(endRemove - startRemove)")
+                    
+                    let qstartRemove = CFAbsoluteTimeGetCurrent()
+                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
+                    let qendRemove = CFAbsoluteTimeGetCurrent()
+                    println("onContainer = \(qendRemove - qstartRemove)")
+                }
+                
+            } else {
+                
+            }
+        }
+        
+        let TapendRemove = CFAbsoluteTimeGetCurrent()
+        println("TapFinishedTime = \(TapendRemove - TapBeganRemove)")
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -118,7 +157,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func longPressAction(sender: UILongPressGestureRecognizer) {
         
-        println("longpress")
+
         let location = sender.locationInView(view)
         switch sender.state {
         case .Began:
@@ -127,7 +166,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 if CGRectContainsPoint(collectionView.frame, location) {
                     let pageLocation = sender.locationInView(collectionView)
                     if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
-                        println("shouldRespondsToGestureLocation")
+
                         if let snapShot = aSmallLayout.getResponseViewSnapShot() {
                             fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageViewModels[aSmallLayout.placeholderIndexPath!.item]])
                             fakePageView?.center = location
@@ -200,7 +239,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let indexPath = getCurrentIndexPath() {
             
             let currentPageViewModel = pageViewModels[indexPath.item]
-
             let textComponentModel = TextContentModel()
             textComponentModel.type = .Text
             textComponentModel.attributes = ["contentText": "New Text"]
@@ -211,11 +249,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
             let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
             cell.containerNode?.addSubnode(contanerNode)
-//            collectionView.reloadItemsAtIndexPaths([indexPath])
         }
-        
     }
-    
 }
 
 
@@ -277,7 +312,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         */
         if let indexPath = getCurrentIndexPath() {
             
-            println("imageURl = \(indexPath)")
+
             
             let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
             let imageData = UIImagePNGRepresentation(selectedImage)
@@ -290,7 +325,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             let aError = NSErrorPointer()
             if NSFileManager.defaultManager().createFileAtPath(imagePath, contents: imageData, attributes: nil) {
-                println("save image success")
+
             }
             
             let imageComponentModel = ImageContentModel()
@@ -322,7 +357,7 @@ extension EditViewController: UIGestureRecognizerDelegate {
 // MARK: - Private Methods - selected 
 extension EditViewController {
     
-    private func onContainer(contentNode:ASDisplayNode, location: CGPoint) {
+    private func onContainer(contentNode:ASDisplayNode, location: CGPoint, doubleClick: Bool) {
         
         if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
             
@@ -338,18 +373,53 @@ extension EditViewController {
             }
             
             if let selectedNode = onContainers.last {
-                println("find Node")
+                
+                let startRemove = CFAbsoluteTimeGetCurrent()
                 resetAllMask()
+                let endRemove = CFAbsoluteTimeGetCurrent()
+                println("removeMask = \(endRemove - startRemove)")
                 collectionView.scrollEnabled = false
+                
+                
+                let q1startRemove = CFAbsoluteTimeGetCurrent()
                 
                 let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
                 let size = selectedNode.bounds.size
                 let rotation = selectedNode.containerViewModel.rotation.value
-                let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
-                self.view.addSubview(mask)
+                
+                let q1endRemove = CFAbsoluteTimeGetCurrent()
+                println("creatMaskInfo = \(q1endRemove - q1startRemove)")
                 
                 
-                return
+                if let textNode = selectedNode.componentNode as? TextNode{
+                    selectedNode.containerViewModel.lIsFirstResponder.value = doubleClick
+                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
+                    
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                        self.view.addSubview(mask)
+//                    })
+                    
+                    return
+                    
+                } else {
+                    println("find Node")
+                    
+                    let q2startRemove = CFAbsoluteTimeGetCurrent()
+                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
+                    
+                    let q2endRemove = CFAbsoluteTimeGetCurrent()
+                    println("creatMask = \(q2endRemove - q2startRemove)")
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    let q3startRemove = CFAbsoluteTimeGetCurrent()
+                        self.view.addSubview(mask)
+                    let q3endRemove = CFAbsoluteTimeGetCurrent()
+                    println("addMask = \(q3endRemove - q3startRemove)")
+//                    })
+                    return
+                }
+                
             }
             
             resetAllMask()
@@ -366,8 +436,9 @@ extension EditViewController {
     
         for subView in view.subviews {
             
-            if subView is ContainerMaskView {
-                subView.removeFromSuperview()
+            if let aSubView = subView as? ContainerMaskView {
+                aSubView.viewModel.lIsFirstResponder.value = false
+                aSubView.removeFromSuperview()
             }
         }
         

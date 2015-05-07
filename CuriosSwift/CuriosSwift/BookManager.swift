@@ -216,10 +216,6 @@ private struct FileSave {
         // Save the file and see if it was successful
         var ok:Bool = fileString.writeToFile(savePath, atomically:false, encoding:NSUTF8StringEncoding, error:&error)
         
-        if (error != nil) {
-            println(error)
-        }
-        
         // Return status of file save
         return ok;
         
