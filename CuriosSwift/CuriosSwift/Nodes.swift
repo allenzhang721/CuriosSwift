@@ -85,7 +85,7 @@ class ContainerNode: ASDisplayNode {
         case .Image:
             self.componentNode = ImageNode(aComponentModel: aComponentModel)
         case .Text:
-            self.componentNode = ImageNode(aComponentModel: aComponentModel)
+            self.componentNode = TextNode(aComponentModel: aComponentModel)
         default:
             println("componnetModel")
         }
@@ -140,16 +140,18 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
 
 class TextNode: ASEditableTextNode,ComponentNodeAttribute,ASEditableTextNodeDelegate {
     var componentModel: ComponentModel 
-    var contentText: String {
+    var contentText: String = "New Text" {
         didSet {
             componentModel.attributes["contentText"] = contentText
+            self.attributedText = NSAttributedString(string: contentText)
         }
     }
     
     init!(aComponentModel: ComponentModel) {
         self.componentModel = aComponentModel
-        self.contentText = componentModel.attributes["contentText"] as! String
         super.init()
+        self.backgroundColor = UIColor.blueColor()
+        self.attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String)
         delegate = self
     }
 }

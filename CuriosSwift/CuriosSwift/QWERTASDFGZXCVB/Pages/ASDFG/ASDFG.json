@@ -1,75 +1,123 @@
 {
-  "ID":"ASDFG",
-  "PageWidth":640,
-  "PageHeight":1008,
-  "Containers": [
-    {
-      "ID":"123154564",
-      "ContainerX":100,
-      "ContainerY":100,
-      "ContaienrWidth":100,
-      "ContainerHeight":100,
-      "ContainerRotation":0,
-      "ContainerAplha":0.5,
-      "Editable":true,
-      "Component": {
-        "ComponentType": "Image",
-        "ComponentData":{
-          "ImagePath":"/images/aaaa.png",
-          "ImageFilter":{
-            "FilterType":"black",
-            "FilterData":{
-
-            }
-          }
-        }
-      },
-      "Animations": [
-        {
-          "AnimationType":"FlowUp",
-          "AnimationDelay":1000,
-          "AnimationDuration":2000,
-          "AnimationRepeat":2,
-          "AnimationEaseType":"Linear",
-          "AnimationData":{
-
-          }
-        },
-        {
-          "AnimationType":"Rotation",
-          "AnimationDelay":1000,
-          "AnimationDuration":2000,
-          "AnimationRepeat":2,
-          "AnimationEaseType":"Linear",
-          "AnimationData":{
-
-          }
-        }
-      ],
-      "Behaviors":[
-        {
-          "EventName":"Click",
-          "EventValue":"1",
-          "ObjectID":"dsadsadsa",
-          "FunctionName":"PlayMusic",
-          "FunctionValue":"2"
-        },
-        {
-          "EventName":"Click",
-          "EventValue":"2",
-          "ObjectID":"dsadsadsa",
-          "FunctionName":"PlayAnimation",
-          "FunctionValue":"1"
-        }
-      ],
-      "Effect":[
-        {
-          "EffectType":"Shadow",
-          "EffectData":{
-
-          }
-        }
-      ]
-    }
-  ]
+    "ID": "ASDFG",
+    "PageWidth": 640,
+    "PageHeight": 1008,
+    "Containers": [
+                   {
+                   "ID": "123154564",
+                   "ContainerX": 100,
+                   "ContainerY": 100,
+                   "ContaienrWidth": 100,
+                   "ContainerHeight": 100,
+                   "ContainerRotation": 0,
+                   "ContainerAplha": 0.5,
+                   "Editable": true,
+                   "Component": {
+                   "ComponentType": "Image",
+                   "ComponentData": {
+                   "ImagePath": "/images/aaaa.png",
+                   "ImageFilter": {
+                   "FilterType": "black",
+                   "FilterData": {}
+                   }
+                   }
+                   },
+                   "Animations": [
+                                  {
+                                  "AnimationType": "FlowUp",
+                                  "AnimationDelay": 1000,
+                                  "AnimationDuration": 2000,
+                                  "AnimationRepeat": 2,
+                                  "AnimationEaseType": "Linear",
+                                  "AnimationData": {}
+                                  },
+                                  {
+                                  "AnimationType": "Rotation",
+                                  "AnimationDelay": 1000,
+                                  "AnimationDuration": 2000,
+                                  "AnimationRepeat": 2,
+                                  "AnimationEaseType": "Linear",
+                                  "AnimationData": {}
+                                  }
+                                  ],
+                   "Behaviors": [
+                                 {
+                                 "EventName": "Click",
+                                 "EventValue": "1",
+                                 "ObjectID": "dsadsadsa",
+                                 "FunctionName": "PlayMusic",
+                                 "FunctionValue": "2"
+                                 },
+                                 {
+                                 "EventName": "Click",
+                                 "EventValue": "2",
+                                 "ObjectID": "dsadsadsa",
+                                 "FunctionName": "PlayAnimation",
+                                 "FunctionValue": "1"
+                                 }
+                                 ],
+                   "Effect": [
+                              {
+                              "EffectType": "Shadow",
+                              "EffectData": {}
+                              }
+                              ]
+                   },
+                   {
+                   "ID": "123154564",
+                   "ContainerX": 300,
+                   "ContainerY": 400,
+                   "ContaienrWidth": 200,
+                   "ContainerHeight": 200,
+                   "ContainerRotation": 0,
+                   "ContainerAplha": 0.5,
+                   "Editable": true,
+                   "Component": {
+                   "ComponentType": "Text",
+                   "ComponentData": {
+                   "contentText": "What can i do for you?"
+                   }
+                   },
+                   "Animations": [
+                                  {
+                                  "AnimationType": "FlowUp",
+                                  "AnimationDelay": 1000,
+                                  "AnimationDuration": 2000,
+                                  "AnimationRepeat": 2,
+                                  "AnimationEaseType": "Linear",
+                                  "AnimationData": {}
+                                  },
+                                  {
+                                  "AnimationType": "Rotation",
+                                  "AnimationDelay": 1000,
+                                  "AnimationDuration": 2000,
+                                  "AnimationRepeat": 2,
+                                  "AnimationEaseType": "Linear",
+                                  "AnimationData": {}
+                                  }
+                                  ],
+                   "Behaviors": [
+                                 {
+                                 "EventName": "Click",
+                                 "EventValue": "1",
+                                 "ObjectID": "dsadsadsa",
+                                 "FunctionName": "PlayMusic",
+                                 "FunctionValue": "2"
+                                 },
+                                 {
+                                 "EventName": "Click",
+                                 "EventValue": "2",
+                                 "ObjectID": "dsadsadsa",
+                                 "FunctionName": "PlayAnimation",
+                                 "FunctionValue": "1"
+                                 }
+                                 ],
+                   "Effect": [
+                              {
+                              "EffectType": "Shadow",
+                              "EffectData": {}
+                              }
+                              ]
+                   }
+                   ]
 }

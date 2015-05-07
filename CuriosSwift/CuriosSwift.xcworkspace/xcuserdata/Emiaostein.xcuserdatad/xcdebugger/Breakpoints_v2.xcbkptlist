@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "452650404.736112"
+            timestampString = "452658991.405581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "resetAllMask()"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,13 +52,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "452650404.736112"
+            timestampString = "452658991.405581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "resetAllMask()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/Nodes.swift"
+            timestampString = "452658378.27064"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "setupComponentNode(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/Nodes.swift"
+            timestampString = "452658379.381159"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "setupComponentNode(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.ContainerNode.setupComponentNode (CuriosSwift.ContainerNode)(CuriosSwift.ComponentModel) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
+                  timestampString = "452658383.75537"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "397">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc CuriosSwift.ContainerNode.setupComponentNode (CuriosSwift.ContainerNode)(CuriosSwift.ComponentModel) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
+                  timestampString = "452658383.755683"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "413">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

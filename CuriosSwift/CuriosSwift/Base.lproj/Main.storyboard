@@ -72,6 +72,12 @@
                                             <action selector="ImageAction:" destination="8KY-Ld-6of" id="ldU-qt-Ccz"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ggg-pM-fwb"/>
+                                    <barButtonItem title="Add Text" id="GnG-gR-P9N">
+                                        <connections>
+                                            <action selector="addTextAction:" destination="8KY-Ld-6of" id="PPH-BC-Pxo"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="6HH-4B-3H7"/>
                                 </items>
                             </toolbar>

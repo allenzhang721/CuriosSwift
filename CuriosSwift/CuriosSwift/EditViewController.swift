@@ -194,6 +194,28 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
         })
     }
+    
+    @IBAction func addTextAction(sender: UIBarButtonItem) {
+        
+        if let indexPath = getCurrentIndexPath() {
+            
+            let currentPageViewModel = pageViewModels[indexPath.item]
+
+            let textComponentModel = TextContentModel()
+            textComponentModel.type = .Text
+            textComponentModel.attributes = ["contentText": "New Text"]
+            let aContainer = ContainerModel()
+            aContainer.component = textComponentModel
+            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
+            currentPageViewModel.containers.append(aContainerViewModel)
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
+            let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
+            cell.containerNode?.addSubnode(contanerNode)
+//            collectionView.reloadItemsAtIndexPaths([indexPath])
+        }
+        
+    }
+    
 }
 
 
