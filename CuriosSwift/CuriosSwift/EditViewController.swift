@@ -13,14 +13,19 @@ import pop
 class EditViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var singleTapGesture: UITapGestureRecognizer!
+    @IBOutlet var doubleTapGesture: UITapGestureRecognizer!
+
     var bookModel: BookModel!
-    var pageModels: [PageModel] = []
+//    var pageModels: [PageModel] = []
+    var pageViewModels: [PageViewModel] = []
     let queue = NSOperationQueue()
     var fakePageView: FakePageView?
     var transitionLayout: TransitionLayout!
     let maxY = Float(LayoutSpec.layoutConstants.maxTransitionLayoutY)
     var beganPanY: CGFloat = 0.0
     var isToSmallLayout = false
+    var multiSection = false
     var progress: Float = 0.0 {
         didSet {
             
@@ -32,6 +37,8 @@ class EditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
         
         if BookManager.copyDemoBook() {
             
@@ -47,7 +54,7 @@ class EditViewController: UIViewController {
         let normal = NormalLayout()
         collectionView.setCollectionViewLayout(normal, animated: false)
         collectionView.decelerationRate = 0.1
-        pageModels = getPageModels()
+        pageViewModels = getPageViewModels()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -57,24 +64,25 @@ class EditViewController: UIViewController {
 // MARK: - IBActions
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
+        
+    }
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
         
-        let indexpath = getCurrentIndexPath()
-        let aPageModel = pageModels[indexpath!.item]
-        let aContainer = aPageModel.containers[0]
-        
-        func getAspectRatio(cellVM: PageModel) -> CGFloat {
-            let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
-            let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
-            return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+        if let currentIndexPath = getCurrentIndexPath() {
+            
+            if multiSection == false {
+                let pageViewModel = pageViewModels[currentIndexPath.item]
+                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
+                if let contentNode = cell.containerNode {
+                    onContainer(contentNode, location: sender.locationInView(contentNode.view))
+                }
+                
+            } else {
+                
+            }
         }
-        
-        let ra = getAspectRatio(aPageModel)
-        
-        let asss = ContainerMaskView(aListener: aContainer,  Ratio: ra)
-        asss.backgroundColor = UIColor.blackColor()
-        view.addSubview(asss)
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -121,7 +129,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
                         println("shouldRespondsToGestureLocation")
                         if let snapShot = aSmallLayout.getResponseViewSnapShot() {
-                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageModels[aSmallLayout.placeholderIndexPath!.item]])
+                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageViewModels[aSmallLayout.placeholderIndexPath!.item]])
                             fakePageView?.center = location
                             view.addSubview(fakePageView!)
                         }
@@ -195,14 +203,14 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK - CollectionView Datasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return pageModels.count
+        return pageViewModels.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCell
         cell.backgroundColor = UIColor.darkGrayColor()
-        cell.configCell(pageModels[indexPath.item], queue: queue)
+        cell.configCell(pageViewModels[indexPath.item], queue: queue)
         
         return cell
     }
@@ -217,6 +225,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         switch gestureRecognizer {
         case let gesture where gesture is UIPanGestureRecognizer:
+            
+            for subView in view.subviews {
+                if subView is ContainerMaskView {
+                    return false
+                }
+            }
             return transitionLayout == nil ? true : false
         case let gesture where gesture is UILongPressGestureRecognizer:
             return true
@@ -246,8 +260,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
             let imageData = UIImagePNGRepresentation(selectedImage)
             
-            let currentPageModel = pageModels[indexPath.item]
-            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageModel.Id)/images/\(UniqueIDString()).png"
+            let currentPageViewModel = pageViewModels[indexPath.item]
+            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageViewModel.model.Id)/images/\(UniqueIDString()).png"
             let imagePath = NSTemporaryDirectory().stringByAppendingString(relativeImagePath)
             let imageURl = NSURL.fileURLWithPath(imagePath, isDirectory: false)
             
@@ -262,7 +276,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             imageComponentModel.attributes = ["ImagePath": relativeImagePath]
             let aContainer = ContainerModel()
             aContainer.component = imageComponentModel
-            currentPageModel.containers.append(aContainer)
+            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
+            currentPageViewModel.containers.append(aContainerViewModel)
             collectionView.reloadItemsAtIndexPaths([indexPath])
         }
         
@@ -282,6 +297,62 @@ extension EditViewController: UIGestureRecognizerDelegate {
     
 }
 
+// MARK: - Private Methods - selected 
+extension EditViewController {
+    
+    private func onContainer(contentNode:ASDisplayNode, location: CGPoint) {
+        
+        if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
+            
+            let onContainers = ContainerNodes.filter({ (containerNode) -> Bool in
+                let comtainView = containerNode.view
+                let convertPoint = contentNode.view.convertPoint(location, toView: comtainView)
+                return CGRectContainsPoint(comtainView.bounds, convertPoint)
+            })
+            
+            if onContainers.count <= 0 {
+                resetAllMask()
+                return
+            }
+            
+            if let selectedNode = onContainers.last {
+                println("find Node")
+                resetAllMask()
+                collectionView.scrollEnabled = false
+                
+                let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
+                let size = selectedNode.bounds.size
+                let rotation = selectedNode.containerViewModel.rotation.value
+                let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
+                self.view.addSubview(mask)
+                
+                
+                return
+            }
+            
+            resetAllMask()
+            return
+        }
+    }
+    
+//    private func addMaskForContainer(aContainerNode: ContainerNode) -> ContainerMaskView {
+//        
+//        return ContainerMaskView(aContainerNode: aContainerNode)
+//    }
+    
+    private func resetAllMask() {
+    
+        for subView in view.subviews {
+            
+            if subView is ContainerMaskView {
+                subView.removeFromSuperview()
+            }
+        }
+        
+        collectionView.scrollEnabled = true
+    }
+}
+
 // MARK: - Private Methods
 extension EditViewController {
     
@@ -299,7 +370,6 @@ extension EditViewController {
         }
         
         let offsetMiddleX = collectionView.contentOffset.x + CGRectGetWidth(collectionView.bounds) / 2.0
-        println("offsetMiddleX = \(offsetMiddleX)")
         let sortedVisualCells: [UICollectionViewCell] = visualCells.sorted{ (CellA: UICollectionViewCell, CellB: UICollectionViewCell) -> Bool in
             
             return fabs(CellA.center.x - offsetMiddleX) < fabs(CellB.center.x - offsetMiddleX)
@@ -308,14 +378,35 @@ extension EditViewController {
         return collectionView.indexPathForCell(sortedVisualCells[0])
     }
     
-    private func getPageModels() -> [PageModel] {
+//    private func getPageModels() -> [PageModel] {
+//        
+//        let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
+//        let demobookPath = file.stringByAppendingPathComponent("/main.json")
+//        let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
+//        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+//        let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
+//        var pageArray: [PageModel] = []
+//        for pageInfo in book.pagesInfo {
+//            let path: String = pageInfo["Path"]!
+//            let index: String = pageInfo["Index"]!
+//            let relpagePath = path + index
+//            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
+//            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
+//            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+//            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+//            pageArray.append(page)
+//        }
+//        return pageArray
+//    }
+    
+    private func getPageViewModels() -> [PageViewModel] {
         
         let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
         let demobookPath = file.stringByAppendingPathComponent("/main.json")
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-        var pageArray: [PageModel] = []
+        var pageArray: [PageViewModel] = []
         for pageInfo in book.pagesInfo {
             let path: String = pageInfo["Path"]!
             let index: String = pageInfo["Index"]!
@@ -324,7 +415,8 @@ extension EditViewController {
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            pageArray.append(page)
+            let pageViewModel = PageViewModel(aModel: page)
+            pageArray.append(pageViewModel)
         }
         return pageArray
     }

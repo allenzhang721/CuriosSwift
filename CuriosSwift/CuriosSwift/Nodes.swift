@@ -12,52 +12,80 @@ class ContainerNode: ASDisplayNode {
     
     var aspectRatio: CGFloat = 1.0
     var componentNode:ASDisplayNode!
-    var containerModel: ContainerModel! {
+    var containerViewModel: ContainerViewModel! {
         didSet {
-            containerModel.lWidth.bindAndFire {
+            containerViewModel.width.bindAndFire {
                 [weak self] in
-                self!.bounds.size.width = $0 * self!.aspectRatio
+                self!.bounds.size.width = $0
+                self!.containerViewModel.model.width = $0 / self!.aspectRatio
             }
-            containerModel.lHeight.bindAndFire {
+            containerViewModel.height.bindAndFire {
                 [weak self] in
-                self!.bounds.size.height = $0  * self!.aspectRatio
+                self!.bounds.size.height = $0
+                self!.containerViewModel.model.height = $0 / self!.aspectRatio
             }
-            containerModel.lX.bindAndFire {
+            containerViewModel.x.bindAndFire {
                 [weak self] in
-                self!.position.x = ($0 + self!.frame.size.width / 2.0) * self!.aspectRatio
+                println("node.x = \($0)")
+                self!.position.x = $0 + self!.frame.size.width / 2.0
+                self!.containerViewModel.model.x = $0 / self!.aspectRatio
             }
-            containerModel.lY.bindAndFire {
+            containerViewModel.y.bindAndFire {
                 [weak self] in
-                self!.position.y = ($0 + self!.frame.size.height / 2.0) * self!.aspectRatio
+                self!.position.y = $0 + self!.frame.size.height / 2.0
+                self!.containerViewModel.model.y = $0 / self!.aspectRatio
             }
             
-            containerModel.lRotation.bindAndFire {
+            containerViewModel.rotation.bindAndFire {
                 [weak self] in
                 self!.transform = CATransform3DMakeRotation($0, 0, 0, 1)
+            }
+            
+            containerViewModel.lIsFirstResponder.bindAndFire {
+                [weak self] in
+                switch self!.containerViewModel.model.component.type {
+                case .None:
+                    return
+                case .Image:
+                    return
+                case .Text:
+                    if let textCompNode = self!.componentNode as? TextNode {
+                        textCompNode.userInteractionEnabled = $0
+                        if $0 {
+                            textCompNode.becomeFirstResponder()
+                        } else {
+                            textCompNode.resignFirstResponder()
+                        }
+                    }
+                    
+                default:
+                    println("componnetModel")
+                }
             }
         }
     }
     
-    init(aContainerModel: ContainerModel, aspectR: CGFloat) {
+    init(aContainerViewModel: ContainerViewModel, aspectR: CGFloat) {
         
         super.init()
         aspectRatio = aspectR
-        setupBy(aContainerModel)
-        setupComponentNode()
+        setupComponentNode(aContainerViewModel.model.component)
+        setupBy(aContainerViewModel)
+        
     }
     
-    func setupBy(aContainerModel: ContainerModel) {
-        containerModel = aContainerModel
+    func setupBy(aContainerViewModel: ContainerViewModel) {
+        containerViewModel = aContainerViewModel
     }
     
-    func setupComponentNode() {
-        switch containerModel.component.type {
+    func setupComponentNode(aComponentModel: ComponentModel) {
+        switch aComponentModel.type {
         case .None:
-            self.componentNode = ComponentNode(aComponentModel: containerModel.component)
+            self.componentNode = ComponentNode(aComponentModel: aComponentModel)
         case .Image:
-            self.componentNode = ImageNode(aComponentModel: containerModel.component)
+            self.componentNode = ImageNode(aComponentModel: aComponentModel)
         case .Text:
-            self.componentNode = ImageNode(aComponentModel: containerModel.component)
+            self.componentNode = ImageNode(aComponentModel: aComponentModel)
         default:
             println("componnetModel")
         }
@@ -111,19 +139,7 @@ class ImageNode: ASImageNode,ComponentNodeAttribute {
 }
 
 class TextNode: ASEditableTextNode,ComponentNodeAttribute,ASEditableTextNodeDelegate {
-    var componentModel: ComponentModel {
-        didSet {
-            componentModel.lIsFirstResponder.bindAndFire {
-                [unowned self] in
-                self.userInteractionEnabled = $0
-                if $0 {
-                    self.becomeFirstResponder()
-                } else {
-                    self.resignFirstResponder()
-                }
-            }
-        }
-    }
+    var componentModel: ComponentModel 
     var contentText: String {
         didSet {
             componentModel.attributes["contentText"] = contentText

@@ -13,21 +13,10 @@ class PageCell: UICollectionViewCell {
     var containerNode: ASDisplayNode?
     var containerNodeView: UIView?
     var nodeConstructionOperation: NSOperation?
-    var pageModel: PageModel!
-    var containerViewModels: [ContainerViewModel] = []
+    var pageViewModel: PageViewModel!
+//    var containerViewModels: [ContainerViewModel] = []
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let tap = UITapGestureRecognizer(target: self, action: "tapAction:")
-        self.addGestureRecognizer(tap)
-    }
-    
-    func tapAction(sender: UITapGestureRecognizer) {
-        
-        for cm in pageModel.containers {
-            
-            cm.height += 30
-        }
     }
     
     override func prepareForReuse() {
@@ -38,21 +27,21 @@ class PageCell: UICollectionViewCell {
         
         containerNode?.recursivelySetDisplaySuspended(true)
         containerNodeView?.removeFromSuperview()
-        containerViewModels.removeAll(keepCapacity: false)
+        pageViewModel = nil
         containerNodeView = nil
         containerNode = nil
     }
     
-    func configCell(cellVM: PageModel, queue: NSOperationQueue) {
+    func configCell(cellVM: PageViewModel, queue: NSOperationQueue) {
         
         if let oldOperation = nodeConstructionOperation {
             oldOperation.cancel()
         }
         
-        pageModel = cellVM
+        pageViewModel = cellVM
 //        containerViewModels = getContainerViewModel(cellVM)
 //        println("y = \(pageModel.containers[0].y)")
-        let newOperation = configCellTaskBy(cellVM, queue: queue)
+        let newOperation = configCellTaskBy(pageViewModel, queue: queue)
         nodeConstructionOperation = newOperation
         queue.addOperation(newOperation)
     }
@@ -72,7 +61,7 @@ extension PageCell {
 // MARK: - private
 extension PageCell {
     
-    private func configCellTaskBy(cellVM: PageModel, queue: NSOperationQueue) -> NSOperation {
+    private func configCellTaskBy(cellVM: PageViewModel, queue: NSOperationQueue) -> NSOperation {
         
         let operation = NSBlockOperation()
         operation.addExecutionBlock { [weak self, unowned operation] in
@@ -85,6 +74,7 @@ extension PageCell {
                 
                 let aContaierNode = strongSelf.renderNodesBy(cellVM)
                 aContaierNode.backgroundColor = UIColor.orangeColor()
+                aContaierNode.clipsToBounds = true
                 
                 if operation.cancelled {
                     return
@@ -106,6 +96,7 @@ extension PageCell {
                         strongSelf.contentView.addSubview(aContaierNode.view)
                         aContaierNode.setNeedsDisplay()
                         strongSelf.containerNodeView = aContaierNode.view
+                        
                         strongSelf.containerNode = aContaierNode
                     }
                     })
@@ -114,7 +105,7 @@ extension PageCell {
         return operation
     }
     
-    private func renderNodesBy(cellVM: PageModel) -> ASDisplayNode {
+    private func renderNodesBy(cellVM: PageViewModel) -> ASDisplayNode {
         
         func getAspectRatio(cellVM: PageModel) -> CGFloat {
             let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
@@ -122,25 +113,26 @@ extension PageCell {
             return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
         }
         
-        func getNodeFrame(cellVM: PageModel, aspectRatio: CGFloat) -> CGRect {
+        func getNodeFrame(cellVM: PageViewModel) -> CGRect {
             let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
             let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
-            let nodeWidth = cellVM.width * aspectRatio
-            let nodeHeight = cellVM.height * aspectRatio
+            let nodeWidth = cellVM.size.width * cellVM.aspectRatio
+            let nodeHeight = cellVM.size.height * cellVM.aspectRatio
             let x = (normalWidth - nodeWidth) / 2.0
             let y = (normalHeight - nodeHeight) / 2.0
             return CGRectMake(x, y, nodeWidth, nodeHeight)
         }
         
-        let aspectRatio = getAspectRatio(cellVM)
-        let nodeFrome = getNodeFrame(cellVM, aspectRatio)
+//        let aspectRatio = PageViewModel.getAspectRatio(cellVM)
+        let nodeFrome = getNodeFrame(cellVM)
         let aContainerNode = ASDisplayNode()
         aContainerNode.layerBacked = false
         aContainerNode.frame = nodeFrome
+        
         aContainerNode.userInteractionEnabled = true
         
-        for containerVM in cellVM.containers {
-            let node = ContainerNode(aContainerModel: containerVM, aspectR: aspectRatio)
+        for containerVM in pageViewModel.containers {
+            let node = ContainerNode(aContainerViewModel: containerVM, aspectR: pageViewModel.aspectRatio)
 //            let node = ContainerNode()
 //            node.viewModel = containerVM
 //            node.frame = CGRectMake(containerVM.x.value, containerVM.y.value, containerVM.width.value, containerVM.height.value)

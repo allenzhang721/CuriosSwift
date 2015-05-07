@@ -91,10 +91,13 @@
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
                             <outletCollection property="gestureRecognizers" destination="hkI-aC-bZe" appends="YES" id="JLm-bR-rW0"/>
                             <outletCollection property="gestureRecognizers" destination="SEq-lk-81G" appends="YES" id="QPd-PG-sRG"/>
+                            <outletCollection property="gestureRecognizers" destination="RI9-qc-HIO" appends="YES" id="cPP-Cx-jgx"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
+                        <outlet property="doubleTapGesture" destination="RI9-qc-HIO" id="CVg-QA-zw7"/>
+                        <outlet property="singleTapGesture" destination="SEq-lk-81G" id="G3R-mP-5pT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKO-E8-RrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,6 +117,11 @@
                     <connections>
                         <action selector="TapAction:" destination="8KY-Ld-6of" id="Ou2-MY-fL9"/>
                         <outlet property="delegate" destination="8KY-Ld-6of" id="XAG-RB-0Ib"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="RI9-qc-HIO">
+                    <connections>
+                        <action selector="doubleTapAction:" destination="8KY-Ld-6of" id="DZx-BA-CZ3"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

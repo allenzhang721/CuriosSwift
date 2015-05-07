@@ -36,7 +36,44 @@ class BaseViewModel: NSObject {
     
 }
 
-class ContainerViewModel: BaseViewModel {
+class PageViewModel: BaseViewModel {
+    let model: PageModel
+    let aspectRatio: CGFloat
+    let size: CGSize
+    var containers: [ContainerViewModel] = [] // 缩放后的大小
+    
+    init(aModel: PageModel) {
+        
+        model = aModel
+        aspectRatio = PageViewModel.getAspectRatio(aModel)
+        size = CGSize(width: model.width, height: model.height)
+        super.init()
+        containers = getContainerViewModel(aModel, aRatio: aspectRatio)
+    }
+    
+    private func getContainerViewModel(aPageModel: PageModel, aRatio: CGFloat) -> [ContainerViewModel] {
+        
+        var array: [ContainerViewModel] = []
+        let containerModels = aPageModel.containers
+        for containerM in containerModels {
+            let containtVM = ContainerViewModel(model: containerM, aspectRatio: aRatio)
+            array.append(containtVM)
+        }
+        return array
+    }
+    
+   class func getAspectRatio(cellVM: PageModel) -> CGFloat {
+        let normalWidth = LayoutSpec.layoutConstants.normalLayout.itemSize.width
+        let normalHeight = LayoutSpec.layoutConstants.normalLayout.itemSize.height
+        return min(normalWidth / cellVM.width, normalHeight / cellVM.height)
+    }
+}
+
+protocol ContainerAttributes {
+    var lIsFirstResponder: Dynamic<Bool> {get}
+}
+
+class ContainerViewModel: BaseViewModel, ContainerAttributes {
     
     let model: ContainerModel
     let x: Dynamic<CGFloat>
@@ -45,7 +82,7 @@ class ContainerViewModel: BaseViewModel {
     let height: Dynamic<CGFloat>
     let rotation: Dynamic<CGFloat>
     let alpha: Dynamic<CGFloat>
-    
+    let lIsFirstResponder: Dynamic<Bool>
     init(model: ContainerModel, aspectRatio: CGFloat) {
         
         self.model = model
@@ -55,6 +92,30 @@ class ContainerViewModel: BaseViewModel {
         height = Dynamic(model.height * aspectRatio)
         rotation = Dynamic(model.rotation)
         alpha = Dynamic(model.alpha)
+        lIsFirstResponder = Dynamic(false)
+//        println("x = \(x.value), y = \(y.value)")
+    }
+    
+}
+
+class MaskViewModel: BaseViewModel {
+    
+    let model: ContainerViewModel
+    let x: Dynamic<CGFloat>
+    let y: Dynamic<CGFloat>
+    let width: Dynamic<CGFloat>
+    let height: Dynamic<CGFloat>
+    let rotation: Dynamic<CGFloat>
+    
+    init(model: ContainerViewModel) {
+        
+        self.model = model
+        x = Dynamic(model.x.value)
+        y = Dynamic(model.y.value)
+        width = Dynamic(model.width.value)
+        height = Dynamic(model.height.value)
+        rotation = Dynamic(model.rotation.value)
+        //        println("x = \(x.value), y = \(y.value)")
     }
     
 }

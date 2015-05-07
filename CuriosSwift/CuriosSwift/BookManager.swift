@@ -42,7 +42,6 @@ class BookManager: NSObject {
         return NSFileManager.defaultManager().copyItemAtURL(demoBookURL!, toURL: toBookURL!, error: nil)
     }
     
-    
     class func createBookAtURL(path: NSURL) -> BookModel {
         
         let bookModel = BookModel()

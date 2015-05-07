@@ -158,42 +158,22 @@ class PageModel: Model {
     }
 }
 
-protocol containerListener {
-    var lX: Dynamic<CGFloat> {get}
-    var lY: Dynamic<CGFloat> {get}
-    var lWidth: Dynamic<CGFloat> {get}
-    var lHeight: Dynamic<CGFloat> {get}
-    var lRotation: Dynamic<CGFloat> {get}
-}
+//protocol containerListener {
+//    var lX: Dynamic<CGFloat> {get}
+//    var lY: Dynamic<CGFloat> {get}
+//    var lWidth: Dynamic<CGFloat> {get}
+//    var lHeight: Dynamic<CGFloat> {get}
+//    var lRotation: Dynamic<CGFloat> {get}
+//}
 
-class ContainerModel: Model, containerListener {
+class ContainerModel: Model {
     
     var Id = ""
-    var x: CGFloat = (CGFloat(rand() % 300)) + 100 {
-        didSet {
-            lX.value = x
-        }
-    }
-    var y: CGFloat = (CGFloat(rand() % 300)) + 100 {
-        didSet {
-            lY.value = y
-        }
-    }
-    var width: CGFloat = (CGFloat(rand() % 300)) + 200  {
-        didSet {
-            lWidth.value = width
-        }
-    }// bounds.width
-    var height: CGFloat = (CGFloat(rand() % 300)) + 300 {
-        didSet {
-            lHeight.value = height
-        }
-    } // bounds.height
-    var rotation: CGFloat = 0.0 {
-        didSet {
-            lRotation.value = rotation
-        }
-    }
+    var x: CGFloat = (CGFloat(rand() % 300)) + 300
+    var y: CGFloat = (CGFloat(rand() % 300)) + 500
+    var width: CGFloat = (CGFloat(rand() % 300)) + 200  // bounds.width
+    var height: CGFloat = (CGFloat(rand() % 300)) + 300  // bounds.height
+    var rotation: CGFloat = 0.0
     var alpha: CGFloat = 1.0
     var editable = true
     var animations:[Animation] = []
@@ -201,11 +181,11 @@ class ContainerModel: Model, containerListener {
     var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
     
-    let lX: Dynamic<CGFloat>
-    let lY: Dynamic<CGFloat>
-    let lWidth: Dynamic<CGFloat>
-    let lHeight: Dynamic<CGFloat>
-    let lRotation: Dynamic<CGFloat>
+//    let lX: Dynamic<CGFloat>
+//    let lY: Dynamic<CGFloat>
+//    let lWidth: Dynamic<CGFloat>
+//    let lHeight: Dynamic<CGFloat>
+//    let lRotation: Dynamic<CGFloat>
 
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
@@ -225,26 +205,26 @@ class ContainerModel: Model, containerListener {
         ]
     }
     
-   override init!() {
-    lX = Dynamic(x)
-    lY = Dynamic(y)
-    lWidth = Dynamic(width)
-    lHeight = Dynamic(height)
-    lRotation = Dynamic(rotation)
-        super.init()
-        
-    }
+//   override init!() {
+//    lX = Dynamic(x)
+//    lY = Dynamic(y)
+//    lWidth = Dynamic(width)
+//    lHeight = Dynamic(height)
+//    lRotation = Dynamic(rotation)
+//        super.init()
+//        
+//    }
 
-    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
-//        fatalError("init(dictionary:error:) has not been implemented")
-        lX = Dynamic(x)
-        lY = Dynamic(y)
-        lWidth = Dynamic(width)
-        lHeight = Dynamic(height)
-        lRotation = Dynamic(rotation)
-        super.init(dictionary: dictionaryValue, error: error)
-        
-    }
+//    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+////        fatalError("init(dictionary:error:) has not been implemented")
+//        lX = Dynamic(x)
+//        lY = Dynamic(y)
+//        lWidth = Dynamic(width)
+//        lHeight = Dynamic(height)
+//        lRotation = Dynamic(rotation)
+//        super.init(dictionary: dictionaryValue, error: error)
+//        
+//    }
     
     // animations
     class func animationsJSONTransformer() -> NSValueTransformer {
@@ -454,10 +434,6 @@ class Effect: Model {
     }
 }
 
-protocol ComponentListener {
-    var lIsFirstResponder: Dynamic<Bool> {get}
-}
-
 class ComponentModel: Model  {
     
     @objc enum Type: Int {
@@ -468,7 +444,7 @@ class ComponentModel: Model  {
     var attributes: [String : AnyObject] = [:]
     
     // listener
-    let lIsFirstResponder: Dynamic<Bool>
+//    let lIsFirstResponder: Dynamic<Bool>
     
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
         
@@ -492,17 +468,17 @@ class ComponentModel: Model  {
         }
     }
     
-    override init!() {
-        lIsFirstResponder = Dynamic(false)
-        super.init()
-        
-    }
-    
-    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
-        //        fatalError("init(dictionary:error:) has not been implemented")
-        lIsFirstResponder = Dynamic(false)
-        super.init(dictionary: dictionaryValue, error: error)
-    }
+//    override init!() {
+//        lIsFirstResponder = Dynamic(false)
+//        super.init()
+//        
+//    }
+//    
+//    required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+//        //        fatalError("init(dictionary:error:) has not been implemented")
+//        lIsFirstResponder = Dynamic(false)
+//        super.init(dictionary: dictionaryValue, error: error)
+//    }
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
