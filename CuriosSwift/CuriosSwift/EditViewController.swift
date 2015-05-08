@@ -84,35 +84,45 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
         
-        let Tap1BeganRemove = CFAbsoluteTimeGetCurrent()
+        let Final_Tap_Start = CFAbsoluteTimeGetCurrent()
+        
+        let Zero_AddNormalViewStart = CFAbsoluteTimeGetCurrent()
         
         let aView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
         aView.backgroundColor = UIColor.darkGrayColor()
         view.addSubview(aView)
         
-        let Tap1endRemove = CFAbsoluteTimeGetCurrent()
-        println("CreatSomeTime = \(Tap1endRemove - Tap1BeganRemove)")
+        let Zero_AddNormalViewEnd = CFAbsoluteTimeGetCurrent()
+        println("Zero_AddNormalView Cost Time = \( Zero_AddNormalViewEnd -  Zero_AddNormalViewStart)")
         
-        let TapBeganRemove = CFAbsoluteTimeGetCurrent()
         
-        let startRemove = CFAbsoluteTimeGetCurrent()
+        let One_GetCurrentIndexPath_Start = CFAbsoluteTimeGetCurrent()
+        
         if let currentIndexPath = getCurrentIndexPath() {
             
-            let endRemove = CFAbsoluteTimeGetCurrent()
-            println("getCurrentIndexPath = \(endRemove - startRemove)")
+            let One_GetCurrentIndexPath_End = CFAbsoluteTimeGetCurrent()
+            println("One_GetCurrentIndexPath_ Cost Time = \( One_GetCurrentIndexPath_End -  One_GetCurrentIndexPath_Start)")
+            
             
             if multiSection == false {
-                let pageViewModel = pageViewModels[currentIndexPath.item]
+                
+                let Two_GetCell_Start = CFAbsoluteTimeGetCurrent()
+                
                 let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
-                let startRemove = CFAbsoluteTimeGetCurrent()
+                
+                let Two_GetCell_End = CFAbsoluteTimeGetCurrent()
+                println("Two_GetCell_ Cost Time = \( Two_GetCell_End -  Two_GetCell_Start)")
+                
+                let Three_GetContentNode_Start = CFAbsoluteTimeGetCurrent()
+                
                 if let contentNode = cell.containerNode {
-                    let endRemove = CFAbsoluteTimeGetCurrent()
-                    println("getcontentNode = \(endRemove - startRemove)")
                     
-                    let qstartRemove = CFAbsoluteTimeGetCurrent()
+                    let Three_GetContentNode_End = CFAbsoluteTimeGetCurrent()
+                    println("Three_GetContentNode_ Cost Time = \( Three_GetContentNode_End -  Three_GetContentNode_Start)")
+                    
+                    
                     onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
-                    let qendRemove = CFAbsoluteTimeGetCurrent()
-                    println("onContainer = \(qendRemove - qstartRemove)")
+                    
                 }
                 
             } else {
@@ -120,8 +130,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             }
         }
         
-        let TapendRemove = CFAbsoluteTimeGetCurrent()
-        println("TapFinishedTime = \(TapendRemove - TapBeganRemove)")
+        let Final_Tap_End = CFAbsoluteTimeGetCurrent()
+        println("Final_Tap_ Cost Time = \( Final_Tap_End -  Final_Tap_Start)")
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -359,7 +369,14 @@ extension EditViewController {
     
     private func onContainer(contentNode:ASDisplayNode, location: CGPoint, doubleClick: Bool) {
         
+        let Four_FinderContainerNodes_Start = CFAbsoluteTimeGetCurrent()
+        
         if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
+        
+        let Four_FinderContainerNodes_End = CFAbsoluteTimeGetCurrent()
+        println("Four_FinderContainerNodes_ Cost Time = \( Four_FinderContainerNodes_End -  Four_FinderContainerNodes_Start)")
+            
+            let Five_FindOnPointContainers_Start = CFAbsoluteTimeGetCurrent()
             
             let onContainers = ContainerNodes.filter({ (containerNode) -> Bool in
                 let comtainView = containerNode.view
@@ -367,38 +384,63 @@ extension EditViewController {
                 return CGRectContainsPoint(comtainView.bounds, convertPoint)
             })
             
+            let Five_FindOnPointContainers_End = CFAbsoluteTimeGetCurrent()
+            println("Five_FindOnPointContainers_ Cost Time = \( Five_FindOnPointContainers_End -  Five_FindOnPointContainers_Start)")
+            
             if onContainers.count <= 0 {
                 resetAllMask()
                 return
             }
             
             if let selectedNode = onContainers.last {
+               
+                let Five_ResetMask_Start = CFAbsoluteTimeGetCurrent()
                 
-                let startRemove = CFAbsoluteTimeGetCurrent()
                 resetAllMask()
-                let endRemove = CFAbsoluteTimeGetCurrent()
-                println("removeMask = \(endRemove - startRemove)")
+                
+                let Five_ResetMask_End = CFAbsoluteTimeGetCurrent()
+                println("Five_ResetMask_ Cost Time = \( Five_ResetMask_End -  Five_ResetMask_Start)")
                 collectionView.scrollEnabled = false
                 
-                
-                let q1startRemove = CFAbsoluteTimeGetCurrent()
+                let Six_CreatMaskInfo_Start = CFAbsoluteTimeGetCurrent()
                 
                 let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
                 let size = selectedNode.bounds.size
                 let rotation = selectedNode.containerViewModel.rotation.value
                 
-                let q1endRemove = CFAbsoluteTimeGetCurrent()
-                println("creatMaskInfo = \(q1endRemove - q1startRemove)")
+                let Six_CreatMaskInfo_End = CFAbsoluteTimeGetCurrent()
+                println("Six_CreatMaskInfo_ Cost Time = \( Six_CreatMaskInfo_End -  Six_CreatMaskInfo_Start)")
                 
+                
+                let Six_Two_isTextNode_Start = CFAbsoluteTimeGetCurrent()
                 
                 if let textNode = selectedNode.componentNode as? TextNode{
+                
+                let Six_Two_isTextNode_End = CFAbsoluteTimeGetCurrent()
+                println("Six_Two_isTextNode_ Cost Time = \( Six_Two_isTextNode_End -  Six_Two_isTextNode_Start)")
+                    
+                    let Six_Three_Responder_Start = CFAbsoluteTimeGetCurrent()
+                    
                     selectedNode.containerViewModel.lIsFirstResponder.value = doubleClick
+                    
+                    let Six_Three_Responder_End = CFAbsoluteTimeGetCurrent()
+                    println("Six_Three_Responder_ Cost Time = \( Six_Three_Responder_End -  Six_Three_Responder_Start)")
+                    
+                    
+                    let Seven_CreateMask_Start = CFAbsoluteTimeGetCurrent()
+                    
                     let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
                     
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let Seven_CreateMask_End = CFAbsoluteTimeGetCurrent()
+                    println("Seven_CreateMask_ Cost Time = \( Seven_CreateMask_End -  Seven_CreateMask_Start)")
                     
-                        self.view.addSubview(mask)
-//                    })
+                    
+                    let Eight_AddMask_Start = CFAbsoluteTimeGetCurrent()
+                    
+                    self.view.addSubview(mask)
+                    
+                    let Eight_AddMask_End = CFAbsoluteTimeGetCurrent()
+                    println("Eight_AddMask_ Cost Time = \( Eight_AddMask_End -  Eight_AddMask_Start)")
                     
                     return
                     
