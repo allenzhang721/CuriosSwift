@@ -30,6 +30,12 @@
 #define COCOAPODS_VERSION_MINOR_Mantle_extobjc 0
 #define COCOAPODS_VERSION_PATCH_Mantle_extobjc 0
 
+// SnapKit
+#define COCOAPODS_POD_AVAILABLE_SnapKit
+#define COCOAPODS_VERSION_MAJOR_SnapKit 0
+#define COCOAPODS_VERSION_MINOR_SnapKit 10
+#define COCOAPODS_VERSION_PATCH_SnapKit 0
+
 // pop
 #define COCOAPODS_POD_AVAILABLE_pop
 #define COCOAPODS_VERSION_MAJOR_pop 1

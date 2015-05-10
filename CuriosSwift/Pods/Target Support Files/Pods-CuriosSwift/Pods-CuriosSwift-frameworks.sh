@@ -48,11 +48,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'Kingfisher.framework'
   install_framework 'Mantle.framework'
+  install_framework 'SnapKit.framework'
   install_framework 'pop.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'Kingfisher.framework'
   install_framework 'Mantle.framework'
+  install_framework 'SnapKit.framework'
   install_framework 'pop.framework'
 fi

@@ -1,5 +1,6 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '6.0'
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'CuriosSwift' do
@@ -9,6 +10,7 @@ pod 'Kingfisher', '~> 1.1.1'
 pod 'Mantle', '~> 2.0'
 #pod 'Realm', '~> 0.91.3'
 pod 'pop', '~> 1.0.7'
+pod 'SnapKit', '~> 0.10.0'
 
 end
 

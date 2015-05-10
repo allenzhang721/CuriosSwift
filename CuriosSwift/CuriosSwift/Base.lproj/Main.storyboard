@@ -28,7 +28,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="389"/>
+            <point key="canvasLocation" x="-36" y="31"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="kL1-EK-viT">
@@ -131,7 +131,25 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1022" y="389"/>
+            <point key="canvasLocation" x="605" y="31"/>
+        </scene>
+        <!--Template View Controller-->
+        <scene sceneID="QbY-7e-wbr">
+            <objects>
+                <viewController storyboardIdentifier="TemplateViewController" id="tGb-d9-Eju" customClass="TemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wTJ-cO-l75"/>
+                        <viewControllerLayoutGuide type="bottom" id="xHu-LX-KzK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0hq-og-E3c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qYT-bF-uyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-36" y="727"/>
         </scene>
     </scenes>
 </document>

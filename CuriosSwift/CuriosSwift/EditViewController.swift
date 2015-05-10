@@ -9,6 +9,7 @@
 import UIKit
 import Mantle
 import pop
+import SnapKit
 
 class EditViewController: UIViewController {
     
@@ -17,7 +18,6 @@ class EditViewController: UIViewController {
     @IBOutlet var doubleTapGesture: UITapGestureRecognizer!
 
     var bookModel: BookModel!
-//    var pageModels: [PageModel] = []
     var pageViewModels: [PageViewModel] = []
     let queue = NSOperationQueue()
     var fakePageView: FakePageView?
@@ -44,9 +44,9 @@ class EditViewController: UIViewController {
             
         }
         
+        
+        
 //        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
-        
-        
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -57,6 +57,9 @@ class EditViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setupTemplateController()
     }
 }
 
@@ -618,6 +621,19 @@ extension EditViewController {
             let pro = min(max(aProgress, 0), 1)
             transitionLayout.transitionProgress = CGFloat(pro)
             transitionLayout.invalidateLayout()
+        }
+    }
+    
+    private func setupTemplateController() {
+    
+        let templateController = storyboard?.instantiateViewControllerWithIdentifier("TemplateViewController") as! TemplateViewController
+        
+        addChildViewController(templateController)
+        view.addSubview(templateController.view)
+        view.sendSubviewToBack(templateController.view)
+    
+        templateController.view.snp_makeConstraints { (make) -> Void in
+            make.edges.equalTo(view).insets(UIEdgeInsets(top: 0, left: 0, bottom: CGRectGetHeight(view.bounds) * (1 - LayoutSpec.layoutConstants.goldRatio), right: 0))
         }
     }
     
