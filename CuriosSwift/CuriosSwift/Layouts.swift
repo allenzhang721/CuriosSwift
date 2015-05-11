@@ -14,6 +14,7 @@ import UIKit
     return CGFloat(startValue + (progress * (endValue - startValue)))
 }
 
+// MARK: - normalLaout
 class NormalLayout: UICollectionViewFlowLayout {
     
     override init() {
@@ -127,6 +128,8 @@ class smallLayout: UICollectionViewFlowLayout {
         invalidateDisplayLink()
         invalidateLayout()
         collectionView?.performBatchUpdates({ () -> Void in
+            
+            
         }, completion: nil)
     }
     
@@ -159,12 +162,20 @@ class smallLayout: UICollectionViewFlowLayout {
         if moveIn {
             if !pointMoveIn {
                 pointMoveIn = true
+                
                 if placeholderIndexPath == nil {
+                    placeholderIndexPath = getIndexPathByPointInBounds(point)
+                }
+                
+                if let aPlaceHolderIndexPath = placeholderIndexPath {
                     placeholderIndexPath = getIndexPathByPointInBounds(point)
                     fakeCellCenter = point
                     if let aDelegate = delegate {
-                        aDelegate.didMoveInAtIndexPath(placeholderIndexPath!)
+                        aDelegate.didMoveInAtIndexPath(aPlaceHolderIndexPath)
                         collectionView?.performBatchUpdates({ () -> Void in
+                            
+                            self.collectionView?.insertItemsAtIndexPaths([aPlaceHolderIndexPath])
+                            
                             }, completion: { (completed) -> Void in
                         })
                     }
@@ -235,12 +246,18 @@ class smallLayout: UICollectionViewFlowLayout {
         
         if let aPlacehoderIndexPath = placeholderIndexPath {
             self.delegate?.willMoveOutAtIndexPath(aPlacehoderIndexPath)
+            
             collectionView?.performBatchUpdates({ () -> Void in
+                
+                 self.collectionView?.deleteItemsAtIndexPaths([aPlacehoderIndexPath])
+                
             }, completion: { [unowned self] (completed) -> Void in
                 
                 if completed {
+                    
                     self.delegate?.didMoveOutAtIndexPath(aPlacehoderIndexPath)
                 }
+               
                 self.collectionView?.scrollsToTop = true
                 self.fakeCellCenter = CGPointZero
                 self.placeholderIndexPath = nil
@@ -356,6 +373,32 @@ class smallLayout: UICollectionViewFlowLayout {
     }
 }
 
+// MARK: - TemplateLayout
+class TemplateLayout: UICollectionViewFlowLayout {
+    
+    override init() {
+        super.init()
+        itemSize = LayoutSpec.layoutConstants.templateLayout.itemSize
+        sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
+        scrollDirection = .Horizontal
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        itemSize = LayoutSpec.layoutConstants.templateLayout.itemSize
+        minimumLineSpacing = 0
+        minimumInteritemSpacing = 0
+        sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
+        scrollDirection = .Horizontal
+    }
+    
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
+}
+
+// MARK: - TransitionLayout
 class TransitionLayout: UICollectionViewTransitionLayout {
     
     let smallHeight = LayoutSpec.layoutConstants.smallLayout.itemSize.height
@@ -433,6 +476,15 @@ class LayoutSpec: NSObject {
             let scale = CGFloat(height) / normalLayout.itemSize.height
             
             return layoutAttributeStyle(itemSize: itemSize, sectionInsets: sectionInset, shrinkScale: scale)
+        }
+        
+        static var templateLayout: layoutAttributeStyle {
+            let height = floor(screenSize.height * goldRatio / 2.0)
+            let width = screenSize.width / 3.0
+            let itemSize = CGSize(width: width, height: height)
+            let sectionInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+            
+            return layoutAttributeStyle(itemSize: itemSize, sectionInsets: sectionInsets, shrinkScale: 1.0)
         }
     }
 }

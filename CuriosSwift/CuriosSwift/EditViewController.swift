@@ -18,6 +18,9 @@ class EditViewController: UIViewController {
     @IBOutlet var doubleTapGesture: UITapGestureRecognizer!
 
     var bookModel: BookModel!
+    var templateViewController: TemplateViewController!
+    var SmallLayout = smallLayout()
+    var normalLayout = NormalLayout()
     var pageViewModels: [PageViewModel] = []
     let queue = NSOperationQueue()
     var fakePageView: FakePageView?
@@ -44,7 +47,7 @@ class EditViewController: UIViewController {
             
         }
         
-        
+        SmallLayout.delegate = self
         
 //        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
         
@@ -87,42 +90,14 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
         
-        let Final_Tap_Start = CFAbsoluteTimeGetCurrent()
-        
-        let Zero_AddNormalViewStart = CFAbsoluteTimeGetCurrent()
-        
-        let aView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
-        aView.backgroundColor = UIColor.darkGrayColor()
-        view.addSubview(aView)
-        
-        let Zero_AddNormalViewEnd = CFAbsoluteTimeGetCurrent()
-        println("Zero_AddNormalView Cost Time = \( Zero_AddNormalViewEnd -  Zero_AddNormalViewStart)")
-        
-        
-        let One_GetCurrentIndexPath_Start = CFAbsoluteTimeGetCurrent()
-        
         if let currentIndexPath = getCurrentIndexPath() {
-            
-            let One_GetCurrentIndexPath_End = CFAbsoluteTimeGetCurrent()
-            println("One_GetCurrentIndexPath_ Cost Time = \( One_GetCurrentIndexPath_End -  One_GetCurrentIndexPath_Start)")
             
             
             if multiSection == false {
                 
-                let Two_GetCell_Start = CFAbsoluteTimeGetCurrent()
-                
                 let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
                 
-                let Two_GetCell_End = CFAbsoluteTimeGetCurrent()
-                println("Two_GetCell_ Cost Time = \( Two_GetCell_End -  Two_GetCell_Start)")
-                
-                let Three_GetContentNode_Start = CFAbsoluteTimeGetCurrent()
-                
                 if let contentNode = cell.containerNode {
-                    
-                    let Three_GetContentNode_End = CFAbsoluteTimeGetCurrent()
-                    println("Three_GetContentNode_ Cost Time = \( Three_GetContentNode_End -  Three_GetContentNode_Start)")
-                    
                     
                     onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
                     
@@ -132,9 +107,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
             }
         }
-        
-        let Final_Tap_End = CFAbsoluteTimeGetCurrent()
-        println("Final_Tap_ Cost Time = \( Final_Tap_End -  Final_Tap_Start)")
+
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -146,7 +119,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             beganPanY = LayoutSpec.layoutConstants.screenSize.height - sender.locationInView(view).y
             isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
-            let nextLayout = isToSmallLayout ? smallLayout() : NormalLayout()
+            let nextLayout = isToSmallLayout ? SmallLayout : normalLayout
             transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
                 
                 self.transitionLayout = nil
@@ -176,6 +149,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         case .Began:
             
             if collectionView.collectionViewLayout is smallLayout {
+                // collectionView
                 if CGRectContainsPoint(collectionView.frame, location) {
                     let pageLocation = sender.locationInView(collectionView)
                     if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
@@ -185,6 +159,17 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                             fakePageView?.center = location
                             view.addSubview(fakePageView!)
                         }
+                    }
+                } else if CGRectContainsPoint(templateViewController.view.frame, sender.locationInView(templateViewController.view)) {
+                    
+                    let loction = sender.locationInView(templateViewController.view)
+                    if let snapShot = templateViewController.getSnapShotInPoint(location) {
+                        
+                        let aPageModel = PageModel()
+                        let aPageViewModel = PageViewModel(aModel: aPageModel)
+                        fakePageView = FakePageView.fakePageViewWith(snapShot, array: [aPageViewModel])
+                        fakePageView?.center = location
+                        view.addSubview(fakePageView!)
                     }
                 }
                 
@@ -268,7 +253,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 
 // MARK: - Delegate and DateSource
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SmallLayoutDelegate {
     
     // MARK - CollectionView Datasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -294,6 +279,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         switch gestureRecognizer {
+            
+        case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
+            
+        return self.collectionView.collectionViewLayout is NormalLayout ? true : false
+            
         case let gesture where gesture is UIPanGestureRecognizer:
             
             for subView in view.subviews {
@@ -308,6 +298,25 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         default:
             return true
         }
+    }
+    
+    // SmallLayout Delegate
+    
+    func didMoveInAtIndexPath(indexPath: NSIndexPath) {
+        pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
+    }
+    func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
+        
+    }
+    func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+//        Array
+    }
+    
+    func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
+        pageViewModels.removeAtIndex(indexPath.item)
+    }
+    func didMoveEndAtIndexPath(indexPath: NSIndexPath) {
+        
     }
     
     // MARK: - imagePicker
@@ -626,13 +635,13 @@ extension EditViewController {
     
     private func setupTemplateController() {
     
-        let templateController = storyboard?.instantiateViewControllerWithIdentifier("TemplateViewController") as! TemplateViewController
+        templateViewController = storyboard?.instantiateViewControllerWithIdentifier("TemplateViewController") as! TemplateViewController
         
-        addChildViewController(templateController)
-        view.addSubview(templateController.view)
-        view.sendSubviewToBack(templateController.view)
+        addChildViewController(templateViewController)
+        view.addSubview(templateViewController.view)
+        view.sendSubviewToBack(templateViewController.view)
     
-        templateController.view.snp_makeConstraints { (make) -> Void in
+        templateViewController.view.snp_makeConstraints { (make) -> Void in
             make.edges.equalTo(view).insets(UIEdgeInsets(top: 0, left: 0, bottom: CGRectGetHeight(view.bounds) * (1 - LayoutSpec.layoutConstants.goldRatio), right: 0))
         }
     }
