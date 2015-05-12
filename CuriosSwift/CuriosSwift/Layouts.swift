@@ -134,6 +134,7 @@ class smallLayout: UICollectionViewFlowLayout {
     }
     
     func shouldRespondsToGestureLocation(location: CGPoint) -> Bool {
+        
         if let indexPath = collectionView?.indexPathForItemAtPoint(location) {
             placeholderIndexPath = indexPath
             reordering = true
@@ -165,21 +166,23 @@ class smallLayout: UICollectionViewFlowLayout {
                 
                 if placeholderIndexPath == nil {
                     placeholderIndexPath = getIndexPathByPointInBounds(point)
-                }
-                
-                if let aPlaceHolderIndexPath = placeholderIndexPath {
-                    placeholderIndexPath = getIndexPathByPointInBounds(point)
-                    fakeCellCenter = point
-                    if let aDelegate = delegate {
-                        aDelegate.didMoveInAtIndexPath(aPlaceHolderIndexPath)
-                        collectionView?.performBatchUpdates({ () -> Void in
-                            
-                            self.collectionView?.insertItemsAtIndexPaths([aPlaceHolderIndexPath])
-                            
-                            }, completion: { (completed) -> Void in
-                        })
+                    
+                    if let aPlaceHolderIndexPath = placeholderIndexPath {
+                        placeholderIndexPath = getIndexPathByPointInBounds(point)
+                        fakeCellCenter = point
+                        if let aDelegate = delegate {
+                            aDelegate.didMoveInAtIndexPath(aPlaceHolderIndexPath)
+                            collectionView?.performBatchUpdates({ () -> Void in
+                                
+                                self.collectionView?.insertItemsAtIndexPaths([aPlaceHolderIndexPath])
+                                
+                                }, completion: { (completed) -> Void in
+                            })
+                        }
                     }
                 }
+                
+                
             }
             
             responseToPointMove(point)
@@ -271,8 +274,8 @@ class smallLayout: UICollectionViewFlowLayout {
     
     private func autoScrollIfNeed(point: CGPoint) {
         let offset = collectionView?.contentOffset
-        let triggerInsetTop: CGFloat = 100.0
-        let triggerInsetEnd: CGFloat = 100.0
+        let triggerInsetTop: CGFloat = 40.0
+        let triggerInsetEnd: CGFloat = 40.0
         let contentLength = CGRectGetWidth(collectionView!.bounds)
         switch point.x {
         case let x where x <= (offset!.x + triggerInsetTop):

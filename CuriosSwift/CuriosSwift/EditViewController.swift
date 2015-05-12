@@ -152,7 +152,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 // collectionView
                 if CGRectContainsPoint(collectionView.frame, location) {
                     let pageLocation = sender.locationInView(collectionView)
-                    if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
+                    if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where
+                        
+                        aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
 
                         if let snapShot = aSmallLayout.getResponseViewSnapShot() {
                             fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageViewModels[aSmallLayout.placeholderIndexPath!.item]])
@@ -160,6 +162,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                             view.addSubview(fakePageView!)
                         }
                     }
+                    
+                    // template
                 } else if CGRectContainsPoint(templateViewController.view.frame, sender.locationInView(templateViewController.view)) {
                     
                     let loction = sender.locationInView(templateViewController.view)
@@ -185,7 +189,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     fake.center = location
                     
                     if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+                        
                         let inEditBoundsLocation = sender.locationInView(collectionView)
+                        
                         aSmallLyout.responseToPointMoveInIfNeed(CGRectContainsPoint(collectionView.frame, location), AtPoint: inEditBoundsLocation)
                     }
                 }
@@ -300,6 +306,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
     
+    func exchange<T>(inout data: [T], i:Int, j:Int) {
+        let temp:T = data[i]
+        data[i] = data[j]
+        data[j] = temp
+    }
+    
     // SmallLayout Delegate
     
     func didMoveInAtIndexPath(indexPath: NSIndexPath) {
@@ -310,6 +322,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 //        Array
+        exchange(&pageViewModels, i: fromIndexPath.item, j: toIndexPath.item)
     }
     
     func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
