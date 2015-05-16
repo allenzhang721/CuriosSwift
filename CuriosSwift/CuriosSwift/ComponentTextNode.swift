@@ -30,10 +30,11 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
 
 extension ComponentTextNode {
     func editableTextNodeDidUpdateText(editableTextNode: ASEditableTextNode!) {
-//        if  editableTextNode.attributedText.string {
-//             contentText = editableTextNode.attributedText.string
-//        } else {
-//            contentText = ""
-//        }
+        if let attributeString = editableTextNode.attributedText {
+            let aString = attributeString.string
+            contentText = aString
+            println(contentText)
+        }
+//        println(editableTextNode.attributedText.string)
     }
 }

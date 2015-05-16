@@ -130,7 +130,6 @@ extension PageCollectionViewCell {
         let info = getAContainerInfo(aContainerModel)
         
         let aContainerNode = ContainerNode(postion: info.0, size: info.1, rotation: info.2, aspectRatio: aspectRatio, aContainerModel: aContainerModel)
-        aContainerNode.backgroundColor = UIColor.lightGrayColor()
         
         return aContainerNode
     }

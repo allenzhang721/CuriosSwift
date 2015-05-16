@@ -18,12 +18,12 @@ class ContainerNode: ASDisplayNode, IContainer {
     init(postion: CGPoint, size: CGSize, rotation:CGFloat, aspectRatio theAspectRatio: CGFloat,aContainerModel: ContainerModel) {
         self.aspectRatio = theAspectRatio
         self.containerModel = aContainerModel
+        
         super.init()
         position = postion
         bounds.size = size
         transform = CATransform3DMakeRotation(rotation, 0, 0, rotation)
         component = containerModel.component.createComponent()
-        
         if let aCom = component as? ASDisplayNode {
             addSubnode(aCom)
         }
