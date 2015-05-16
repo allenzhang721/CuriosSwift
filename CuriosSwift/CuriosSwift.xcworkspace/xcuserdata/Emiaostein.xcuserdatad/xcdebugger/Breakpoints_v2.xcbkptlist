@@ -19,28 +19,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/Nodes.swift"
-            timestampString = "452598706.001967"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "ContainerNode"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "453083197.415775"
+            timestampString = "453350545.502995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "resetAllMask()"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,77 +36,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "453083197.415775"
+            timestampString = "453350545.502995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
             landmarkName = "resetAllMask()"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/Nodes.swift"
-            timestampString = "452688765.46631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "setupComponentNode(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/Nodes.swift"
-            timestampString = "452688765.46631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "setupComponentNode(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CuriosSwift.ContainerNode.setupComponentNode (CuriosSwift.ContainerNode)(CuriosSwift.ComponentModel) -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452658383.75537"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "397">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "@objc CuriosSwift.ContainerNode.setupComponentNode (CuriosSwift.ContainerNode)(CuriosSwift.ComponentModel) -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/GitHub/CuriosSwift_s/CuriosSwift/CuriosSwift/Nodes.swift"
-                  timestampString = "452658383.755683"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "413">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -132,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/Layouts.swift"
-            timestampString = "453082497.230533"
+            timestampString = "453429819.753557"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "init(coder:)"
             landmarkType = "5">
             <Locations>
@@ -180,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/Layouts.swift"
-            timestampString = "453082497.230533"
+            timestampString = "453429819.753557"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "responseToPointMoveOut()"
             landmarkType = "5">
          </BreakpointContent>
@@ -192,16 +112,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "453083197.415775"
+            filePath = "../AsyncDisplayKit-master/AsyncDisplayKit/ASEditableTextNode.mm"
+            timestampString = "453431422.751999"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "didMoveInAtIndexPath(_:)"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-didLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

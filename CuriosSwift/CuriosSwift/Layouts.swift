@@ -102,15 +102,17 @@ class smallLayout: UICollectionViewFlowLayout {
         let att = super.layoutAttributesForElementsInRect(rect)
         if let attributes = att {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
-                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCell {
-                    if let containerNode = cell.containerNode {
-                        containerNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
-                        containerNode.view.center = cell.contentView.center
+                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? IcellTransition {
+                    
+                    cell.transitionWithProgress(0, isSmallSize: true, minScale: minScale)
+//                    if let containerNode = cell.containerNode {
+//                        containerNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
+//                        containerNode.view.center = cell.contentView.center
 //                        containerNode.transform = CATransform3DTranslate(containerNode.transform, CGFloat(100.0), CGFloat(100.0), 0)
                     }
                 }
             }
-        }
+//        }
         
         return att
     }
@@ -418,14 +420,10 @@ class TransitionLayout: UICollectionViewTransitionLayout {
         let att = super.layoutAttributesForElementsInRect(rect)
         if let attributes = att {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
-                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCell {
-                    if let containerNode = cell.containerNode {
-                        let isNor = currentLayout is NormalLayout
-                        let scale = POPTransition(transitionProgress, isNor ? 1.0 : minScale, isNor ? minScale : 1.0)
-                        containerNode.transform = CATransform3DMakeScale(scale, scale, 1)
-                        containerNode.view.center = cell.contentView.center;
-                        
-                    }
+                if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? IcellTransition {
+                    
+                    let isSmall = currentLayout is smallLayout
+                    cell.transitionWithProgress(transitionProgress, isSmallSize: isSmall, minScale: minScale)
 
                 }
                 

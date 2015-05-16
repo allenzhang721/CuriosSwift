@@ -119,7 +119,7 @@
     } else if (_displayingPlaceholder && textView == _textKitComponents.textView) {
       // The default backgroundColor for a textView is white.  Due to the reason described above, make sure the editable textView starts out transparent.
       textView.backgroundColor = nil;
-      textView.opaque = NO;
+      textView.opaque = true;
     }
     textView.textContainerInset = UIEdgeInsetsZero;
     textView.clipsToBounds = NO; // We don't want selection handles cut off.

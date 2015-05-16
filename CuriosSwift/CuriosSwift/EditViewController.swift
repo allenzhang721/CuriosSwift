@@ -41,7 +41,7 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
+//        doubleTapGesture.requireGestureRecognizerToFail(singleTapGesture)
         
         if BookManager.copyDemoBook() {
             
@@ -70,42 +70,44 @@ class EditViewController: UIViewController {
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
-        
+        println("double")
         if let currentIndexPath = getCurrentIndexPath() {
             
-            if multiSection == false {
-                let pageViewModel = pageViewModels[currentIndexPath.item]
-                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
-                if let contentNode = cell.containerNode {
-                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: true)
-                }
-                
-            } else {
-                
-            }
+//            if multiSection == false {
+//                let pageViewModel = pageViewModels[currentIndexPath.item]
+//                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
+//                if let contentNode = cell.containerNode {
+//                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: true)
+//                }
+//                
+//            } else {
+//                
+//            }
         }
         
         
     }
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
-        
+        println("tap ")
         if let currentIndexPath = getCurrentIndexPath() {
             
             
-            if multiSection == false {
-                
-                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
-                
-                if let contentNode = cell.containerNode {
-                    
-                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
-                    
-                }
-                
-            } else {
-                
-            }
+            
+            
+//            if multiSection == false {
+//                
+//                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
+//                
+//                if let contentNode = cell.containerNode {
+//                    
+//                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
+//                    
+//                }
+//                
+//            } else {
+//                
+//            }
         }
 
     }
@@ -240,20 +242,20 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func addTextAction(sender: UIBarButtonItem) {
         
-        if let indexPath = getCurrentIndexPath() {
-            
-            let currentPageViewModel = pageViewModels[indexPath.item]
-            let textComponentModel = TextContentModel()
-            textComponentModel.type = .Text
-            textComponentModel.attributes = ["contentText": "New Text"]
-            let aContainer = ContainerModel()
-            aContainer.component = textComponentModel
-            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
-            currentPageViewModel.containers.append(aContainerViewModel)
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
-            let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
-            cell.containerNode?.addSubnode(contanerNode)
-        }
+//        if let indexPath = getCurrentIndexPath() {
+//            
+//            let currentPageViewModel = pageViewModels[indexPath.item]
+//            let textComponentModel = TextContentModel()
+//            textComponentModel.type = .Text
+//            textComponentModel.attributes = ["contentText": "New Text"]
+//            let aContainer = ContainerModel()
+//            aContainer.component = textComponentModel
+//            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
+//            currentPageViewModel.containers.append(aContainerViewModel)
+//            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
+//            let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
+//            cell.containerNode?.addSubnode(contanerNode)
+//        }
     }
 }
 
@@ -269,9 +271,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
         cell.backgroundColor = UIColor.darkGrayColor()
-        cell.configCell(pageViewModels[indexPath.item], queue: queue)
+        cell.configCell(pageViewModels[indexPath.item].model, queue: queue)
         
         return cell
     }
@@ -394,104 +396,104 @@ extension EditViewController {
     
     private func onContainer(contentNode:ASDisplayNode, location: CGPoint, doubleClick: Bool) {
         
-        let Four_FinderContainerNodes_Start = CFAbsoluteTimeGetCurrent()
-        
-        if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
-        
-        let Four_FinderContainerNodes_End = CFAbsoluteTimeGetCurrent()
-        println("Four_FinderContainerNodes_ Cost Time = \( Four_FinderContainerNodes_End -  Four_FinderContainerNodes_Start)")
-            
-            let Five_FindOnPointContainers_Start = CFAbsoluteTimeGetCurrent()
-            
-            let onContainers = ContainerNodes.filter({ (containerNode) -> Bool in
-                let comtainView = containerNode.view
-                let convertPoint = contentNode.view.convertPoint(location, toView: comtainView)
-                return CGRectContainsPoint(comtainView.bounds, convertPoint)
-            })
-            
-            let Five_FindOnPointContainers_End = CFAbsoluteTimeGetCurrent()
-            println("Five_FindOnPointContainers_ Cost Time = \( Five_FindOnPointContainers_End -  Five_FindOnPointContainers_Start)")
-            
-            if onContainers.count <= 0 {
-                resetAllMask()
-                return
-            }
-            
-            if let selectedNode = onContainers.last {
-               
-                let Five_ResetMask_Start = CFAbsoluteTimeGetCurrent()
-                
-                resetAllMask()
-                
-                let Five_ResetMask_End = CFAbsoluteTimeGetCurrent()
-                println("Five_ResetMask_ Cost Time = \( Five_ResetMask_End -  Five_ResetMask_Start)")
-                collectionView.scrollEnabled = false
-                
-                let Six_CreatMaskInfo_Start = CFAbsoluteTimeGetCurrent()
-                
-                let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
-                let size = selectedNode.bounds.size
-                let rotation = selectedNode.containerViewModel.rotation.value
-                
-                let Six_CreatMaskInfo_End = CFAbsoluteTimeGetCurrent()
-                println("Six_CreatMaskInfo_ Cost Time = \( Six_CreatMaskInfo_End -  Six_CreatMaskInfo_Start)")
-                
-                
-                let Six_Two_isTextNode_Start = CFAbsoluteTimeGetCurrent()
-                
-                if let textNode = selectedNode.componentNode as? TextNode{
-                
-                let Six_Two_isTextNode_End = CFAbsoluteTimeGetCurrent()
-                println("Six_Two_isTextNode_ Cost Time = \( Six_Two_isTextNode_End -  Six_Two_isTextNode_Start)")
-                    
-                    let Six_Three_Responder_Start = CFAbsoluteTimeGetCurrent()
-                    
-                    selectedNode.containerViewModel.lIsFirstResponder.value = doubleClick
-                    
-                    let Six_Three_Responder_End = CFAbsoluteTimeGetCurrent()
-                    println("Six_Three_Responder_ Cost Time = \( Six_Three_Responder_End -  Six_Three_Responder_Start)")
-                    
-                    
-                    let Seven_CreateMask_Start = CFAbsoluteTimeGetCurrent()
-                    
-                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
-                    
-                    let Seven_CreateMask_End = CFAbsoluteTimeGetCurrent()
-                    println("Seven_CreateMask_ Cost Time = \( Seven_CreateMask_End -  Seven_CreateMask_Start)")
-                    
-                    
-                    let Eight_AddMask_Start = CFAbsoluteTimeGetCurrent()
-                    
-                    self.view.addSubview(mask)
-                    
-                    let Eight_AddMask_End = CFAbsoluteTimeGetCurrent()
-                    println("Eight_AddMask_ Cost Time = \( Eight_AddMask_End -  Eight_AddMask_Start)")
-                    
-                    return
-                    
-                } else {
-                    println("find Node")
-                    
-                    let q2startRemove = CFAbsoluteTimeGetCurrent()
-                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
-                    
-                    let q2endRemove = CFAbsoluteTimeGetCurrent()
-                    println("creatMask = \(q2endRemove - q2startRemove)")
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    let q3startRemove = CFAbsoluteTimeGetCurrent()
-                        self.view.addSubview(mask)
-                    let q3endRemove = CFAbsoluteTimeGetCurrent()
-                    println("addMask = \(q3endRemove - q3startRemove)")
-//                    })
-                    return
-                }
-                
-            }
-            
-            resetAllMask()
-            return
-        }
+//        let Four_FinderContainerNodes_Start = CFAbsoluteTimeGetCurrent()
+//        
+//        if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
+//        
+//        let Four_FinderContainerNodes_End = CFAbsoluteTimeGetCurrent()
+//        println("Four_FinderContainerNodes_ Cost Time = \( Four_FinderContainerNodes_End -  Four_FinderContainerNodes_Start)")
+//            
+//            let Five_FindOnPointContainers_Start = CFAbsoluteTimeGetCurrent()
+//            
+//            let onContainers = ContainerNodes.filter({ (containerNode) -> Bool in
+//                let comtainView = containerNode.view
+//                let convertPoint = contentNode.view.convertPoint(location, toView: comtainView)
+//                return CGRectContainsPoint(comtainView.bounds, convertPoint)
+//            })
+//            
+//            let Five_FindOnPointContainers_End = CFAbsoluteTimeGetCurrent()
+//            println("Five_FindOnPointContainers_ Cost Time = \( Five_FindOnPointContainers_End -  Five_FindOnPointContainers_Start)")
+//            
+//            if onContainers.count <= 0 {
+//                resetAllMask()
+//                return
+//            }
+//            
+//            if let selectedNode = onContainers.last {
+//               
+//                let Five_ResetMask_Start = CFAbsoluteTimeGetCurrent()
+//                
+//                resetAllMask()
+//                
+//                let Five_ResetMask_End = CFAbsoluteTimeGetCurrent()
+//                println("Five_ResetMask_ Cost Time = \( Five_ResetMask_End -  Five_ResetMask_Start)")
+//                collectionView.scrollEnabled = false
+//                
+//                let Six_CreatMaskInfo_Start = CFAbsoluteTimeGetCurrent()
+//                
+//                let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
+//                let size = selectedNode.bounds.size
+//                let rotation = selectedNode.containerViewModel.rotation.value
+//                
+//                let Six_CreatMaskInfo_End = CFAbsoluteTimeGetCurrent()
+//                println("Six_CreatMaskInfo_ Cost Time = \( Six_CreatMaskInfo_End -  Six_CreatMaskInfo_Start)")
+//                
+//                
+//                let Six_Two_isTextNode_Start = CFAbsoluteTimeGetCurrent()
+//                
+//                if let textNode = selectedNode.componentNode as? TextNode{
+//                
+//                let Six_Two_isTextNode_End = CFAbsoluteTimeGetCurrent()
+//                println("Six_Two_isTextNode_ Cost Time = \( Six_Two_isTextNode_End -  Six_Two_isTextNode_Start)")
+//                    
+//                    let Six_Three_Responder_Start = CFAbsoluteTimeGetCurrent()
+//                    
+//                    selectedNode.containerViewModel.lIsFirstResponder.value = doubleClick
+//                    
+//                    let Six_Three_Responder_End = CFAbsoluteTimeGetCurrent()
+//                    println("Six_Three_Responder_ Cost Time = \( Six_Three_Responder_End -  Six_Three_Responder_Start)")
+//                    
+//                    
+//                    let Seven_CreateMask_Start = CFAbsoluteTimeGetCurrent()
+//                    
+//                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
+//                    
+//                    let Seven_CreateMask_End = CFAbsoluteTimeGetCurrent()
+//                    println("Seven_CreateMask_ Cost Time = \( Seven_CreateMask_End -  Seven_CreateMask_Start)")
+//                    
+//                    
+//                    let Eight_AddMask_Start = CFAbsoluteTimeGetCurrent()
+//                    
+//                    self.view.addSubview(mask)
+//                    
+//                    let Eight_AddMask_End = CFAbsoluteTimeGetCurrent()
+//                    println("Eight_AddMask_ Cost Time = \( Eight_AddMask_End -  Eight_AddMask_Start)")
+//                    
+//                    return
+//                    
+//                } else {
+//                    println("find Node")
+//                    
+//                    let q2startRemove = CFAbsoluteTimeGetCurrent()
+//                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
+//                    
+//                    let q2endRemove = CFAbsoluteTimeGetCurrent()
+//                    println("creatMask = \(q2endRemove - q2startRemove)")
+////                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                    
+//                    let q3startRemove = CFAbsoluteTimeGetCurrent()
+//                        self.view.addSubview(mask)
+//                    let q3endRemove = CFAbsoluteTimeGetCurrent()
+//                    println("addMask = \(q3endRemove - q3startRemove)")
+////                    })
+//                    return
+//                }
+//                
+//            }
+//            
+//            resetAllMask()
+//            return
+//        }
     }
     
 //    private func addMaskForContainer(aContainerNode: ContainerNode) -> ContainerMaskView {
@@ -523,19 +525,10 @@ extension EditViewController {
     
     private func getCurrentIndexPath() -> NSIndexPath? {
         
-        var visualCells = collectionView.visibleCells() as! [UICollectionViewCell]
-        
-        if visualCells.count <= 0 {
-            return nil
-        }
-        
         let offsetMiddleX = collectionView.contentOffset.x + CGRectGetWidth(collectionView.bounds) / 2.0
-        let sortedVisualCells: [UICollectionViewCell] = visualCells.sorted{ (CellA: UICollectionViewCell, CellB: UICollectionViewCell) -> Bool in
-            
-            return fabs(CellA.center.x - offsetMiddleX) < fabs(CellB.center.x - offsetMiddleX)
-        }
+        let offsetMiddleY = CGRectGetHeight(collectionView.bounds) / 2.0
         
-        return collectionView.indexPathForCell(sortedVisualCells[0])
+        return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
     }
     
 //    private func getPageModels() -> [PageModel] {
@@ -620,8 +613,6 @@ extension EditViewController {
                 } else {
                     self.collectionView.cancelInteractiveTransition()
                 }
-                
-                
             }
         }
         

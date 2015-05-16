@@ -446,6 +446,18 @@ class ComponentModel: Model  {
     // listener
 //    let lIsFirstResponder: Dynamic<Bool>
     
+    func createComponent() -> IComponent {
+        
+        switch type {
+        case .Text:
+            return ComponentTextNode(aComponentModel: self)
+        case .Image:
+            return ComponentImageNode(aComponentModel: self)
+        default:
+            return ComponentNoneNode(aComponentModel: self)
+        }
+    }
+    
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
         
         if let type = JSONDictionary["ComponentType"] as? NSString {

@@ -130,12 +130,12 @@ extension PageCell {
         aContainerNode.userInteractionEnabled = true
         
         for containerVM in pageViewModel.containers {
-            let node = ContainerNode(aContainerViewModel: containerVM, aspectR: pageViewModel.aspectRatio)
+//            let node = ContainerNode(aContainerViewModel: containerVM, aspectR: pageViewModel.aspectRatio)
 //            let node = ContainerNode()
 //            node.viewModel = containerVM
 //            node.frame = CGRectMake(containerVM.x.value, containerVM.y.value, containerVM.width.value, containerVM.height.value)
-            node.backgroundColor = UIColor.lightGrayColor()
-            aContainerNode.addSubnode(node)
+//            node.backgroundColor = UIColor.lightGrayColor()
+//            aContainerNode.addSubnode(node)
         }
         
         return aContainerNode
