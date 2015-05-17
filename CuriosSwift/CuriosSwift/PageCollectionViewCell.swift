@@ -54,8 +54,11 @@ class PageCollectionViewCell: UICollectionViewCell, IPage, IcellTransition {
     func transitionWithProgress(progress: CGFloat, isSmallSize: Bool, minScale: CGFloat) {
         
         let scale = POPTransition(progress, isSmallSize ? minScale : 1.0, isSmallSize ? 1.0 : minScale)
-                                contentNode!.transform = CATransform3DMakeScale(scale, scale, 1)
-                                contentNodeView!.center = contentView.center;
+        if let aContentNode = contentNode {
+            aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
+            contentNodeView!.center = contentView.center
+        }
+        
     }
 }
 

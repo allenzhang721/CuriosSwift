@@ -156,7 +156,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     if let snapShot = templateViewController.getSnapShotInPoint(location) {
                         
                         let aPageModel = PageModel()
-                        let aPageViewModel = PageViewModel(aModel: aPageModel)
                         fakePageView = FakePageView.fakePageViewWith(snapShot, array: [aPageModel])
                         fakePageView?.center = location
                         view.addSubview(fakePageView!)
@@ -255,6 +254,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //            cell.containerNode?.addSubnode(contanerNode)
 //        }
     }
+    @IBAction func previewAction(sender: UIBarButtonItem) {
+        
+        
+    }
 }
 
 // MARK: - IPageProtocol
@@ -335,8 +338,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - SmallLayout Delegate
     func didMoveInAtIndexPath(indexPath: NSIndexPath) {
-//        bookModel.insertPageModelsAtIndex(<#aPageModels: [PageModel]#>, AtIndex: <#Int#>)
+//bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath)
 //        pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
+        bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath.item)
     }
     func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
         
@@ -347,7 +351,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
-        pageViewModels.removeAtIndex(indexPath.item)
+        bookModel.removePageModelAtIndex(indexPath.item)
     }
     func didMoveEndAtIndexPath(indexPath: NSIndexPath) {
         

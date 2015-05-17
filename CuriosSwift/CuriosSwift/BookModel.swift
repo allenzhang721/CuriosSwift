@@ -69,6 +69,12 @@ class BookModel: Model, IFile {
         
     }
     
+    func removePageModelAtIndex(index: Int) {
+        let aPageModel = pageModels[index]
+        aPageModel.delegate = nil
+        pageModels.removeAtIndex(index)
+    }
+    
     // flipDirection
     class func flipDirectionJSONTransformer() -> NSValueTransformer {
         

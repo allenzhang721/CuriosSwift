@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
- func POPTransition(progress: CGFloat, startValue: CGFloat, endValue: CGFloat) -> CGFloat {
+func POPTransition(progress: CGFloat, startValue: CGFloat, endValue: CGFloat) -> CGFloat {
     
     return CGFloat(startValue + (progress * (endValue - startValue)))
 }
@@ -23,7 +23,7 @@ class NormalLayout: UICollectionViewFlowLayout {
         sectionInset = LayoutSpec.layoutConstants.normalLayout.sectionInsets
         scrollDirection = .Horizontal
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -66,11 +66,11 @@ class smallLayout: UICollectionViewFlowLayout {
     
     var delegate: SmallLayoutDelegate?
     var placeholderIndexPath: NSIndexPath?
-   private var reordering = false
-   private var pointMoveIn = false
-   private var fakeCellCenter = CGPointZero
-   private var autoScrollDirection: AutoScrollDirection = .Stay
-   private var displayLink: CADisplayLink?
+    private var reordering = false
+    private var pointMoveIn = false
+    private var fakeCellCenter = CGPointZero
+    private var autoScrollDirection: AutoScrollDirection = .Stay
+    private var displayLink: CADisplayLink?
     
     let minScale = floor(LayoutSpec.layoutConstants.smallLayout.shrinkScale * 1000)/1000.0
     
@@ -80,7 +80,7 @@ class smallLayout: UICollectionViewFlowLayout {
     }
     
     required init(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
+        //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
         setuoProperties()
     }
@@ -100,19 +100,24 @@ class smallLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         
         let att = super.layoutAttributesForElementsInRect(rect)
+//        var attrs = [UICollectionViewLayoutAttributes]()
         if let attributes = att {
             for attribute in attributes as! [UICollectionViewLayoutAttributes] {
                 if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? IcellTransition {
                     
                     cell.transitionWithProgress(0, isSmallSize: true, minScale: minScale)
-//                    if let containerNode = cell.containerNode {
-//                        containerNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
-//                        containerNode.view.center = cell.contentView.center
-//                        containerNode.transform = CATransform3DTranslate(containerNode.transform, CGFloat(100.0), CGFloat(100.0), 0)
+                }
+                if let selectedIndex = placeholderIndexPath?.item {
+                    if selectedIndex == attribute.indexPath.item {
+                        attribute.alpha = 0
+                    } else {
+                        attribute.alpha = 1
                     }
                 }
+                
+//                attrs.append(attribute)
             }
-//        }
+        }
         
         return att
     }
@@ -132,7 +137,7 @@ class smallLayout: UICollectionViewFlowLayout {
         collectionView?.performBatchUpdates({ () -> Void in
             
             
-        }, completion: nil)
+            }, completion: nil)
     }
     
     func shouldRespondsToGestureLocation(location: CGPoint) -> Bool {
@@ -141,7 +146,7 @@ class smallLayout: UICollectionViewFlowLayout {
             placeholderIndexPath = indexPath
             reordering = true
             collectionView?.performBatchUpdates({ () -> Void in
-            }, completion: { (completion) -> Void in
+                }, completion: { (completion) -> Void in
             })
             return true
         } else {
@@ -209,7 +214,7 @@ class smallLayout: UICollectionViewFlowLayout {
             
             switch x {
             case let x where x < leftEdge:
-                    placeholderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+                placeholderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
             case let x where x > rigthEdge:
                 let lastCell = visualCells?.last as! UICollectionViewCell
                 let lastIndexPath = collectionView?.indexPathForCell(lastCell)
@@ -251,26 +256,24 @@ class smallLayout: UICollectionViewFlowLayout {
         
         if let aPlacehoderIndexPath = placeholderIndexPath {
             self.delegate?.willMoveOutAtIndexPath(aPlacehoderIndexPath)
-            
+            self.collectionView?.deleteItemsAtIndexPaths([aPlacehoderIndexPath])
             collectionView?.performBatchUpdates({ () -> Void in
                 
-                 self.collectionView?.deleteItemsAtIndexPaths([aPlacehoderIndexPath])
-                
-            }, completion: { [unowned self] (completed) -> Void in
-                
-                if completed {
+                }, completion: { [unowned self] (completed) -> Void in
                     
-                    self.delegate?.didMoveOutAtIndexPath(aPlacehoderIndexPath)
-                }
-               
-                self.collectionView?.scrollsToTop = true
-                self.fakeCellCenter = CGPointZero
-                self.placeholderIndexPath = nil
-                self.invalidateDisplayLink()
-                self.invalidateLayout()
-                self.collectionView?.performBatchUpdates({ () -> Void in
-                }, completion: nil)
-            })
+                    if completed {
+                        
+                        self.delegate?.didMoveOutAtIndexPath(aPlacehoderIndexPath)
+                    }
+                    
+                    self.collectionView?.scrollsToTop = true
+                    self.fakeCellCenter = CGPointZero
+                    self.placeholderIndexPath = nil
+                    self.invalidateDisplayLink()
+                    self.invalidateLayout()
+                    self.collectionView?.performBatchUpdates({ () -> Void in
+                        }, completion: nil)
+                })
         }
     }
     
@@ -312,7 +315,7 @@ class smallLayout: UICollectionViewFlowLayout {
         collectionView?.performBatchUpdates({ [unowned self] () -> Void in
             self.placeholderIndexPath = toIndexPath
             self.collectionView?.moveItemAtIndexPath(fromIndexPath!, toIndexPath: toIndexPath!)
-        }, completion: nil)
+            }, completion: nil)
     }
     
     private func invalidateDisplayLink() {
@@ -330,7 +333,7 @@ class smallLayout: UICollectionViewFlowLayout {
         displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
-     func continueScrollIfNeed() {
+    func continueScrollIfNeed() {
         if placeholderIndexPath == nil {
             return
         }
@@ -355,7 +358,7 @@ class smallLayout: UICollectionViewFlowLayout {
             self.fakeCellCenter.x += scrollRate
             let contentOffset = CGPoint(x: self.collectionView!.contentOffset.x + scrollRate, y: self.collectionView!.contentOffset.y)
             self.collectionView?.contentOffset = contentOffset
-        }, completion: nil)
+            }, completion: nil)
     }
     
     private func calcscrollRateIfNeedWithSpeed(speed: CGFloat, percentage: CGFloat) -> CGFloat {
@@ -424,15 +427,15 @@ class TransitionLayout: UICollectionViewTransitionLayout {
                     
                     let isSmall = currentLayout is smallLayout
                     cell.transitionWithProgress(transitionProgress, isSmallSize: isSmall, minScale: minScale)
-
+                    
                 }
                 
             }
         }
-     
+        
         return att
     }
-
+    
 }
 
 class LayoutSpec: NSObject {
