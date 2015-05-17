@@ -46,12 +46,13 @@ class Control {
 }
 
 
-class ContainerMaskView: UIView {
+class ContainerMaskView: UIView, IMaskAttributeSetter {
     
-    let viewModel: ContainerViewModel
+//    let viewModel: ContainerViewModel
+    var container: IContainer?
     
-    init(postion: CGPoint, size: CGSize, rotation: CGFloat, forViewModel aViewModel: ContainerViewModel) {
-        viewModel = aViewModel
+    init(postion: CGPoint, size: CGSize, rotation: CGFloat) {
+        
         super.init(frame: CGRectZero)
         self.center = postion
         self.bounds.size = size
@@ -68,34 +69,55 @@ class ContainerMaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        
-        if viewModel.lIsFirstResponder.value == true {
-            if viewModel.model.component.type == .Text {
-                
-                let ignoreRect = CGRectInset(self.bounds, 10, 10)
-                if CGRectContainsPoint(ignoreRect, point) {
-                    return false
-                } else {
-                    return true
-                }
-            }
-        }
-        
-        
-        return true
-    }
+//    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+//        
+//        if viewModel.lIsFirstResponder.value == true {
+//            if viewModel.model.component.type == .Text {
+//                
+//                let ignoreRect = CGRectInset(self.bounds, 10, 10)
+//                if CGRectContainsPoint(ignoreRect, point) {
+//                    return false
+//                } else {
+//                    return true
+//                }
+//            }
+//        }
+//        
+//        
+//        return true
+//    }
     
     func panAction(sender: UIPanGestureRecognizer) {
         
         let transition = sender.translationInView(self.superview!)
         
-        
-        viewModel.x.value += transition.x
-        viewModel.y.value += transition.y
+        if let aContainer = container {
+            aContainer.setTransation(transition)
+        }
         self.center.x += transition.x
         self.center.y += transition.y
         
         sender.setTranslation(CGPointZero, inView: self.superview)
+    }
+}
+
+// MARK: - IMaskAttributeSetter 
+extension ContainerMaskView {
+    
+    static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat) -> IMaskAttributeSetter {
+        
+        return ContainerMaskView(postion: postion, size: size, rotation: rotation)
+    }
+    
+    func setTarget(target: IContainer) {
+        
+        container = target
+    }
+    func getTarget() -> IContainer? {
+        return container
+    }
+    
+    func remove() {
+        removeFromSuperview()
     }
 }

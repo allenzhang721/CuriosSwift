@@ -9,6 +9,11 @@
 import UIKit
 import Mantle
 
+protocol IFile {
+    
+    var filePath: String{get set}
+}
+
 class Model: MTLModel, MTLJSONSerializing {
 
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -17,7 +22,7 @@ class Model: MTLModel, MTLJSONSerializing {
     }
 }
 
-class BookModel: Model {
+class BookModel: Model, IFile {
     
     @objc enum FlipDirections: Int {
         case ver, hor
@@ -26,7 +31,7 @@ class BookModel: Model {
     @objc  enum FlipTypes: Int {
         case aa, bb
     }
-    
+    var filePath: String = ""
     var Id = UniqueIDString()
     var width = 640
     var height = 1008
@@ -117,7 +122,6 @@ class BookModel: Model {
 
         return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
     }
-    
 }
 
 class PageModel: Model {

@@ -8,7 +8,20 @@
 
 import Foundation
 
+protocol IPageProtocol: NSObjectProtocol {
+    
+    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView)
+    func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer])
+    func shouldMultiSelection() -> Bool
+    func didEndEdit(page: IPage)
+}
+
 protocol IPage {
+    
+    func setDelegate(aDelegate: IPageProtocol)
+    func cancelDelegate()
+    
+    func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool
     
 //    var Containers: [IContainer]{get set}
     

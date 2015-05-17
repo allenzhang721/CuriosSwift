@@ -10,6 +10,10 @@ import Foundation
 
 protocol IComponent {
     
+    func iBecomeFirstResponder()
+    func iResignFirstResponder()
+    func iIsFirstResponder() -> Bool
+    
 //    var componentModel: ComponentModel{get set}
 }
 

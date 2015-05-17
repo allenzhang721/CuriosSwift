@@ -28,4 +28,9 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         self.image = UIImage(contentsOfFile: aImagePath)
         self.clipsToBounds = true //
     }
+    
+    // MARK: - IComponent
+    func iBecomeFirstResponder(){}
+    func iResignFirstResponder(){}
+    func iIsFirstResponder() -> Bool {return false}
 }

@@ -15,12 +15,14 @@ protocol IcellTransition {
 
 class PageCollectionViewCell: UICollectionViewCell, IPage, IcellTransition {
     
+    internal weak var delegate: IPageProtocol?      //Mr.chen, 05/16/2015, 16:01, Note: will become retain cycle
     private var contentNode: ASDisplayNode?
     private var contentNodeView : UIView?
     private var nodeRenderOperation: NSOperation?
     private var pageModel: PageModel!
     private var aspectRatio: CGFloat = 0.0
     private var containers = [IContainer]()
+    private var selectedContainers = [IContainer]()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -57,8 +59,166 @@ class PageCollectionViewCell: UICollectionViewCell, IPage, IcellTransition {
     }
 }
 
+// MARK: - IPage
+extension PageCollectionViewCell {
+    
+    func setDelegate(aDelegate: IPageProtocol) {
+        delegate = aDelegate
+    }
+    func cancelDelegate() {
+        delegate = nil
+    }
+    
+    func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool {
+        
+        if let gesture = sender {
+            switch gesture {
+            case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
+                return respondToSingleTapLocation(location, onTargetView: targetView)
+            case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 2 :
+                return respondToDoubleTapLocation(location, onTargetView: targetView)
+            case is UILongPressGestureRecognizer :
+                return respondToLongPressLocation(location, onTargetView: targetView)
+            default:
+                return false
+            }
+        } else {
+            let reverseContainers = containers.reverse()
+            var find = false
+            for container in reverseContainers {
+                if container.responderToLocation(location, onTargetView: targetView) {
+    
+                    println("selected")
+                    find = true
+                    break
+                }
+            }
+    
+            if !find {
+                for container in reverseContainers {
+                    if container.isFirstResponder() {
+    
+                        println("selected")
+                        container.resignFirstResponder()
+                        break
+                    }
+                }
+            }
+            
+            return find
+        }
+    }
+}
+
 // MARK: - Private Method
 extension PageCollectionViewCell {
+    
+    private func respondToSingleTapLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
+        
+        if let aDelegate = delegate {
+            
+            let reverseContainers = containers.reverse()
+            var find = false
+            // multi selection
+            if aDelegate.shouldMultiSelection() {
+               
+                for container in reverseContainers {
+                    if container.responderToLocation(location, onTargetView: targetView) {
+                        find = true
+                        var selected = false
+                        for con in selectedContainers {
+                            if con.isEqual(container) {
+                                selected = true
+                                break
+                            }
+                        }
+                        // selected or deselected
+                        selected ? selectedContainer(container, location: location, onTargetView: targetView) : deselectedContainer(container)
+                    }
+                        break
+                    }
+                // single selection
+            } else {
+
+                for container in reverseContainers {
+                    if container.responderToLocation(location, onTargetView: targetView) {
+                        deselectedAllContainers()
+                        selectedContainer(container, location: location, onTargetView: targetView)
+                        find = true
+                        break
+                    }
+                }
+                
+                if !find {
+                    deselectedAllContainers()
+                    aDelegate.didEndEdit(self)
+                }
+            }
+            
+            return find
+            
+        } else {
+            return false
+        }
+    }
+    
+    private func respondToDoubleTapLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
+        
+        return false
+    }
+    
+    private func respondToLongPressLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
+        
+        return false
+    }
+    
+    private func selectedContainer(container: IContainer, location: CGPoint, onTargetView targetView: UIView) {
+        
+        if let aDelegate = delegate {
+            let position = contentNodeView?.convertPoint(container.containerPostion, toView: targetView)
+            let size = container.containerSize
+            let rotation = container.containerRotation
+            aDelegate.pageDidSelected(self, selectedContainer: container, position: position!, size: size, rotation: rotation, inTargetView: targetView)
+        }
+        selectedContainers.append(container)
+    }
+    
+    private func deselectedContainer(container: IContainer) {
+        
+        if selectedContainers.count > 0 {
+            
+            if let aDelegate = delegate {
+                aDelegate.pageDidDeSelected(self, deSelectedContainers: [container])
+                if container.isFirstResponder() {
+                    container.resignFirstResponder()
+                }
+            }
+            var index = 0
+            for con in selectedContainers {
+                if con.isEqual(container) {
+                    break
+                }
+                index++
+            }
+            selectedContainers.removeAtIndex(index)
+        }
+    }
+    
+    private func deselectedAllContainers() {
+        
+        if selectedContainers.count > 0 {
+        
+            if let aDelegate = delegate {
+                aDelegate.pageDidDeSelected(self, deSelectedContainers: selectedContainers)
+                for container in selectedContainers {
+                    if container.isFirstResponder() {
+                        container.resignFirstResponder()
+                    }
+                }
+            }
+            selectedContainers.removeAll(keepCapacity: true)
+        }
+    }
     
     private func configPageWithPageModel(aPageModel: PageModel, queue: NSOperationQueue) -> NSOperation {
         let operation = NSBlockOperation()
@@ -165,7 +325,7 @@ extension PageCollectionViewCell {
         
         let position = CGPoint(x: x, y: y)
         let size = CGSize(width: width, height: height)
-        let rotation: CGFloat = aContainerModel.alpha
+        let rotation: CGFloat = aContainerModel.rotation
         
         return (position, size, rotation)
     }

@@ -11,7 +11,7 @@ import Mantle
 import pop
 import SnapKit
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController, IPageProtocol {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var singleTapGesture: UITapGestureRecognizer!
@@ -29,6 +29,12 @@ class EditViewController: UIViewController {
     var beganPanY: CGFloat = 0.0
     var isToSmallLayout = false
     var multiSection = false
+    var maskAttributes = [IMaskAttributeSetter]()
+    var pageEditing: Bool {
+        get {
+            return multiSection && maskAttributes.count > 0
+        }
+    }
     var progress: Float = 0.0 {
         didSet {
             
@@ -73,43 +79,26 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         println("double")
         if let currentIndexPath = getCurrentIndexPath() {
             
-//            if multiSection == false {
-//                let pageViewModel = pageViewModels[currentIndexPath.item]
-//                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
-//                if let contentNode = cell.containerNode {
-//                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: true)
-//                }
-//                
-//            } else {
-//                
-//            }
+            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                let location = sender.locationInView(view)
+                page.setDelegate(self)
+                page.respondToLocation(location, onTargetView: view, sender: sender)
+            }
         }
-        
-        
     }
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
-        println("tap ")
+        println("tap")
+        
         if let currentIndexPath = getCurrentIndexPath() {
             
-            
-            
-            
-//            if multiSection == false {
-//                
-//                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath) as! PageCell
-//                
-//                if let contentNode = cell.containerNode {
-//                    
-//                    onContainer(contentNode, location: sender.locationInView(contentNode.view), doubleClick: false)
-//                    
-//                }
-//                
-//            } else {
-//                
-//            }
+            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                let location = sender.locationInView(view)
+                self.collectionView.scrollEnabled = false
+                page.setDelegate(self)
+                page.respondToLocation(location, onTargetView: view, sender: sender)
+            }
         }
-
     }
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
@@ -145,7 +134,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func longPressAction(sender: UILongPressGestureRecognizer) {
         
-
         let location = sender.locationInView(view)
         switch sender.state {
         case .Began:
@@ -179,9 +167,17 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     }
                 }
                 
+                // LongPress In NormalLayout
             } else if collectionView.collectionViewLayout is NormalLayout {
                 
                 // TODO: Mask
+                if let currentIndexPath = getCurrentIndexPath() {
+                    if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                        let location = sender.locationInView(view)
+                        page.setDelegate(self)
+                        page.respondToLocation(location, onTargetView: view, sender: sender)
+                    }
+                }
             }
             
         case .Changed:
@@ -219,8 +215,16 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
                 
                 // TODO: Mask
+                
+                multiSection = false
+                if !pageEditing {
+                    if let currnetIndexPath = getCurrentIndexPath() {
+                        if let page = collectionView.cellForItemAtIndexPath(currnetIndexPath) as? IPage {
+                            page.cancelDelegate()
+                        }
+                    }
+                }
             }
-            
             
         default:
             return
@@ -259,6 +263,60 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
+// MARK: - IPageProtocol
+extension EditViewController: IPageProtocol {
+    
+    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
+        
+        println("pageDidselected")
+        let mask = ContainerMaskView.createMask(position, size: size, rotation: rotation)
+        mask.setTarget(selectedContainer)
+        
+        if let aMask = mask as? UIView {
+            view.addSubview(aMask)
+        }
+        maskAttributes.append(mask)
+    }
+    
+    func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer]) {
+        
+        println("pageDeselected = \(deSelectedContainers.count)")
+        if deSelectedContainers.count > 0 {
+            for container in deSelectedContainers {
+                var index = 0
+                println(index)
+                for maskAttribute in maskAttributes {
+                    
+                    if let aTarget = maskAttribute.getTarget() {
+                        if aTarget.isEqual(container) {
+                            println("delete")
+                            
+                            maskAttribute.remove()
+                            maskAttributes.removeAtIndex(index)
+                            break
+                        }
+                    }
+                    index++
+                }
+                
+                
+            }
+        }
+        
+
+    }
+    
+    func shouldMultiSelection() -> Bool {
+        
+        return multiSection
+    }
+    
+    func didEndEdit(page: IPage) {
+        page.cancelDelegate()
+        collectionView.scrollEnabled = true
+    }
+}
+
 
 // MARK: - Delegate and DateSource
 extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SmallLayoutDelegate {
@@ -279,34 +337,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     // MARK: - CollectionView Delegate
-    func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout! {
-        return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
-    }
     
-    // MARK: - Gesture Delegate
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        switch gestureRecognizer {
-            
-        case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
-            
-        return self.collectionView.collectionViewLayout is NormalLayout ? true : false
-            
-        case let gesture where gesture is UIPanGestureRecognizer:
-            
-            for subView in view.subviews {
-                if subView is ContainerMaskView {
-                    return false
-                }
-            }
-            return transitionLayout == nil ? true : false
-        case let gesture where gesture is UILongPressGestureRecognizer:
-            return true
-            
-        default:
-            return true
-        }
-    }
     
     func exchange<T>(inout data: [T], i:Int, j:Int) {
         let temp:T = data[i]
@@ -314,8 +345,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         data[j] = temp
     }
     
-    // SmallLayout Delegate
+    func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout! {
+        return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
+    }
     
+    // MARK: - SmallLayout Delegate
     func didMoveInAtIndexPath(indexPath: NSIndexPath) {
         pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
     }
@@ -336,21 +370,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - imagePicker
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        /*
-        
-        [UIImagePickerControllerEditedImage: <UIImage: 0x7ff24c99ac20>
-        size {638, 426} orientation 0 scale 1.000000,
-        UIImagePickerControllerOriginalImage: <UIImage: 0x7ff24c990730>
-        size {1500, 1001} orientation 0
-        scale 1.000000,
-        UIImagePickerControllerCropRect: NSRect: {{0, 0}, {1500, 1003}}, UIImagePickerControllerReferenceURL: assets-library://asset/asset.JPG?id=B6C0A21C-07C3-493D-8B44-3BA4C9981C25&ext=JPG, UIImagePickerControllerMediaType: public.image]
-        
-        */
-        if let indexPath = getCurrentIndexPath() {
-            
 
-            
+        if let indexPath = getCurrentIndexPath() {
+
             let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
             let imageData = UIImagePNGRepresentation(selectedImage)
             
@@ -377,142 +399,38 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         picker.dismissViewControllerAnimated(true, completion: { () -> Void in
             
-            
         })
     }
-    
-    //TODO: SmallLayout autoscroll delegate
-    //MARK: - SmallLayout Delegate
-    
 }
 
+
+// MARK: - GestureDelegate
 extension EditViewController: UIGestureRecognizerDelegate {
     
-    
-}
-
-// MARK: - Private Methods - selected 
-extension EditViewController {
-    
-    private func onContainer(contentNode:ASDisplayNode, location: CGPoint, doubleClick: Bool) {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-//        let Four_FinderContainerNodes_Start = CFAbsoluteTimeGetCurrent()
-//        
-//        if let ContainerNodes = contentNode.subnodes as? [ContainerNode] {
-//        
-//        let Four_FinderContainerNodes_End = CFAbsoluteTimeGetCurrent()
-//        println("Four_FinderContainerNodes_ Cost Time = \( Four_FinderContainerNodes_End -  Four_FinderContainerNodes_Start)")
-//            
-//            let Five_FindOnPointContainers_Start = CFAbsoluteTimeGetCurrent()
-//            
-//            let onContainers = ContainerNodes.filter({ (containerNode) -> Bool in
-//                let comtainView = containerNode.view
-//                let convertPoint = contentNode.view.convertPoint(location, toView: comtainView)
-//                return CGRectContainsPoint(comtainView.bounds, convertPoint)
-//            })
-//            
-//            let Five_FindOnPointContainers_End = CFAbsoluteTimeGetCurrent()
-//            println("Five_FindOnPointContainers_ Cost Time = \( Five_FindOnPointContainers_End -  Five_FindOnPointContainers_Start)")
-//            
-//            if onContainers.count <= 0 {
-//                resetAllMask()
-//                return
-//            }
-//            
-//            if let selectedNode = onContainers.last {
-//               
-//                let Five_ResetMask_Start = CFAbsoluteTimeGetCurrent()
-//                
-//                resetAllMask()
-//                
-//                let Five_ResetMask_End = CFAbsoluteTimeGetCurrent()
-//                println("Five_ResetMask_ Cost Time = \( Five_ResetMask_End -  Five_ResetMask_Start)")
-//                collectionView.scrollEnabled = false
-//                
-//                let Six_CreatMaskInfo_Start = CFAbsoluteTimeGetCurrent()
-//                
-//                let position = contentNode.view.convertPoint(selectedNode.position, toView: view)
-//                let size = selectedNode.bounds.size
-//                let rotation = selectedNode.containerViewModel.rotation.value
-//                
-//                let Six_CreatMaskInfo_End = CFAbsoluteTimeGetCurrent()
-//                println("Six_CreatMaskInfo_ Cost Time = \( Six_CreatMaskInfo_End -  Six_CreatMaskInfo_Start)")
-//                
-//                
-//                let Six_Two_isTextNode_Start = CFAbsoluteTimeGetCurrent()
-//                
-//                if let textNode = selectedNode.componentNode as? TextNode{
-//                
-//                let Six_Two_isTextNode_End = CFAbsoluteTimeGetCurrent()
-//                println("Six_Two_isTextNode_ Cost Time = \( Six_Two_isTextNode_End -  Six_Two_isTextNode_Start)")
-//                    
-//                    let Six_Three_Responder_Start = CFAbsoluteTimeGetCurrent()
-//                    
-//                    selectedNode.containerViewModel.lIsFirstResponder.value = doubleClick
-//                    
-//                    let Six_Three_Responder_End = CFAbsoluteTimeGetCurrent()
-//                    println("Six_Three_Responder_ Cost Time = \( Six_Three_Responder_End -  Six_Three_Responder_Start)")
-//                    
-//                    
-//                    let Seven_CreateMask_Start = CFAbsoluteTimeGetCurrent()
-//                    
-//                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
-//                    
-//                    let Seven_CreateMask_End = CFAbsoluteTimeGetCurrent()
-//                    println("Seven_CreateMask_ Cost Time = \( Seven_CreateMask_End -  Seven_CreateMask_Start)")
-//                    
-//                    
-//                    let Eight_AddMask_Start = CFAbsoluteTimeGetCurrent()
-//                    
-//                    self.view.addSubview(mask)
-//                    
-//                    let Eight_AddMask_End = CFAbsoluteTimeGetCurrent()
-//                    println("Eight_AddMask_ Cost Time = \( Eight_AddMask_End -  Eight_AddMask_Start)")
-//                    
-//                    return
-//                    
-//                } else {
-//                    println("find Node")
-//                    
-//                    let q2startRemove = CFAbsoluteTimeGetCurrent()
-//                    let mask = ContainerMaskView(postion: position, size: size, rotation: rotation, forViewModel: selectedNode.containerViewModel)
-//                    
-//                    let q2endRemove = CFAbsoluteTimeGetCurrent()
-//                    println("creatMask = \(q2endRemove - q2startRemove)")
-////                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                    
-//                    let q3startRemove = CFAbsoluteTimeGetCurrent()
-//                        self.view.addSubview(mask)
-//                    let q3endRemove = CFAbsoluteTimeGetCurrent()
-//                    println("addMask = \(q3endRemove - q3startRemove)")
-////                    })
-//                    return
-//                }
-//                
-//            }
-//            
-//            resetAllMask()
-//            return
-//        }
-    }
-    
-//    private func addMaskForContainer(aContainerNode: ContainerNode) -> ContainerMaskView {
-//        
-//        return ContainerMaskView(aContainerNode: aContainerNode)
-//    }
-    
-    private func resetAllMask() {
-    
-        for subView in view.subviews {
+        switch gestureRecognizer {
             
-            if let aSubView = subView as? ContainerMaskView {
-                aSubView.viewModel.lIsFirstResponder.value = false
-                aSubView.removeFromSuperview()
+        case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
+            
+            return self.collectionView.collectionViewLayout is NormalLayout ? true : false
+            
+        case let gesture where gesture is UIPanGestureRecognizer:
+            
+            for subView in view.subviews {
+                if subView is ContainerMaskView {
+                    return false
+                }
             }
+            return transitionLayout == nil ? true : false
+        case let gesture where gesture is UILongPressGestureRecognizer:
+            return true
+            
+        default:
+            return true
         }
-        
-        collectionView.scrollEnabled = true
     }
+
 }
 
 // MARK: - Private Methods
@@ -559,6 +477,9 @@ extension EditViewController {
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
+        
+        println(book.pageModels)
+        
         var pageArray: [PageViewModel] = []
         for pageInfo in book.pagesInfo {
             let path: String = pageInfo["Path"]!
@@ -568,6 +489,9 @@ extension EditViewController {
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+            
+            println(page)
+            
             let pageViewModel = PageViewModel(aModel: page)
             pageArray.append(pageViewModel)
         }

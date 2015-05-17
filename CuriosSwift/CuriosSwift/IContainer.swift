@@ -8,7 +8,17 @@
 
 import Foundation
 
-protocol IContainer {
+protocol IContainer: NSObjectProtocol {
     
+    var containerSize: CGSize{get}
+    var containerPostion: CGPoint{get}
+    var containerRotation: CGFloat{get}
+    
+    func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool
+    func becomeFirstResponder()
+    func resignFirstResponder()
+    func isFirstResponder() -> Bool
+    
+    func setTransation(translation: CGPoint)
 //    var component: IComponent{get set}
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18D83A1AF37C4C00722179 /* Nodes.swift */; };
+		2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */; };
+		2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */; };
 		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
@@ -57,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		2C18D83A1AF37C4C00722179 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
+		2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAttributeSetter.swift; sourceTree = "<group>"; };
+		2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMaskAttributeSetter.swift; sourceTree = "<group>"; };
 		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 				2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */,
 				2C77635C1B056A7A000DDFB2 /* IContainer.swift */,
 				2C77635E1B056ABE000DDFB2 /* IPage.swift */,
+				2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */,
+				2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
+				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
@@ -444,6 +451,7 @@
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
+				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,

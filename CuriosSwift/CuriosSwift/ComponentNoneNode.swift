@@ -16,4 +16,9 @@ class ComponentNoneNode: ASDisplayNode, IComponent {
         self.componentModel = aComponentModel
         super.init()
     }
+    
+    // MARK: - IComponent 
+    func iBecomeFirstResponder(){}
+    func iResignFirstResponder(){}
+    func iIsFirstResponder() -> Bool {return false}
 }

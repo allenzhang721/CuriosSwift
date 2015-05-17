@@ -21,10 +21,23 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
     required init(aComponentModel: ComponentModel) {
         self.componentModel = aComponentModel
         super.init()
+        userInteractionEnabled = false
         backgroundColor = UIColor.clearColor()
 //        self.attributedPlaceholderText = NSAttributedString(string: "Input Your Text")
         self.attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String)
         delegate = self
+    }
+    
+    func iBecomeFirstResponder() {
+        userInteractionEnabled = true
+        becomeFirstResponder()
+    }
+    func iResignFirstResponder() {
+        userInteractionEnabled = false
+        resignFirstResponder()
+    }
+    func iIsFirstResponder() -> Bool {
+        return isFirstResponder()
     }
 }
 
