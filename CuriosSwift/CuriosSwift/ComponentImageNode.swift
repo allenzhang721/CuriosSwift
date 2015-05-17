@@ -10,23 +10,15 @@ import UIKit
 
 class ComponentImageNode: ASImageNode, IImageComponent {
    
-    var componentModel: ComponentModel
-    var imagePath: String = "" {
-        didSet {
-            componentModel.attributes["ImagePath"] = imagePath
-            let aImagePath = NSTemporaryDirectory().stringByAppendingString(imagePath)
-            self.image = UIImage(contentsOfFile: imagePath)
-        }
-    }
+    var componentModel: ImageContentModel
     
-    required init(aComponentModel: ComponentModel) {
+    required init(aComponentModel: ImageContentModel) {
         self.componentModel = aComponentModel
-        self.imagePath = aComponentModel.attributes["ImagePath"]?.copy() as! String
         super.init()
-        backgroundColor = UIColor.darkGrayColor()
-        let aImagePath = NSTemporaryDirectory().stringByAppendingString(imagePath)
+        backgroundColor = UIColor.blueColor()
+        let aImagePath = componentModel.imagePath
         self.image = UIImage(contentsOfFile: aImagePath)
-        self.clipsToBounds = true //
+        self.clipsToBounds = true
     }
     
     // MARK: - IComponent

@@ -10,10 +10,10 @@ import UIKit
 
 class FakePageView: UIView {
     
-    var dataArray: [PageViewModel] = []
-    weak var selectedItem: PageViewModel!
+    var dataArray: [PageModel] = []
+    weak var selectedItem: PageModel!
     
-    class func fakePageViewWith(snapshot: UIView, array: [PageViewModel]) -> FakePageView {
+    class func fakePageViewWith(snapshot: UIView, array: [PageModel]) -> FakePageView {
         
         let fakePageView = FakePageView(frame: snapshot.bounds)
         fakePageView.dataArray = array

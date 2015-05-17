@@ -28,6 +28,11 @@
 		2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */; };
 		2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A041AEF43F8004D4223 /* ViewModels.swift */; };
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
+		2C9147B21B08452A00579E4A /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B11B08452A00579E4A /* BookModel.swift */; };
+		2C9147B41B0845C400579E4A /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B31B0845C400579E4A /* PageModel.swift */; };
+		2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B51B0845FA00579E4A /* ContainerModel.swift */; };
+		2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B71B08462400579E4A /* ComponentModel.swift */; };
+		2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B91B085A7A00579E4A /* IFile.swift */; };
 		2C927C871AF721CE004B2E55 /* FileSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C927C861AF721CE004B2E55 /* FileSave.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
@@ -78,6 +83,11 @@
 		2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */ = {isa = PBXFileReference; lastKnownFileType = folder; path = QWERTASDFGZXCVB; sourceTree = "<group>"; };
 		2C828A041AEF43F8004D4223 /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
+		2C9147B11B08452A00579E4A /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
+		2C9147B31B0845C400579E4A /* PageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
+		2C9147B51B0845FA00579E4A /* ContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerModel.swift; sourceTree = "<group>"; };
+		2C9147B71B08462400579E4A /* ComponentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentModel.swift; sourceTree = "<group>"; };
+		2C9147B91B085A7A00579E4A /* IFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFile.swift; sourceTree = "<group>"; };
 		2C927C861AF721CE004B2E55 /* FileSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSave.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,13 +255,18 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C9147B91B085A7A00579E4A /* IFile.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2C9147B11B08452A00579E4A /* BookModel.swift */,
+				2C9147B31B0845C400579E4A /* PageModel.swift */,
+				2C9147B51B0845FA00579E4A /* ContainerModel.swift */,
+				2C9147B71B08462400579E4A /* ComponentModel.swift */,
 				2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */,
+				2C77635E1B056ABE000DDFB2 /* IPage.swift */,
+				2C77635C1B056A7A000DDFB2 /* IContainer.swift */,
 				2C7763541B056407000DDFB2 /* IComponent.swift */,
 				2C77636A1B05ABCA000DDFB2 /* IImageComponent.swift */,
 				2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */,
-				2C77635C1B056A7A000DDFB2 /* IContainer.swift */,
-				2C77635E1B056ABE000DDFB2 /* IPage.swift */,
 				2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */,
 				2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */,
 			);
@@ -435,6 +450,7 @@
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
 				2C7763551B056407000DDFB2 /* IComponent.swift in Sources */,
 				2C77636D1B05ABD9000DDFB2 /* ITextComponent.swift in Sources */,
+				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C927C871AF721CE004B2E55 /* FileSave.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */,
@@ -443,18 +459,22 @@
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
+				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
+				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
+				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
+				2C9147B21B08452A00579E4A /* BookModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

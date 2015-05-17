@@ -47,22 +47,18 @@ class EditViewController: UIViewController, IPageProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        doubleTapGesture.requireGestureRecognizerToFail(singleTapGesture)
-        
         if BookManager.copyDemoBook() {
             
         }
         
         SmallLayout.delegate = self
-        
-//        BookManager.createBookAtURL(BookManager.constants.temporaryDirectoryURL!)
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         let normal = NormalLayout()
         collectionView.setCollectionViewLayout(normal, animated: false)
         collectionView.decelerationRate = 0.1
-        pageViewModels = getPageViewModels()
+        
+        bookModel = getBookModel()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -147,7 +143,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                         aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
 
                         if let snapShot = aSmallLayout.getResponseViewSnapShot() {
-                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: [pageViewModels[aSmallLayout.placeholderIndexPath!.item]])
+                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[aSmallLayout.placeholderIndexPath!.item]])
                             fakePageView?.center = location
                             view.addSubview(fakePageView!)
                         }
@@ -161,7 +157,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                         
                         let aPageModel = PageModel()
                         let aPageViewModel = PageViewModel(aModel: aPageModel)
-                        fakePageView = FakePageView.fakePageViewWith(snapShot, array: [aPageViewModel])
+                        fakePageView = FakePageView.fakePageViewWith(snapShot, array: [aPageModel])
                         fakePageView?.center = location
                         view.addSubview(fakePageView!)
                     }
@@ -213,7 +209,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
             } else if collectionView.collectionViewLayout is NormalLayout {
                 
-                
                 // TODO: Mask
                 
                 multiSection = false
@@ -231,7 +226,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
         }
     }
-    
     
     @IBAction func ImageAction(sender: UIBarButtonItem) {
         
@@ -268,7 +262,6 @@ extension EditViewController: IPageProtocol {
     
     func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
         
-        println("pageDidselected")
         let mask = ContainerMaskView.createMask(position, size: size, rotation: rotation)
         mask.setTarget(selectedContainer)
         
@@ -280,7 +273,6 @@ extension EditViewController: IPageProtocol {
     
     func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer]) {
         
-        println("pageDeselected = \(deSelectedContainers.count)")
         if deSelectedContainers.count > 0 {
             for container in deSelectedContainers {
                 var index = 0
@@ -289,7 +281,6 @@ extension EditViewController: IPageProtocol {
                     
                     if let aTarget = maskAttribute.getTarget() {
                         if aTarget.isEqual(container) {
-                            println("delete")
                             
                             maskAttribute.remove()
                             maskAttributes.removeAtIndex(index)
@@ -298,12 +289,8 @@ extension EditViewController: IPageProtocol {
                     }
                     index++
                 }
-                
-                
             }
         }
-        
-
     }
     
     func shouldMultiSelection() -> Bool {
@@ -317,28 +304,25 @@ extension EditViewController: IPageProtocol {
     }
 }
 
-
 // MARK: - Delegate and DateSource
 extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SmallLayoutDelegate {
     
     // MARK - CollectionView Datasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return pageViewModels.count
+        return bookModel.pageModels.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
         cell.backgroundColor = UIColor.darkGrayColor()
-        cell.configCell(pageViewModels[indexPath.item].model, queue: queue)
+        cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
         
         return cell
     }
     
     // MARK: - CollectionView Delegate
-    
-    
     func exchange<T>(inout data: [T], i:Int, j:Int) {
         let temp:T = data[i]
         data[i] = data[j]
@@ -351,14 +335,15 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - SmallLayout Delegate
     func didMoveInAtIndexPath(indexPath: NSIndexPath) {
-        pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
+//        bookModel.insertPageModelsAtIndex(<#aPageModels: [PageModel]#>, AtIndex: <#Int#>)
+//        pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
     }
     func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
         
     }
     func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 //        Array
-        exchange(&pageViewModels, i: fromIndexPath.item, j: toIndexPath.item)
+        exchange(&bookModel.pageModels, i: fromIndexPath.item, j: toIndexPath.item)
     }
     
     func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
@@ -449,38 +434,15 @@ extension EditViewController {
         return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
     }
     
-//    private func getPageModels() -> [PageModel] {
-//        
-//        let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
-//        let demobookPath = file.stringByAppendingPathComponent("/main.json")
-//        let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
-//        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-//        let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-//        var pageArray: [PageModel] = []
-//        for pageInfo in book.pagesInfo {
-//            let path: String = pageInfo["Path"]!
-//            let index: String = pageInfo["Index"]!
-//            let relpagePath = path + index
-//            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
-//            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
-//            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-//            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-//            pageArray.append(page)
-//        }
-//        return pageArray
-//    }
-    
-    private func getPageViewModels() -> [PageViewModel] {
+    private func getBookModel() -> BookModel {
         
         let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
         let demobookPath = file.stringByAppendingPathComponent("/main.json")
         let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
+        book.filePath = file
         
-        println(book.pageModels)
-        
-        var pageArray: [PageViewModel] = []
         for pageInfo in book.pagesInfo {
             let path: String = pageInfo["Path"]!
             let index: String = pageInfo["Index"]!
@@ -490,12 +452,10 @@ extension EditViewController {
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
             
-            println(page)
-            
-            let pageViewModel = PageViewModel(aModel: page)
-            pageArray.append(pageViewModel)
+            book.appendPageModel(page)
         }
-        return pageArray
+        
+        return book
     }
     
     private func togglePopAnimation(on: Bool) -> POPBasicAnimation {

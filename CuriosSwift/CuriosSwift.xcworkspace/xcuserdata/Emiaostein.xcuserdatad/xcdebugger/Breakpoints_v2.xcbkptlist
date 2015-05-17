@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "453524593.627973"
+            filePath = "CuriosSwift/ContainerNode.swift"
+            timestampString = "453542112.493125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
-            landmarkName = "getPageViewModels()"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "init(postion:size:rotation:aspectRatio:aContainerModel:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
