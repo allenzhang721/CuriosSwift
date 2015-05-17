@@ -1,12 +1,12 @@
 {
     "ID": "ASDFG",
-    "PageWidth": 640,
-    "PageHeight": 1008,
+    "PageWidth": 320,
+    "PageHeight": 504,
     "Containers": [
                    {
                    "ID": "123154564",
-                   "ContainerX": 100,
-                   "ContainerY": 100,
+                   "ContainerX": 0,
+                   "ContainerY": 0,
                    "ContaienrWidth": 100,
                    "ContainerHeight": 100,
                    "ContainerRotation": 0,
@@ -24,7 +24,7 @@
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "FlowUp",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -32,7 +32,7 @@
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "Rotation",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -56,7 +56,7 @@
                                  "FunctionValue": "1"
                                  }
                                  ],
-                   "Effect": [
+                   "Effects": [
                               {
                               "EffectType": "Shadow",
                               "EffectData": {}
@@ -80,7 +80,7 @@
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "FlowUp",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -88,7 +88,7 @@
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "Rotation",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,

@@ -1,7 +1,7 @@
 {
     "ID":"QWERT",
-    "PageWidth":1200,
-    "PageHeight":1008,
+    "PageWidth":600,
+    "PageHeight":504,
     "Containers": [
         {
             "ID":"page1",
@@ -26,7 +26,7 @@
             },
             "Animations": [
                 {
-                    "AnimationType":"FlowUp",
+                    "AnimationType":"FloatUp",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
@@ -36,7 +36,7 @@
                     }
                 },
                 {
-                    "AnimationType":"Rotation",
+                    "AnimationType":"FloatUp",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
@@ -62,7 +62,7 @@
                     "FunctionValue":"1"
                 }
             ],
-           "Effect":[
+           "Effects":[
                 {
                     "EffectType":"Shadow",
                     "EffectData":{

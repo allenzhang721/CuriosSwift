@@ -1,15 +1,16 @@
 {
     "ID": "QWERTASDFGZXCVB",
-    "MainWidth": 640,
-    "MainHeight": 1008,
+    "MainWidth": 320,
+    "MainHeight": 504,
     "MainTitle": "Good Day",
     "MainDesc": "Good Day have good idea!",
     "FlipDirection": "ver",
-    "FlipType": "aa",
+    "FlipType": "translate3d",
+    "FlipLoop":"true",
     "MainBackground": "/images/background.jpg",
     "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
     "PagesPath": "/Pages",
-    "AutherID": "1fdklaafdllfda",
+    "AuthorID": "1fdklaafdllfda",
     "PublishDate": "2015-04-23",
     "Pages": [
               {

@@ -43,7 +43,7 @@ class ContainerModel: Model {
             "editable" : "Editable",
             "animations" : "Animations",
             "behaviors" : "Behaviors",
-            "effects" : "Effect",
+            "effects" : "Effects",
             "component" : "Component"
         ]
     }
@@ -152,7 +152,7 @@ class ContainerModel: Model {
 class Animation: Model {
     
     @objc enum Types: Int {
-        case None, Rotation, FlowUp
+        case None, Rotation, FloatUp
     }
     
     @objc enum EaseTypes: Int {
@@ -185,7 +185,7 @@ class Animation: Model {
         return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
             "None":Types.None.rawValue,
             "Rotation":Types.Rotation.rawValue,
-            "FlowUp":Types.FlowUp.rawValue
+            "FloatUp":Types.FloatUp.rawValue
             ])
     }
     

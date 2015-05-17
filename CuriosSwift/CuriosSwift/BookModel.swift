@@ -16,7 +16,7 @@ class BookModel: Model, IFile {
     }
     
     @objc  enum FlipTypes: Int {
-        case aa, bb
+        case translate3d, bb
     }
     var filePath: String = ""
     var Id = UniqueIDString()
@@ -25,7 +25,7 @@ class BookModel: Model, IFile {
     var title = "New Book"
     var desc = ""
     var flipDirection: FlipDirections = .ver
-    var flipType: FlipTypes = .aa
+    var flipType: FlipTypes = .bb
     var background = ""
     var backgroundMusic = ""
     var pagesPath = "/Pages"
@@ -88,7 +88,7 @@ class BookModel: Model, IFile {
     class func flipTypeJSONTransformer() -> NSValueTransformer {
         
         return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
-            "aa":FlipTypes.aa.rawValue,
+            "translate3d":FlipTypes.translate3d.rawValue,
             "bb":FlipTypes.bb.rawValue
             ])
     }
