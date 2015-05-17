@@ -256,6 +256,33 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
+        let previewName = "CuriosPreview"
+        let previewPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(previewName)
+        let previewURL = NSURL.fileURLWithPath(previewPath!, isDirectory: true)
+        let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
+        let cachePreview = cacheDirectory.stringByAppendingPathComponent(previewName) as String
+        let res = cachePreview.stringByAppendingPathComponent("res")
+        let fileManager = NSFileManager.defaultManager()
+        var isDirectory = false
+        if !fileManager.fileExistsAtPath(cachePreview) {
+            if fileManager.copyItemAtURL(NSURL(fileURLWithPath: previewPath!)!, toURL: NSURL(fileURLWithPath: cachePreview)!, error: nil) {
+                println("copy preview file success")
+            }
+        } else {
+            
+            if fileManager.fileExistsAtPath(res) {
+                if fileManager.removeItemAtURL(NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
+                    println("remove res success")
+                }
+            }
+        }
+        
+        let demoBookID = "QWERTASDFGZXCVB"
+        let tempBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
+        if fileManager.copyItemAtURL(NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, toURL: NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
+            
+            println("copy book to preview res success")
+        }
         
     }
 }
@@ -506,7 +533,6 @@ extension EditViewController {
         
         return animation
     }
-    
     
     private func transitionByProgress(aProgress: Float) {
         

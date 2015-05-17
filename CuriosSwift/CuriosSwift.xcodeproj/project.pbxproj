@@ -27,6 +27,7 @@
 		2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */; };
 		2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */; };
 		2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8B1B08F9C6002B752A /* CuriosPreview */; };
+		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
 		2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A041AEF43F8004D4223 /* ViewModels.swift */; };
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
 		2C9147B21B08452A00579E4A /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B11B08452A00579E4A /* BookModel.swift */; };
@@ -83,6 +84,7 @@
 		2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGenerator.swift; sourceTree = "<group>"; };
 		2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */ = {isa = PBXFileReference; lastKnownFileType = folder; path = QWERTASDFGZXCVB; sourceTree = "<group>"; };
 		2C7BAE8B1B08F9C6002B752A /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
+		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		2C828A041AEF43F8004D4223 /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
 		2C9147B11B08452A00579E4A /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
+				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
 				2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */,
@@ -449,6 +452,7 @@
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
+				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
 				2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */,
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
