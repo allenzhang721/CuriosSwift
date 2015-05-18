@@ -258,34 +258,43 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //            cell.containerNode?.addSubnode(contanerNode)
 //        }
     }
+    
+    
+    
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
-        let previewName = "CuriosPreview"
-        let previewPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(previewName)
-        let previewURL = NSURL.fileURLWithPath(previewPath!, isDirectory: true)
-        let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
-        let cachePreview = cacheDirectory.stringByAppendingPathComponent(previewName) as String
-        let res = cachePreview.stringByAppendingPathComponent("res")
-        let fileManager = NSFileManager.defaultManager()
-        var isDirectory = false
-        if !fileManager.fileExistsAtPath(cachePreview) {
-            if fileManager.copyItemAtURL(NSURL(fileURLWithPath: previewPath!)!, toURL: NSURL(fileURLWithPath: cachePreview)!, error: nil) {
-                println("copy preview file success")
-            }
-        } else {
+        if let preeviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
             
-            if fileManager.fileExistsAtPath(res) {
-                if fileManager.removeItemAtURL(NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
-                    println("remove res success")
+            let previewName = "CuriosPreview"
+            let previewPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(previewName)
+            let previewURL = NSURL.fileURLWithPath(previewPath!, isDirectory: true)
+            let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
+            let cachePreview = cacheDirectory.stringByAppendingPathComponent(previewName) as String
+            let res = cachePreview.stringByAppendingPathComponent("res")
+            let fileManager = NSFileManager.defaultManager()
+            var isDirectory = false
+            if !fileManager.fileExistsAtPath(cachePreview) {
+                
+                if fileManager.copyItemAtURL(NSURL(fileURLWithPath: previewPath!)!, toURL: NSURL(fileURLWithPath: cachePreview)!, error: nil) {
+                    println("copy preview file success")
+                }
+            } else {
+                
+                if fileManager.fileExistsAtPath(res) {
+                    if fileManager.removeItemAtURL(NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
+                        println("remove res success")
+                    }
                 }
             }
-        }
-        
-        let demoBookID = "QWERTASDFGZXCVB"
-        let tempBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
-        if fileManager.copyItemAtURL(NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, toURL: NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
             
-            println("copy book to preview res success")
+            let demoBookID = "QWERTASDFGZXCVB"
+            let tempBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
+            if fileManager.copyItemAtURL(NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, toURL: NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
+                
+                println("copy book to preview res success")
+            }
+
+            presentViewController(preeviewVC, animated: true, completion: nil)
         }
         
     }
@@ -341,26 +350,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     func layout(layout: UICollectionViewLayout, didFinished finished: Bool) {
         
     }
-    
-    
-//    func didMoveInAtIndexPath(indexPath: NSIndexPath) {
-//        bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath.item)
-//    }
-//    func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
-//        bookModel.removePageModelAtIndex(indexPath.item)
-//    }
-//    func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
-//        
-//    }
-//    func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-////        Array
-//        exchange(&bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
-//    }
-//    
-//    
-//    func didMoveEndAtIndexPath(indexPath: NSIndexPath) {
-//        
-//    }
     
     // MARK: - Ipage Protocol
     

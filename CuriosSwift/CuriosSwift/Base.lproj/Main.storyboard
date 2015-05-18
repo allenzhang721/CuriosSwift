@@ -82,8 +82,7 @@
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="nRp-CD-gqC"/>
                                     <barButtonItem title="Preview" id="b7G-g8-F4k">
                                         <connections>
-                                            <action selector="previewAction:" destination="8KY-Ld-6of" id="OIW-mm-ORp"/>
-                                            <segue destination="aB5-E3-6EP" kind="showDetail" id="XyN-Rv-viS"/>
+                                            <action selector="previewAction:" destination="8KY-Ld-6of" id="Ij8-8u-37S"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="6HH-4B-3H7"/>
