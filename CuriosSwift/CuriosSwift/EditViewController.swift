@@ -11,6 +11,13 @@ import Mantle
 import pop
 import SnapKit
 
+
+ func exchange<T>(inout data: [T], i:Int, j:Int) {
+    let temp:T = data[i]
+    data[i] = data[j]
+    data[j] = temp
+}
+
 class EditViewController: UIViewController, IPageProtocol {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -138,18 +145,16 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 // collectionView
                 if CGRectContainsPoint(collectionView.frame, location) {
                     let pageLocation = sender.locationInView(collectionView)
-                    if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout where
-                        
-                        aSmallLayout.shouldRespondsToGestureLocation(pageLocation) {
-
-                        if let snapShot = aSmallLayout.getResponseViewSnapShot() {
+                    if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
+                        where aSmallLayout.selectedItemBeganAtLocation(pageLocation) {
+                        if let snapShot = aSmallLayout.getSelectedItemSnapShot() {
                             fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[aSmallLayout.placeholderIndexPath!.item]])
+                            fakePageView?.fromTemplate = false
                             fakePageView?.center = location
                             view.addSubview(fakePageView!)
                         }
                     }
-                    
-                    // template
+                // template
                 } else if CGRectContainsPoint(templateViewController.view.frame, sender.locationInView(templateViewController.view)) {
                     
                     let loction = sender.locationInView(templateViewController.view)
@@ -157,6 +162,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                         
                         let aPageModel = PageModel()
                         fakePageView = FakePageView.fakePageViewWith(snapShot, array: [aPageModel])
+                        fakePageView?.fromTemplate = true
                         fakePageView?.center = location
                         view.addSubview(fakePageView!)
                     }
@@ -182,10 +188,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     fake.center = location
                     
                     if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-                        
                         let inEditBoundsLocation = sender.locationInView(collectionView)
-                        
-                        aSmallLyout.responseToPointMoveInIfNeed(CGRectContainsPoint(collectionView.frame, location), AtPoint: inEditBoundsLocation)
+                        aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
                     }
                 }
                 
@@ -198,12 +202,13 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             if collectionView.collectionViewLayout is smallLayout {
                 if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-                    if CGRectContainsPoint(collectionView.frame, location) {
-                        aSmallLyout.responsetoPointMoveEnd()
-                    }
+//                    if CGRectContainsPoint(collectionView.frame, location) {
+                        aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
+//                    }
                 }
                 
                 fakePageView?.removeFromSuperview()
+                fakePageView?.clearnPageArray()
                 fakePageView = nil
                 
             } else if collectionView.collectionViewLayout is NormalLayout {
@@ -222,7 +227,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
         default:
             return
-            
         }
     }
     
@@ -287,8 +291,78 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-// MARK: - IPageProtocol
-extension EditViewController: IPageProtocol {
+// MARK: - DataSource And Delegate
+// MARK: -
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol {
+    
+    // MARK: - UICollectionViewDataSource and CollectionView Delegate
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return bookModel.pageModels.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
+        cell.backgroundColor = UIColor.darkGrayColor()
+        cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
+        
+        return cell
+    }
+
+    
+    func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout! {
+        return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
+    }
+    
+    // MARK: - SmallLayout Delegate
+    
+    func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath) {
+        bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], AtIndex: indexPath.item)
+    }
+    
+    func layout(layout: UICollectionViewLayout, willMoveOutFromIndexPath indexPath: NSIndexPath) {
+        bookModel.removePageModelAtIndex(indexPath.item)
+    }
+    
+    func layout(layout: UICollectionViewLayout, willChangeFromIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        exchange(&bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
+    }
+    
+    func layoutDidMoveIn(layout: UICollectionViewLayout) {
+        println("Did Move In")
+    }
+    
+    func layoutDidMoveOut(layout: UICollectionViewLayout) {
+         println("Did Move Out")
+    }
+    
+    func layout(layout: UICollectionViewLayout, didFinished finished: Bool) {
+        
+    }
+    
+    
+//    func didMoveInAtIndexPath(indexPath: NSIndexPath) {
+//        bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath.item)
+//    }
+//    func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
+//        bookModel.removePageModelAtIndex(indexPath.item)
+//    }
+//    func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
+//        
+//    }
+//    func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+////        Array
+//        exchange(&bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
+//    }
+//    
+//    
+//    func didMoveEndAtIndexPath(indexPath: NSIndexPath) {
+//        
+//    }
+    
+    // MARK: - Ipage Protocol
     
     func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
         
@@ -332,59 +406,8 @@ extension EditViewController: IPageProtocol {
         page.cancelDelegate()
         collectionView.scrollEnabled = true
     }
-}
-
-// MARK: - Delegate and DateSource
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SmallLayoutDelegate {
     
-    // MARK - CollectionView Datasource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return bookModel.pageModels.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
-        cell.backgroundColor = UIColor.darkGrayColor()
-        cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
-        
-        return cell
-    }
-    
-    // MARK: - CollectionView Delegate
-    func exchange<T>(inout data: [T], i:Int, j:Int) {
-        let temp:T = data[i]
-        data[i] = data[j]
-        data[j] = temp
-    }
-    
-    func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout! {
-        return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
-    }
-    
-    // MARK: - SmallLayout Delegate
-    func didMoveInAtIndexPath(indexPath: NSIndexPath) {
-//bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath)
-//        pageViewModels.insert(fakePageView!.selectedItem!, atIndex: indexPath.item)
-        bookModel.insertPageModelsAtIndex(fakePageView!.dataArray, AtIndex: indexPath.item)
-    }
-    func didMoveOutAtIndexPath(indexPath: NSIndexPath) {
-        
-    }
-    func didChangeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-//        Array
-        exchange(&bookModel.pageModels, i: fromIndexPath.item, j: toIndexPath.item)
-    }
-    
-    func willMoveOutAtIndexPath(indexPath: NSIndexPath) {
-        bookModel.removePageModelAtIndex(indexPath.item)
-    }
-    func didMoveEndAtIndexPath(indexPath: NSIndexPath) {
-        
-    }
-    
-    // MARK: - imagePicker
+    // MARK: - imagePicker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
 
         if let indexPath = getCurrentIndexPath() {
@@ -417,12 +440,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         })
     }
-}
-
-
-// MARK: - GestureDelegate
-extension EditViewController: UIGestureRecognizerDelegate {
     
+    // MARK: - Gesture Delegate
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         switch gestureRecognizer {
@@ -446,10 +465,11 @@ extension EditViewController: UIGestureRecognizerDelegate {
             return true
         }
     }
-
 }
 
+
 // MARK: - Private Methods
+// MARK: -
 extension EditViewController {
     
     private func POPTransition(progress: Float, startValue: Float, endValue: Float) -> CGFloat {

@@ -14,6 +14,7 @@
 		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
+		2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54ADF21B097B8700B0D460 /* SmallLayout.swift */; };
 		2C7763551B056407000DDFB2 /* IComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763541B056407000DDFB2 /* IComponent.swift */; };
 		2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */; };
 		2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */; };
@@ -71,6 +72,7 @@
 		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		2C54ADF21B097B8700B0D460 /* SmallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLayout.swift; sourceTree = "<group>"; };
 		2C7763541B056407000DDFB2 /* IComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IComponent.swift; sourceTree = "<group>"; };
 		2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentImageNode.swift; sourceTree = "<group>"; };
 		2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentTextNode.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */,
+				2C54ADF21B097B8700B0D460 /* SmallLayout.swift */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
 				2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */,
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
+				2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */,
 				2C7763551B056407000DDFB2 /* IComponent.swift in Sources */,
 				2C77636D1B05ABD9000DDFB2 /* ITextComponent.swift in Sources */,
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
