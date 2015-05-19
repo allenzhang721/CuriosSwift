@@ -52,7 +52,11 @@
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
 		2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */; };
+		2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078A1B0B2908008B286B /* BookListViewController.swift */; };
+		2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078C1B0B2B5A008B286B /* IUser.swift */; };
+		2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078E1B0B2C17008B286B /* UserManager.swift */; };
 		2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */; };
+		2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +119,11 @@
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManager.swift; sourceTree = "<group>"; };
+		2CD8078A1B0B2908008B286B /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
+		2CD8078C1B0B2B5A008B286B /* IUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IUser.swift; sourceTree = "<group>"; };
+		2CD8078E1B0B2C17008B286B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerMaskView.swift; sourceTree = "<group>"; };
+		2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,9 +213,11 @@
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
 				2CB4BD851AE476D900DF6019 /* Layouts */,
 				2C828A031AEF4372004D4223 /* ViewModels */,
+				2CD807891B0AF043008B286B /* Interface */,
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
+				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
@@ -256,6 +266,7 @@
 				2C4388881AF7BCB40084236F /* FakePageView.swift */,
 				2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */,
 				2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */,
+				2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -263,20 +274,13 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2C9147B91B085A7A00579E4A /* IFile.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2C9147B11B08452A00579E4A /* BookModel.swift */,
 				2C9147B31B0845C400579E4A /* PageModel.swift */,
 				2C9147B51B0845FA00579E4A /* ContainerModel.swift */,
 				2C9147B71B08462400579E4A /* ComponentModel.swift */,
 				2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */,
-				2C77635E1B056ABE000DDFB2 /* IPage.swift */,
-				2C77635C1B056A7A000DDFB2 /* IContainer.swift */,
-				2C7763541B056407000DDFB2 /* IComponent.swift */,
-				2C77636A1B05ABCA000DDFB2 /* IImageComponent.swift */,
-				2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */,
-				2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */,
-				2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */,
+				2CD8078E1B0B2C17008B286B /* UserManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -288,6 +292,22 @@
 				2C54ADF21B097B8700B0D460 /* SmallLayout.swift */,
 			);
 			name = Layouts;
+			sourceTree = "<group>";
+		};
+		2CD807891B0AF043008B286B /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				2C9147B91B085A7A00579E4A /* IFile.swift */,
+				2C77635E1B056ABE000DDFB2 /* IPage.swift */,
+				2C77635C1B056A7A000DDFB2 /* IContainer.swift */,
+				2C7763541B056407000DDFB2 /* IComponent.swift */,
+				2C77636A1B05ABCA000DDFB2 /* IImageComponent.swift */,
+				2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */,
+				2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */,
+				2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */,
+				2CD8078C1B0B2B5A008B286B /* IUser.swift */,
+			);
+			name = Interface;
 			sourceTree = "<group>";
 		};
 		8EFBC8624DF4F2C3D0A1107A /* Pods */ = {
@@ -453,7 +473,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
+				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
+				2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
@@ -462,6 +484,7 @@
 				2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */,
 				2C7763551B056407000DDFB2 /* IComponent.swift in Sources */,
 				2C77636D1B05ABD9000DDFB2 /* ITextComponent.swift in Sources */,
+				2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */,
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C927C871AF721CE004B2E55 /* FileSave.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
@@ -481,6 +504,7 @@
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
+				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,

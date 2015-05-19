@@ -243,6 +243,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func addTextAction(sender: UIBarButtonItem) {
         
+        
+        
 //        if let indexPath = getCurrentIndexPath() {
 //            
 //            let currentPageViewModel = pageViewModels[indexPath.item]
@@ -296,6 +298,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
             presentViewController(preeviewVC, animated: true, completion: nil)
         }
+        
+    }
+    @IBAction func saveAction(sender: UIBarButtonItem) {
+        
         
     }
 }

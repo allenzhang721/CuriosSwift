@@ -11,4 +11,6 @@ import Foundation
 protocol IFile: NSObjectProtocol {
     
     func fileGetSuperPath(file: IFile) -> String
+
+    
 }
