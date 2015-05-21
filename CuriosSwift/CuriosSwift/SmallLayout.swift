@@ -12,7 +12,7 @@ protocol SmallLayoutDelegate: NSObjectProtocol {
     func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath)
     func layout(layout: UICollectionViewLayout, willMoveOutFromIndexPath indexPath: NSIndexPath)
     func layout(layout: UICollectionViewLayout, willChangeFromIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
-    func layoutDidMoveIn(layout: UICollectionViewLayout)
+    func layoutDidMoveIn(layout: UICollectionViewLayout, didMoveInAtIndexPath indexPath: NSIndexPath)
     func layoutDidMoveOut(layout: UICollectionViewLayout)
     func layout(layout: UICollectionViewLayout, didFinished finished: Bool)
 }
@@ -128,7 +128,7 @@ class smallLayout: UICollectionViewFlowLayout {
         
         if let aPlaceholderIndexPath = placeholderIndexPath {
             if fromeTemplate {
-                delegate?.layoutDidMoveIn(self)
+                delegate?.layoutDidMoveIn(self, didMoveInAtIndexPath: aPlaceholderIndexPath)
             }
             
         } else {
@@ -136,6 +136,8 @@ class smallLayout: UICollectionViewFlowLayout {
                 delegate?.layoutDidMoveOut(self)
             }
         }
+        collectionView?.performBatchUpdates({ () -> Void in
+            }, completion: nil)
         
         delegate?.layout(self, didFinished: true)
         
@@ -145,8 +147,7 @@ class smallLayout: UICollectionViewFlowLayout {
         reordering = false
         invalidateDisplayLink()
         invalidateLayout()
-        collectionView?.performBatchUpdates({ () -> Void in
-            }, completion: nil)
+        
     }
 }
 

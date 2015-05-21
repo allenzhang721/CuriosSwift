@@ -24,7 +24,7 @@ class FakePageView: UIView {
     }
     
     func clearnPageArray() {
-        pageArray.removeAll(keepCapacity: false)
+        pageArray = []
     }
     
     func getPageArray() -> [PageModel] {

@@ -53,7 +53,23 @@ class BookModel: Model, IFile {
         ]
     }
     
-    func insertPageModelsAtIndex(aPageModels: [PageModel], AtIndex index: Int) {
+    func paraserPageInfo() {
+        
+        let file = filePath
+        for pageInfo in pagesInfo {
+            let path: String = pageInfo["Path"]!
+            let index: String = pageInfo["Index"]!
+            let relpagePath = path + index
+            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
+            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
+            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+            
+            appendPageModel(page)
+        }
+    }
+    
+    func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
         
         var i = index
         for pageModel in aPageModels {

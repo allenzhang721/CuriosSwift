@@ -19,9 +19,9 @@ class ContainerModel: Model {
     var rotation: CGFloat = 0.0
     var alpha: CGFloat = 1.0
     var editable = true
-    var animations:[Animation] = []
-    var behaviors: [Behavior] = []
-    var effects: [Effect] = []
+    var animations:[Animation] = [Animation()]
+    var behaviors: [Behavior] = [Behavior()]
+    var effects: [Effect] = [Effect()]
     var component: ComponentModel! = NoneContentModel()
     
     //    let lX: Dynamic<CGFloat>
@@ -90,24 +90,24 @@ class ContainerModel: Model {
     }
     
     // behaviors
-    class func behaviorsJSONTransformer() -> NSValueTransformer {
-        
-        let forwardBlock: MTLValueTransformerBlock! = {
-            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-            
-            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
-            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Behavior.self, fromJSONArray: jsonArray as! [Behavior], error: nil)
-            return something
-        }
-        
-        let reverseBlock: MTLValueTransformerBlock! = {
-            (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [Behavior], error: nil)
-            return something
-        }
-        
-        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
-    }
+//    class func behaviorsJSONTransformer() -> NSValueTransformer {
+//        
+//        let forwardBlock: MTLValueTransformerBlock! = {
+//            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+//            
+//            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+//            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Behavior.self, fromJSONArray: jsonArray as! [Behavior], error: nil)
+//            return something
+//        }
+//        
+//        let reverseBlock: MTLValueTransformerBlock! = {
+//            (Behaviors: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+//            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(Behaviors as! [Behavior], error: nil)
+//            return something
+//        }
+//        
+//        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+//    }
     
     // effects
     class func effectsJSONTransformer() -> NSValueTransformer {

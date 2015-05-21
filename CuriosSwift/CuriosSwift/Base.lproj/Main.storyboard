@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nyt-Dc-7b4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8KY-Ld-6of">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -82,11 +82,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNT-FX-Y8z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YNT-FX-Y8z">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YNT-FX-Y8z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7Bx-d7-ziD"/>
+                            <constraint firstItem="YNT-FX-Y8z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ePW-iq-tBm"/>
+                            <constraint firstItem="YNT-FX-Y8z" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="jYX-Q7-J1E"/>
+                            <constraint firstAttribute="trailing" secondItem="YNT-FX-Y8z" secondAttribute="trailing" id="sQJ-2k-KM0"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="YNT-FX-Y8z" id="aIJ-du-BmB"/>
@@ -167,17 +173,23 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="top" secondItem="oQp-6G-LwW" secondAttribute="top" id="6fQ-Cr-TzY"/>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="Cnx-6H-5aB"/>
-                            <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="IA1-5R-5dq"/>
-                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="trailing" secondItem="OzN-v5-MCP" secondAttribute="trailing" id="NV3-pp-laQ"/>
-                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="leading" secondItem="OzN-v5-MCP" secondAttribute="leading" id="PY3-ik-qZq"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="leading" secondItem="oQp-6G-LwW" secondAttribute="leading" id="Rc5-sh-Ne4"/>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="ZaN-gT-cnH"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="gml-Ym-0kx"/>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="ilv-7J-OKU"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="xb2-dt-yyS"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="trailing" secondItem="8rs-4Q-GNL" secondAttribute="trailing" id="Ouo-55-Wlc"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="8rs-4Q-GNL" secondAttribute="top" id="T4T-Bt-89A"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="ZaS-Cr-ADh"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="k2M-D6-GQu"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="kW1-3e-KRj"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="trailing" secondItem="8rs-4Q-GNL" secondAttribute="trailing" id="qyh-kZ-1bG"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="r8D-x6-f7s"/>
+                            <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="OzN-v5-MCP" secondAttribute="leading" id="tYk-jM-xZU"/>
+                            <constraint firstItem="OzN-v5-MCP" firstAttribute="leading" secondItem="8rs-4Q-GNL" secondAttribute="leading" id="yrs-Ge-STj"/>
+                            <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="zwn-Ox-asf"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="OzN-v5-MCP"/>
+                                <exclude reference="8rs-4Q-GNL"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
                             <outletCollection property="gestureRecognizers" destination="hkI-aC-bZe" appends="YES" id="JLm-bR-rW0"/>
