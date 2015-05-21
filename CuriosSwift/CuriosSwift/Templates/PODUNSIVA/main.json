@@ -1,0 +1,52 @@
+{
+    "ID": "PODUNSIVA",
+    "MainWidth": 320,
+    "MainHeight": 504,
+    "MainTitle": "Good Day",
+    "MainDesc": "Good Day have good idea!",
+    "FlipDirection": "ver",
+    "FlipType": "translate3d",
+    "FlipLoop":"true",
+    "MainBackground": "/images/background.jpg",
+    "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
+    "PagesPath": "/Pages",
+    "AuthorID": "1fdklaafdllfda",
+    "PublishDate": "2015-04-23",
+    "Pages": [
+              {
+              "PageID": "ASDFG",
+              "Path": "/ASDFG",
+              "Index": "/ASDFG.json"
+              },
+              {
+              "PageID": "IUNCF",
+              "Path": "/IUNCF",
+              "Index": "/IUNCF.json"
+              },
+              {
+              "PageID": "MDCIU",
+              "Path": "/MDCIU",
+              "Index": "/MDCIU.json"
+              },
+              {
+              "PageID": "QWERT",
+              "Path": "/QWERT",
+              "Index": "/QWERT.json"
+              },
+              {
+              "PageID": "UVSAI",
+              "Path": "/UVSAI",
+              "Index": "/UVSAI.json"
+              },
+              {
+              "PageID": "VBDUV",
+              "Path": "/VBDUV",
+              "Index": "/VBDUV.json"
+              },
+              {
+              "PageID": "ZXCVB",
+              "Path": "/ZXCVB",
+              "Index": "/ZXCVB.json"
+              }
+              ]
+}
