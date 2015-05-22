@@ -21,6 +21,10 @@ protocol IPage {
     func setDelegate(aDelegate: IPageProtocol)
     func cancelDelegate()
     
+    func saveInfo()
+    func addContainer(aContainerModel: ContainerModel)
+    func removeContainer(aContainerModel: ContainerModel)
+    
     func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool
     
 //    var Containers: [IContainer]{get set}

@@ -41,8 +41,31 @@ class PageModel: Model, IFile {
     }
     
     func addContainer(aContainer: ContainerModel) {
+        
+        println("addContainer = \(aContainer)")
         containers.append(aContainer)
         aContainer.component.delegate = self
+    }
+    
+    func removeContainer(aContainer: ContainerModel) {
+        
+        var index = 0
+        for container in containers {
+            if container.isEqual(aContainer) {
+                containers.removeAtIndex(index)
+                break
+            }
+            index++
+        }
+    }
+    
+    func saveInfo() {
+        
+        let path = fileGetSuperPath(self)
+        let JsonPath = path.stringByAppendingPathComponent(Id + ".json")
+        let pagejson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
+        let data = NSJSONSerialization.dataWithJSONObject(pagejson, options: NSJSONWritingOptions(0), error: nil)
+        data?.writeToFile(JsonPath, atomically: true)
     }
     
     // congtainers

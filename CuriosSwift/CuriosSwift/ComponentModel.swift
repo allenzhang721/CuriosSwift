@@ -26,7 +26,8 @@ class ComponentModel: Model, IFile  {
         
         switch type {
         case .Text:
-            return ComponentTextNode(aComponentModel: self)
+            
+            return ComponentTextNode(aComponentModel: self as! TextContentModel)
         case .Image:
             
             return ComponentImageNode(aComponentModel: self as! ImageContentModel)
@@ -112,6 +113,10 @@ class ImageContentModel: ComponentModel, IFile {
                 return ""
             }
             
+        }
+        
+        set {
+            attributes["ImagePath"] = newValue
         }
     }
 }

@@ -29,7 +29,7 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     private let containerModel: ContainerModel
     private var component: IComponent!
-    private var componentNode: ASDisplayNode!
+    var componentNode: ASDisplayNode!
     private let aspectRatio: CGFloat
     
     init(postion: CGPoint, size: CGSize, rotation:CGFloat, aspectRatio theAspectRatio: CGFloat,aContainerModel: ContainerModel) {
@@ -41,9 +41,16 @@ class ContainerNode: ASDisplayNode, IContainer {
         bounds.size = size
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
         component = containerModel.component.createComponent()
+        
         if let aCom = component as? ASDisplayNode {
+            println("addSubnode aCom = \(aCom)")
             addSubnode(aCom)
         }
+    }
+    
+    func containAcontainer(aContainerModel: ContainerModel) -> Bool {
+        
+        return containerModel.isEqual(aContainerModel)
     }
     
     // MARK: - IContainer

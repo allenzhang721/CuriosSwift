@@ -14,14 +14,14 @@ class ContainerModel: Model {
     var Id = ""
     var x: CGFloat = (CGFloat(rand() % 300)) + 300
     var y: CGFloat = (CGFloat(rand() % 300)) + 500
-    var width: CGFloat = (CGFloat(rand() % 300)) + 200  // bounds.width
-    var height: CGFloat = (CGFloat(rand() % 300)) + 300  // bounds.height
+    var width: CGFloat = (CGFloat(rand() % 80)) + 100  // bounds.width
+    var height: CGFloat = (CGFloat(rand() % 80)) + 100  // bounds.height
     var rotation: CGFloat = 0.0
     var alpha: CGFloat = 1.0
     var editable = true
-    var animations:[Animation] = [Animation()]
-    var behaviors: [Behavior] = [Behavior()]
-    var effects: [Effect] = [Effect()]
+    var animations:[Animation] = []
+//    var behaviors: [Behavior] = []
+    var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
     
     //    let lX: Dynamic<CGFloat>
@@ -42,7 +42,7 @@ class ContainerModel: Model {
             "alpha" : "ContainerAplha",
             "editable" : "Editable",
             "animations" : "Animations",
-            "behaviors" : "Behaviors",
+//            "behaviors" : "Behaviors",
             "effects" : "Effects",
             "component" : "Component"
         ]

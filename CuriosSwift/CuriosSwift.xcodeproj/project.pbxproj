@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
+		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18D83A1AF37C4C00722179 /* Nodes.swift */; };
 		2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */; };
 		2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */; };
@@ -72,7 +73,7 @@
 
 /* Begin PBXFileReference section */
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
-		2C032CF11B0DCA310089DC81 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C18D83A1AF37C4C00722179 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
 		2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAttributeSetter.swift; sourceTree = "<group>"; };
 		2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMaskAttributeSetter.swift; sourceTree = "<group>"; };
@@ -222,9 +223,9 @@
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
+				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
-				2C032CF11B0DCA310089DC81 /* MyPlayground.playground */,
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
@@ -508,6 +509,7 @@
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
+				2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,

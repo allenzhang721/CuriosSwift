@@ -53,6 +53,41 @@ class BookModel: Model, IFile {
         ]
     }
     
+    /*
+        
+    {
+    "PageID": "ASDFG",
+    "Path": "/ASDFG",
+    "Index": "/ASDFG.json"
+    }
+    */
+    
+    func savePagesInfo() {
+        
+        var newPagesInfo = [[String : String]]()
+        for aPageModel in pageModels {
+            
+            let pageId = aPageModel.Id
+            let pageIDKey = "PageID"
+            let pagePathKey = "Path"
+            let PageIndexKey = "Index"
+            let pageIDValue = pageId
+            let pagePathValue = "/" + pageId
+            let PageIndexValue = "/" + pageId + ".json"
+            
+            let aPageInfo = [pageIDKey : pageIDValue, pagePathKey : pagePathValue, PageIndexKey : PageIndexValue]
+            newPagesInfo.append(aPageInfo)
+        }
+        
+        pagesInfo = newPagesInfo
+        
+        let bookpath = filePath
+        let bookJsonPath = bookpath.stringByAppendingPathComponent("main.json")
+        let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
+        let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+        data?.writeToFile(bookJsonPath, atomically: true)
+    }
+    
     func paraserPageInfo() {
         
         let file = filePath

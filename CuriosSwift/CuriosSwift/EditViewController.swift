@@ -54,9 +54,9 @@ class EditViewController: UIViewController, IPageProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if BookManager.copyDemoBook() {
-            
-        }
+//        if BookManager.copyDemoBook() {
+//            
+//        }
         
         SmallLayout.delegate = self
         collectionView.dataSource = self
@@ -248,11 +248,24 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @IBAction func addTextAction(sender: UIBarButtonItem) {
-        
-        
-        
-//        if let indexPath = getCurrentIndexPath() {
-//            
+
+        if let indexPath = getCurrentIndexPath() {
+            
+            if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
+                
+
+
+                let textComponentModel = TextContentModel()
+                textComponentModel.type = .Text
+                textComponentModel.attributes = ["contentText": "New Text"]
+                let aContainer = ContainerModel()
+                aContainer.component = textComponentModel
+//                println(aContainer.component)
+                page.addContainer(aContainer)
+                page.saveInfo()
+            }
+            
+//
 //            let currentPageViewModel = pageViewModels[indexPath.item]
 //            let textComponentModel = TextContentModel()
 //            textComponentModel.type = .Text
@@ -264,7 +277,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
 //            let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
 //            cell.containerNode?.addSubnode(contanerNode)
-//        }
+        }
     }
     
     
@@ -308,7 +321,15 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
+        let tempBookPath = bookModel.filePath
+        let demoBookID = "QWERTASDFGZXCVB"
+        let documentPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        let documentBookPath = documentPath.stringByAppendingPathComponent(demoBookID)
         
+        if NSFileManager.defaultManager().replaceItemAtURL(NSURL(fileURLWithPath: documentBookPath, isDirectory: true)!, withItemAtURL: NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, backupItemName: bookModel.Id + "backUp", options: NSFileManagerItemReplacementOptions.UsingNewMetadataOnly, resultingItemURL: nil, error: nil) {
+            
+            dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 }
 
@@ -340,7 +361,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - SmallLayout Delegate
     
     func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath) {
-        bookModel.insertPageModelsAtIndex([PageModel()], FromIndex: indexPath.item)
+        if (fakePageView!.fromTemplate) {
+            bookModel.insertPageModelsAtIndex([PageModel()], FromIndex: indexPath.item)
+        } else {
+            bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
+        }
+        
     }
     
     func layout(layout: UICollectionViewLayout, willMoveOutFromIndexPath indexPath: NSIndexPath) {
@@ -407,15 +433,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             indexPaths.append(indexPath)
             Index++
         }
-//        
-//        
-//        
-//        
-//        let count = fakePageView!.getPageArray().count
-//        for i in beganIndex..<beganIndex + count {
-//            let indexPath = NSIndexPath(forItem: i, inSection: 0)
-//            indexPaths.append(indexPath)
-//        }
         bookModel.insertPageModelsAtIndex(newPages, FromIndex: indexPath.item)
         collectionView?.performBatchUpdates({ () -> Void in
             
@@ -429,10 +446,18 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func layoutDidMoveOut(layout: UICollectionViewLayout) {
          println("Did Move Out")
+        if !fakePageView!.fromTemplate {
+            let aPageModel = fakePageView!.getPlaceholderPage()
+            let bookPath = bookModel.filePath
+            let pagePath = bookPath.stringByAppendingPathComponent("Pages/" + aPageModel.Id)
+            let fileManager = NSFileManager.defaultManager()
+            fileManager.removeItemAtPath(pagePath, error: nil)
+        }
     }
     
     func layout(layout: UICollectionViewLayout, didFinished finished: Bool) {
-        
+        println("didFinished")
+        bookModel.savePagesInfo()
     }
     
     // MARK: - Ipage Protocol
@@ -476,6 +501,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func didEndEdit(page: IPage) {
+        page.saveInfo()
         page.cancelDelegate()
         collectionView.scrollEnabled = true
     }
@@ -483,30 +509,65 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - imagePicker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
 
+//        if let indexPath = getCurrentIndexPath() {
+//
+//            let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+//            let imageData = UIImagePNGRepresentation(selectedImage)
+//            
+//            let currentPageViewModel = pageViewModels[indexPath.item]
+//            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageViewModel.model.Id)/images/\(UniqueIDString()).png"
+//            let imagePath = NSTemporaryDirectory().stringByAppendingString(relativeImagePath)
+//            let imageURl = NSURL.fileURLWithPath(imagePath, isDirectory: false)
+//            
+//            
+//            let aError = NSErrorPointer()
+//            if NSFileManager.defaultManager().createFileAtPath(imagePath, contents: imageData, attributes: nil) {
+//
+//            }
+//            
+//            let imageComponentModel = ImageContentModel()
+//            imageComponentModel.type = .Image
+//            imageComponentModel.attributes = ["ImagePath": relativeImagePath]
+//            let aContainer = ContainerModel()
+//            aContainer.component = imageComponentModel
+//            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
+//            currentPageViewModel.containers.append(aContainerViewModel)
+//            collectionView.reloadItemsAtIndexPaths([indexPath])
+//        }
+        
+        
         if let indexPath = getCurrentIndexPath() {
+            
+            
+            
+            if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
+                
+                let imageName = UniqueIDString()
+                
+                let pageFile = bookModel.pageModels[indexPath.item]
+                let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+                let imageData = UIImagePNGRepresentation(selectedImage)
+                
+                let pagePath = pageFile.fileGetSuperPath(pageFile)
+                let realtiveImagePath = "images/" + imageName + ".png"
+                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
+                
+                println("the Image = \(imagePath)")
+                if imageData.writeToFile(imagePath, atomically: true) {
+                    println("iamge save = \(imagePath)")
+                }
+                
+                
 
-            let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-            let imageData = UIImagePNGRepresentation(selectedImage)
-            
-            let currentPageViewModel = pageViewModels[indexPath.item]
-            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageViewModel.model.Id)/images/\(UniqueIDString()).png"
-            let imagePath = NSTemporaryDirectory().stringByAppendingString(relativeImagePath)
-            let imageURl = NSURL.fileURLWithPath(imagePath, isDirectory: false)
-            
-            
-            let aError = NSErrorPointer()
-            if NSFileManager.defaultManager().createFileAtPath(imagePath, contents: imageData, attributes: nil) {
-
+                let textComponentModel = ImageContentModel()
+                textComponentModel.type = .Image
+                textComponentModel.imagePath = realtiveImagePath
+                let aContainer = ContainerModel()
+                aContainer.component = textComponentModel
+                //                println(aContainer.component)
+                page.addContainer(aContainer)
+                page.saveInfo()
             }
-            
-            let imageComponentModel = ImageContentModel()
-            imageComponentModel.type = .Image
-            imageComponentModel.attributes = ["ImagePath": relativeImagePath]
-            let aContainer = ContainerModel()
-            aContainer.component = imageComponentModel
-            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
-            currentPageViewModel.containers.append(aContainerViewModel)
-            collectionView.reloadItemsAtIndexPaths([indexPath])
         }
         
         picker.dismissViewControllerAnimated(true, completion: { () -> Void in

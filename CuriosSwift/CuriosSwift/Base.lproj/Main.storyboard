@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8KY-Ld-6of">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Km8-SI-3Ln">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -100,7 +100,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-231"/>
+            <point key="canvasLocation" x="-434" y="-231"/>
+        </scene>
+        <!--Demo Book View Controller-->
+        <scene sceneID="Lag-zH-jBB">
+            <objects>
+                <viewController id="Km8-SI-3Ln" customClass="DemoBookViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEp-eO-9Y0"/>
+                        <viewControllerLayoutGuide type="bottom" id="gHZ-Fv-3wP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fa8-Gw-x1K">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-PS-kjb">
+                                <rect key="frame" x="261" y="147" width="78" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Open Book">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="OpenBookAction:" destination="Km8-SI-3Ln" eventType="touchUpInside" id="Rr6-5u-5Ag"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gLL-PS-kjb" firstAttribute="centerX" secondItem="fa8-Gw-x1K" secondAttribute="centerX" id="2ex-SW-Pg7"/>
+                            <constraint firstItem="gLL-PS-kjb" firstAttribute="centerY" secondItem="fa8-Gw-x1K" secondAttribute="centerY" constant="-138" id="vCd-v5-fWt"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6pC-zU-TPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="-231"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="kL1-EK-viT">
@@ -147,7 +181,7 @@
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ggg-pM-fwb"/>
                                     <barButtonItem title="Add Text" id="GnG-gR-P9N">
                                         <connections>
-                                            <action selector="addTextAction:" destination="8KY-Ld-6of" id="PPH-BC-Pxo"/>
+                                            <action selector="addTextAction:" destination="8KY-Ld-6of" id="RQj-2O-cmT"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="nRp-CD-gqC"/>
@@ -173,23 +207,18 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="trailing" secondItem="8rs-4Q-GNL" secondAttribute="trailing" id="Ouo-55-Wlc"/>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="8rs-4Q-GNL" secondAttribute="top" id="T4T-Bt-89A"/>
+                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="leading" secondItem="oQp-6G-LwW" secondAttribute="leading" id="A2D-FM-P7x"/>
+                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="E4S-eX-YGi"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="ZaS-Cr-ADh"/>
                             <constraint firstItem="OzN-v5-MCP" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="k2M-D6-GQu"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="kW1-3e-KRj"/>
+                            <constraint firstItem="8rs-4Q-GNL" firstAttribute="top" secondItem="oQp-6G-LwW" secondAttribute="top" id="pMW-Lf-4vN"/>
                             <constraint firstItem="OzN-v5-MCP" firstAttribute="trailing" secondItem="8rs-4Q-GNL" secondAttribute="trailing" id="qyh-kZ-1bG"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="r8D-x6-f7s"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="OzN-v5-MCP" secondAttribute="leading" id="tYk-jM-xZU"/>
                             <constraint firstItem="OzN-v5-MCP" firstAttribute="leading" secondItem="8rs-4Q-GNL" secondAttribute="leading" id="yrs-Ge-STj"/>
                             <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="zwn-Ox-asf"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="OzN-v5-MCP"/>
-                                <exclude reference="8rs-4Q-GNL"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VT8-4P-4J5" appends="YES" id="y4i-SD-mhR"/>
                             <outletCollection property="gestureRecognizers" destination="hkI-aC-bZe" appends="YES" id="JLm-bR-rW0"/>

@@ -23,6 +23,11 @@ class PageCollectionViewCell: UICollectionViewCell, IPage, IcellTransition {
     private var aspectRatio: CGFloat = 0.0
     private var containers = [IContainer]()
     private var selectedContainers = [IContainer]()
+    private var contentNodeCenter: CGPoint {
+        get {
+            return contentNodeView?.center ?? CGPointZero
+        }
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -70,6 +75,56 @@ extension PageCollectionViewCell {
     }
     func cancelDelegate() {
         delegate = nil
+    }
+    
+    func addContainer(aContainerModel: ContainerModel) {
+        
+        pageModel.addContainer(aContainerModel)
+        
+        println(pageModel.containers.count)
+        if let aContentNode = contentNode {
+            let realWidth: CGFloat = 100.0
+            let realHeight: CGFloat = 100.0
+            let centerX = contentNodeCenter.x
+            let centerY = contentNodeCenter.y
+            let x = centerX - realWidth / 2.0
+            let y = centerY - realHeight / 2.0
+            aContainerModel.x = centerX
+            aContainerModel.y = centerY
+            aContainerModel.width = realWidth
+            aContainerModel.height = realHeight
+
+            let containerNode = getContainerWithModel(aContainerModel)
+
+            containers.append(containerNode)
+            contentNode?.addSubnode(containerNode)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                aContentNode.setNeedsDisplay()
+            })
+            
+//            pageModel.saveInfo()
+        }
+    }
+    
+    func saveInfo() {
+        
+        pageModel.saveInfo()
+    }
+    
+    func removeContainer(aContainerModel: ContainerModel) {
+        
+        pageModel.removeContainer(aContainerModel)
+        if contentNode != nil {
+            
+            for subNode in contentNode?.subnodes as! [ContainerNode] {
+                
+                if subNode.containAcontainer(aContainerModel) {
+                    subNode.removeFromSupernode()
+                    break
+                }
+            }
+        }
     }
     
     func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool {
