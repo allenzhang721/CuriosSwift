@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Km8-SI-3Ln">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nyt-Dc-7b4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,30 +17,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZLq-0Y-1ZO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="158" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZLq-0Y-1ZO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="BookListCell" textLabel="PG8-4G-ZH3" detailTextLabel="ggh-Vi-Ugh" style="IBUITableViewCellStyleValue1" id="frk-jV-wtn" customClass="BookListTableViewCell" customModule="CuriosSwift" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="BookListCell" rowHeight="158" id="frk-jV-wtn" customClass="BookListTableViewCell" customModule="CuriosSwift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="frk-jV-wtn" id="B5b-hP-79G">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PG8-4G-ZH3">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pjm-jv-21R">
+                                                    <rect key="frame" x="8" y="8" width="90" height="120"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="Pje-Cb-orx"/>
+                                                        <constraint firstAttribute="height" constant="120" id="mtQ-fj-Kr4"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Os-hC-1LI">
+                                                    <rect key="frame" x="106" y="8" width="486" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ggh-Vi-Ugh">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2u-B2-PlT">
+                                                    <rect key="frame" x="106" y="134" width="486" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-6s-1LM">
+                                                    <rect key="frame" x="106" y="35" width="486" height="93"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="93" id="g6Z-I8-PgP"/>
+                                                    </constraints>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitodioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="0vX-PS-OoF"/>
+                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="1gf-x6-Z2f"/>
+                                                <constraint firstItem="pjm-jv-21R" firstAttribute="leading" secondItem="B5b-hP-79G" secondAttribute="leadingMargin" id="7Km-U8-qtv"/>
+                                                <constraint firstItem="6Os-hC-1LI" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="8a8-YA-rEv"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="BA4-pl-cbG"/>
+                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="top" secondItem="6Os-hC-1LI" secondAttribute="bottom" constant="6" id="E3q-02-eM3"/>
+                                                <constraint firstItem="pjm-jv-21R" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="LJ5-aT-8eg"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="Gqc-6s-1LM" secondAttribute="bottom" id="NSj-P3-8CY"/>
+                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="gh4-ef-DQm"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="Gqc-6s-1LM" secondAttribute="bottom" constant="6" id="hfc-nT-azG"/>
+                                                <constraint firstItem="6Os-hC-1LI" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="ho2-Ug-Y0h"/>
+                                                <constraint firstItem="6Os-hC-1LI" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="i5I-wc-s3f"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="NSj-P3-8CY"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
@@ -60,7 +97,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nQa-n7-6cX">
-                        <barButtonItem key="rightBarButtonItem" title="Add a New Book" id="doS-6k-ScI"/>
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="2Jx-ys-VJz">
+                            <rect key="frame" x="239" y="7" width="123" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="文稿"/>
+                                <segment title="发布"/>
+                            </segments>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="doS-6k-ScI"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="ZLq-0Y-1ZO" id="2xa-NH-usi"/>
@@ -68,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Pg-Fx-dgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-672" y="35"/>
+            <point key="canvasLocation" x="367" y="-231"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -100,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-434" y="-231"/>
+            <point key="canvasLocation" x="-1022" y="-441"/>
         </scene>
         <!--Demo Book View Controller-->
         <scene sceneID="Lag-zH-jBB">
@@ -134,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6pC-zU-TPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="190" y="-231"/>
+            <point key="canvasLocation" x="750" y="-917"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="kL1-EK-viT">
@@ -257,7 +303,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="903" y="-231"/>
+            <point key="canvasLocation" x="1261" y="-231"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="j0k-Dv-O3s">
@@ -317,7 +363,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06N-B1-0up" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1381" y="35"/>
+            <point key="canvasLocation" x="-342" y="-231"/>
         </scene>
         <!--Template View Controller-->
         <scene sceneID="QbY-7e-wbr">
