@@ -242,6 +242,8 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rs-4Q-GNL">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
+                                    <barButtonItem title="cancel" id="pmq-dw-dUs"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IIh-jY-uTx"/>
                                     <barButtonItem title="save" id="FJy-0o-I9j">
                                         <connections>
                                             <action selector="saveAction:" destination="8KY-Ld-6of" id="wRt-PL-Lfi"/>

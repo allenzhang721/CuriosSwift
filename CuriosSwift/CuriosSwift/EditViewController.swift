@@ -65,13 +65,18 @@ class EditViewController: UIViewController, IPageProtocol {
         collectionView.setCollectionViewLayout(normal, animated: false)
         collectionView.decelerationRate = 0.1
         
-        bookModel = getBookModel()
+//        bookModel = getBookModel()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         setupTemplateController()
+    }
+    
+    func loadBookWith(aBookID: String) {
+        
+        bookModel = getbookModelWith(aBookID)
     }
 }
 
@@ -617,6 +622,31 @@ extension EditViewController {
         let offsetMiddleY = CGRectGetHeight(collectionView.bounds) / 2.0
         
         return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
+    }
+    
+    private func getbookModelWith(aBookID: String) -> BookModel {
+        
+        let file = NSTemporaryDirectory().stringByAppendingString(aBookID)
+        let demobookPath = file.stringByAppendingPathComponent("/main.json")
+        let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
+        book.filePath = file
+        
+        for pageInfo in book.pagesInfo {
+            let path: String = pageInfo["Path"]!
+            let index: String = pageInfo["Index"]!
+            let relpagePath = path + index
+            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
+            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
+            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+            
+            book.appendPageModel(page)
+        }
+        
+        return book
+        
     }
     
     private func getBookModel() -> BookModel {

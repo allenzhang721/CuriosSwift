@@ -53,7 +53,6 @@
 		2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */; };
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
-		2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
 		2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */; };
@@ -127,7 +126,6 @@
 		2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManager.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
@@ -297,7 +295,6 @@
 				2C9147B31B0845C400579E4A /* PageModel.swift */,
 				2C9147B51B0845FA00579E4A /* ContainerModel.swift */,
 				2C9147B71B08462400579E4A /* ComponentModel.swift */,
-				2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */,
 				2CD8078E1B0B2C17008B286B /* UserManager.swift */,
 				2CD3AF891B12C1C2008319A8 /* UsersManager.swift */,
 				2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */,
@@ -513,7 +510,6 @@
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C927C871AF721CE004B2E55 /* FileSave.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
-				2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
