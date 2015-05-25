@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 botai. All rights reserved.
 //
 
+// Control the User Model
+
 import Foundation
 
-protocol IUser: NSObjectProtocol {
+protocol IUser {
     
-    
+    func getUserID() -> String
 }

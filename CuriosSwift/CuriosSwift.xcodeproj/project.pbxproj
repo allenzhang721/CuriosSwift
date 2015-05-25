@@ -54,6 +54,11 @@
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
 		2CB4BD8D1AE47B5C00DF6019 /* BookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */; };
+		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
+		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
+		2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */; };
+		2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8D1B12C5D7008319A8 /* IBook.swift */; };
+		2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF911B12F9E8008319A8 /* Constants.swift */; };
 		2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078A1B0B2908008B286B /* BookListViewController.swift */; };
 		2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078C1B0B2B5A008B286B /* IUser.swift */; };
 		2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078E1B0B2C17008B286B /* UserManager.swift */; };
@@ -123,6 +128,11 @@
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManager.swift; sourceTree = "<group>"; };
+		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
+		2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
+		2CD3AF8D1B12C5D7008319A8 /* IBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBook.swift; sourceTree = "<group>"; };
+		2CD3AF911B12F9E8008319A8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2CD8078A1B0B2908008B286B /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
 		2CD8078C1B0B2B5A008B286B /* IUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IUser.swift; sourceTree = "<group>"; };
 		2CD8078E1B0B2C17008B286B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -208,6 +218,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2CD3AF911B12F9E8008319A8 /* Constants.swift */,
 				2C927C861AF721CE004B2E55 /* FileSave.swift */,
 				2C032CEF1B0D71AD0089DC81 /* Templates */,
 				2C7BAE8B1B08F9C6002B752A /* CuriosPreview */,
@@ -281,12 +292,15 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2CD3AF871B12BEFA008319A8 /* UserModel.swift */,
 				2C9147B11B08452A00579E4A /* BookModel.swift */,
 				2C9147B31B0845C400579E4A /* PageModel.swift */,
 				2C9147B51B0845FA00579E4A /* ContainerModel.swift */,
 				2C9147B71B08462400579E4A /* ComponentModel.swift */,
 				2CB4BD8C1AE47B5C00DF6019 /* BookManager.swift */,
 				2CD8078E1B0B2C17008B286B /* UserManager.swift */,
+				2CD3AF891B12C1C2008319A8 /* UsersManager.swift */,
+				2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -312,6 +326,7 @@
 				2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */,
 				2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */,
 				2CD8078C1B0B2B5A008B286B /* IUser.swift */,
+				2CD3AF8D1B12C5D7008319A8 /* IBook.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -482,10 +497,13 @@
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
+				2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */,
 				2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
+				2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
+				2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */,
 				2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */,
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
 				2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */,
@@ -510,6 +528,8 @@
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */,
+				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
+				2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,

@@ -14,13 +14,13 @@ class BookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if !UserManager.shareInstance.existDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
-            if UserManager.shareInstance.CreateUserDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
-                println("Create Default user Directory success")
-            }
-        } else {
-            println("default user directory exist")
-        }
+//        if !UserManager.shareInstance.existDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
+//            if UserManager.shareInstance.CreateUserDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
+//                println("Create Default user Directory success")
+//            }
+//        } else {
+//            println("default user directory exist")
+//        }
     }
     
 
@@ -33,7 +33,6 @@ class BookListViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 // MARK: - DataSource and Delegate

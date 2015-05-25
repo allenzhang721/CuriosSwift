@@ -1,98 +1,40 @@
 //
-//  DataManager.swift
+//  Constants.swift
 //  CuriosSwift
 //
-//  Created by Emiaostein on 4/20/15.
+//  Created by Emiaostein on 5/25/15.
 //  Copyright (c) 2015 botai. All rights reserved.
 //
 
-import UIKit
-import Mantle
+import Foundation
 
-class BookManager: NSObject {
+struct Constants {
     
-    struct constants {
-        static let temporaryDirectoryURL = FileSave.applicationTemporaryDirectory()
-        static let documentDirectoryURL = FileSave.applicationDirectory(.DocumentDirectory)
+    struct defaultPath {
+        static let temporaryDirectoryURL = FileSaveManager.applicationTemporaryDirectory()
+        static let documentDirectoryURL = FileSaveManager.applicationDirectory(.DocumentDirectory)
     }
     
-    class func loadBookFromURL(url: NSURL) -> BookModel? {
+    struct defaultWords {
         
-        
-        
-        return nil
-    }
-    
-    // TODO:
-//    class func checkTemparoryBook() -> BookModel? {
-//        
-//        let fileManager = NSFileManager.defaultManager().enumeratorAtPath(BookManager.constants.temporaryDirectoryURL?.relativePath!)
-//        return []
-//    }
-//    
-    class func copyDemoBook() -> Bool {
-        
-        let demoBookID = "QWERTASDFGZXCVB"
-        let demobookPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(demoBookID)
-        let demoBookURL = NSURL.fileURLWithPath(demobookPath!, isDirectory: true)
-        let toBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
-        let toBookURL = NSURL.fileURLWithPath(toBookPath, isDirectory: true)
-//        println("demoBookURL = \(demoBookURL)\ntoBookURL = \(toBookURL)")
-        NSFileManager.defaultManager().removeItemAtURL(toBookURL!, error: nil)
-        return NSFileManager.defaultManager().copyItemAtURL(demoBookURL!, toURL: toBookURL!, error: nil)
-    }
-    
-    class func createBookAtURL(path: NSURL) -> BookModel {
-        
-        let bookModel = BookModel()
-        let bookID = bookModel.Id
-        let bookDirectoryPath = path.URLByAppendingPathComponent(bookID).relativePath!
-        let url = NSURL.fileURLWithPath(bookDirectoryPath, isDirectory: true)!
-        NSFileManager.defaultManager().createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil, error: nil)
-        let bookDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+        static let bookJsonName = "main"
+        static let userBooksDirName = "Books"    // user's draft book dir
+        static let userBooksListName = "bookList" // user's book list file
+        static let userTemplatesName = "templatesList" // user's template list file
+        static let userTemplateDirName = "Templates" // user's daraft template dir
+        static let bookImageDirName = "images"  // book images dir
+        static let bookPagesDirName = "Pages"       // pages dir
+        static let bookJsonType = "json"
 
-        let bookjson = NSJSONSerialization.dataWithJSONObject(bookDic, options: NSJSONWritingOptions(0), error: nil)
-        let bookJsonPath = bookDirectoryPath.stringByAppendingPathComponent(bookID + ".json")
-        let bookjsonUrl = NSURL.fileURLWithPath(bookJsonPath, isDirectory: false)
-        bookjson?.writeToURL(bookjsonUrl!, atomically: true)
-        
-        return BookModel()
     }
     
-    class func createPageTo(path: String) -> PageModel {
-        
-        
-        return PageModel()
-    }
-    
-    class func deleteBookWith(path: String) -> Bool {
-        
-        
-        return true
-    }
-    
-    class func deletePageWith(path: String) -> Bool {
-        
-        return true
-    }
-   
-    
-   class func bookWith(path: String) -> BookModel {
-    
-        return BookModel()
-    }
-    
-    class func pageWith(file: String) -> PageModel {
-        
-        return PageModel()
-    }
 }
 
-
-// MARK: - FileSave
-private struct FileSave {
+// MARK: - FileSaveManager
+// MARK: -
+private struct FileSaveManager {
     
-     static func saveData(fileData:NSData, directory:NSSearchPathDirectory, path:String, subdirectory:String?) -> Bool
+    static func saveData(fileData:NSData, directory:NSSearchPathDirectory, path:String, subdirectory:String?) -> Bool
     {
         // Remove unnecessary slash if need
         let newPath = self.stripSlashIfNeeded(path)
@@ -116,7 +58,7 @@ private struct FileSave {
         // Add requested save path
         savePath += newPath
         
-
+        
         // Save the file and see if it was successful
         var ok:Bool = NSFileManager.defaultManager().createFileAtPath(savePath,contents:fileData, attributes:nil)
         
@@ -125,7 +67,7 @@ private struct FileSave {
         
     }
     
-     static func saveDataToTemporaryDirectory(fileData:NSData, path:String, subdirectory:String?) -> Bool
+    static func saveDataToTemporaryDirectory(fileData:NSData, path:String, subdirectory:String?) -> Bool
     {
         
         // Remove unnecessary slash if need
@@ -160,7 +102,7 @@ private struct FileSave {
     
     // string methods
     
-     static func saveString(fileString:String, directory:NSSearchPathDirectory, path:String, subdirectory:String) -> Bool {
+    static func saveString(fileString:String, directory:NSSearchPathDirectory, path:String, subdirectory:String) -> Bool {
         // Remove unnecessary slash if need
         var newPath = self.stripSlashIfNeeded(path)
         var newSubdirectory:String? = self.stripSlashIfNeeded(subdirectory)
@@ -191,7 +133,7 @@ private struct FileSave {
         return ok
         
     }
-     static func saveStringToTemporaryDirectory(fileString:String, path:String, subdirectory:String) -> Bool {
+    static func saveStringToTemporaryDirectory(fileString:String, path:String, subdirectory:String) -> Bool {
         
         var newPath = self.stripSlashIfNeeded(path)
         var newSubdirectory:String? = self.stripSlashIfNeeded(subdirectory)
@@ -224,7 +166,7 @@ private struct FileSave {
     // private methods
     
     //directories
-     static func applicationDirectory(directory:NSSearchPathDirectory) -> NSURL? {
+    static func applicationDirectory(directory:NSSearchPathDirectory) -> NSURL? {
         
         var appDirectory:String?
         var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(directory, NSSearchPathDomainMask.UserDomainMask, true);
@@ -239,7 +181,7 @@ private struct FileSave {
         return nil
     }
     
-     static func applicationTemporaryDirectory() -> NSURL? {
+    static func applicationTemporaryDirectory() -> NSURL? {
         
         if let tD = NSTemporaryDirectory() {
             return NSURL(string:tD)
