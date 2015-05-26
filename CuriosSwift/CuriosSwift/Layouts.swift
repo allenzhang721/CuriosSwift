@@ -57,7 +57,7 @@ class TemplateLayout: UICollectionViewFlowLayout {
         super.init()
         itemSize = LayoutSpec.layoutConstants.templateLayout.itemSize
         sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
-        scrollDirection = .Horizontal
+        scrollDirection = .Vertical
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -66,7 +66,7 @@ class TemplateLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
         sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
-        scrollDirection = .Horizontal
+        scrollDirection = .Vertical
     }
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {

@@ -56,15 +56,28 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     }
 }
+
 // MARK: - IBAction
 // MARK: - 
 
+extension BookListViewController {
+    
+    @IBAction func addBookAction(sender: UIBarButtonItem) {
+        
+//        createBook()
+    }
+    
+}
 
 // MARK: - Private Method
 // MARK: - 
 
 extension BookListViewController {
     
-    
+    func createBook() {
+       let templateViewController = storyboard?.instantiateViewControllerWithIdentifier("TemplateViewController") as! TemplateViewController
+        
+        navigationController!.presentViewController(templateViewController, animated: true, completion: nil)
+    }
     
 }
