@@ -98,7 +98,6 @@ class TransitionLayout: UICollectionViewTransitionLayout {
                     cell.transitionWithProgress(transitionProgress, isSmallSize: isSmall, minScale: minScale)
                     
                 }
-                
             }
         }
         

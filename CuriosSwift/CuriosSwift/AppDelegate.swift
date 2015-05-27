@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mantle
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        createBaseDirectory()
         return true
     }
 
@@ -42,5 +44,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    
+    private func createBaseDirectory() {
+        let fileManager = NSFileManager.defaultManager()
+        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
+        let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
+//        
+//        LoginModel.shareInstance.loadInfo()
+//        println(LoginModel.shareInstance)
+//        
+//        LoginModel.shareInstance.login = true
+//        
+//        
+//        let bundlePath = NSBundle.mainBundle().resourcePath
+//        let adminPath = bundlePath!.stringByAppendingPathComponent("Admin")
+//        let data = NSData.dataWithContentsOfMappedFile(adminPath) as! NSData
+//        let admin = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil) as! [String:AnyObject]
+//        
+//        if let a = admin["login"] as? Bool where a == true {
+//            
+//            let json = admin["user"] as? [NSObject : AnyObject]
+//            
+//            let userModel = MTLJSONAdapter.modelOfClass(UserModel.self, fromJSONDictionary: json , error: nil) as! UserModel
+//            LoginModel.shareInstance.user = userModel
+//            
+//        }
+//        
+//        
+//        LoginModel.shareInstance.save()
+//        println(LoginModel.shareInstance)
+        
+        if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
+            println("Create PublicTemplate")
+        }
+        if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
+            println("Create Users")
+        }
+    }
 }
 

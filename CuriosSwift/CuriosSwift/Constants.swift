@@ -17,6 +17,9 @@ struct Constants {
     
     struct defaultWords {
         
+        static let loginFileName = "LoginFile"
+        static let publicTemplateDirName = "Templates"
+        static let usersDirName = "Users"
         static let bookJsonName = "main"
         static let userBooksDirName = "Books"    // user's draft book dir
         static let userBooksListName = "bookList" // user's book list file
@@ -25,9 +28,7 @@ struct Constants {
         static let bookImageDirName = "images"  // book images dir
         static let bookPagesDirName = "Pages"       // pages dir
         static let bookJsonType = "json"
-
     }
-    
 }
 
 // MARK: - FileSaveManager

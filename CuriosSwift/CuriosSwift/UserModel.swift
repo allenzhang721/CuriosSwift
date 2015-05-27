@@ -29,7 +29,21 @@ class UserModel: Model {
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
         return [
-            "descri" : "description"
+            "nikename" : "nikename",
+            "userID" : "userID",
+            "descri" : "description",
+            "password" : "password",
+            "iconURL" : "iconURL",
+            "sex" : "sex",
+            "email" : "email",
+            "phone" : "phone",
+            "areacodeID" : "areacodeID",
+            "countryID" : "countryID",
+            "provinceID" : "provinceID",
+            "cityID" : "cityID",
+            "weixin" : "weixin",
+            "weibo" : "weibo",
+            "ip" : "ip"
         ]
     }
 }

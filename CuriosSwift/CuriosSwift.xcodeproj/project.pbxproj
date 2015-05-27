@@ -53,6 +53,7 @@
 		2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */; };
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
+		2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
 		2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */; };
@@ -61,6 +62,7 @@
 		2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078A1B0B2908008B286B /* BookListViewController.swift */; };
 		2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078C1B0B2B5A008B286B /* IUser.swift */; };
 		2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078E1B0B2C17008B286B /* UserManager.swift */; };
+		2CD865B91B145B3100DA3646 /* Admin in Resources */ = {isa = PBXBuildFile; fileRef = 2CD865B81B145B3100DA3646 /* Admin */; };
 		2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */; };
 		2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -126,6 +128,7 @@
 		2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 		2CD8078A1B0B2908008B286B /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
 		2CD8078C1B0B2B5A008B286B /* IUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IUser.swift; sourceTree = "<group>"; };
 		2CD8078E1B0B2C17008B286B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		2CD865B81B145B3100DA3646 /* Admin */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Admin; sourceTree = "<group>"; };
 		2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerMaskView.swift; sourceTree = "<group>"; };
 		2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2CD865B81B145B3100DA3646 /* Admin */,
 				2CD3AF911B12F9E8008319A8 /* Constants.swift */,
 				2C927C861AF721CE004B2E55 /* FileSave.swift */,
 				2C032CEF1B0D71AD0089DC81 /* Templates */,
@@ -290,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */,
 				2CD3AF871B12BEFA008319A8 /* UserModel.swift */,
 				2C9147B11B08452A00579E4A /* BookModel.swift */,
 				2C9147B31B0845C400579E4A /* PageModel.swift */,
@@ -425,6 +431,7 @@
 				2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
+				2CD865B91B145B3100DA3646 /* Admin in Resources */,
 				2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,6 +538,7 @@
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
+				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
