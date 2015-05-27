@@ -8,7 +8,7 @@
         <!--Book List View Controller-->
         <scene sceneID="HOC-TO-R8C">
             <objects>
-                <viewController id="qt8-qy-WNT" customClass="BookListViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookListViewController" id="qt8-qy-WNT" customClass="BookListViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7yS-0m-3EG"/>
                         <viewControllerLayoutGuide type="bottom" id="Row-NA-AQf"/>
@@ -179,10 +179,10 @@
             </objects>
             <point key="canvasLocation" x="367" y="475"/>
         </scene>
-        <!--View Controller-->
+        <!--Local Template View Controller-->
         <scene sceneID="i7T-OP-61n">
             <objects>
-                <viewController id="9wI-9n-chE" sceneMemberID="viewController">
+                <viewController id="9wI-9n-chE" customClass="LocalTemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f8z-Bl-kSy"/>
                         <viewControllerLayoutGuide type="bottom" id="8Vh-bJ-y0E"/>
@@ -221,7 +221,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Q0Q-k9-o7P">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="Epd-0y-Swa"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="Epd-0y-Swa">
+                            <connections>
+                                <action selector="cancelAction:" destination="9wI-9n-chE" id="ceP-qo-9Wb"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="更多" id="1xo-vB-87M">
                             <connections>
                                 <segue destination="rjU-EZ-E4c" kind="show" id="dTF-hW-w6n"/>
@@ -457,7 +461,7 @@
         <!--Navigation Controller-->
         <scene sceneID="riN-Id-6eq">
             <objects>
-                <navigationController storyboardIdentifier="bookList" id="Nyt-Dc-7b4" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="bookListNavigationController" id="Nyt-Dc-7b4" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iS6-nu-sjt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

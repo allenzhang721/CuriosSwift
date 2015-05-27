@@ -13,14 +13,6 @@ class BookListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        if !UserManager.shareInstance.existDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
-//            if UserManager.shareInstance.CreateUserDirectoryWithUserName(UserManager.shareInstance.defaultUserName) {
-//                println("Create Default user Directory success")
-//            }
-//        } else {
-//            println("default user directory exist")
-//        }
     }
     
 
@@ -43,7 +35,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - TableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return UsersManager.shareInstance.bookList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

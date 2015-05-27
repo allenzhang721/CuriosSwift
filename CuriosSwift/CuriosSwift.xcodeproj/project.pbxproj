@@ -54,6 +54,7 @@
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
 		2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */; };
+		2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
 		2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */; };
@@ -129,6 +130,7 @@
 		2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2CB4BD8A1AE47A1500DF6019 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTemplateViewController.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
+				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
@@ -524,6 +527,7 @@
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
 				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
+				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
