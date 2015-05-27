@@ -54,34 +54,13 @@ extension AppDelegate {
         let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
         let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
         let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
-//        
-//        LoginModel.shareInstance.loadInfo()
-//        println(LoginModel.shareInstance)
-//        
-//        LoginModel.shareInstance.login = true
-//        
-//        
-//        let bundlePath = NSBundle.mainBundle().resourcePath
-//        let adminPath = bundlePath!.stringByAppendingPathComponent("Admin")
-//        let data = NSData.dataWithContentsOfMappedFile(adminPath) as! NSData
-//        let admin = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil) as! [String:AnyObject]
-//        
-//        if let a = admin["login"] as? Bool where a == true {
-//            
-//            let json = admin["user"] as? [NSObject : AnyObject]
-//            
-//            let userModel = MTLJSONAdapter.modelOfClass(UserModel.self, fromJSONDictionary: json , error: nil) as! UserModel
-//            LoginModel.shareInstance.user = userModel
-//            
-//        }
-//        
-//        
-//        LoginModel.shareInstance.save()
-//        println(LoginModel.shareInstance)
         
+        // public templates dir
         if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
             println("Create PublicTemplate")
         }
+        
+        // users dir
         if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
             println("Create Users")
         }

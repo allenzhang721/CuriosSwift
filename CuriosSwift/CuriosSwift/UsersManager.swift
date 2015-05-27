@@ -24,7 +24,6 @@ class UsersManager: IUser, IBook {
                 let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
                 // user Dir
                 if fileManager.createDirectoryAtURL(userURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
-                    
                     println("create user Dir")
                     // books Dir
                     let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)

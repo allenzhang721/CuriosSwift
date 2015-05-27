@@ -17,3 +17,10 @@ protocol bookMangerInterface: IBook {
     func createBook(aBookID: String) -> Bool
     func deleteBook(abookID: String) -> Bool
 }
+
+protocol templateMangeInterface: IBook {
+    
+    func loadTemplates()
+    func saveTemplateListInfoToLocal()
+    
+}
