@@ -10,15 +10,11 @@ import UIKit
 
 class LocalTemplateViewController: UIViewController {
 
+    var templateList = [TemplateListModel]()
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -40,8 +36,35 @@ class LocalTemplateViewController: UIViewController {
 // MARK: - DataSource and Delegate
 // MARK: -
 
-extension LocalTemplateViewController {
+extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    // MARK: - CollectionViewDataSource and Delegate
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return TemplatesManager.instanShare.templateList.count
+    }
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! UICollectionViewCell
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        let selectedTemplate = TemplatesManager.instanShare.templateList[indexPath.item]
+        let templateId = selectedTemplate.bookID
+        let newTemplateId = UniqueIDString()
+        let tempDirUrl = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let toUrl = NSURL(string: UsersManager.shareInstance.getUserID(), relativeToURL: tempDirUrl)
+        if NSFileManager.defaultManager().createDirectoryAtURL(toUrl!, withIntermediateDirectories: true, attributes: nil, error: nil) {
+            if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl!.URLByAppendingPathComponent(newTemplateId)) {
+                println("copy to Temp")
+            }
+        }
+    }
 }
 
 // MARK: - IBAction

@@ -58,13 +58,17 @@ extension AppDelegate {
         // public templates dir
         if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
             println("Create PublicTemplate")
-            adminLogin()
+            if duplicateTemplatesTo(publicTemplateDirURL!) {
+                println("Duplicate Templates")
+            }
         }
         
         // users dir
         if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
             println("Create Users Dir")
+            adminLogin()
         }
+        
     }
     
     private func adminLogin() {
@@ -75,6 +79,12 @@ extension AppDelegate {
         let json = NSData(contentsOfURL: NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("Admin"))
         let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
         base64json?.writeToURL(loginFile!, atomically: true)
+    }
+    
+    private func duplicateTemplatesTo(toUrl: NSURL) -> Bool {
+        
+        let defaultTemplatePathUrl = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent(Constants.defaultWords.defaultTeplateDirName)
+        return NSFileManager.defaultManager().replaceItemAtURL(toUrl, withItemAtURL: defaultTemplatePathUrl!, backupItemName: nil, options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil)
     }
 }
 

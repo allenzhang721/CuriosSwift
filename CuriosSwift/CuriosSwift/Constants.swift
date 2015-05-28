@@ -17,8 +17,10 @@ struct Constants {
     
     struct defaultWords {
         
+        static let defaultTeplateDirName = "Templates"
         static let loginFileName = "LoginFile"
         static let publicTemplateDirName = "Templates"
+        static let publicTemplateFileName = "Templates"
         static let usersDirName = "Users"
         static let bookJsonName = "main"
         static let userBooksDirName = "Books"    // user's draft book dir

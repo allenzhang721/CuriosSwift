@@ -38,6 +38,7 @@ extension ViewController {
             println(user.userID)
             UsersManager.shareInstance.user = user
             loadBookListViewController()
+            TemplatesManager.instanShare.loadTemplates()
         }
     }
     

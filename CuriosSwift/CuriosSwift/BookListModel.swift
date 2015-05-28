@@ -11,7 +11,7 @@ import Mantle
 
 class BookListModel: Model {
     
-    var bookID = "sadfasdfasdfasdf"
+    var bookID = ""
     var bookName = ""
     var descri = ""
     var date: NSDate! = NSDate(timeIntervalSinceNow: 0)
