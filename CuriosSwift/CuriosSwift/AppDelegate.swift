@@ -56,14 +56,25 @@ extension AppDelegate {
         let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
         
         // public templates dir
-        if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
+        if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
             println("Create PublicTemplate")
+            adminLogin()
         }
         
         // users dir
-        if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
-            println("Create Users")
+        if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
+            println("Create Users Dir")
         }
+    }
+    
+    private func adminLogin() {
+        
+        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+        let loginFile = NSURL(string: Constants.defaultWords.loginFileName, relativeToURL: documentDirURL)
+        let json = NSData(contentsOfURL: NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("Admin"))
+        let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
+        base64json?.writeToURL(loginFile!, atomically: true)
     }
 }
 

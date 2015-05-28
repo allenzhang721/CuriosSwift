@@ -17,6 +17,8 @@
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
 		2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54ADF21B097B8700B0D460 /* SmallLayout.swift */; };
+		2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DCFA1B161020006249D8 /* BookListModel.swift */; };
+		2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD301B16920D006249D8 /* TemplateListModel.swift */; };
 		2C7763551B056407000DDFB2 /* IComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763541B056407000DDFB2 /* IComponent.swift */; };
 		2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */; };
 		2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */; };
@@ -89,6 +91,8 @@
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		2C54ADF21B097B8700B0D460 /* SmallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLayout.swift; sourceTree = "<group>"; };
+		2C63DCFA1B161020006249D8 /* BookListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListModel.swift; sourceTree = "<group>"; };
+		2C63DD301B16920D006249D8 /* TemplateListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateListModel.swift; sourceTree = "<group>"; };
 		2C7763541B056407000DDFB2 /* IComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IComponent.swift; sourceTree = "<group>"; };
 		2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentImageNode.swift; sourceTree = "<group>"; };
 		2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentTextNode.swift; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
+				2C63DD301B16920D006249D8 /* TemplateListModel.swift */,
 				2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */,
 				2CD3AF871B12BEFA008319A8 /* UserModel.swift */,
 				2C9147B11B08452A00579E4A /* BookModel.swift */,
@@ -538,10 +544,12 @@
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
+				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
 				2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */,
 				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
 				2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
+				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,

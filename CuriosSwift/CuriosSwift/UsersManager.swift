@@ -34,9 +34,10 @@ class UsersManager: IUser, IBook {
                     // booklist File
                     let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
                     
-                    let aBooklist = [String]()
-                    let abookListjson = NSJSONSerialization.dataWithJSONObject(aBooklist, options: NSJSONWritingOptions(0), error: nil)
-                    if abookListjson!.writeToURL(bookListFileURL!, atomically: true) {
+                    let aBooklist = [BookListModel]()
+                    let abookListJson = MTLJSONAdapter.JSONArrayFromModels(aBooklist, error: nil)
+                    let abookListdata = NSJSONSerialization.dataWithJSONObject(abookListJson, options: NSJSONWritingOptions(0), error: nil)
+                    if abookListdata!.writeToURL(bookListFileURL!, atomically: true) {
                     }
                 }
                 
@@ -46,7 +47,7 @@ class UsersManager: IUser, IBook {
             }
         }
     }
-    var bookList = [BookModel]()
+    var bookList = [BookListModel]()
     
     func reloadBookList() {
         
@@ -61,18 +62,14 @@ class UsersManager: IUser, IBook {
         
         if user != nil {
             
-            var bookIDArray = [String]()
-            for bookModel in bookList {
-                let bookId = bookModel.Id
-                bookIDArray.append(bookId)
-            }
+            let bookListJson = MTLJSONAdapter.JSONArrayFromModels(bookList, error: nil)
             
             let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
             let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(user.userID)
             let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
             let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
-            let aBooklistJson = NSJSONSerialization.dataWithJSONObject(bookIDArray, options: NSJSONWritingOptions(0), error: nil)
+            let aBooklistJson = NSJSONSerialization.dataWithJSONObject(bookListJson, options: NSJSONWritingOptions(0), error: nil)
             aBooklistJson!.writeToURL(bookListFileURL!, atomically: true)
         }
         
@@ -121,19 +118,12 @@ extension UsersManager {
         let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
         let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
         let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
-        let booklistData = NSData(contentsOfURL: bookListFileURL!, options: NSDataReadingOptions(0), error: nil)
         
-        let bookArray = NSJSONSerialization.JSONObjectWithData(booklistData!, options: NSJSONReadingOptions(0), error: nil) as! [String]
-        for bookID in bookArray {
-            
-            let bookDir = userBooksURL?.URLByAppendingPathComponent(bookID)
-            let bookjsonPath = bookDir?.URLByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
-            let bookjsonData = NSData(contentsOfURL: bookjsonPath!, options: NSDataReadingOptions(0), error: nil)
-            let bookjson: AnyObject? = NSJSONSerialization.JSONObjectWithData(bookjsonData!, options: NSJSONReadingOptions(0), error: nil)
-            let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: bookjson as! [NSObject : AnyObject], error: nil) as! BookModel
-            book.filePath = bookDir!.absoluteString!
-            
-            bookList.append(book)
-        }
+        //book list file
+        let booklistData = NSData(contentsOfURL: bookListFileURL!, options: NSDataReadingOptions(0), error: nil)
+        let bookArray = NSJSONSerialization.JSONObjectWithData(booklistData!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
+        let aBookList = MTLJSONAdapter.modelsOfClass(BookListModel.self, fromJSONArray: bookArray, error: nil) as! [BookListModel]
+        
+        bookList = aBookList
     }
 }
