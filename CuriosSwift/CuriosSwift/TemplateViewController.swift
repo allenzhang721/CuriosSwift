@@ -84,28 +84,28 @@ extension TemplateViewController {
     
     private func getTemplates() {
         
-        let fileManager = NSFileManager.defaultManager()
-        let aBundlePath = NSBundle.mainBundle().resourcePath!
-        let templates = aBundlePath.stringByAppendingPathComponent("Templates")
-        let templatejson = templates.stringByAppendingPathComponent("templates.json")
-        let templatedata: AnyObject? = NSData.dataWithContentsOfMappedFile(templatejson)
-        let bookList: AnyObject? = NSJSONSerialization.JSONObjectWithData(templatedata as! NSData, options: NSJSONReadingOptions(0), error: nil)
-    
-//        let demobookPath = file.stringByAppendingPathComponent("/main.json")
-        
-        if let abl = bookList as? NSArray {
-            for booDir in abl {
-//                println(booDir)
-              let  bookFile = templates.stringByAppendingPathComponent(booDir as! String)
-                let bookjson = bookFile.stringByAppendingPathComponent("main.json")
-                let data: AnyObject? = NSData.dataWithContentsOfMappedFile(bookjson)
-                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-                let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-                book.filePath = bookFile
-                book.paraserPageInfo()
-                bookModels.append(book)
-            }
-        }
+//        let fileManager = NSFileManager.defaultManager()
+//        let aBundlePath = NSBundle.mainBundle().resourcePath!
+//        let templates = aBundlePath.stringByAppendingPathComponent("Templates")
+//        let templatejson = templates.stringByAppendingPathComponent("templates.json")
+//        let templatedata: AnyObject? = NSData.dataWithContentsOfMappedFile(templatejson)
+//        let bookList: AnyObject? = NSJSONSerialization.JSONObjectWithData(templatedata as! NSData, options: NSJSONReadingOptions(0), error: nil)
+//    
+////        let demobookPath = file.stringByAppendingPathComponent("/main.json")
+//        
+//        if let abl = bookList as? NSArray {
+//            for booDir in abl {
+////                println(booDir)
+//              let  bookFile = templates.stringByAppendingPathComponent(booDir as! String)
+//                let bookjson = bookFile.stringByAppendingPathComponent("main.json")
+//                let data: AnyObject? = NSData.dataWithContentsOfMappedFile(bookjson)
+//                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+//                let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
+//                book.filePath = bookFile
+//                book.paraserPageInfo()
+//                bookModels.append(book)
+//            }
+//        }
     }
     
 }

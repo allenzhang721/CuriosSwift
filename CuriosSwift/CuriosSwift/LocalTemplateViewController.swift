@@ -62,6 +62,10 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
         if NSFileManager.defaultManager().createDirectoryAtURL(toUrl!, withIntermediateDirectories: true, attributes: nil, error: nil) {
             if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl!.URLByAppendingPathComponent(newTemplateId)) {
                 println("copy to Temp")
+                
+               let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
+                edit.loadBookWith(newTemplateId)
+                navigationController?.presentViewController(edit, animated: true, completion: nil)
             }
         }
     }

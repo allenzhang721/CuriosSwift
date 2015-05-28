@@ -74,8 +74,13 @@ class EditViewController: UIViewController, IPageProtocol {
         setupTemplateController()
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     func loadBookWith(aBookID: String) {
         
+//        println("aBookID = \(aBookID)")
         bookModel = getbookModelWith(aBookID)
     }
 }
@@ -326,15 +331,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
-        let tempBookPath = bookModel.filePath
-        let demoBookID = "QWERTASDFGZXCVB"
-        let documentPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
-        let documentBookPath = documentPath.stringByAppendingPathComponent(demoBookID)
         
-        if NSFileManager.defaultManager().replaceItemAtURL(NSURL(fileURLWithPath: documentBookPath, isDirectory: true)!, withItemAtURL: NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, backupItemName: bookModel.Id + "backUp", options: NSFileManagerItemReplacementOptions.UsingNewMetadataOnly, resultingItemURL: nil, error: nil) {
-            
-            dismissViewControllerAnimated(true, completion: nil)
-        }
+        saveBook()
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
@@ -626,10 +625,16 @@ extension EditViewController {
     
     private func getbookModelWith(aBookID: String) -> BookModel {
         
-        let file = NSTemporaryDirectory().stringByAppendingString(aBookID)
+        let file = NSTemporaryDirectory().stringByAppendingString(UsersManager.shareInstance.getUserID() + "/" + aBookID)
         let demobookPath = file.stringByAppendingPathComponent("/main.json")
-        let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
+        
+        
+        let data: AnyObject? = NSData(contentsOfFile: demobookPath)
+
+        
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        
+        
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
         book.filePath = file
         
@@ -748,4 +753,24 @@ extension EditViewController {
         }
     }
     
+    private func saveBook() {
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        let bookId = bookModel.Id
+        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+        let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
+        let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
+        let originBookUrl = userBooksURL?.URLByAppendingPathComponent(bookId)
+        
+        let tempDirUrl = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let tempUserUrl = NSURL(string: userID, relativeToURL: tempDirUrl)
+        let tempBookUlr = tempUserUrl?.URLByAppendingPathComponent(bookId)
+        
+        if NSFileManager.defaultManager().replaceItemAtURL(originBookUrl!, withItemAtURL: tempBookUlr!, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
+            
+            UsersManager.shareInstance.updateBookWith(bookModel.Id, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: bookModel.publishDate, aIconUrl: NSURL(string: "")!)
+            NSFileManager.defaultManager().removeItemAtURL(tempBookUlr!, error: nil)
+        }
+    }
 }

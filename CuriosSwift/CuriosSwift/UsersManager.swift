@@ -75,6 +75,88 @@ class UsersManager: IUser, IBook {
         
         
     }
+    
+    /*
+    
+    bookID =
+    bookName
+    descri =
+    date: NS
+    iconUrl:
+    
+    */
+    
+    func updateBookWith(aBookID: String, aBookName: String, aDescription: String, aDate: NSDate, aIconUrl: NSURL) {
+        
+        println(" updateID = \(aBookID)")
+        var index = 0
+        var find = false
+        for bookListModel in bookList {
+            
+            println("bookListModel = \(bookListModel.bookID)")
+            if bookListModel.bookID == aBookID {
+                bookList.removeAtIndex(index)
+                let aBookListModel = BookListModel()
+                aBookListModel.bookID = aBookID
+                aBookListModel.bookName = aBookName
+                aBookListModel.descri = aDescription
+                aBookListModel.date = aDate
+                aBookListModel.iconUrl = aIconUrl
+                bookList.insert(aBookListModel, atIndex: index)
+                find = true
+                break
+            }
+            index++
+        }
+        
+        if !find {
+            let aBookListModel = BookListModel()
+            aBookListModel.bookID = aBookID
+            aBookListModel.bookName = aBookName
+            aBookListModel.descri = aDescription
+            aBookListModel.date = aDate
+            aBookListModel.iconUrl = aIconUrl
+            bookList.insert(aBookListModel, atIndex: 0)
+        }
+        
+        saveBookList()
+    }
+    
+    func duplicateTemplateTo(templateId: String, toUrl: NSURL) -> Bool {
+        
+        let existTemplate = bookList.filter { (templateListModel: BookListModel) -> Bool in
+            return templateListModel.bookID == templateId
+        }
+        
+        assert(existTemplate.count > 0, "template not exist")
+        
+        let userID = getUserID()
+        let bookId = templateId
+        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+        let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
+        let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
+        let originBookUrl = userBooksURL?.URLByAppendingPathComponent(bookId)
+        
+//        
+//        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+//        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+//        let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
+//        let userDirURL = usersDirURL?.URLByAppendingPathComponent(UsersManager.shareInstance.getUserID())
+//        let specialTemplateUrl = userDirURL?.URLByAppendingPathComponent(templateId)
+        
+        if NSFileManager.defaultManager().copyItemAtURL(originBookUrl!, toURL: toUrl, error: nil) {
+            
+            // change the new book id
+            println("copy book")
+            return true
+            
+        } else {
+            
+            
+            return false
+        }
+    }
 }
 
 // MARK: - Iuser
