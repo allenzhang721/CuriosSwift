@@ -20,12 +20,14 @@ import SnapKit
 
 class EditViewController: UIViewController, IPageProtocol {
     
+    @IBOutlet weak var bottomToolBar: UIToolbar!
+    @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var singleTapGesture: UITapGestureRecognizer!
     @IBOutlet var doubleTapGesture: UITapGestureRecognizer!
 
     var bookModel: BookModel!
-    var templateViewController: TemplateViewController!
+    var templateViewController: EditorTemplateNavigationController!
     var SmallLayout = smallLayout()
     var normalLayout = NormalLayout()
     var pageViewModels: [PageViewModel] = []
@@ -71,7 +73,10 @@ class EditViewController: UIViewController, IPageProtocol {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        setupTemplateController()
+        if templateViewController == nil {
+            
+            setupTemplateController()
+        }
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -168,17 +173,17 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 } else if CGRectContainsPoint(templateViewController.view.bounds, sender.locationInView(templateViewController.view)) {
                     
                     let loction = sender.locationInView(templateViewController.view)
-                    if let snapShot = templateViewController.getSnapShotInPoint(location) {
-                        
-                        if let aPageModels = templateViewController.getPageModels(location) {
-                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
-                            fakePageView?.fromTemplate = true
-                            fakePageView?.center = location
-                            view.addSubview(fakePageView!)
-                        } else {
-                            fallthrough
-                        }
-                    }
+//                    if let snapShot = templateViewController.getSnapShotInPoint(location) {
+//                        
+//                        if let aPageModels = templateViewController.getPageModels(location) {
+//                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
+//                            fakePageView?.fromTemplate = true
+//                            fakePageView?.center = location
+//                            view.addSubview(fakePageView!)
+//                        } else {
+//                            fallthrough
+//                        }
+//                    }
                 }
                 
                 // LongPress In NormalLayout
@@ -699,8 +704,11 @@ extension EditViewController {
         // collectionView Translation 0 ~ 1
         if transitionLayout != nil {
             let y = POPTransition(aProgress, startValue: isToSmallLayout ? 0 : maxY, endValue: isToSmallLayout ? maxY : 0)
+            let toolBarAlpha = POPTransition(aProgress, startValue: isToSmallLayout ? 1 : 0, endValue: isToSmallLayout ? 0 : 1)
             let yTran = min(max(y, 0), CGFloat(maxY))
             collectionView.transform = CGAffineTransformMakeTranslation(0, yTran)
+            topToolBar.alpha = toolBarAlpha
+            bottomToolBar.alpha = toolBarAlpha
         }
         
         // layout Transition  0 ~ 1
@@ -713,7 +721,7 @@ extension EditViewController {
     
     private func setupTemplateController() {
     
-        templateViewController = storyboard?.instantiateViewControllerWithIdentifier("TemplateViewController") as! TemplateViewController
+       templateViewController = storyboard?.instantiateViewControllerWithIdentifier("EditorTemplateNavigationController") as! EditorTemplateNavigationController
         
         addChildViewController(templateViewController)
         view.addSubview(templateViewController.view)

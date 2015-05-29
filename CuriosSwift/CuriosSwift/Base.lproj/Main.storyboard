@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -372,9 +373,11 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="bottomToolBar" destination="OzN-v5-MCP" id="4ew-GJ-N6o"/>
                         <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
                         <outlet property="doubleTapGesture" destination="RI9-qc-HIO" id="CVg-QA-zw7"/>
                         <outlet property="singleTapGesture" destination="SEq-lk-81G" id="G3R-mP-5pT"/>
+                        <outlet property="topToolBar" destination="8rs-4Q-GNL" id="mQ3-pi-boT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKO-E8-RrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,6 +485,22 @@
             </objects>
             <point key="canvasLocation" x="-342" y="-231"/>
         </scene>
+        <!--Editor Template Navigation Controller-->
+        <scene sceneID="PIf-YU-h1W">
+            <objects>
+                <navigationController storyboardIdentifier="EditorTemplateNavigationController" id="6WZ-r6-OGZ" customClass="EditorTemplateNavigationController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHy-WC-0W9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tGb-d9-Eju" kind="relationship" relationship="rootViewController" id="NT9-K0-s1z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s9k-QW-0Jz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1016" y="1267"/>
+        </scene>
         <!--Template View Controller-->
         <scene sceneID="QbY-7e-wbr">
             <objects>
@@ -505,27 +524,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="201" height="266"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VTj-Zz-EJW">
-                                                    <rect key="frame" x="8" y="8" width="185" height="207"/>
-                                                    <color key="backgroundColor" red="0.25882352939999997" green="0.29803921570000003" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J55-gG-ZD6">
-                                                    <rect key="frame" x="79" y="224" width="42" height="21"/>
+                                                    <rect key="frame" x="79" y="237" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VTj-Zz-EJW">
+                                                    <rect key="frame" x="19" y="8" width="163" height="221"/>
+                                                    <color key="backgroundColor" red="0.25882352939999997" green="0.29803921570000003" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="221" id="dHb-UI-66L"/>
+                                                        <constraint firstAttribute="width" secondItem="VTj-Zz-EJW" secondAttribute="height" multiplier="163:221" id="rgC-BX-sqh"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottomMargin" secondItem="VTj-Zz-EJW" secondAttribute="bottom" constant="43" id="FYF-Wd-4TF"/>
-                                            <constraint firstItem="J55-gG-ZD6" firstAttribute="centerX" secondItem="VTj-Zz-EJW" secondAttribute="centerX" id="QI6-6o-tIG"/>
-                                            <constraint firstItem="J55-gG-ZD6" firstAttribute="top" secondItem="VTj-Zz-EJW" secondAttribute="bottom" constant="9" id="aMt-1O-F9B"/>
-                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="top" secondItem="fYr-r2-DnZ" secondAttribute="topMargin" id="n9f-Uh-DJS"/>
-                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="centerX" secondItem="fYr-r2-DnZ" secondAttribute="centerX" id="pU1-Ct-a3c"/>
-                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="leading" secondItem="fYr-r2-DnZ" secondAttribute="leadingMargin" id="vQf-tA-aZS"/>
+                                            <constraint firstItem="J55-gG-ZD6" firstAttribute="top" secondItem="VTj-Zz-EJW" secondAttribute="bottom" constant="8" symbolic="YES" id="7Jt-if-cqI"/>
+                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="leading" secondItem="fYr-r2-DnZ" secondAttribute="leadingMargin" constant="11" id="DiM-va-jTF"/>
+                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="top" secondItem="fYr-r2-DnZ" secondAttribute="topMargin" id="mwE-VF-8ra"/>
+                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="centerX" secondItem="J55-gG-ZD6" secondAttribute="centerX" id="rOQ-4A-Wf7"/>
+                                            <constraint firstItem="VTj-Zz-EJW" firstAttribute="centerX" secondItem="fYr-r2-DnZ" secondAttribute="centerX" id="uhM-7x-hD3"/>
                                         </constraints>
                                         <size key="customSize" width="201" height="266"/>
                                     </collectionViewCell>
@@ -543,6 +565,7 @@
                             <constraint firstItem="jOv-kN-C0L" firstAttribute="leading" secondItem="0hq-og-E3c" secondAttribute="leading" id="jYL-9u-JYy"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="BXl-ht-ty9"/>
                     <connections>
                         <outlet property="collectionView" destination="jOv-kN-C0L" id="6mR-vm-F4O"/>
                     </connections>

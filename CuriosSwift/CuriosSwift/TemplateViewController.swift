@@ -60,7 +60,7 @@ extension TemplateViewController: UICollectionViewDataSource {
     // MARK: - CollectionView DataSource and Delegate
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return bookModels.count
+        return TemplatesManager.instanShare.templateList.count
     }
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -83,6 +83,8 @@ extension TemplateViewController: UICollectionViewDataSource {
 extension TemplateViewController {
     
     private func getTemplates() {
+        
+//        let templateListURL = documentDirectory(templates,templateList_)
         
 //        let fileManager = NSFileManager.defaultManager()
 //        let aBundlePath = NSBundle.mainBundle().resourcePath!

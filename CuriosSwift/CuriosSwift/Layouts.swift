@@ -57,7 +57,7 @@ class TemplateLayout: UICollectionViewFlowLayout {
         super.init()
         itemSize = LayoutSpec.layoutConstants.templateLayout.itemSize
         sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
-        scrollDirection = .Vertical
+        scrollDirection = .Horizontal
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -66,7 +66,7 @@ class TemplateLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
         sectionInset = LayoutSpec.layoutConstants.templateLayout.sectionInsets
-        scrollDirection = .Vertical
+        scrollDirection = .Horizontal
     }
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
@@ -118,6 +118,7 @@ class LayoutSpec: NSObject {
         static let aspectRatio: CGFloat = 320.0 / 504.0
         static let normalLayoutInsetLeft: CGFloat = 30.0
         static let smallLayoutInsetTop: CGFloat = 20.0
+        static let toolBarheight: CGFloat = 44.0
         static let screenSize:CGSize = UIScreen.mainScreen().bounds.size
         static let maxTransitionLayoutY = UIScreen.mainScreen().bounds.size.height * 0.618
         
@@ -151,7 +152,7 @@ class LayoutSpec: NSObject {
         }
         
         static var templateLayout: layoutAttributeStyle {
-            let height = floor(screenSize.height * goldRatio / 2.0)
+            let height = floor((screenSize.height * goldRatio - toolBarheight) / 2.0)
             let width = screenSize.width / 3.0
             let itemSize = CGSize(width: width, height: height)
             let sectionInsets = UIEdgeInsetsMake(0, 0, 0, 0)

@@ -24,7 +24,7 @@ class UsersManager: IUser, IBook {
                 let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
                 let userBookDirURL = documentDirectory(users,userID,books)
                 // user Dir
-                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
+                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
                     println("create user and Books Dir")
                     // booklist File
                     let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
