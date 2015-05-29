@@ -12,7 +12,7 @@ import Foundation
 let login_ = "login"
 let main_json = "main.json"
 let bookList_ = "bookList"
-let templateList_ = "templateList"
+let templateList_ = "Templates"
 let admin_ = "Admin"
 
 // path name

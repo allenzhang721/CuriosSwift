@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CuriosSwift.ComponentImageNode.init (CuriosSwift.ComponentImageNode.Type)(aComponentModel : CuriosSwift.ImageContentModel) -&gt; CuriosSwift.ComponentImageNode:ComponentImageNode.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(UIImage?)aImage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

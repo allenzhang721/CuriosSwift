@@ -7,46 +7,46 @@
     "FlipDirection": "ver",
     "FlipType": "translate3d",
     "FlipLoop":"true",
-    "MainBackground": "/images/background.jpg",
+    "MainBackground": "images/background.jpg",
     "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
-    "PagesPath": "/Pages",
+    "PagesPath": "Pages",
     "AuthorID": "1fdklaafdllfda",
     "PublishDate": "2015-04-23",
     "Pages": [
               {
               "PageID": "ASDFG",
-              "Path": "/ASDFG",
-              "Index": "/ASDFG.json"
+              "Path": "ASDFG",
+              "Index": "ASDFG.json"
               },
               {
               "PageID": "IUNCF",
-              "Path": "/IUNCF",
-              "Index": "/IUNCF.json"
+              "Path": "IUNCF",
+              "Index": "IUNCF.json"
               },
               {
               "PageID": "MDCIU",
-              "Path": "/MDCIU",
-              "Index": "/MDCIU.json"
+              "Path": "MDCIU",
+              "Index": "MDCIU.json"
               },
               {
               "PageID": "QWERT",
-              "Path": "/QWERT",
-              "Index": "/QWERT.json"
+              "Path": "QWERT",
+              "Index": "QWERT.json"
               },
               {
               "PageID": "UVSAI",
-              "Path": "/UVSAI",
-              "Index": "/UVSAI.json"
+              "Path": "UVSAI",
+              "Index": "UVSAI.json"
               },
               {
               "PageID": "VBDUV",
-              "Path": "/VBDUV",
-              "Index": "/VBDUV.json"
+              "Path": "VBDUV",
+              "Index": "VBDUV.json"
               },
               {
               "PageID": "ZXCVB",
-              "Path": "/ZXCVB",
-              "Index": "/ZXCVB.json"
+              "Path": "ZXCVB",
+              "Index": "ZXCVB.json"
               }
               ]
 }

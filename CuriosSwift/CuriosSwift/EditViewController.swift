@@ -625,57 +625,28 @@ extension EditViewController {
     
     private func getbookModelWith(aBookID: String) -> BookModel {
         
-        let file = NSTemporaryDirectory().stringByAppendingString(UsersManager.shareInstance.getUserID() + "/" + aBookID)
-        let demobookPath = file.stringByAppendingPathComponent("/main.json")
+        let userId = UsersManager.shareInstance.getUserID()
+        let bookURL = NSURL(string: aBookID, relativeToURL: temporaryDirectory(userId))
+        let bookMainjsonURL = temporaryDirectory(userId,aBookID,main_json)
         
-        
-        let data: AnyObject? = NSData(contentsOfFile: demobookPath)
-
-        
+        let data: AnyObject? = NSData(contentsOfURL: bookMainjsonURL)
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-        
-        
         let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-        book.filePath = file
+        book.filePath = bookURL!.path!
+        let basePagePath = URL(bookURL!.URLByAppendingPathComponent(pages).absoluteString!)(isDirectory: true)
         
         for pageInfo in book.pagesInfo {
             let path: String = pageInfo["Path"]!
             let index: String = pageInfo["Index"]!
-            let relpagePath = path + index
-            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
-            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
+            let pageJsonURL = basePagePath(path,index)
+            let data: AnyObject? = NSData(contentsOfURL: pageJsonURL)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            
             book.appendPageModel(page)
         }
         
         return book
         
-    }
-    
-    private func getBookModel() -> BookModel {
-        
-        let file = NSTemporaryDirectory().stringByAppendingString("QWERTASDFGZXCVB")
-        let demobookPath = file.stringByAppendingPathComponent("/main.json")
-        let data: AnyObject? = NSData.dataWithContentsOfMappedFile(demobookPath)
-        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-        let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
-        book.filePath = file
-        
-        for pageInfo in book.pagesInfo {
-            let path: String = pageInfo["Path"]!
-            let index: String = pageInfo["Index"]!
-            let relpagePath = path + index
-            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
-            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            
-            book.appendPageModel(page)
-        }
-        
-        return book
     }
     
     private func togglePopAnimation(on: Bool) -> POPBasicAnimation {
@@ -757,20 +728,14 @@ extension EditViewController {
         
         let userID = UsersManager.shareInstance.getUserID()
         let bookId = bookModel.Id
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
-        let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
-        let originBookUrl = userBooksURL?.URLByAppendingPathComponent(bookId)
+        let originBookUrl = documentDirectory(users,userID,books,bookId)
+        let tempBookUlr = temporaryDirectory(userID,bookId)
         
-        let tempDirUrl = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let tempUserUrl = NSURL(string: userID, relativeToURL: tempDirUrl)
-        let tempBookUlr = tempUserUrl?.URLByAppendingPathComponent(bookId)
-        
-        if NSFileManager.defaultManager().replaceItemAtURL(originBookUrl!, withItemAtURL: tempBookUlr!, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
+        if NSFileManager.defaultManager().replaceItemAtURL(originBookUrl, withItemAtURL: tempBookUlr, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
             
-            UsersManager.shareInstance.updateBookWith(bookModel.Id, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: bookModel.publishDate, aIconUrl: NSURL(string: "")!)
-            NSFileManager.defaultManager().removeItemAtURL(tempBookUlr!, error: nil)
+            UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: bookModel.publishDate, aIconUrl: NSURL(string: "")!)
+            
+            NSFileManager.defaultManager().removeItemAtURL(temporaryDirectory(userID), error: nil)
         }
     }
 }

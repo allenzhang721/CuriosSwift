@@ -108,6 +108,8 @@ class ImageContentModel: ComponentModel, IFile {
         get {
             let selfPath = attributes["ImagePath"] as! String
             if let string = delegate?.fileGetSuperPath(self).stringByAppendingPathComponent(selfPath) {
+                
+                
                 return string
             } else {
                 return ""

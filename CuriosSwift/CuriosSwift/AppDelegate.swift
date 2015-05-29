@@ -54,11 +54,8 @@ extension AppDelegate {
         let publicTemplateDirURL = documentDirectory(templates)
         let usersDirURL = documentDirectory(users)
         
-        println(publicTemplateDirURL.absoluteString!)
-        
-        fileManager.removeItemAtURL(publicTemplateDirURL, error: nil)
         // public templates dir
-        if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
+        if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
             
             println("create template")
             if duplicateTemplatesTo(publicTemplateDirURL) {
@@ -67,7 +64,7 @@ extension AppDelegate {
         }
         
         // users dir
-        if fileManager.createDirectoryAtURL(usersDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
+        if fileManager.createDirectoryAtURL(usersDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
             println("Create Users Dir")
             adminLogin()
         }

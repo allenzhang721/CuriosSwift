@@ -25,17 +25,14 @@ class LoginModel: Model {
     
     func loadInfo() {
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let loginFile = NSURL(string: Constants.defaultWords.loginFileName, relativeToURL: documentDirURL)
-        if let data = NSData(contentsOfURL: loginFile!, options: NSDataReadingOptions(0), error: nil) {
+        let loginFile = documentDirectory(login_)
+        if let data = NSData(contentsOfURL: loginFile, options: NSDataReadingOptions(0), error: nil) {
             let base64json = NSData(data: data)
             let jsondata = NSData(base64EncodedData: base64json, options: NSDataBase64DecodingOptions(0))
             let ajson: [NSObject : AnyObject]! = NSJSONSerialization.JSONObjectWithData(jsondata!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]!
             let loginModel = MTLJSONAdapter.modelOfClass(LoginModel.self, fromJSONDictionary: ajson, error: nil) as! LoginModel
             LoginModel.shareInstance.login = loginModel.login
             LoginModel.shareInstance.user = loginModel.user
-            //        return loginModel
         } else {
             LoginModel.shareInstance.login = false
             LoginModel.shareInstance.user = UserModel()
@@ -44,13 +41,11 @@ class LoginModel: Model {
     
     func save() {
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let loginFile = NSURL(string: Constants.defaultWords.loginFileName, relativeToURL: documentDirURL)
+        let loginFile = documentDirectory(login_)
         let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
         let json = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
         let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
-        base64json?.writeToURL(loginFile!, atomically: true)
+        base64json?.writeToURL(loginFile, atomically: true)
     }
     
     // component

@@ -35,7 +35,6 @@ extension ViewController {
         LoginModel.shareInstance.loadInfo()
         if LoginModel.shareInstance.login {
             let user = LoginModel.shareInstance.user
-            println(user.userID)
             UsersManager.shareInstance.user = user
             loadBookListViewController()
             TemplatesManager.instanShare.loadTemplates()

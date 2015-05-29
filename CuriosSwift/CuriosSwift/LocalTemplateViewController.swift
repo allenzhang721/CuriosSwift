@@ -30,7 +30,6 @@ class LocalTemplateViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 // MARK: - DataSource and Delegate
@@ -56,11 +55,16 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
         
         let selectedTemplate = TemplatesManager.instanShare.templateList[indexPath.item]
         let templateId = selectedTemplate.bookID
+        
         let newTemplateId = UniqueIDString()
-        let tempDirUrl = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let toUrl = NSURL(string: UsersManager.shareInstance.getUserID(), relativeToURL: tempDirUrl)
-        if NSFileManager.defaultManager().createDirectoryAtURL(toUrl!, withIntermediateDirectories: true, attributes: nil, error: nil) {
-            if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl!.URLByAppendingPathComponent(newTemplateId)) {
+        let userId = UsersManager.shareInstance.getUserID()
+        let userURL = temporaryDirectory(userId)
+        let toUrl = temporaryDirectory(userId, newTemplateId)
+        
+        if NSFileManager.defaultManager().createDirectoryAtURL(userURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
+            println("create temp > user > templateID")
+            if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl) {
+                
                 println("copy to Temp")
                 
                let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController

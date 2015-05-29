@@ -17,8 +17,13 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         super.init()
         backgroundColor = UIColor.blueColor()
         let aImagePath = componentModel.imagePath
-        self.image = UIImage(contentsOfFile: aImagePath)
-        self.clipsToBounds = true
+        
+        let aImage = UIImage(contentsOfFile: aImagePath)
+        image = aImage
+        
+        println("aImage = \(aImage)")
+        
+        clipsToBounds = true
     }
     
     // MARK: - IComponent

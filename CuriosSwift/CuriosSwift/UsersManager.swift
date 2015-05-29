@@ -22,22 +22,17 @@ class UsersManager: IUser, IBook {
                 let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
                 let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
                 let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
+                let userBookDirURL = documentDirectory(users,userID,books)
                 // user Dir
-                if fileManager.createDirectoryAtURL(userURL!, withIntermediateDirectories: false, attributes: nil, error: nil) {
-                    println("create user Dir")
-                    // books Dir
-                    let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
-                    if fileManager.createDirectoryAtURL(userBooksURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
-                        println("create user books Dir")
-                    }
-                    
+                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
+                    println("create user and Books Dir")
                     // booklist File
-                    let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
+                    let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
                     
                     let aBooklist = [BookListModel]()
                     let abookListJson = MTLJSONAdapter.JSONArrayFromModels(aBooklist, error: nil)
                     let abookListdata = NSJSONSerialization.dataWithJSONObject(abookListJson, options: NSJSONWritingOptions(0), error: nil)
-                    if abookListdata!.writeToURL(bookListFileURL!, atomically: true) {
+                    if abookListdata!.writeToURL(bookListFileURL, atomically: true) {
                     }
                 }
                 
@@ -63,17 +58,13 @@ class UsersManager: IUser, IBook {
         if user != nil {
             
             let bookListJson = MTLJSONAdapter.JSONArrayFromModels(bookList, error: nil)
+            let userId = getUserID()
+            let bookListFileURL = documentDirectory(users,userId,books,bookList_)
             
-            let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-            let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-            let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(user.userID)
-            let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
-            let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
+            
             let aBooklistJson = NSJSONSerialization.dataWithJSONObject(bookListJson, options: NSJSONWritingOptions(0), error: nil)
-            aBooklistJson!.writeToURL(bookListFileURL!, atomically: true)
+            aBooklistJson!.writeToURL(bookListFileURL, atomically: true)
         }
-        
-        
     }
     
     /*
@@ -122,7 +113,7 @@ class UsersManager: IUser, IBook {
         saveBookList()
     }
     
-    func duplicateTemplateTo(templateId: String, toUrl: NSURL) -> Bool {
+    func duplicateBookTo(templateId: String, toUrl: NSURL) -> Bool {
         
         let existTemplate = bookList.filter { (templateListModel: BookListModel) -> Bool in
             return templateListModel.bookID == templateId
@@ -132,28 +123,12 @@ class UsersManager: IUser, IBook {
         
         let userID = getUserID()
         let bookId = templateId
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
-        let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
-        let originBookUrl = userBooksURL?.URLByAppendingPathComponent(bookId)
-        
-//        
-//        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-//        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-//        let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
-//        let userDirURL = usersDirURL?.URLByAppendingPathComponent(UsersManager.shareInstance.getUserID())
-//        let specialTemplateUrl = userDirURL?.URLByAppendingPathComponent(templateId)
-        
-        if NSFileManager.defaultManager().copyItemAtURL(originBookUrl!, toURL: toUrl, error: nil) {
-            
+        let originBookURL = documentDirectory(users,userID,books,bookId)
+        if NSFileManager.defaultManager().copyItemAtURL(originBookURL, toURL: toUrl, error: nil) {
             // change the new book id
             println("copy book")
             return true
-            
         } else {
-            
-            
             return false
         }
     }
@@ -166,7 +141,7 @@ extension UsersManager {
     
     func getUserID() -> String {
         
-        assert(user == nil, "UsersManger Get user ID fail because user not exist.")
+        assert(user != nil, "UsersManger Get user ID fail because user not exist.")
         
         return user.userID
     }
@@ -195,14 +170,11 @@ extension UsersManager {
     
     private func reloadBookListWithUser(userID: String) {
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
-        let userBooksURL = userURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksDirName)
-        let bookListFileURL = userBooksURL?.URLByAppendingPathComponent(Constants.defaultWords.userBooksListName)
-        
+
         //book list file
-        let booklistData = NSData(contentsOfURL: bookListFileURL!, options: NSDataReadingOptions(0), error: nil)
+        let bookListFileURL = documentDirectory(users,userID,books,bookList_)
+        
+        let booklistData = NSData(contentsOfURL: bookListFileURL, options: NSDataReadingOptions(0), error: nil)
         let bookArray = NSJSONSerialization.JSONObjectWithData(booklistData!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
         let aBookList = MTLJSONAdapter.modelsOfClass(BookListModel.self, fromJSONArray: bookArray, error: nil) as! [BookListModel]
         

@@ -8,14 +8,14 @@
 
 import Foundation
 
-private func URL(baseURL: String)(isDirectory: Bool)(_ components: String...) -> NSURL {
-    let com = components.reduce("", combine: {$0 + "/" + $1})
-    let baseUrl = NSURL(fileURLWithPath: baseURL, isDirectory: isDirectory)
-    return NSURL(string: com, relativeToURL: baseUrl)!
+func URL(baseURL: String)(isDirectory: Bool)(_ components: String...) -> NSURL {
+    let abaseUrl = NSURL(fileURLWithPath: baseURL, isDirectory: isDirectory)
+    let com = components.reduce(abaseUrl, combine: { $0!.URLByAppendingPathComponent($1) })
+    return com!
 }
 
-let documentDirectory = URL(NSSearchPathForDirectoriesInDomains(.DocumentDirectory,  NSSearchPathDomainMask.UserDomainMask, true)[0] as! String)(isDirectory: false)
+let documentDirectory = URL(NSSearchPathForDirectoriesInDomains(.DocumentDirectory,  NSSearchPathDomainMask.UserDomainMask, true)[0] as! String)(isDirectory: true)
 
-let temporaryDirectory = URL(NSTemporaryDirectory())(isDirectory: false)
+let temporaryDirectory = URL(NSTemporaryDirectory())(isDirectory: true)
 
-let bundle = URL(NSBundle.mainBundle().resourcePath!)(isDirectory: false)
+let bundle = URL(NSBundle.mainBundle().resourcePath!)(isDirectory: true)

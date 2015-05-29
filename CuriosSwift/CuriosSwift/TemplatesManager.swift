@@ -22,29 +22,34 @@ class TemplatesManager: templateMangeInterface {
         
         assert(existTemplate.count > 0, "template not exist")
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
-        let specialTemplateUrl = publicTemplateDirURL?.URLByAppendingPathComponent(templateId)
+        let specialTemplateUrl = documentDirectory(templates,templateId)
         
-        if NSFileManager.defaultManager().copyItemAtURL(specialTemplateUrl!, toURL: toUrl, error: nil) {
+        println("specialTemplateUrl.path! = \(specialTemplateUrl.path!)")
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(specialTemplateUrl.path!) {
             
+            println("exist template")
+        }
+        
+        let error = NSErrorPointer()
+        if NSFileManager.defaultManager().copyItemAtURL(specialTemplateUrl, toURL: toUrl, error: error) {
+            
+            println(" duplicate selected template")
             // change the new book id
             let newId = toUrl.lastPathComponent!
-            println("newId =" + newId)
-            let mainjsonUrl = toUrl.URLByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
+            let mainjsonUrl = toUrl.URLByAppendingPathComponent(main_json)
             let mainjsonData = NSData(contentsOfURL: mainjsonUrl)
             var json = NSJSONSerialization.JSONObjectWithData(mainjsonData!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
             json["ID"] = newId
             var jsonData = NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(0), error: nil)
             if (jsonData?.writeToURL(mainjsonUrl, atomically: true) != nil) {
-                
                 println("change templ")
                 return true
             } else {
                 return false
             }
         } else {
+            println(error.debugDescription)
             return false
         }
     }
@@ -56,16 +61,11 @@ extension TemplatesManager {
     
     func loadTemplates() {
         
-//        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-//        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-//        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
-//        let publicTemplateFileURL = publicTemplateDirURL?.URLByAppendingPathComponent(Constants.defaultWords.publicTemplateFileName)
-//        let data = NSData(contentsOfURL: publicTemplateFileURL!)
-//        let json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
-//        let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
-//        templateList = aTemplateList
-//        
-//        println(templateList)
+        let publicTemplateFileURL = documentDirectory(templates,templateList_)
+        let data = NSData(contentsOfURL: publicTemplateFileURL)
+        let json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
+        let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
+        templateList = aTemplateList
     }
     
     func saveTemplateListInfoToLocal() {

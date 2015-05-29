@@ -110,7 +110,6 @@ extension ContainerMaskView {
     }
     
     func setTarget(target: IContainer) {
-        
         container = target
     }
     func getTarget() -> IContainer? {
