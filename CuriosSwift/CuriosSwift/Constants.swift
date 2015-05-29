@@ -8,6 +8,22 @@
 
 import Foundation
 
+// constant file name
+let login_ = "login"
+let main_json = "main.json"
+let bookList_ = "bookList"
+let templateList_ = "templateList"
+let admin_ = "Admin"
+
+// path name
+let users = "Users"
+let templates = "Templates"
+let books = "Books"
+let images = "images"
+let pages = "Pages"
+
+
+
 struct Constants {
     
     struct defaultPath {

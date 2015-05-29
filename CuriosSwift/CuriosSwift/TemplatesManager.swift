@@ -56,16 +56,16 @@ extension TemplatesManager {
     
     func loadTemplates() {
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
-        let publicTemplateFileURL = publicTemplateDirURL?.URLByAppendingPathComponent(Constants.defaultWords.publicTemplateFileName)
-        let data = NSData(contentsOfURL: publicTemplateFileURL!)
-        let json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
-        let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
-        templateList = aTemplateList
-        
-        println(templateList)
+//        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+//        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
+//        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
+//        let publicTemplateFileURL = publicTemplateDirURL?.URLByAppendingPathComponent(Constants.defaultWords.publicTemplateFileName)
+//        let data = NSData(contentsOfURL: publicTemplateFileURL!)
+//        let json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
+//        let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
+//        templateList = aTemplateList
+//        
+//        println(templateList)
     }
     
     func saveTemplateListInfoToLocal() {

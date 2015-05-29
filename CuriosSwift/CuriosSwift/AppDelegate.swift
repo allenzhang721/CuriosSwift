@@ -49,42 +49,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     private func createBaseDirectory() {
-        let fileManager = NSFileManager.defaultManager()
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let publicTemplateDirURL = NSURL(string: Constants.defaultWords.publicTemplateDirName, relativeToURL: documentDirURL)
-        let usersDirURL = NSURL(string: Constants.defaultWords.usersDirName, relativeToURL: documentDirURL)
         
+        let fileManager = NSFileManager.defaultManager()
+        let publicTemplateDirURL = documentDirectory(templates)
+        let usersDirURL = documentDirectory(users)
+        
+        println(publicTemplateDirURL.absoluteString!)
+        
+        fileManager.removeItemAtURL(publicTemplateDirURL, error: nil)
         // public templates dir
-        if fileManager.createDirectoryAtURL(publicTemplateDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
-            println("Create PublicTemplate")
-            if duplicateTemplatesTo(publicTemplateDirURL!) {
-                println("Duplicate Templates")
+        if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
+            
+            println("create template")
+            if duplicateTemplatesTo(publicTemplateDirURL) {
+                println("copy template")
             }
         }
         
         // users dir
-        if fileManager.createDirectoryAtURL(usersDirURL!, withIntermediateDirectories: true, attributes: nil, error: nil) {
+        if fileManager.createDirectoryAtURL(usersDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
             println("Create Users Dir")
             adminLogin()
         }
-        
     }
     
     private func adminLogin() {
+
+        let loginFileURL = documentDirectory(login_)
+        let adminURL = bundle(admin_)
+        let json = NSData(contentsOfURL:adminURL)
         
-        let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
-        let loginFile = NSURL(string: Constants.defaultWords.loginFileName, relativeToURL: documentDirURL)
-        let json = NSData(contentsOfURL: NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("Admin"))
         let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
-        base64json?.writeToURL(loginFile!, atomically: true)
+        base64json?.writeToURL(loginFileURL, atomically: true)
     }
     
     private func duplicateTemplatesTo(toUrl: NSURL) -> Bool {
-        
-        let defaultTemplatePathUrl = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent(Constants.defaultWords.defaultTeplateDirName)
-        return NSFileManager.defaultManager().replaceItemAtURL(toUrl, withItemAtURL: defaultTemplatePathUrl!, backupItemName: nil, options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil)
+
+        let bundleTemplateURL = bundle(templates)
+        println(toUrl)
+        return NSFileManager.defaultManager().replaceItemAtURL(toUrl, withItemAtURL: bundleTemplateURL, backupItemName: nil, options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil)
     }
 }
 
