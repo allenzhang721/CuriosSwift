@@ -405,7 +405,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1752" y="-231"/>
+            <point key="canvasLocation" x="1076" y="-231"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3fr-ym-y83">
@@ -467,7 +467,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5U3-L3-3cN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="367" y="1267"/>
+            <point key="canvasLocation" x="-753" y="957"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="riN-Id-6eq">
@@ -499,7 +499,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9k-QW-0Jz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1016" y="1267"/>
+            <point key="canvasLocation" x="367" y="1279"/>
         </scene>
         <!--Template View Controller-->
         <scene sceneID="QbY-7e-wbr">
@@ -550,6 +550,9 @@
                                             <constraint firstItem="VTj-Zz-EJW" firstAttribute="centerX" secondItem="fYr-r2-DnZ" secondAttribute="centerX" id="uhM-7x-hD3"/>
                                         </constraints>
                                         <size key="customSize" width="201" height="266"/>
+                                        <connections>
+                                            <segue destination="MhY-Kj-bVa" kind="show" id="Cul-xz-niQ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -572,7 +575,69 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qYT-bF-uyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-274" y="1267"/>
+            <point key="canvasLocation" x="1109" y="1279"/>
+        </scene>
+        <!--Template Pages View Controller-->
+        <scene sceneID="X0B-U4-iUK">
+            <objects>
+                <viewController storyboardIdentifier="TemplatePagesViewController" id="MhY-Kj-bVa" customClass="TemplatePagesViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KvZ-tf-6XD"/>
+                        <viewControllerLayoutGuide type="bottom" id="dmQ-aJ-xdB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LT7-66-cIY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bmA-Y2-jy3">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="VgY-h2-QJQ" customClass="TemplateLayout" customModule="CuriosSwift" customModuleProvider="target"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplatePageCell" id="85V-as-D6F">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="259"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xEb-r7-cLD">
+                                                    <rect key="frame" x="11" y="8" width="160" height="225"/>
+                                                    <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="xEb-r7-cLD" firstAttribute="centerX" secondItem="85V-as-D6F" secondAttribute="centerX" id="Fqc-RE-WqU"/>
+                                            <constraint firstItem="xEb-r7-cLD" firstAttribute="leading" secondItem="85V-as-D6F" secondAttribute="leadingMargin" constant="3" id="PyZ-OV-O2r"/>
+                                            <constraint firstItem="xEb-r7-cLD" firstAttribute="top" secondItem="85V-as-D6F" secondAttribute="topMargin" id="pF0-3Q-5W5"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="xEb-r7-cLD" secondAttribute="bottom" constant="18" id="xTV-rb-19J"/>
+                                        </constraints>
+                                        <size key="customSize" width="183" height="259"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="MhY-Kj-bVa" id="IsW-9r-CLk"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bmA-Y2-jy3" secondAttribute="trailing" id="MvE-mu-hfz"/>
+                            <constraint firstItem="bmA-Y2-jy3" firstAttribute="bottom" secondItem="dmQ-aJ-xdB" secondAttribute="top" id="iKY-yG-999"/>
+                            <constraint firstItem="bmA-Y2-jy3" firstAttribute="top" secondItem="LT7-66-cIY" secondAttribute="top" id="oQe-JK-fbJ"/>
+                            <constraint firstItem="bmA-Y2-jy3" firstAttribute="leading" secondItem="LT7-66-cIY" secondAttribute="leading" id="y4A-cW-7oh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="bmA-Y2-jy3" id="HPd-8z-c6T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DPK-8b-Stt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1752" y="1279"/>
         </scene>
     </scenes>
 </document>

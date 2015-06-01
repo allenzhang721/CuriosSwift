@@ -31,5 +31,46 @@ class EditorTemplateNavigationController: UINavigationController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func getSnapShotInPoint(point: CGPoint) -> UIView? {
+        
+        if let tempage = topViewController as? TemplatePagesViewController {
+            
+            return tempage.getSnapShotInPoint(point)
+//            if let indexPath = collectionView.indexPathForItemAtPoint(point) {
+//                let cell = collectionView.cellForItemAtIndexPath(indexPath)
+//                return cell?.snapshotViewAfterScreenUpdates(false)
+//            } else {
+//                return nil
+//            }
+        } else {
+            
+            return nil
+        }
+    }
+    
+    func getPageModels(point: CGPoint) -> [PageModel]? {
+        
+        if let tempage = topViewController as? TemplatePagesViewController {
+            
+            return tempage.getPageModels(point)
+            
+//            if let indexPath = collectionView.indexPathForItemAtPoint(point) {
+//                let pageModels = bookModels[indexPath.item].pageModels
+//                //            var ApageModels = [PageModel]()
+//                //            for page in pageModels {
+//                //                let aPage = page.copy() as! PageModel
+//                //                ApageModels.append(aPage)
+//                //            }
+//                
+//                return pageModels
+//            } else {
+//                
+//                return nil
+//            }
+        } else {
+            
+            return nil
+        }
+    }
 }

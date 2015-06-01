@@ -18,8 +18,17 @@ class TemplateViewController: UIViewController {
 
         collectionView.pagingEnabled = true
         
-        getTemplates()
+//        getTemplates()
     
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let s = collectionView.indexPathsForSelectedItems()[0] as! NSIndexPath
+        let bookId = TemplatesManager.instanShare.templateList[s.item].bookID
+        let toVC = segue.destinationViewController as! TemplatePagesViewController
+        toVC.templateBookId = bookId
+//        println(s)
     }
 
     

@@ -92,6 +92,8 @@ class PageModel: Model, IFile {
 extension PageModel {
     
     func fileGetSuperPath(file: IFile) -> String {
+        
+//        println(self.delegate)
         if let superPath = delegate?.fileGetSuperPath(self) {
             let selfPath = superPath.stringByAppendingPathComponent("Pages/\(Id)")
             return selfPath

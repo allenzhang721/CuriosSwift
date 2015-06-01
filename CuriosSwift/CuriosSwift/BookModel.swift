@@ -79,8 +79,8 @@ class BookModel: Model, IFile {
             let pagePathKey = "Path"
             let PageIndexKey = "Index"
             let pageIDValue = pageId
-            let pagePathValue = "/" + pageId
-            let PageIndexValue = "/" + pageId + ".json"
+            let pagePathValue = pageId
+            let PageIndexValue = pageId + ".json"
             
             let aPageInfo = [pageIDKey : pageIDValue, pagePathKey : pagePathValue, PageIndexKey : PageIndexValue]
             newPagesInfo.append(aPageInfo)
@@ -102,7 +102,8 @@ class BookModel: Model, IFile {
             let path: String = pageInfo["Path"]!
             let index: String = pageInfo["Index"]!
             let relpagePath = path + index
-            let pagePath = file.stringByAppendingPathComponent("Pages").stringByAppendingString(relpagePath)
+            let pagejsonURL = URL(file)(isDirectory: true)(pages, path, index)
+            let pagePath = pagejsonURL.path!
             let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
             let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel

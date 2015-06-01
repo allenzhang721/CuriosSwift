@@ -173,17 +173,17 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 } else if CGRectContainsPoint(templateViewController.view.bounds, sender.locationInView(templateViewController.view)) {
                     
                     let loction = sender.locationInView(templateViewController.view)
-//                    if let snapShot = templateViewController.getSnapShotInPoint(location) {
-//                        
-//                        if let aPageModels = templateViewController.getPageModels(location) {
-//                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
-//                            fakePageView?.fromTemplate = true
-//                            fakePageView?.center = location
-//                            view.addSubview(fakePageView!)
-//                        } else {
-//                            fallthrough
-//                        }
-//                    }
+                    if let snapShot = templateViewController.getSnapShotInPoint(location) {
+                        
+                        if let aPageModels = templateViewController.getPageModels(location) {
+                            fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
+                            fakePageView?.fromTemplate = true
+                            fakePageView?.center = location
+                            view.addSubview(fakePageView!)
+                        } else {
+                            fallthrough
+                        }
+                    }
                 }
                 
                 // LongPress In NormalLayout
@@ -401,46 +401,39 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         var indexPaths = [NSIndexPath]()
         var newPages = [PageModel]()
         var Index = indexPath.item
-        
-        for aPage in fakePageView!.getPageArray() {
+        let pageModels = fakePageView!.getPageArray()
+        for aPage in pageModels {
             
-            let originBookPath = aPage.delegate?.fileGetSuperPath(aPage)
-            let orginPagePath = originBookPath?.stringByAppendingPathComponent("Pages/" + aPage.Id)
             let newPageId = UniqueIDString()
-            let copyPage = aPage.copy() as! PageModel
-            let copyPagePath = bookModel.filePath.stringByAppendingPathComponent("Pages/" + newPageId)
-            let copyOriginPageJjsonPath = copyPagePath.stringByAppendingPathComponent(aPage.Id + ".json")
+            let originBookPath = aPage.delegate?.fileGetSuperPath(aPage)
+            let orginPageURL = URL(originBookPath!)(isDirectory: true)(pages, aPage.Id)
+            let newPageURL = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId)
             
-            let newpageJson = copyPagePath.stringByAppendingPathComponent(newPageId + ".json")
-            copyPage.Id = newPageId
-            
-//            if fileManager.createDirectoryAtPath(copyPagePath, withIntermediateDirectories: true, attributes: nil, error: nil) {
-////                println("new = \(copyPagePath)")
-//            }
-            let error = NSErrorPointer()
-//            println("copyPagePath = \(copyPagePath)")
-            if fileManager.fileExistsAtPath(orginPagePath!) {
-                println("orginPagePathExist = ")
-            }
-            
-            if fileManager.fileExistsAtPath(copyPagePath) {
-                println("copyPagePathExist = ")
-            }
-            
-            if fileManager.copyItemAtURL(NSURL(fileURLWithPath: orginPagePath!, isDirectory: true)!, toURL: NSURL(fileURLWithPath: copyPagePath, isDirectory: true)!, error: error) {
-                println("orginPagePath = \(orginPagePath)")
+            if fileManager.copyItemAtURL(orginPageURL, toURL: newPageURL, error: nil) {
                 
+                println("Copy template page succeess")
+                
+                let copyPageOriginJson = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId ,aPage.Id + ".json")
+                let copyPageNewJson = URL(bookModel.filePath)(isDirectory: true)(pages,newPageId ,newPageId + ".json")
+                let copyPageOriginData = NSData(contentsOfURL: copyPageOriginJson)
+                var newJson = NSJSONSerialization.JSONObjectWithData(copyPageOriginData!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
+                newJson["ID"] = newPageId
+                let newJsonData = NSJSONSerialization.dataWithJSONObject(newJson, options: NSJSONWritingOptions(0), error: nil)
+                newJsonData?.writeToURL(copyPageNewJson, atomically: true)
+                
+                let newPageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: newJson, error: nil) as! PageModel
+                
+//                println(newPageModel.containers)
+                
+                fileManager.removeItemAtURL(copyPageOriginJson, error: nil)
+                
+                newPages.append(newPageModel)
+                let indexPath = NSIndexPath(forItem: Index, inSection: 0)
+                indexPaths.append(indexPath)
+                Index++
             }
-//            println(error)
-            fileManager.removeItemAtPath(copyOriginPageJjsonPath, error: nil)
-            let copyPageJson = MTLJSONAdapter.JSONDictionaryFromModel(copyPage, error: nil)
-            let data = NSJSONSerialization.dataWithJSONObject(copyPageJson, options: NSJSONWritingOptions(0), error: nil)
-            data?.writeToFile(newpageJson, atomically: true)
             
-            newPages.append(copyPage)
-            let indexPath = NSIndexPath(forItem: Index, inSection: 0)
-            indexPaths.append(indexPath)
-            Index++
+            
         }
         bookModel.insertPageModelsAtIndex(newPages, FromIndex: indexPath.item)
         collectionView?.performBatchUpdates({ () -> Void in
