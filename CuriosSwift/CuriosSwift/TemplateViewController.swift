@@ -55,7 +55,7 @@ class TemplateViewController: UIViewController {
 // MARK: -
 // MARK: - Delegate and DataSource
 
-extension TemplateViewController: UICollectionViewDataSource {
+extension TemplateViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     // MARK: - CollectionView DataSource and Delegate
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

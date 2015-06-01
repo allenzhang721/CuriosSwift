@@ -69,6 +69,7 @@
 		2CD865B91B145B3100DA3646 /* Admin in Resources */ = {isa = PBXBuildFile; fileRef = 2CD865B81B145B3100DA3646 /* Admin */; };
 		2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */; };
 		2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */; };
+		2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */; };
 		2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */; };
 		2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */; };
 /* End PBXBuildFile section */
@@ -150,6 +151,7 @@
 		2CD865B81B145B3100DA3646 /* Admin */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Admin; sourceTree = "<group>"; };
 		2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerMaskView.swift; sourceTree = "<group>"; };
 		2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
+		2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatePagesViewController.swift; sourceTree = "<group>"; };
 		2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTemplateNavigationController.swift; sourceTree = "<group>"; };
 		2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITemplateSelector.swift; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
+				2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */,
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
@@ -573,6 +576,7 @@
 				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
 				2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
+				2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */,
 				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
