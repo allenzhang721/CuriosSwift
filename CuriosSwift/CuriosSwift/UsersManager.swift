@@ -24,7 +24,7 @@ class UsersManager: IUser, IBook {
                 let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
                 let userBookDirURL = documentDirectory(users,userID,books)
                 // user Dir
-                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
+                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
                     println("create user and Books Dir")
                     // booklist File
                     let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
@@ -174,10 +174,13 @@ extension UsersManager {
         //book list file
         let bookListFileURL = documentDirectory(users,userID,books,bookList_)
         
-        let booklistData = NSData(contentsOfURL: bookListFileURL, options: NSDataReadingOptions(0), error: nil)
-        let bookArray = NSJSONSerialization.JSONObjectWithData(booklistData!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
-        let aBookList = MTLJSONAdapter.modelsOfClass(BookListModel.self, fromJSONArray: bookArray, error: nil) as! [BookListModel]
+        if let booklistData = NSData(contentsOfURL: bookListFileURL, options: NSDataReadingOptions(0), error: nil) {
+            
+            let bookArray = NSJSONSerialization.JSONObjectWithData(booklistData, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
+            let aBookList = MTLJSONAdapter.modelsOfClass(BookListModel.self, fromJSONArray: bookArray, error: nil) as! [BookListModel]
+            
+            bookList = aBookList
+        }
         
-        bookList = aBookList
     }
 }

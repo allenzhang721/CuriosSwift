@@ -62,10 +62,13 @@ extension TemplatesManager {
     func loadTemplates() {
         
         let publicTemplateFileURL = documentDirectory(templates,templateList_)
-        let data = NSData(contentsOfURL: publicTemplateFileURL)
-        let json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
-        let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
-        templateList = aTemplateList
+        if let data = NSData(contentsOfURL: publicTemplateFileURL) {
+            
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil) as! [AnyObject]
+            let aTemplateList = MTLJSONAdapter.modelsOfClass(TemplateListModel.self, fromJSONArray: json, error: nil) as! [TemplateListModel]
+            templateList = aTemplateList
+        }
+        
     }
     
     func saveTemplateListInfoToLocal() {

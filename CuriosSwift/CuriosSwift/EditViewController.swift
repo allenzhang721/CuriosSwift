@@ -88,6 +88,11 @@ class EditViewController: UIViewController, IPageProtocol {
 //        println("aBookID = \(aBookID)")
         bookModel = getbookModelWith(aBookID)
     }
+    
+    deinit {
+        
+        println("deinit")
+    }
 }
 
 // MARK: - IBActions
@@ -432,8 +437,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 indexPaths.append(indexPath)
                 Index++
             }
-            
-            
         }
         bookModel.insertPageModelsAtIndex(newPages, FromIndex: indexPath.item)
         collectionView?.performBatchUpdates({ () -> Void in
