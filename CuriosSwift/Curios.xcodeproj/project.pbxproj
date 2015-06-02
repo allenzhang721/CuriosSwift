@@ -68,6 +68,7 @@
 		2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078E1B0B2C17008B286B /* UserManager.swift */; };
 		2CD865B91B145B3100DA3646 /* Admin in Resources */ = {isa = PBXBuildFile; fileRef = 2CD865B81B145B3100DA3646 /* Admin */; };
 		2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */; };
+		2CE1E9551B1DBCCE00B97180 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */; };
 		2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */; };
 		2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */; };
 		2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE7611B1C17FD00C34920 /* Animator.swift */; };
@@ -119,14 +120,14 @@
 		2C9147B71B08462400579E4A /* ComponentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentModel.swift; sourceTree = "<group>"; };
 		2C9147B91B085A7A00579E4A /* IFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFile.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
-		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB4BD4E1AE337EA00DF6019 /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CB4BD551AE337EA00DF6019 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2CB4BD581AE337EA00DF6019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2CB4BD5D1AE337EA00DF6019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2CB4BD631AE337EB00DF6019 /* CuriosSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuriosSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB4BD631AE337EB00DF6019 /* CuriosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuriosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD681AE337EB00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD691AE337EB00DF6019 /* CuriosSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuriosSwiftTests.swift; sourceTree = "<group>"; };
 		2CB4BD731AE33A8D00DF6019 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		2CD8078E1B0B2C17008B286B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		2CD865B81B145B3100DA3646 /* Admin */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Admin; sourceTree = "<group>"; };
 		2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerMaskView.swift; sourceTree = "<group>"; };
+		2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
 		2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatePagesViewController.swift; sourceTree = "<group>"; };
 		2CEBE7611B1C17FD00C34920 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
@@ -227,8 +229,8 @@
 		2CB4BD4F1AE337EA00DF6019 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */,
-				2CB4BD631AE337EB00DF6019 /* CuriosSwiftTests.xctest */,
+				2CB4BD4E1AE337EA00DF6019 /* Curios.app */,
+				2CB4BD631AE337EB00DF6019 /* CuriosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +253,7 @@
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
+				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
@@ -386,9 +389,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2CB4BD4D1AE337EA00DF6019 /* CuriosSwift */ = {
+		2CB4BD4D1AE337EA00DF6019 /* Curios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CB4BD6D1AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosSwift" */;
+			buildConfigurationList = 2CB4BD6D1AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "Curios" */;
 			buildPhases = (
 				DB12FCACD5E00CE979630512 /* Check Pods Manifest.lock */,
 				2CB4BD4A1AE337EA00DF6019 /* Sources */,
@@ -401,14 +404,14 @@
 			);
 			dependencies = (
 			);
-			name = CuriosSwift;
+			name = Curios;
 			productName = CuriosSwift;
-			productReference = 2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */;
+			productReference = 2CB4BD4E1AE337EA00DF6019 /* Curios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2CB4BD621AE337EB00DF6019 /* CuriosSwiftTests */ = {
+		2CB4BD621AE337EB00DF6019 /* CuriosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CB4BD701AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosSwiftTests" */;
+			buildConfigurationList = 2CB4BD701AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosTests" */;
 			buildPhases = (
 				2CB4BD5F1AE337EB00DF6019 /* Sources */,
 				2CB4BD601AE337EB00DF6019 /* Frameworks */,
@@ -419,9 +422,9 @@
 			dependencies = (
 				2CB4BD651AE337EB00DF6019 /* PBXTargetDependency */,
 			);
-			name = CuriosSwiftTests;
+			name = CuriosTests;
 			productName = CuriosSwiftTests;
-			productReference = 2CB4BD631AE337EB00DF6019 /* CuriosSwiftTests.xctest */;
+			productReference = 2CB4BD631AE337EB00DF6019 /* CuriosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -442,7 +445,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2CB4BD491AE337EA00DF6019 /* Build configuration list for PBXProject "CuriosSwift" */;
+			buildConfigurationList = 2CB4BD491AE337EA00DF6019 /* Build configuration list for PBXProject "Curios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -455,8 +458,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2CB4BD4D1AE337EA00DF6019 /* CuriosSwift */,
-				2CB4BD621AE337EB00DF6019 /* CuriosSwiftTests */,
+				2CB4BD4D1AE337EA00DF6019 /* Curios */,
+				2CB4BD621AE337EB00DF6019 /* CuriosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -538,6 +541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CE1E9551B1DBCCE00B97180 /* LoginViewController.swift in Sources */,
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
@@ -607,7 +611,7 @@
 /* Begin PBXTargetDependency section */
 		2CB4BD651AE337EB00DF6019 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2CB4BD4D1AE337EA00DF6019 /* CuriosSwift */;
+			target = 2CB4BD4D1AE337EA00DF6019 /* Curios */;
 			targetProxy = 2CB4BD641AE337EB00DF6019 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -744,7 +748,7 @@
 					"\"pop\"",
 					"-lc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Curios;
 				PROVISIONING_PROFILE = "bb4acdc6-8045-4629-92db-37fe0263bd14";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -780,7 +784,7 @@
 					"\"pop\"",
 					"-lc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Curios;
 				PROVISIONING_PROFILE = "bb4acdc6-8045-4629-92db-37fe0263bd14";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 			};
@@ -800,7 +804,7 @@
 				);
 				INFOPLIST_FILE = CuriosSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CuriosTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriosSwift.app/CuriosSwift";
 			};
 			name = Debug;
@@ -815,7 +819,7 @@
 				);
 				INFOPLIST_FILE = CuriosSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CuriosTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriosSwift.app/CuriosSwift";
 			};
 			name = Release;
@@ -823,7 +827,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2CB4BD491AE337EA00DF6019 /* Build configuration list for PBXProject "CuriosSwift" */ = {
+		2CB4BD491AE337EA00DF6019 /* Build configuration list for PBXProject "Curios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CB4BD6B1AE337EB00DF6019 /* Debug */,
@@ -832,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CB4BD6D1AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosSwift" */ = {
+		2CB4BD6D1AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "Curios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CB4BD6E1AE337EB00DF6019 /* Debug */,
@@ -841,7 +845,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CB4BD701AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosSwiftTests" */ = {
+		2CB4BD701AE337EB00DF6019 /* Build configuration list for PBXNativeTarget "CuriosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CB4BD711AE337EB00DF6019 /* Debug */,

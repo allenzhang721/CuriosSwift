@@ -9,7 +9,7 @@
         <!--Book List View Controller-->
         <scene sceneID="HOC-TO-R8C">
             <objects>
-                <viewController storyboardIdentifier="BookListViewController" id="qt8-qy-WNT" customClass="BookListViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookListViewController" id="qt8-qy-WNT" customClass="BookListViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7yS-0m-3EG"/>
                         <viewControllerLayoutGuide type="bottom" id="Row-NA-AQf"/>
@@ -36,7 +36,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="BookListCell" rowHeight="158" id="frk-jV-wtn" customClass="BookListTableViewCell" customModule="CuriosSwift" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="BookListCell" rowHeight="158" id="frk-jV-wtn" customClass="BookListTableViewCell" customModule="Curios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="frk-jV-wtn" id="B5b-hP-79G">
@@ -135,7 +135,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -183,7 +183,7 @@
         <!--Local Template View Controller-->
         <scene sceneID="i7T-OP-61n">
             <objects>
-                <viewController id="9wI-9n-chE" customClass="LocalTemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9wI-9n-chE" customClass="LocalTemplateViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f8z-Bl-kSy"/>
                         <viewControllerLayoutGuide type="bottom" id="8Vh-bJ-y0E"/>
@@ -249,7 +249,7 @@
         <!--Demo Book View Controller-->
         <scene sceneID="Lag-zH-jBB">
             <objects>
-                <viewController id="Km8-SI-3Ln" customClass="DemoBookViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Km8-SI-3Ln" customClass="DemoBookViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uEp-eO-9Y0"/>
                         <viewControllerLayoutGuide type="bottom" id="gHZ-Fv-3wP"/>
@@ -283,7 +283,7 @@
         <!--Edit View Controller-->
         <scene sceneID="kL1-EK-viT">
             <objects>
-                <viewController storyboardIdentifier="editViewController" id="8KY-Ld-6of" customClass="EditViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editViewController" id="8KY-Ld-6of" customClass="EditViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NAo-0r-le2"/>
                         <viewControllerLayoutGuide type="bottom" id="yA7-i7-bxC"/>
@@ -302,7 +302,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="pcq-6w-VMe" customClass="PageCollectionViewCell" customModule="CuriosSwift" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="pcq-6w-VMe" customClass="PageCollectionViewCell" customModule="Curios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -428,7 +428,7 @@
         <!--Preview View Controller-->
         <scene sceneID="j0k-Dv-O3s">
             <objects>
-                <viewController storyboardIdentifier="PreviewController" id="aB5-E3-6EP" customClass="PreviewViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreviewController" id="aB5-E3-6EP" customClass="PreviewViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Pgq-S2-REv"/>
                         <viewControllerLayoutGuide type="bottom" id="Op2-lk-HCZ"/>
@@ -469,6 +469,50 @@
             </objects>
             <point key="canvasLocation" x="-753" y="957"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="MtE-Wr-Z1D">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="XvC-Lr-q2G" customClass="LoginViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ocZ-1r-Ptw"/>
+                        <viewControllerLayoutGuide type="bottom" id="CzZ-aF-8EH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DnY-Zd-o3R">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Screen" translatesAutoresizingMaskIntoConstraints="NO" id="1Yn-zV-Bvd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-JM-2D1">
+                                <rect key="frame" x="252" y="421" width="97" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="Qlo-ae-mUf"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="LoginAction:" destination="XvC-Lr-q2G" eventType="touchUpInside" id="tZG-kV-DFq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="8Rg-2q-pce"/>
+                            <constraint firstItem="4cX-JM-2D1" firstAttribute="centerX" secondItem="1Yn-zV-Bvd" secondAttribute="centerX" id="CRq-iX-Cbo"/>
+                            <constraint firstAttribute="trailing" secondItem="1Yn-zV-Bvd" secondAttribute="trailing" id="GQI-yg-O0G"/>
+                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="4cX-JM-2D1" secondAttribute="bottom" constant="104" id="McZ-kd-6b3"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="Yas-7g-KOr"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="m8z-c3-8zt"/>
+                            <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="ocZ-1r-Ptw" secondAttribute="bottom" constant="401" id="pif-YT-tdw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nT8-Dq-0Wq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-372" y="-1061"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="riN-Id-6eq">
             <objects>
@@ -488,7 +532,7 @@
         <!--Editor Template Navigation Controller-->
         <scene sceneID="PIf-YU-h1W">
             <objects>
-                <navigationController storyboardIdentifier="EditorTemplateNavigationController" id="6WZ-r6-OGZ" customClass="EditorTemplateNavigationController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="EditorTemplateNavigationController" id="6WZ-r6-OGZ" customClass="EditorTemplateNavigationController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHy-WC-0W9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -504,7 +548,7 @@
         <!--Template View Controller-->
         <scene sceneID="QbY-7e-wbr">
             <objects>
-                <viewController storyboardIdentifier="TemplateViewController" id="tGb-d9-Eju" customClass="TemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TemplateViewController" id="tGb-d9-Eju" customClass="TemplateViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wTJ-cO-l75"/>
                         <viewControllerLayoutGuide type="bottom" id="xHu-LX-KzK"/>
@@ -515,9 +559,9 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jOv-kN-C0L">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <collectionViewLayout key="collectionViewLayout" id="Z6p-Un-jFa" customClass="TemplateLayout" customModule="CuriosSwift" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="Z6p-Un-jFa" customClass="TemplateLayout" customModule="Curios" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="fYr-r2-DnZ" customClass="TemplateCollectionViewCell" customModule="CuriosSwift" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="fYr-r2-DnZ" customClass="TemplateCollectionViewCell" customModule="Curios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -580,7 +624,7 @@
         <!--Template Pages View Controller-->
         <scene sceneID="X0B-U4-iUK">
             <objects>
-                <viewController storyboardIdentifier="TemplatePagesViewController" id="MhY-Kj-bVa" customClass="TemplatePagesViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TemplatePagesViewController" id="MhY-Kj-bVa" customClass="TemplatePagesViewController" customModule="Curios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KvZ-tf-6XD"/>
                         <viewControllerLayoutGuide type="bottom" id="dmQ-aJ-xdB"/>
@@ -592,7 +636,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bmA-Y2-jy3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="VgY-h2-QJQ" customClass="TemplateLayout" customModule="CuriosSwift" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="VgY-h2-QJQ" customClass="TemplateLayout" customModule="Curios" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplatePageCell" id="85V-as-D6F">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -640,4 +684,7 @@
             <point key="canvasLocation" x="1752" y="1279"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Launch_Screen" width="320" height="568"/>
+    </resources>
 </document>

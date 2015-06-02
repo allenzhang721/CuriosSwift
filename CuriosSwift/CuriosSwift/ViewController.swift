@@ -15,9 +15,11 @@ class ViewController: UIViewController {
     struct MainStoryboard {
        static let name = "Main"
         struct viewControllers {
+            static let loginViewController = "LoginViewController"
             static let editViewController = "editViewController"
             static let bookListViewController = "BookListViewController"
             static let bookListNavigationController = "bookListNavigationController"
+            
         }
     }
 
@@ -38,7 +40,17 @@ extension ViewController {
             UsersManager.shareInstance.user = user
             loadBookListViewController()
             TemplatesManager.instanShare.loadTemplates()
+        } else {
+            
+            loadLoginViewController()
         }
+    }
+    
+    func loadLoginViewController() {
+        
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.loginViewController) as! LoginViewController
+        addChildViewController(loginVC)
+        view.addSubview(loginVC.view)
     }
     
     func loadBookListViewController() {
