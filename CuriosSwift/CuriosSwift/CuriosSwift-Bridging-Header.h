@@ -7,3 +7,5 @@
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 #import <pop/POP.h>
 #import <POP/POPLayerExtras.h>
+#import <ShareSDK/ShareSDK.h>
+#import "WXApi.h"

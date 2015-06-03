@@ -46,6 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     
+    private func registerShareSDK() {
+        
+        // TODO: 06.03.2015, http://wiki.mob.com/快速集成指南/ ,“添加实现代码” ,“支持微信所需的相关配置及代码”
+        let shareSDKAppID = ""
+        let weChatAppID = ""
+        ShareSDK.registerApp(shareSDKAppID)
+        ShareSDK.connectWeChatWithAppId(weChatAppID, wechatCls: WXApi.self)
+        
+    }
+    
     private func createBaseDirectory() {
         
         let fileManager = NSFileManager.defaultManager()
