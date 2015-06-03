@@ -484,12 +484,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Screen" translatesAutoresizingMaskIntoConstraints="NO" id="1Yn-zV-Bvd">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-JM-2D1">
-                                <rect key="frame" x="252" y="421" width="97" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-Kn-elj" customClass="RippleView" customModule="Curios" customModuleProvider="target">
+                                <rect key="frame" x="264" y="422" width="73" height="73"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="Qlo-ae-mUf"/>
+                                    <constraint firstAttribute="width" secondItem="iqm-Kn-elj" secondAttribute="height" multiplier="1:1" id="Rrl-yk-wXN"/>
+                                    <constraint firstAttribute="height" constant="73" id="b7w-0j-6we"/>
+                                    <constraint firstAttribute="width" constant="73" id="nSB-IQ-o1c"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-JM-2D1">
+                                <rect key="frame" x="264" y="422" width="73" height="73"/>
+                                <state key="normal" image="launch_Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -499,13 +505,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="8Rg-2q-pce"/>
-                            <constraint firstItem="4cX-JM-2D1" firstAttribute="centerX" secondItem="1Yn-zV-Bvd" secondAttribute="centerX" id="CRq-iX-Cbo"/>
-                            <constraint firstAttribute="trailing" secondItem="1Yn-zV-Bvd" secondAttribute="trailing" id="GQI-yg-O0G"/>
-                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="4cX-JM-2D1" secondAttribute="bottom" constant="104" id="McZ-kd-6b3"/>
-                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="Yas-7g-KOr"/>
-                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="m8z-c3-8zt"/>
-                            <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="ocZ-1r-Ptw" secondAttribute="bottom" constant="401" id="pif-YT-tdw"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="KpR-jQ-yl5"/>
+                            <constraint firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="VNb-Lq-P9v"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="c2U-dK-our"/>
+                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="iqm-Kn-elj" secondAttribute="bottom" constant="105" id="frS-de-VLB"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="lSu-Kp-tGa"/>
+                            <constraint firstItem="4cX-JM-2D1" firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="nnC-tt-blv"/>
+                            <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="v7C-4D-OGQ"/>
+                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="4cX-JM-2D1" secondAttribute="bottom" constant="105" id="x1O-wX-QCJ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -686,5 +693,6 @@
     </scenes>
     <resources>
         <image name="Launch_Screen" width="320" height="568"/>
+        <image name="launch_Button" width="73" height="73"/>
     </resources>
 </document>
