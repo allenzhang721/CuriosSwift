@@ -23,6 +23,7 @@
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="oaV-J7-Enh"/>
                                     <barButtonItem title="Add a new book" id="3xR-Qa-5J0">
+                                        <color key="tintColor" red="0.14901960780000001" green="0.16862745100000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="addBookAction:" destination="qt8-qy-WNT" id="2Nf-y0-Ype"/>
                                             <segue destination="XMG-th-C8X" kind="presentation" id="ygj-om-1AE"/>
@@ -53,7 +54,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Os-hC-1LI">
                                                     <rect key="frame" x="106" y="8" width="486" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.14901960780000001" green="0.16862745100000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2u-B2-PlT">
@@ -69,6 +70,7 @@
                                                         <constraint firstAttribute="height" constant="93" id="g6Z-I8-PgP"/>
                                                     </constraints>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitodioque civiuda.</string>
+                                                    <color key="textColor" red="0.14901960780000001" green="0.16862745100000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -709,4 +711,5 @@
         <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>
     </resources>
+    <color key="tintColor" red="0.14901960780000001" green="0.16862745100000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>

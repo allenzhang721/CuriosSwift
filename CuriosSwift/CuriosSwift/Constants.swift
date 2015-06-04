@@ -22,6 +22,10 @@ let books = "Books"
 let images = "images"
 let pages = "Pages"
 
+
+// colors
+let defaultBlack = SWColor(hexString: "#2E333E")
+
 struct Constants {
     
     struct defaultPath {
