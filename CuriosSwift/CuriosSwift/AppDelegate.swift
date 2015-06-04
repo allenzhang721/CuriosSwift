@@ -63,12 +63,15 @@ extension AppDelegate {
         let usersDirURL = documentDirectory(users)
         
         // public templates dir
+        
+        if duplicateTemplatesTo(publicTemplateDirURL) {
+            println("copy template")
+        }
         if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
             
+            fileManager.removeItemAtURL(publicTemplateDirURL, error: nil)
             println("create template")
-            if duplicateTemplatesTo(publicTemplateDirURL) {
-                println("copy template")
-            }
+            
         }
         
         // users dir
@@ -92,7 +95,7 @@ extension AppDelegate {
 
         let bundleTemplateURL = bundle(templates)
         println(toUrl)
-        return NSFileManager.defaultManager().replaceItemAtURL(toUrl, withItemAtURL: bundleTemplateURL, backupItemName: nil, options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil)
+        return NSFileManager.defaultManager().copyItemAtURL(bundleTemplateURL, toURL: toUrl, error: nil)
     }
 }
 

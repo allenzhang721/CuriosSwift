@@ -22,17 +22,22 @@ class UsersManager: IUser, IBook {
                 let documentDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
                 let documentDirURL = NSURL(fileURLWithPath: documentDir, isDirectory: true)
                 let userURL = documentDirURL?.URLByAppendingPathComponent(Constants.defaultWords.usersDirName).URLByAppendingPathComponent(userID)
+                let userDirURL = documentDirectory(users,userID)
                 let userBookDirURL = documentDirectory(users,userID,books)
                 // user Dir
-                if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
-                    println("create user and Books Dir")
-                    // booklist File
-                    let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
+                
+                if fileManager.createDirectoryAtURL(userDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
                     
-                    let aBooklist = [BookListModel]()
-                    let abookListJson = MTLJSONAdapter.JSONArrayFromModels(aBooklist, error: nil)
-                    let abookListdata = NSJSONSerialization.dataWithJSONObject(abookListJson, options: NSJSONWritingOptions(0), error: nil)
-                    if abookListdata!.writeToURL(bookListFileURL, atomically: true) {
+                    if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
+                        println("create user and Books Dir")
+                        // booklist File
+                        let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
+                        
+                        let aBooklist = [BookListModel]()
+                        let abookListJson = MTLJSONAdapter.JSONArrayFromModels(aBooklist, error: nil)
+                        let abookListdata = NSJSONSerialization.dataWithJSONObject(abookListJson, options: NSJSONWritingOptions(0), error: nil)
+                        if abookListdata!.writeToURL(bookListFileURL, atomically: true) {
+                        }
                     }
                 }
                 

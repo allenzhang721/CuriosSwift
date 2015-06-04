@@ -141,7 +141,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         case .Began, .Changed:
             transform = CGAffineTransformMakeRotation(angle + rotation)
             if let aContainer = container {
-                aContainer.setRotation(rotation)
+                aContainer.setRotation(angle + rotation)
             }
         case .Cancelled, .Ended:
             

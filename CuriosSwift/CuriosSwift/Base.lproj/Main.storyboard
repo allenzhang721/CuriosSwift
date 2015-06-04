@@ -319,19 +319,21 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="kpx-08-Uda"/>
-                                    <barButtonItem title="Add Image" id="I9e-MR-LYE">
+                                    <barButtonItem image="Editor_Setting" id="kar-gj-OKE"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ccY-Og-HfH"/>
+                                    <barButtonItem image="Editor_ImagePicker" id="I9e-MR-LYE">
                                         <connections>
                                             <action selector="ImageAction:" destination="8KY-Ld-6of" id="ldU-qt-Ccz"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ggg-pM-fwb"/>
-                                    <barButtonItem title="Add Text" id="GnG-gR-P9N">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="F2G-E7-hHL"/>
+                                    <barButtonItem image="Editor_Text" id="GnG-gR-P9N">
                                         <connections>
                                             <action selector="addTextAction:" destination="8KY-Ld-6of" id="RQj-2O-cmT"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="nRp-CD-gqC"/>
-                                    <barButtonItem title="Preview" id="b7G-g8-F4k">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ekY-YS-drF"/>
+                                    <barButtonItem image="Editor_Preview" id="b7G-g8-F4k">
                                         <connections>
                                             <action selector="previewAction:" destination="8KY-Ld-6of" id="Ij8-8u-37S"/>
                                         </connections>
@@ -342,13 +344,13 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rs-4Q-GNL">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="cancel" id="pmq-dw-dUs"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IIh-jY-uTx"/>
-                                    <barButtonItem title="save" id="FJy-0o-I9j">
+                                    <barButtonItem title="返回" id="FJy-0o-I9j">
                                         <connections>
                                             <action selector="saveAction:" destination="8KY-Ld-6of" id="wRt-PL-Lfi"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IIh-jY-uTx"/>
+                                    <barButtonItem title="发布" id="pmq-dw-dUs"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -707,6 +709,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Editor_ImagePicker" width="20" height="20"/>
+        <image name="Editor_Preview" width="16" height="20"/>
+        <image name="Editor_Setting" width="20" height="20"/>
+        <image name="Editor_Text" width="20" height="20"/>
         <image name="Launch_Button" width="89" height="89"/>
         <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>
