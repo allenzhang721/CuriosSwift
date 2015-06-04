@@ -485,37 +485,42 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-Kn-elj" customClass="RippleView" customModule="Curios" customModuleProvider="target">
-                                <rect key="frame" x="264" y="422" width="73" height="73"/>
+                                <rect key="frame" x="256" y="415" width="88" height="88"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iqm-Kn-elj" secondAttribute="height" multiplier="1:1" id="Rrl-yk-wXN"/>
-                                    <constraint firstAttribute="height" constant="73" id="b7w-0j-6we"/>
-                                    <constraint firstAttribute="width" constant="73" id="nSB-IQ-o1c"/>
+                                    <constraint firstAttribute="height" constant="88" id="b7w-0j-6we"/>
+                                    <constraint firstAttribute="width" constant="88" id="nSB-IQ-o1c"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-JM-2D1">
-                                <rect key="frame" x="264" y="422" width="73" height="73"/>
+                                <rect key="frame" x="256" y="415" width="88" height="88"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="73" id="FGV-F3-vcA"/>
-                                    <constraint firstAttribute="width" constant="73" id="ayO-8W-B5B"/>
+                                    <constraint firstAttribute="height" constant="88" id="FGV-F3-vcA"/>
+                                    <constraint firstAttribute="width" constant="88" id="ayO-8W-B5B"/>
                                     <constraint firstAttribute="width" secondItem="4cX-JM-2D1" secondAttribute="height" multiplier="1:1" id="hK2-0R-ncf"/>
                                 </constraints>
-                                <state key="normal" image="launch_Button">
+                                <state key="normal" image="Launch_Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="LoginAction:" destination="XvC-Lr-q2G" eventType="touchUpInside" id="tZG-kV-DFq"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="dFr-ze-IGA">
+                                <rect key="frame" x="205" y="132" width="190" height="60"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="1Yn-zV-Bvd" secondAttribute="bottom" constant="-178" id="3br-YO-v7v"/>
+                            <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="1Yn-zV-Bvd" secondAttribute="bottom" constant="-185" id="3br-YO-v7v"/>
                             <constraint firstAttribute="centerX" secondItem="4cX-JM-2D1" secondAttribute="centerX" id="BBR-9P-VaJ"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="KpR-jQ-yl5"/>
+                            <constraint firstItem="dFr-ze-IGA" firstAttribute="centerX" secondItem="4cX-JM-2D1" secondAttribute="centerX" id="L8V-Aw-gnn"/>
                             <constraint firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="VNb-Lq-P9v"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="c2U-dK-our"/>
-                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="iqm-Kn-elj" secondAttribute="bottom" constant="105" id="frS-de-VLB"/>
+                            <constraint firstItem="dFr-ze-IGA" firstAttribute="top" secondItem="ocZ-1r-Ptw" secondAttribute="bottom" constant="112" id="e4f-Tj-Sit"/>
+                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="iqm-Kn-elj" secondAttribute="bottom" constant="97" id="frS-de-VLB"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="lSu-Kp-tGa"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="v7C-4D-OGQ"/>
                         </constraints>
@@ -700,7 +705,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Launch_Button" width="89" height="89"/>
+        <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>
-        <image name="launch_Button" width="73" height="73"/>
     </resources>
 </document>

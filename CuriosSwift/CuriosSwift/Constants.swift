@@ -22,8 +22,6 @@ let books = "Books"
 let images = "images"
 let pages = "Pages"
 
-
-
 struct Constants {
     
     struct defaultPath {

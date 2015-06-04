@@ -33,6 +33,7 @@
 		2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */; };
 		2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8B1B08F9C6002B752A /* CuriosPreview */; };
 		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
+		2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12211B1FFF6C0096819D /* SwiftColors.swift */; };
 		2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A041AEF43F8004D4223 /* ViewModels.swift */; };
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
 		2C9147B21B08452A00579E4A /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B11B08452A00579E4A /* BookModel.swift */; };
@@ -127,6 +128,7 @@
 		2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */ = {isa = PBXFileReference; lastKnownFileType = folder; path = QWERTASDFGZXCVB; sourceTree = "<group>"; };
 		2C7BAE8B1B08F9C6002B752A /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		2C7D12211B1FFF6C0096819D /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColors.swift; sourceTree = "<group>"; };
 		2C828A041AEF43F8004D4223 /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
 		2C9147B11B08452A00579E4A /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2C7D12211B1FFF6C0096819D /* SwiftColors.swift */,
 				2CFDFD581B1EE91800246F59 /* ShareSDK */,
 				2CD6C3101B17E929000C4FC6 /* Constants */,
 				2CD6C30D1B17E877000C4FC6 /* Utilty */,
@@ -701,6 +704,7 @@
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,
 				2C9147B21B08452A00579E4A /* BookModel.swift in Sources */,
+				2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
