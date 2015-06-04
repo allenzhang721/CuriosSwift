@@ -78,6 +78,22 @@ class ContainerNode: ASDisplayNode, IContainer {
         containerModel.x += translation.x / aspectRatio
         containerModel.y += translation.y / aspectRatio
     }
+    
+    func setResize(size: CGSize, center: CGPoint) {
+        
+        bounds.size = size
+        position.x += center.x
+        position.y += center.y
+        containerModel.width = size.width / aspectRatio
+        containerModel.height = size.height / aspectRatio
+        containerModel.x = frame.origin.x / aspectRatio
+        containerModel.y = frame.origin.y / aspectRatio
+    }
+    
+    func setRotation(incrementAngle: CGFloat) {
+        transform = CATransform3DMakeRotation(incrementAngle, 0, 0, 1)
+        containerModel.rotation = incrementAngle
+    }
 }
 
 // MARK: - private method

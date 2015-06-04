@@ -34,6 +34,8 @@
 		2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8B1B08F9C6002B752A /* CuriosPreview */; };
 		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
 		2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12211B1FFF6C0096819D /* SwiftColors.swift */; };
+		2C7D12251B200D060096819D /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12241B200D060096819D /* Region.swift */; };
+		2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12261B200FB50096819D /* CuriosKit.swift */; };
 		2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A041AEF43F8004D4223 /* ViewModels.swift */; };
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
 		2C9147B21B08452A00579E4A /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B11B08452A00579E4A /* BookModel.swift */; };
@@ -129,6 +131,8 @@
 		2C7BAE8B1B08F9C6002B752A /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		2C7D12211B1FFF6C0096819D /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColors.swift; sourceTree = "<group>"; };
+		2C7D12241B200D060096819D /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		2C7D12261B200FB50096819D /* CuriosKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuriosKit.swift; sourceTree = "<group>"; };
 		2C828A041AEF43F8004D4223 /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
 		2C9147B11B08452A00579E4A /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2C7D12261B200FB50096819D /* CuriosKit.swift */,
 				2C7D12211B1FFF6C0096819D /* SwiftColors.swift */,
 				2CFDFD581B1EE91800246F59 /* ShareSDK */,
 				2CD6C3101B17E929000C4FC6 /* Constants */,
@@ -371,6 +376,7 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
 				2C63DD301B16920D006249D8 /* TemplateListModel.swift */,
@@ -674,6 +680,7 @@
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
+				2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */,
 				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2CBC16C21B15D53E00F46541 /* TemplatesManager.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
@@ -701,6 +708,7 @@
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
+				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,
 				2C9147B21B08452A00579E4A /* BookModel.swift in Sources */,
