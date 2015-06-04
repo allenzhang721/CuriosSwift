@@ -10,9 +10,11 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var breathView: RippleView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        breathView.addBreathAnimation()
         // Do any additional setup after loading the view.
     }
 

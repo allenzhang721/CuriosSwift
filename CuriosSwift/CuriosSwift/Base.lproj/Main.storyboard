@@ -495,6 +495,11 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-JM-2D1">
                                 <rect key="frame" x="264" y="422" width="73" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="FGV-F3-vcA"/>
+                                    <constraint firstAttribute="width" constant="73" id="ayO-8W-B5B"/>
+                                    <constraint firstAttribute="width" secondItem="4cX-JM-2D1" secondAttribute="height" multiplier="1:1" id="hK2-0R-ncf"/>
+                                </constraints>
                                 <state key="normal" image="launch_Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -505,16 +510,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="1Yn-zV-Bvd" secondAttribute="bottom" constant="-178" id="3br-YO-v7v"/>
+                            <constraint firstAttribute="centerX" secondItem="4cX-JM-2D1" secondAttribute="centerX" id="BBR-9P-VaJ"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="KpR-jQ-yl5"/>
                             <constraint firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="VNb-Lq-P9v"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="c2U-dK-our"/>
                             <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="iqm-Kn-elj" secondAttribute="bottom" constant="105" id="frS-de-VLB"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="lSu-Kp-tGa"/>
-                            <constraint firstItem="4cX-JM-2D1" firstAttribute="centerX" secondItem="iqm-Kn-elj" secondAttribute="centerX" id="nnC-tt-blv"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="v7C-4D-OGQ"/>
-                            <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="4cX-JM-2D1" secondAttribute="bottom" constant="105" id="x1O-wX-QCJ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="breathView" destination="iqm-Kn-elj" id="kC0-Im-Yym"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nT8-Dq-0Wq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

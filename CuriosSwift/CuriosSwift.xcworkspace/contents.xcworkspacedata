@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/Curios.xcodeproj">
+      location = "group:Curios.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../AsyncDisplayKit-master/AsyncDisplayKit.xcodeproj">
