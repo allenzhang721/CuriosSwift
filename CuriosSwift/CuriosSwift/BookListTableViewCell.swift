@@ -9,10 +9,17 @@
 import UIKit
 
 class BookListTableViewCell: UITableViewCell {
+    @IBOutlet weak var bookListCellImg: UIImageView!
+    @IBOutlet weak var bookListCellTitle: UILabel!
+    @IBOutlet weak var bookListCellDesc: UITextView!
+    @IBOutlet weak var bookListCellDate: UILabel!
 
+    var bookModel:BookListModel?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -20,5 +27,27 @@ class BookListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        if self.bookModel != nil {
+            let bookIconURL = self.bookModel!.iconUrl.path;
+            if bookIconURL != nil && bookIconURL != "" {
+                bookListCellImg.image = UIImage(contentsOfFile: bookIconURL!);
+            }else{
+                
+            }
+            bookListCellTitle.text = self.bookModel!.bookName;
+            bookListCellDesc.text = self.bookModel!.descri;
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:MM"
+            let dateStr = dateFormatter.stringFromDate(self.bookModel!.date)
+            bookListCellDate.text = dateStr;
+        }
+    }
 
+    func setBookMode(bookModel:BookListModel){
+        self.bookModel = bookModel;
+    }
 }
