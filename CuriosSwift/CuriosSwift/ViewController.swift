@@ -25,23 +25,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        didload();
         login()
     }
 }
 
 extension ViewController {
     
+    func didload(){
+        TemplatesManager.instanShare.loadTemplates();
+        LoginModel.shareInstance.viewController = self;
+    }
+    
     func login() {
-        
         LoginModel.shareInstance.loadInfo()
-        if LoginModel.shareInstance.login {
-            let user = LoginModel.shareInstance.user
-            UsersManager.shareInstance.user = user
-            loadBookListViewController()
-            TemplatesManager.instanShare.loadTemplates()
+        if LoginModel.shareInstance.isLogin {
+            let user = LoginModel.shareInstance.user;
+            UsersManager.shareInstance.user = user;
+            removeViewController();
+            loadBookListViewController();
         } else {
-            
+            removeViewController();
             loadLoginViewController()
         }
     }
@@ -51,6 +55,17 @@ extension ViewController {
         let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.loginViewController) as! LoginViewController
         addChildViewController(loginVC)
         view.addSubview(loginVC.view)
+    }
+    
+    func removeViewController(){
+        if childViewControllers.count > 0 {
+            
+            for childVC in childViewControllers as! [UIViewController] {
+                childVC.view.removeFromSuperview();
+                childVC.removeFromParentViewController();
+            }
+            
+        }
     }
     
     func loadBookListViewController() {

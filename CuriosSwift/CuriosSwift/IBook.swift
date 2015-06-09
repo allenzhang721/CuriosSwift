@@ -14,8 +14,9 @@ protocol IBook {
 
 protocol bookMangerInterface: IBook {
     
-    func createBook(aBookID: String) -> Bool
-    func deleteBook(abookID: String) -> Bool
+    func createBook(aBookID: String) -> Bool;
+    func deleteBook(abookID: String) -> Bool;
+    func deleteBook(index:Int) -> Bool;
 }
 
 protocol templateMangeInterface: IBook {

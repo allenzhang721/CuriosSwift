@@ -33,24 +33,35 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
     @IBAction func LoginAction(sender: UIButton) {
+
+        let authOptions = ShareSDK.authOptionsWithAutoAuth(true, allowCallback: true, authViewStyle: SSAuthViewStyleFullScreenPopup, viewDelegate: nil, authManagerViewDelegate: nil);
         
-        adminLogin()
-        
-       if let supPar = parentViewController as? ViewController {
-            
-            supPar.login()
+        ShareSDK.getUserInfoWithType(ShareTypeWeixiSession, authOptions: authOptions) { (result, userInfo, error) -> Void in
+            //
+            if result {
+                let userId = userInfo.uid()
+                let nickName = userInfo.nickname()
+                let profileImage = userInfo.profileImage()
+                
+                
+                var userModel = UserModel();
+                userModel.userID = userId;
+                userModel.nikename = nickName;
+                userModel.iconURL = profileImage;
+                userModel.weixin = userId;
+                
+                self.saveUserInfo(userModel);
+            }else{
+                
+            }
         }
     }
     
-    private func adminLogin() {
-        
-        let loginFileURL = documentDirectory(login_)
-        let adminURL = bundle(admin_)
-        let json = NSData(contentsOfURL:adminURL)
-        
-        let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
-        base64json?.writeToURL(loginFileURL, atomically: true)
+    private func saveUserInfo(userInfo:UserModel){
+        LoginModel.shareInstance.login(userInfo)
     }
 }

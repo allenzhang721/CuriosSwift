@@ -17,8 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        createBaseDirectory()
+        registerShareSDK();
+        createBaseDirectory();
         return true
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return ShareSDK.handleOpenURL(url, wxDelegate: self);
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return ShareSDK.handleOpenURL(url, sourceApplication: sourceApplication, annotation: annotation, wxDelegate: self);
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -49,53 +58,54 @@ extension AppDelegate {
     private func registerShareSDK() {
         
         // TODO: 06.03.2015, http://wiki.mob.com/快速集成指南/ ,“添加实现代码” ,“支持微信所需的相关配置及代码”
-        let shareSDKAppID = ""
-        let weChatAppID = ""
-        ShareSDK.registerApp(shareSDKAppID)
-        ShareSDK.connectWeChatWithAppId(weChatAppID, wechatCls: WXApi.self)
+        let shareSDKAppID = "7e226fa88de3";
+        let weChatAppID = "wx98ddaa7f04ba1e9b";
+        let weChatSecretID = "73f38330a03e2f21bf2f72d0fab83cea";
+        ShareSDK.registerApp(shareSDKAppID);
+        ShareSDK.connectWeChatWithAppId(weChatAppID, appSecret: weChatSecretID, wechatCls: WXApi.self)
         
     }
     
     private func createBaseDirectory() {
         
-        let fileManager = NSFileManager.defaultManager()
-        let publicTemplateDirURL = documentDirectory(templates)
-        let usersDirURL = documentDirectory(users)
+        let fileManager = NSFileManager.defaultManager();
+        let publicTemplateDirURL = documentDirectory(templates);
+        let usersDirURL = documentDirectory(users);
         
         // public templates dir
         
         if duplicateTemplatesTo(publicTemplateDirURL) {
-            println("copy template")
+            println("copy template");
         }
         if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
             
-            fileManager.removeItemAtURL(publicTemplateDirURL, error: nil)
-            println("create template")
+            fileManager.removeItemAtURL(publicTemplateDirURL, error: nil);
+            println("create template");
             
         }
         
         // users dir
         if fileManager.createDirectoryAtURL(usersDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
-            println("Create Users Dir")
+            println("Create Users Dir");
 //            adminLogin()
         }
     }
     
     private func adminLogin() {
 
-        let loginFileURL = documentDirectory(login_)
-        let adminURL = bundle(admin_)
-        let json = NSData(contentsOfURL:adminURL)
+        let loginFileURL = documentDirectory(login_);
+        let adminURL = bundle(admin_);
+        let json = NSData(contentsOfURL:adminURL);
         
-        let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
-        base64json?.writeToURL(loginFileURL, atomically: true)
+        let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0));
+        base64json?.writeToURL(loginFileURL, atomically: true);
     }
     
     private func duplicateTemplatesTo(toUrl: NSURL) -> Bool {
 
-        let bundleTemplateURL = bundle(templates)
-        println(toUrl)
-        return NSFileManager.defaultManager().copyItemAtURL(bundleTemplateURL, toURL: toUrl, error: nil)
+        let bundleTemplateURL = bundle(templates);
+        println(toUrl);
+        return NSFileManager.defaultManager().copyItemAtURL(bundleTemplateURL, toURL: toUrl, error: nil);
     }
 }
 

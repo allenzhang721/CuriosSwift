@@ -12,13 +12,14 @@ import Mantle
 class LoginModel: Model {
     
     static let shareInstance = LoginModel()
-    var login = false
+    var isLogin = false
     var user = UserModel()
+    weak var viewController: ViewController?
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
         return [
-            "login" : "login",
+            "isLogin" : "isLogin",
             "user" : "user"
         ]
     }
@@ -31,10 +32,10 @@ class LoginModel: Model {
             let jsondata = NSData(base64EncodedData: base64json, options: NSDataBase64DecodingOptions(0))
             let ajson: [NSObject : AnyObject]! = NSJSONSerialization.JSONObjectWithData(jsondata!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]!
             let loginModel = MTLJSONAdapter.modelOfClass(LoginModel.self, fromJSONDictionary: ajson, error: nil) as! LoginModel
-            LoginModel.shareInstance.login = loginModel.login
+            LoginModel.shareInstance.isLogin = loginModel.isLogin
             LoginModel.shareInstance.user = loginModel.user
         } else {
-            LoginModel.shareInstance.login = false
+            LoginModel.shareInstance.isLogin = false
             LoginModel.shareInstance.user = UserModel()
         }
     }
@@ -46,6 +47,20 @@ class LoginModel: Model {
         let json = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
         let base64json = json?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
         base64json?.writeToURL(loginFile, atomically: true)
+    }
+    
+    func login(userInfo:UserModel){
+        LoginModel.shareInstance.isLogin = true;
+        LoginModel.shareInstance.user  = userInfo;
+        save();
+        viewController?.login();
+    }
+    
+    func logout(){
+        LoginModel.shareInstance.isLogin = false;
+        LoginModel.shareInstance.user  = UserModel();
+        save();
+        viewController?.login();
     }
     
     // component

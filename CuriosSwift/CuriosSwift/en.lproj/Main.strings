@@ -1,0 +1,39 @@
+
+/* Class = "UIBarButtonItem"; title = "更多"; ObjectID = "1xo-vB-87M"; */
+"1xo-vB-87M.title" = "更多";
+
+/* Class = "UISegmentedControl"; 2Jx-ys-VJz.segmentTitles[0] = "文稿"; ObjectID = "2Jx-ys-VJz"; */
+"2Jx-ys-VJz.segmentTitles[0]" = "文稿";
+
+/* Class = "UISegmentedControl"; 2Jx-ys-VJz.segmentTitles[1] = "发布"; ObjectID = "2Jx-ys-VJz"; */
+"2Jx-ys-VJz.segmentTitles[1]" = "发布";
+
+/* Class = "UIBarButtonItem"; title = "Add a new book"; ObjectID = "3xR-Qa-5J0"; */
+"3xR-Qa-5J0.title" = "Add a new book";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "6Os-hC-1LI"; */
+"6Os-hC-1LI.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "取消"; ObjectID = "Epd-0y-Swa"; */
+"Epd-0y-Swa.title" = "取消";
+
+/* Class = "UIBarButtonItem"; title = "返回"; ObjectID = "FJy-0o-I9j"; */
+"FJy-0o-I9j.title" = "返回";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitodioque civiuda."; ObjectID = "Gqc-6s-1LM"; */
+"Gqc-6s-1LM.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitodioque civiuda.";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "H2u-B2-PlT"; */
+"H2u-B2-PlT.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "J55-gG-ZD6"; */
+"J55-gG-ZD6.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Open Book"; ObjectID = "gLL-PS-kjb"; */
+"gLL-PS-kjb.normalTitle" = "Open Book";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "oQg-ig-Vea"; */
+"oQg-ig-Vea.normalTitle" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "发布"; ObjectID = "pmq-dw-dUs"; */
+"pmq-dw-dUs.title" = "发布";

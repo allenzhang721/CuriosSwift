@@ -51,8 +51,15 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        println("edit button click");
-        
+        let index = indexPath.item;
+        let result = UsersManager.shareInstance.deleteBook(index);
+        if result {
+             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String!{
+        return "删除";
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -85,7 +92,10 @@ extension BookListViewController {
         
 //        createBook()
     }
-    
+
+    @IBAction func logoutAction(sender: UIBarButtonItem) {
+        LoginModel.shareInstance.logout();
+    }
 }
 
 // MARK: - Private Method

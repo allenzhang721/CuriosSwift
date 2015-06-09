@@ -737,7 +737,8 @@ extension EditViewController {
         
         if NSFileManager.defaultManager().replaceItemAtURL(originBookUrl, withItemAtURL: tempBookUlr, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
             
-            UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: bookModel.publishDate, aIconUrl: NSURL(string: "")!)
+            let saveDate = NSDate();
+            UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
             
             NSFileManager.defaultManager().removeItemAtURL(temporaryDirectory(userID), error: nil)
         }

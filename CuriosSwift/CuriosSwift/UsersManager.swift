@@ -115,8 +115,10 @@ class UsersManager: IUser, IBook {
             bookList.insert(aBookListModel, atIndex: 0)
         }
         
-        saveBookList()
+        saveBookList();
     }
+    
+    
     
     func duplicateBookTo(templateId: String, toUrl: NSURL) -> Bool {
         
@@ -159,12 +161,37 @@ extension UsersManager {
     
     func createBook(aBookID: String) -> Bool {
         
-        return false
+        return false;
     }
     
-    func deleteBook(abookID: String) -> Bool {
-        
-        return false
+    func deleteBook(aBookID: String) -> Bool {
+        var result = false;
+        var index = 0;
+        for bookListModel in bookList {
+            if bookListModel.bookID == aBookID {
+                bookList.removeAtIndex(index);
+                result = true;
+                break
+            }
+            index++ ;
+        }
+        if(result){
+            saveBookList();
+        }
+
+        return result;
+    }
+    
+    func deleteBook(index: Int) -> Bool{
+        var result = false;
+        if index > -1 && index < bookList.count {
+            bookList.removeAtIndex(index);
+            result = true;
+        }
+        if(result){
+            saveBookList();
+        }
+        return result;
     }
 }
 
