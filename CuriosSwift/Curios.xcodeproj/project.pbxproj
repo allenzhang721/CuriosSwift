@@ -10,6 +10,9 @@
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
+		2C1825D61B2802DB00F3B59E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1825D51B2802DB00F3B59E /* Request.swift */; };
+		2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1825D71B28031400F3B59E /* Alamofire.framework */; };
+		2C1825DA1B28103B00F3B59E /* user in Resources */ = {isa = PBXBuildFile; fileRef = 2C1825D91B28103B00F3B59E /* user */; };
 		2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18D83A1AF37C4C00722179 /* Nodes.swift */; };
 		2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */; };
 		2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */; };
@@ -107,6 +110,9 @@
 /* Begin PBXFileReference section */
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
+		2C1825D51B2802DB00F3B59E /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		2C1825D71B28031400F3B59E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/Alamofire.framework"; sourceTree = "<group>"; };
+		2C1825D91B28103B00F3B59E /* user */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user; sourceTree = "<group>"; };
 		2C18D83A1AF37C4C00722179 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
 		2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAttributeSetter.swift; sourceTree = "<group>"; };
 		2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMaskAttributeSetter.swift; sourceTree = "<group>"; };
@@ -207,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */,
 				2CFDFD7A1B1EE96D00246F59 /* Security.framework in Frameworks */,
 				2CFDFD781B1EE96600246F59 /* libz.1.2.5.dylib in Frameworks */,
 				2CFDFD761B1EE96000246F59 /* libicucore.dylib in Frameworks */,
@@ -239,6 +246,7 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C1825D71B28031400F3B59E /* Alamofire.framework */,
 				2CFDFD791B1EE96D00246F59 /* Security.framework */,
 				2CFDFD771B1EE96600246F59 /* libz.1.2.5.dylib */,
 				2CFDFD751B1EE96000246F59 /* libicucore.dylib */,
@@ -300,6 +308,7 @@
 				2CD6C3101B17E929000C4FC6 /* Constants */,
 				2CD6C30D1B17E877000C4FC6 /* Utilty */,
 				2CD865B81B145B3100DA3646 /* Admin */,
+				2C1825D91B28103B00F3B59E /* user */,
 				2C032CEF1B0D71AD0089DC81 /* Templates */,
 				2C7BAE8B1B08F9C6002B752A /* CuriosPreview */,
 				2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */,
@@ -376,6 +385,7 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
@@ -543,6 +553,7 @@
 		2CB4BD461AE337EA00DF6019 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = botai;
 				TargetAttributes = {
@@ -589,6 +600,7 @@
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
 				2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */,
+				2C1825DA1B28103B00F3B59E /* user in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +703,7 @@
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
+				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
