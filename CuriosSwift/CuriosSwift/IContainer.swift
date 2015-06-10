@@ -13,6 +13,7 @@ protocol IContainer: NSObjectProtocol {
     var containerSize: CGSize{get}
     var containerPostion: CGPoint{get}
     var containerRotation: CGFloat{get}
+    var component: IComponent!{get}
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool
     func becomeFirstResponder()
@@ -22,5 +23,5 @@ protocol IContainer: NSObjectProtocol {
     func setTransation(translation: CGPoint)
     func setResize(size: CGSize, center: CGPoint)
     func setRotation(angle: CGFloat)
-//    var component: IComponent{get set}
+    
 }

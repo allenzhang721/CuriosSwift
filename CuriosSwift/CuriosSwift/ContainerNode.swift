@@ -28,7 +28,7 @@ class ContainerNode: ASDisplayNode, IContainer {
     }
     
     private let containerModel: ContainerModel
-    private var component: IComponent!
+    var component: IComponent!
     var componentNode: ASDisplayNode!
     private let aspectRatio: CGFloat
     

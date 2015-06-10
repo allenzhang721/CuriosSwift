@@ -329,32 +329,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OzN-v5-MCP">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kpx-08-Uda"/>
-                                    <barButtonItem image="Editor_Setting" id="kar-gj-OKE"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ccY-Og-HfH"/>
-                                    <barButtonItem image="Editor_ImagePicker" id="I9e-MR-LYE">
-                                        <connections>
-                                            <action selector="ImageAction:" destination="8KY-Ld-6of" id="ldU-qt-Ccz"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="F2G-E7-hHL"/>
-                                    <barButtonItem image="Editor_Text" id="GnG-gR-P9N">
-                                        <connections>
-                                            <action selector="addTextAction:" destination="8KY-Ld-6of" id="RQj-2O-cmT"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ekY-YS-drF"/>
-                                    <barButtonItem image="Editor_Preview" id="b7G-g8-F4k">
-                                        <connections>
-                                            <action selector="previewAction:" destination="8KY-Ld-6of" id="Ij8-8u-37S"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6HH-4B-3H7"/>
-                                </items>
-                            </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rs-4Q-GNL">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
@@ -374,13 +348,9 @@
                             <constraint firstItem="8rs-4Q-GNL" firstAttribute="leading" secondItem="oQp-6G-LwW" secondAttribute="leading" id="A2D-FM-P7x"/>
                             <constraint firstItem="8rs-4Q-GNL" firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="E4S-eX-YGi"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="efE-wc-SZt" secondAttribute="leading" id="ZaS-Cr-ADh"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="k2M-D6-GQu"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="top" secondItem="efE-wc-SZt" secondAttribute="top" id="kW1-3e-KRj"/>
                             <constraint firstItem="8rs-4Q-GNL" firstAttribute="top" secondItem="oQp-6G-LwW" secondAttribute="top" id="pMW-Lf-4vN"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="trailing" secondItem="8rs-4Q-GNL" secondAttribute="trailing" id="qyh-kZ-1bG"/>
                             <constraint firstItem="oQp-6G-LwW" firstAttribute="bottom" secondItem="yA7-i7-bxC" secondAttribute="top" id="r8D-x6-f7s"/>
-                            <constraint firstItem="oQp-6G-LwW" firstAttribute="leading" secondItem="OzN-v5-MCP" secondAttribute="leading" id="tYk-jM-xZU"/>
-                            <constraint firstItem="OzN-v5-MCP" firstAttribute="leading" secondItem="8rs-4Q-GNL" secondAttribute="leading" id="yrs-Ge-STj"/>
                             <constraint firstAttribute="trailing" secondItem="oQp-6G-LwW" secondAttribute="trailing" id="zwn-Ox-asf"/>
                         </constraints>
                         <connections>
@@ -391,7 +361,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="bottomToolBar" destination="OzN-v5-MCP" id="4ew-GJ-N6o"/>
                         <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
                         <outlet property="doubleTapGesture" destination="RI9-qc-HIO" id="CVg-QA-zw7"/>
                         <outlet property="singleTapGesture" destination="SEq-lk-81G" id="G3R-mP-5pT"/>
@@ -723,10 +692,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Editor_ImagePicker" width="20" height="20"/>
-        <image name="Editor_Preview" width="16" height="20"/>
-        <image name="Editor_Setting" width="20" height="20"/>
-        <image name="Editor_Text" width="20" height="20"/>
         <image name="Launch_Button" width="89" height="89"/>
         <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>

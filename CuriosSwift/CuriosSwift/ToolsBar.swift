@@ -47,8 +47,11 @@ private class EditToolsBarCell: UICollectionViewCell {
     
     private let button = UIButton.buttonWithType(.Custom) as! UIButton
     
-    func setImage(image: UIImage) {
-        button.setImage(image, forState: UIControlState.Normal)
+    func setImageWithName(imageName: String) {
+        let normalImage = UIImage(named: imageName.stringByAppendingString("_Normal"))
+        let selectedImage = UIImage(named: imageName.stringByAppendingString("_Selected"))
+        button.setImage(normalImage, forState: UIControlState.Normal)
+        button.setImage(selectedImage, forState: UIControlState.Selected)
     }
     
     func setTarget(target: AnyObject?, action: Selector) {
@@ -62,16 +65,20 @@ private class EditToolsBarCell: UICollectionViewCell {
         button.frame = bounds
         button.userInteractionEnabled = false
         button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        let back = UIView(frame: bounds)
-        back.layer.cornerRadius = 4
-        back.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-        selectedBackgroundView = back
+//        let back = UIView(frame: bounds)
+//        back.layer.cornerRadius = 4
+//        back.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+//        selectedBackgroundView = back
         contentView.addSubview(button)
     }
     
     func sendActions() {
         
         button.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
+    }
+    
+    func updateSelected() {
+        button.selected = selected
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -86,6 +93,7 @@ class ToolsBar: UIControl {
     var items = [UIBarButtonItem]()
     var accessoryView: AccessoryView!
     var isShowAccessoryView = false
+    var allowShowAccessoryView = false
     
     private var selectedIndexPath: NSIndexPath?
     
@@ -122,28 +130,59 @@ class ToolsBar: UIControl {
         items = aItems
         addSubview(collectionView)
         addSubview(accessoryView!)
+        
+        setColor()
     }
     
-    func changeToItems(aItems: [UIBarButtonItem]) {
+    func changeToItems(aItems: [UIBarButtonItem], animationed: Bool, allowShowAccessView: Bool, needHiddenAccessView: Bool) {
         
         items = aItems
+        allowShowAccessoryView = allowShowAccessView
+        let time = 0.2
         
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
+        if animationed {
             
-            self.collectionView.alpha = 0
-            
-            }) { (finished) -> Void in
+            UIView.animateWithDuration(time, animations: { () -> Void in
                 
-                if finished {
+                self.collectionView.alpha = 0
+                
+                }) { (finished) -> Void in
                     
-                    self.collectionView.reloadData()
-                    
-                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    if finished {
                         
-                        self.collectionView.alpha = 1
-                    })
-                }
+                        let selectedIndex = self.collectionView.indexPathsForSelectedItems()
+                        
+                        
+                        for indexPath in selectedIndex as! [NSIndexPath] {
+                            self.collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+                        }
+                        self.collectionView.reloadData()
+                        
+                        UIView.animateWithDuration(time, animations: { () -> Void in
+                            
+                            self.collectionView.alpha = 1
+                        })
+                    }
+            }
+        } else {
+            
+            let selectedIndex = self.collectionView.indexPathsForSelectedItems()
+            
+            
+            for indexPath in selectedIndex as! [NSIndexPath] {
+                self.collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+            }
+            self.collectionView.reloadData()
         }
+        
+        if needHiddenAccessView {
+            hiddenAccessoryView()
+        }
+    }
+    
+    func changeToItems(aItems: [UIBarButtonItem], animationed: Bool, allowShowAccessView: Bool) {
+        
+        changeToItems(aItems, animationed: animationed, allowShowAccessView: allowShowAccessView, needHiddenAccessView: false)
     }
     
     func controlAccessoryView(show: Bool) {
@@ -210,11 +249,11 @@ extension ToolsBar: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! EditToolsBarCell
         
         let barItem = items[indexPath.item]
-        let image = barItem.image
         let target: AnyObject? = barItem.target
         let action = barItem.action
-        cell.setImage(image!)
+        cell.setImageWithName(barItem.title!)
         cell.setTarget(target, action: action)
+        cell.updateSelected()
         
         return cell
     }
@@ -222,15 +261,23 @@ extension ToolsBar: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EditToolsBarCell
+        cell.updateSelected()
         cell.sendActions()
         
-        
-        if !isShowAccessoryView {
-            showAccessoryView()
+        if allowShowAccessoryView {
+            if !isShowAccessoryView {
+                showAccessoryView()
+            }
         }
+        
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         selectedIndexPath = indexPath
         println("Cell selected")
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EditToolsBarCell
+        cell.updateSelected()
     }
     
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -244,10 +291,19 @@ extension ToolsBar: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
-
 // MARK: - IBAction
 // MARK: -
 
 
 // MARK: - Private Method
 // MARK: -
+
+extension ToolsBar {
+    
+    private func setColor() {
+        
+        backgroundColor = UIColor.whiteColor()
+        collectionView.backgroundColor = UIColor.whiteColor()
+        accessoryView.backgroundColor = UIColor.lightGrayColor()
+    }
+}

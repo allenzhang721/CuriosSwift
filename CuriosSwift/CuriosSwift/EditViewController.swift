@@ -20,7 +20,7 @@ import SnapKit
 
 class EditViewController: UIViewController, IPageProtocol {
     
-    @IBOutlet weak var bottomToolBar: UIToolbar!
+    var bottomToolBar: ToolsBar!
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var singleTapGesture: UITapGestureRecognizer!
@@ -39,6 +39,7 @@ class EditViewController: UIViewController, IPageProtocol {
     var isToSmallLayout = false
     var multiSection = false
     var maskAttributes = [IMaskAttributeSetter]()
+    var currentEditContainer: IContainer?
     var pageEditing: Bool {
         get {
             return multiSection && maskAttributes.count > 0
@@ -53,12 +54,62 @@ class EditViewController: UIViewController, IPageProtocol {
         }
     }
     
+    let barName: [String : String] = [
+        "setting": "Editor_Setting",
+        "addImage": "Editor_ImagePicker",
+        "addText": "Editor_Text",
+        "preview": "Editor_Preview",
+        "effects": "Editor_Effects",
+        "font" : "Editor_Text",
+        "typography": "Editor_Typography",
+        "animation": "Editor_Animation",
+        "interact": "Editor_Interact"
+    ]
+    
+    let barActionName: [String : String] = [
+    
+       "setting": "settingAction:",
+        "addImage": "ImageAction:",
+        "addText": "addTextAction:",
+        "preview": "previewAction:",
+        "effects": "effectsAction:",
+        "font" : "fontAction:",
+        "typography": "typographyAction:",
+        "animation": "animationAction:",
+        "interact": "interactActtion:"
+    ]
+    
+    var defaultBarItems: [UIBarButtonItem] {
+
+        let itemsKey = ["setting", "addImage", "addText", "preview"]
+        return getBarButtonItem(itemsKey)
+    }
+    
+    var imageBarItems: [UIBarButtonItem] {
+        
+        let itemsKey = ["effects", "typography", "animation", "interact"]
+        return getBarButtonItem(itemsKey)
+    }
+    
+    var textBarItems: [UIBarButtonItem] {
+        
+        let itemsKey = ["effects", "font", "typography", "animation", "interact"]
+        return getBarButtonItem(itemsKey)
+    }
+    
+    func getBarButtonItem(itemsKey: [String]) -> [UIBarButtonItem] {
+        var items = [UIBarButtonItem]()
+        for akey in itemsKey {
+            let imageName = barName[akey]!
+            let action = barActionName[akey]!
+            let barItem = UIBarButtonItem(title: imageName, style: .Plain, target: self, action: Selector(action))
+            items.append(barItem)
+        }
+        return items
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        if BookManager.copyDemoBook() {
-//            
-//        }
         
         SmallLayout.delegate = self
         collectionView.dataSource = self
@@ -67,6 +118,9 @@ class EditViewController: UIViewController, IPageProtocol {
         collectionView.setCollectionViewLayout(normal, animated: false)
         collectionView.decelerationRate = 0.1
         
+        bottomToolBar = ToolsBar(aframe:CGRect(x: 0, y: 568 - 64, width: 320, height: 64) , aItems: defaultBarItems, aDelegate: self)
+        
+        view.addSubview(bottomToolBar)
 //        bookModel = getBookModel()
     }
     
@@ -76,6 +130,7 @@ class EditViewController: UIViewController, IPageProtocol {
         if templateViewController == nil {
             
             setupTemplateController()
+
         }
     }
     
@@ -345,11 +400,34 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         saveBook()
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func settingAction(sender: UIButton) {
+        
+        debugPrintln("Setting")
+    }
+    
+    func effectsAction(sender: UIButton) {
+        
+    }
+    
+    func fontAction(sender: UIButton) {
+        
+    }
+    
+    func typographyAction(sender: UIButton) {
+        
+    }
+    func animationAction(sender: UIButton) {
+        
+    }
+    func interactActtion(sender: UIButton) {
+        
+    }
 }
 
 // MARK: - DataSource And Delegate
 // MARK: -
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol {
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol {
     
     // MARK: - UICollectionViewDataSource and CollectionView Delegate
     
@@ -465,6 +543,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         bookModel.savePagesInfo()
     }
     
+    // MARK: - EditToolsBarProtocol 
+    func editToolsBarDidSelectedAccessoryView(editToolsBar: ToolsBar) {
+        
+    }
+    
+    
     // MARK: - Ipage Protocol
     
     func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
@@ -475,6 +559,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let aMask = mask as? UIView {
             view.addSubview(aMask)
         }
+        
+        changeToContainer(selectedContainer)
+        
         maskAttributes.append(mask)
     }
     
@@ -509,6 +596,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         page.saveInfo()
         page.cancelDelegate()
         collectionView.scrollEnabled = true
+        
+        endContainer()
     }
     
     // MARK: - imagePicker Delegate
@@ -587,6 +676,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
             
+            let location = gesture.locationInView(bottomToolBar)
+            if CGRectContainsPoint(bottomToolBar.bounds, location) {
+                return false
+            }
+            
             return self.collectionView.collectionViewLayout is NormalLayout ? true : false
             
         case let gesture where gesture is UIPanGestureRecognizer:
@@ -648,6 +742,39 @@ extension EditViewController {
         
         return book
         
+    }
+    
+    private func changeToContainer(container: IContainer) {
+        
+        if let aContainer = currentEditContainer {
+            
+            if !aContainer.component.isEqual(container.component) {
+                
+                currentEditContainer = container
+                if container.component is IImageComponent {
+                    bottomToolBar.changeToItems(imageBarItems, animationed: false, allowShowAccessView: true)
+                } else if container.component is ITextComponent {
+                    bottomToolBar.changeToItems(textBarItems, animationed: false, allowShowAccessView: true)
+                }
+            }
+            
+        } else {
+            currentEditContainer = container
+            if container.component is IImageComponent {
+                bottomToolBar.changeToItems(imageBarItems, animationed: true, allowShowAccessView: true)
+            } else if container.component is ITextComponent {
+                bottomToolBar.changeToItems(textBarItems, animationed: true, allowShowAccessView: true)
+            }
+        }
+    }
+    
+    private func endContainer() {
+        
+        if let aContainer = currentEditContainer {
+            currentEditContainer = nil
+            bottomToolBar.changeToItems(defaultBarItems, animationed: true, allowShowAccessView: false, needHiddenAccessView: true)
+            
+        }
     }
     
     private func togglePopAnimation(on: Bool) -> POPBasicAnimation {

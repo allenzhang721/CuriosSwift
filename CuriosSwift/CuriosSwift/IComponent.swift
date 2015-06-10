@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IComponent {
+protocol IComponent: NSObjectProtocol {
     
     func iBecomeFirstResponder()
     func iResignFirstResponder()
