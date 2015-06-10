@@ -65,6 +65,7 @@
 		2CBC16C21B15D53E00F46541 /* TemplatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16C11B15D53E00F46541 /* TemplatesManager.swift */; };
 		2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF584A1B1EC7690053102A /* RippleView.swift */; };
 		2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF584B1B1EC7690053102A /* QCMethod.swift */; };
+		2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
 		2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */; };
@@ -170,6 +171,7 @@
 		2CBC16C11B15D53E00F46541 /* TemplatesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesManager.swift; sourceTree = "<group>"; };
 		2CBF584A1B1EC7690053102A /* RippleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		2CBF584B1B1EC7690053102A /* QCMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCMethod.swift; sourceTree = "<group>"; };
+		2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsBar.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */,
 				2CBF584A1B1EC7690053102A /* RippleView.swift */,
 				2CBF584B1B1EC7690053102A /* QCMethod.swift */,
 				2C7763601B056C33000DDFB2 /* ContainerNode.swift */,
@@ -715,6 +718,7 @@
 				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
+				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,

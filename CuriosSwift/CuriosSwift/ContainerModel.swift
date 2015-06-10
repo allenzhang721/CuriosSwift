@@ -24,12 +24,6 @@ class ContainerModel: Model {
     var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
     
-    //    let lX: Dynamic<CGFloat>
-    //    let lY: Dynamic<CGFloat>
-    //    let lWidth: Dynamic<CGFloat>
-    //    let lHeight: Dynamic<CGFloat>
-    //    let lRotation: Dynamic<CGFloat>
-    
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
         return [
