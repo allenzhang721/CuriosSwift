@@ -11,6 +11,7 @@ pod 'Mantle', '~> 2.0'
 #pod 'Realm', '~> 0.91.3'
 pod 'pop', '~> 1.0.7'
 pod 'SnapKit', '~> 0.10.0'
+pod 'Qiniu', '~> 7.0'
 
 end
 
