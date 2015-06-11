@@ -20,7 +20,14 @@ import SnapKit
 
 class EditViewController: UIViewController, IPageProtocol {
     
+    enum ToolState {
+        case didSelect
+        case endEdit
+    }
+    
     var bottomToolBar: ToolsBar!
+    var pannel: ToolsPannel!
+    var toolState: ToolState = .endEdit
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var singleTapGesture: UITapGestureRecognizer!
@@ -119,9 +126,14 @@ class EditViewController: UIViewController, IPageProtocol {
         collectionView.decelerationRate = 0.1
         
         bottomToolBar = ToolsBar(aframe:CGRect(x: 0, y: 568 - 64, width: 320, height: 64) , aItems: defaultBarItems, aDelegate: self)
+        pannel = ToolsPannel()
+        pannel.backgroundColor = UIColor.lightGrayColor()
+        
         
         view.addSubview(bottomToolBar)
-//        bookModel = getBookModel()
+        view.addSubview(pannel)
+        
+        setupConstraints()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -147,6 +159,13 @@ class EditViewController: UIViewController, IPageProtocol {
     deinit {
         
         println("deinit")
+    }
+    
+    override func updateViewConstraints() {
+        
+        updateWithState(toolState)
+     
+        super.updateViewConstraints()
     }
 }
 
@@ -408,20 +427,45 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func effectsAction(sender: UIButton) {
         
+        toolState = .didSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     
     func fontAction(sender: UIButton) {
         
+        toolState = .didSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     
     func typographyAction(sender: UIButton) {
         
+        toolState = .didSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     func animationAction(sender: UIButton) {
         
+        toolState = .didSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     func interactActtion(sender: UIButton) {
         
+        toolState = .didSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
@@ -546,6 +590,15 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - EditToolsBarProtocol 
     func editToolsBarDidSelectedAccessoryView(editToolsBar: ToolsBar) {
         
+        if let currentIndexPath = getCurrentIndexPath() {
+            
+            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                let location = CGPointZero
+                self.collectionView.scrollEnabled = false
+                page.setDelegate(self)
+                page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
+            }
+        }
     }
     
     
@@ -561,6 +614,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         changeToContainer(selectedContainer)
+        
         
         maskAttributes.append(mask)
     }
@@ -598,6 +652,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         collectionView.scrollEnabled = true
         
         endContainer()
+        toolState = .endEdit
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     
     // MARK: - imagePicker Delegate
@@ -766,6 +825,7 @@ extension EditViewController {
                 bottomToolBar.changeToItems(textBarItems, animationed: true, allowShowAccessView: true)
             }
         }
+        toolState = ToolState.didSelect
     }
     
     private func endContainer() {
@@ -868,6 +928,42 @@ extension EditViewController {
             UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
             
             NSFileManager.defaultManager().removeItemAtURL(temporaryDirectory(userID), error: nil)
+        }
+    }
+    
+    func setupConstraints() {
+        
+        bottomToolBar.snp_makeConstraints({ (make) -> Void in
+            make.height.equalTo(64).constraint
+            make.left.right.equalTo(view)
+            make.bottom.equalTo(view)
+        })
+        
+        pannel.snp_updateConstraints({ (make) -> Void in
+            make.height.equalTo(80).constraint
+            make.left.right.equalTo(view)
+            make.top.equalTo(bottomToolBar.snp_bottom)
+        })
+    }
+    
+    
+    func updateWithState(state: ToolState) {
+        
+        switch state {
+            
+        case .didSelect:
+            bottomToolBar.snp_updateConstraints({ (make) -> Void in
+                make.bottom.equalTo(view.snp_bottom).offset(-80)
+            })
+
+            
+        case .endEdit:
+            bottomToolBar.snp_updateConstraints({ (make) -> Void in
+                make.bottom.equalTo(view)
+            })
+            
+        default:
+            return
         }
     }
 }
