@@ -60,10 +60,13 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     
     var container: IContainer?
     
+    var currentCenter = CGPointZero
+    
     init(postion: CGPoint, size: CGSize, rotation: CGFloat) {
         angle = rotation
         super.init(frame: CGRectZero)
         self.center = postion
+        currentCenter = postion
         self.bounds.size = size
         self.transform = CGAffineTransformMakeRotation(rotation)
         self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.1)
@@ -226,6 +229,8 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 center.x += transition.x
                 center.y += transition.y
                 
+                currentCenter = center
+                
             case .Resize:
                 let sizeDel = sender.translationInView(self)
                 let centerDel = sender.translationInView(superview!)
@@ -245,6 +250,8 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 bounds.size.height = realHeight
                 center.x = centerX
                 center.y = centerY
+                
+                currentCenter = center
                 
                 if let aContainer = container {
                     aContainer.setResize(CGSize(width: realWidth, height: realHeight), center: CGPoint(x: delCenX, y: delCenY))

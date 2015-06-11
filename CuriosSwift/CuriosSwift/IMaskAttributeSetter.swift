@@ -10,6 +10,7 @@ import Foundation
 
 protocol IMaskAttributeSetter: IAttributeSetter {
     
+    var currentCenter: CGPoint {get}
   static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat) -> IMaskAttributeSetter
     
     func remove()

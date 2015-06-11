@@ -21,6 +21,7 @@ import SnapKit
 class EditViewController: UIViewController, IPageProtocol {
     
     enum ToolState {
+        case willSelect
         case didSelect
         case endEdit
     }
@@ -189,12 +190,23 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         if let currentIndexPath = getCurrentIndexPath() {
             
-            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-                let location = sender.locationInView(view)
-                self.collectionView.scrollEnabled = false
-                page.setDelegate(self)
-                page.respondToLocation(location, onTargetView: view, sender: sender)
+            if toolState != .didSelect {
+                
+                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                    let location = sender.locationInView(view)
+                    self.collectionView.scrollEnabled = false
+                    page.setDelegate(self)
+                    page.respondToLocation(location, onTargetView: view, sender: sender)
+                }
+            } else {
+                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                    let location = CGPointZero
+                    self.collectionView.scrollEnabled = false
+                    page.setDelegate(self)
+                    page.respondToLocation(location, onTargetView: view, sender: sender)
+                }
             }
+            
         }
     }
     
@@ -590,15 +602,20 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - EditToolsBarProtocol 
     func editToolsBarDidSelectedAccessoryView(editToolsBar: ToolsBar) {
         
-        if let currentIndexPath = getCurrentIndexPath() {
-            
-            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-                let location = CGPointZero
-                self.collectionView.scrollEnabled = false
-                page.setDelegate(self)
-                page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
-            }
-        }
+//        if let currentIndexPath = getCurrentIndexPath() {
+//            
+//            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+//                let location = CGPointZero
+//                self.collectionView.scrollEnabled = false
+//                page.setDelegate(self)
+//                page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
+//            }
+//        }
+        toolState = .willSelect
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     
     
@@ -825,7 +842,7 @@ extension EditViewController {
                 bottomToolBar.changeToItems(textBarItems, animationed: true, allowShowAccessView: true)
             }
         }
-        toolState = ToolState.didSelect
+        toolState = ToolState.willSelect
     }
     
     private func endContainer() {
@@ -951,16 +968,84 @@ extension EditViewController {
         
         switch state {
             
+            
         case .didSelect:
             bottomToolBar.snp_updateConstraints({ (make) -> Void in
                 make.bottom.equalTo(view.snp_bottom).offset(-80)
             })
-
             
-        case .endEdit:
+            topToolBar.snp_updateConstraints({ (make) -> Void in
+                
+                make.top.equalTo(view.snp_top).offset(-44)
+            })
+            
+            if let currentIndexPath = getCurrentIndexPath() {
+                
+                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath)
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    cell?.center.y = self.collectionView.bounds.height / 2.0 - 80
+                    
+                    for mask in self.maskAttributes {
+                        let currentCeter = mask.currentCenter
+                        if let aMask = mask as? UIView {
+                            aMask.center.y = currentCeter.y - 80
+                            aMask.userInteractionEnabled = false
+                        }
+                    }
+                })
+                
+                for indexPath in collectionView.indexPathsForVisibleItems() as! [NSIndexPath] {
+                    
+                    if indexPath != currentIndexPath {
+                        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            
+                            cell?.alpha = 0
+                        })
+                    }
+                }
+            }
+  
+        case .willSelect, .endEdit:
             bottomToolBar.snp_updateConstraints({ (make) -> Void in
                 make.bottom.equalTo(view)
             })
+            
+            if let currentIndexPath = getCurrentIndexPath() {
+                
+                let cell = collectionView.cellForItemAtIndexPath(currentIndexPath)
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    cell?.center.y = self.collectionView.bounds.height / 2.0
+                    
+                    for mask in self.maskAttributes {
+                        let currentCeter = mask.currentCenter
+                        if let aMask = mask as? UIView {
+                            aMask.center.y = currentCeter.y
+                            aMask.userInteractionEnabled = true
+                        }
+                    }
+                })
+                
+                for indexPath in collectionView.indexPathsForVisibleItems() as! [NSIndexPath] {
+                    
+                    if indexPath != currentIndexPath {
+                        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            
+                            cell?.alpha = 1
+                        })
+                    }
+                }
+            }
+            
+            topToolBar.snp_updateConstraints({ (make) -> Void in
+                
+                make.top.equalTo(view.snp_top)
+            })
+            
+            bottomToolBar.deselected()
             
         default:
             return

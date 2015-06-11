@@ -134,6 +134,18 @@ class ToolsBar: UIControl {
         setColor()
     }
     
+    func deselected() {
+        
+        if let sele = selectedIndexPath {
+            
+            collectionView.deselectItemAtIndexPath(selectedIndexPath, animated: true)
+            let cell = collectionView.cellForItemAtIndexPath(sele) as! EditToolsBarCell
+            cell.updateSelected()
+            hiddenAccessoryView()
+            selectedIndexPath = nil
+        }
+    }
+    
     func changeToItems(aItems: [UIBarButtonItem], animationed: Bool, allowShowAccessView: Bool, needHiddenAccessView: Bool) {
         
         items = aItems
@@ -224,6 +236,7 @@ class ToolsBar: UIControl {
     
     func hiddenAccessoryView() {
         controlAccessoryView(false)
+        
         collectionView.deselectItemAtIndexPath(selectedIndexPath, animated: true)
         selectedIndexPath = nil
     }
