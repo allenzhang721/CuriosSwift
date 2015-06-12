@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         didload();
-        login()
+        loadViewController()
     }
 }
 
@@ -37,7 +37,7 @@ extension ViewController {
         LoginModel.shareInstance.viewController = self;
     }
     
-    func login() {
+    func loadViewController() {
         LoginModel.shareInstance.loadInfo()
         if LoginModel.shareInstance.isLogin {
             let user = LoginModel.shareInstance.user;
@@ -64,6 +64,7 @@ extension ViewController {
                 childVC.view.removeFromSuperview();
                 childVC.removeFromParentViewController();
             }
+            
         }
     }
     

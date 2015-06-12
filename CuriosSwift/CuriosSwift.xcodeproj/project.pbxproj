@@ -105,6 +105,7 @@
 		2CFDFD761B1EE96000246F59 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD751B1EE96000246F59 /* libicucore.dylib */; };
 		2CFDFD781B1EE96600246F59 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD771B1EE96600246F59 /* libz.1.2.5.dylib */; };
 		2CFDFD7A1B1EE96D00246F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD791B1EE96D00246F59 /* Security.framework */; };
+		66C783A01B281956002139F1 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7839F1B281956002139F1 /* UserRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,7 +227,7 @@
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
-		87E0503E3A46831DDF8B3117 /* Pods_Curios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Curios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66C7839F1B281956002139F1 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +340,7 @@
 				2C828A061AEF4D6D004D4223 /* Node */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
+				66C7839E1B281483002139F1 /* Request */,
 				2CB4BD851AE476D900DF6019 /* Layouts */,
 				2C828A031AEF4372004D4223 /* ViewModels */,
 				2CD807891B0AF043008B286B /* Interface */,
@@ -418,7 +420,6 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
@@ -528,6 +529,15 @@
 				2CFDFD661B1EE91800246F59 /* WXApiObject.h */,
 			);
 			path = WeChatSDK;
+			sourceTree = "<group>";
+		};
+		66C7839E1B281483002139F1 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				2C1825D51B2802DB00F3B59E /* Request.swift */,
+				66C7839F1B281956002139F1 /* UserRequest.swift */,
+			);
+			name = Request;
 			sourceTree = "<group>";
 		};
 		8EFBC8624DF4F2C3D0A1107A /* Pods */ = {
@@ -754,6 +764,7 @@
 				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
 				2C6D58941B2AC132002CFC3F /* TypographyPannel.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
+				66C783A01B281956002139F1 /* UserRequest.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,

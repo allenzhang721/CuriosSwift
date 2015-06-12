@@ -24,7 +24,6 @@ class UserModel: Model {
     var cityID = ""
     var weixin = ""
     var weibo = ""
-    var ip = ""
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
@@ -43,7 +42,6 @@ class UserModel: Model {
             "cityID" : "cityID",
             "weixin" : "weixin",
             "weibo" : "weibo",
-            "ip" : "ip"
         ]
     }
 }
