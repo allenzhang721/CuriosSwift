@@ -85,6 +85,12 @@
   return self;
 }
 
+- (void)setAtextAligement:(NSTextAlignment)atextAligement {
+    
+    _atextAligement = atextAligement;
+    _textKitComponents.textView.textAlignment = _atextAligement;
+}
+
 - (instancetype)initWithLayerBlock:(ASDisplayNodeLayerBlock)viewBlock
 {
   ASDisplayNodeAssertNotSupported();
@@ -137,6 +143,7 @@
   //_textKitComponents.textView = NO; // Unfortunately there's a bug here with iOS 7 DP5 that causes the text-view to only be one line high when scrollEnabled is NO. rdar://14729288
   _textKitComponents.textView.delegate = self;
   _textKitComponents.textView.editable = YES;
+    _textKitComponents.textView.textAlignment = _atextAligement;
   _textKitComponents.textView.typingAttributes = _typingAttributes;
   _textKitComponents.textView.accessibilityHint = _placeholderTextKitComponents.textStorage.string;
   configureTextView(_textKitComponents.textView);

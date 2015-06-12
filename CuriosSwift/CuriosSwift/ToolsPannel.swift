@@ -10,6 +10,8 @@ import UIKit
 
 class ToolsPannel: UIControl {
     
+    
+    weak var delegate: PannelProtocol?
     let factory = PannelFactory.shareInstance
     var subPannel = Pannel()
     

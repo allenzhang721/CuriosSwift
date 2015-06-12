@@ -25,6 +25,8 @@
 //! @abstract The range of text currently selected. If length is zero, the range is the cursor location.
 @property (nonatomic, readwrite, assign) NSRange selectedRange;
 
+@property (nonatomic, readwrite, assign) NSTextAlignment atextAligement;
+
 #pragma mark - Placeholder
 /**
   @abstract Indicates if the receiver is displaying the placeholder text.

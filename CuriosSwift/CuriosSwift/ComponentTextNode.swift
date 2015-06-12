@@ -26,6 +26,7 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
 //        self.attributedPlaceholderText = NSAttributedString(string: "Input Your Text")
         self.attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String)
         delegate = self
+        atextAligement = NSTextAlignment.Center
     }
     
     func iBecomeFirstResponder() {
