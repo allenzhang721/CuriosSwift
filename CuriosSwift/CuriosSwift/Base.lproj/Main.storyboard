@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -143,7 +143,7 @@
                                 <segment title="发布"/>
                             </segments>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="登出" id="V23-4E-TC4">
+                        <barButtonItem key="rightBarButtonItem" title="注销" id="V23-4E-TC4">
                             <connections>
                                 <action selector="logoutAction:" destination="qt8-qy-WNT" id="1as-cw-I2A"/>
                             </connections>
@@ -209,7 +209,7 @@
             </objects>
             <point key="canvasLocation" x="367" y="475"/>
         </scene>
-        <!--Local Template View Controller-->
+        <!--选取模版-->
         <scene sceneID="i7T-OP-61n">
             <objects>
                 <viewController id="9wI-9n-chE" customClass="LocalTemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -221,27 +221,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iZq-bP-c7n">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iZq-bP-c7n">
+                                <rect key="frame" x="0.0" y="64" width="600" height="546"/>
                                 <animations/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LSt-aw-4ye">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.90980392156862744" green="0.92156862745098034" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="LSt-aw-4ye">
+                                    <size key="itemSize" width="102" height="163"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="44v-SP-Ssg">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplateSelectCell" id="44v-SP-Ssg" customClass="TemplateCollectionViewCell" customModule="CuriosSwift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="64" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="102" height="163"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="God" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yE-Up-rwf">
+                                                    <rect key="frame" x="0.0" y="139" width="102" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Launch_Screen" translatesAutoresizingMaskIntoConstraints="NO" id="PeM-Ie-cnO">
+                                                    <rect key="frame" x="10" y="8" width="82" height="130"/>
+                                                </imageView>
+                                            </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <animations/>
-                                        <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="templateCellImg" destination="PeM-Ie-cnO" id="g6E-SR-AEo"/>
+                                            <outlet property="templateCelllabel" destination="6yE-Up-rwf" id="36y-Og-pJa"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -259,13 +274,13 @@
                             <constraint firstItem="iZq-bP-c7n" firstAttribute="top" secondItem="ZZX-d9-ejl" secondAttribute="top" id="k6Y-nB-PXq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Q0Q-k9-o7P">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="Epd-0y-Swa">
+                    <navigationItem key="navigationItem" title="选取模版" id="Q0Q-k9-o7P">
+                        <barButtonItem key="leftBarButtonItem" image="Template_Back" id="Epd-0y-Swa">
                             <connections>
                                 <action selector="cancelAction:" destination="9wI-9n-chE" id="ceP-qo-9Wb"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="更多" id="1xo-vB-87M">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="1xo-vB-87M">
                             <connections>
                                 <segue destination="rjU-EZ-E4c" kind="show" id="dTF-hW-w6n"/>
                             </connections>
@@ -521,6 +536,9 @@
                                 <state key="normal" image="Launch_Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="disabled" image="Launch_Button" backgroundImage="Launch_Button"/>
+                                <state key="selected" image="Launch_Button"/>
+                                <state key="highlighted" image="Launch_Button"/>
                                 <connections>
                                     <action selector="LoginAction:" destination="XvC-Lr-q2G" eventType="touchUpInside" id="tZG-kV-DFq"/>
                                 </connections>
@@ -741,6 +759,7 @@
         <image name="Launch_Button" width="89" height="89"/>
         <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>
+        <image name="Template_Back" width="19" height="15"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

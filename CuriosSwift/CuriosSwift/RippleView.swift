@@ -203,6 +203,8 @@ class RippleView: UIView {
 		lineTransformAnim.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
 		lineTransformAnim.repeatCount    = Float.infinity
 		
+        
+        
 		////Line animation
 		var lineOpacityAnim            = CAKeyframeAnimation(keyPath:"opacity")
 		lineOpacityAnim.values         = [0, 0, 1, 0]

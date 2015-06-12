@@ -19,7 +19,7 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
 
 class BaseRequst {
     
-    let baseURL = "http://192.168.1.102:8080/curiosService"
+    let baseURL = "http://192.168.1.101:8080/curiosService"
     typealias Result = [String : AnyObject] -> Void
     let requestComponents: [String]
     let jsonParameter: String

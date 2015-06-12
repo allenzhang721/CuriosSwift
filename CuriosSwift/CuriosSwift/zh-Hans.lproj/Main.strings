@@ -30,7 +30,7 @@
 "J55-gG-ZD6.text" = "Label";
 
 /* Class = "UIBarButtonItem"; title = "登出"; ObjectID = "V23-4E-TC4"; */
-"V23-4E-TC4.title" = "登出";
+"V23-4E-TC4.title" = "注销";
 
 /* Class = "UIButton"; normalTitle = "Open Book"; ObjectID = "gLL-PS-kjb"; */
 "gLL-PS-kjb.normalTitle" = "Open Book";

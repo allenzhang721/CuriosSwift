@@ -42,6 +42,8 @@ class LoginViewController: UIViewController, IRegisterDelegate{
 
         ShareSDK.getUserInfoWithType(ShareTypeWeixiSession, authOptions: authOptions) { (result, userInfo, error) -> Void in
             //
+            
+            
             if result {
                 let userId = userInfo.uid()
                 let nickName = userInfo.nickname()
@@ -57,7 +59,12 @@ class LoginViewController: UIViewController, IRegisterDelegate{
                 userRequest.setRegisterDelegate(self);
                 userRequest.weixinRegister(userModel);
             }else{
-                
+                let loginError = NSLocalizedString("CONNECT_IOERROR", comment: "")
+                let alert = UIAlertView()
+                alert.title = ""
+                alert.message = loginError
+                alert.addButtonWithTitle("Ok")
+                alert.show()
             }
         }
     }
@@ -65,7 +72,19 @@ class LoginViewController: UIViewController, IRegisterDelegate{
 
 extension LoginViewController{
     func requestFailed(resultIndex:RegisterRequestEnum){
-        
+        var loginError = NSLocalizedString("LOGIN_ERROR", comment: "");
+        switch(resultIndex){
+        case .IOERROR:
+            loginError = NSLocalizedString("CONNECT_IOERROR", comment: "");
+        default:
+            loginError = NSLocalizedString("LOGIN_ERROR", comment: "")
+        }
+        let alertTitle = ""
+        let alert = UIAlertView()
+        alert.title = alertTitle
+        alert.message = loginError
+        alert.addButtonWithTitle("Ok")
+        alert.show()
     }
     
     func requestSuccess(userModel:UserModel, resultIndex:RegisterRequestEnum){

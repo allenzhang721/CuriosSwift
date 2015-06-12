@@ -7,3 +7,14 @@
 */
 
 TEST = "这是一个文本国际化的测试";
+
+//booklist
+ADDBOOKBUTTON_ERROR = "添加";
+
+
+
+
+//alert
+ALERT_TITLE = "Curios奇思";
+LOGIN_ERROR = "登录失败，请稍后再试。";
+CONNECT_IOERROR = "无法链接网络，请稍后再试。";

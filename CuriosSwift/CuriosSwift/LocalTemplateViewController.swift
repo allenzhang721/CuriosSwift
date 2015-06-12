@@ -46,8 +46,9 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! UICollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TemplateSelectCell", forIndexPath: indexPath) as! TemplateCollectionViewCell
+        let templateModel = TemplatesManager.instanShare.templateList[indexPath.item]
+        cell.setModel(templateModel);
         return cell
     }
     
