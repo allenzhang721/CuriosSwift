@@ -10,6 +10,7 @@
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
+		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
 		2C1825D61B2802DB00F3B59E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1825D51B2802DB00F3B59E /* Request.swift */; };
 		2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1825D71B28031400F3B59E /* Alamofire.framework */; };
 		2C1825DA1B28103B00F3B59E /* user in Resources */ = {isa = PBXBuildFile; fileRef = 2C1825D91B28103B00F3B59E /* user */; };
@@ -121,6 +122,11 @@
 /* Begin PBXFileReference section */
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
+		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C0BB4891B2AD4B3007C18AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C0BB48A1B2AD4B4007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2C0BB4C21B2AD99B007C18AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		2C0BB4C41B2AD9A8007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C1825D51B2802DB00F3B59E /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2C1825D71B28031400F3B59E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/Alamofire.framework"; sourceTree = "<group>"; };
 		2C1825D91B28103B00F3B59E /* user */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user; sourceTree = "<group>"; };
@@ -282,7 +288,6 @@
 				2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */,
 				2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */,
 				3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */,
-				87E0503E3A46831DDF8B3117 /* Pods_Curios.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 		2CB4BD511AE337EA00DF6019 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2C0BB4881B2AD4B1007C18AC /* Localizable.strings */,
 				2CB4BD521AE337EA00DF6019 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -637,6 +643,7 @@
 			files = (
 				2C032CF01B0D71AD0089DC81 /* Templates in Resources */,
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
+				2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */,
 				2CFDFD6A1B1EE91800246F59 /* ShareSDKLocalizable.strings in Resources */,
 				2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
@@ -802,10 +809,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2C0BB4881B2AD4B1007C18AC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C0BB4871B2AD4B1007C18AC /* Base */,
+				2C0BB4891B2AD4B3007C18AC /* en */,
+				2C0BB48A1B2AD4B4007C18AC /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		2CB4BD571AE337EA00DF6019 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2CB4BD581AE337EA00DF6019 /* Base */,
+				2C0BB4C21B2AD99B007C18AC /* en */,
+				2C0BB4C41B2AD9A8007C18AC /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
