@@ -20,10 +20,17 @@
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
+		2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */; };
+		2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5426FF1B2A98A2007FF1DE /* Pannel.swift */; };
+		2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427011B2A9B36007FF1DE /* EffectPannel.swift */; };
+		2C5427041B2A9B85007FF1DE /* FontPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427031B2A9B85007FF1DE /* FontPannel.swift */; };
 		2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54ADF21B097B8700B0D460 /* SmallLayout.swift */; };
 		2C6162981B294878005B9EA4 /* ToolsPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6162971B294878005B9EA4 /* ToolsPannel.swift */; };
 		2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DCFA1B161020006249D8 /* BookListModel.swift */; };
 		2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD301B16920D006249D8 /* TemplateListModel.swift */; };
+		2C6D588C1B2A9C82002CFC3F /* FontsizePannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D588B1B2A9C82002CFC3F /* FontsizePannel.swift */; };
+		2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */; };
+		2C6D58941B2AC132002CFC3F /* TypographyPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */; };
 		2C7763551B056407000DDFB2 /* IComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763541B056407000DDFB2 /* IComponent.swift */; };
 		2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */; };
 		2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */; };
@@ -123,10 +130,17 @@
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelFactory.swift; sourceTree = "<group>"; };
+		2C5426FF1B2A98A2007FF1DE /* Pannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pannel.swift; sourceTree = "<group>"; };
+		2C5427011B2A9B36007FF1DE /* EffectPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectPannel.swift; sourceTree = "<group>"; };
+		2C5427031B2A9B85007FF1DE /* FontPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPannel.swift; sourceTree = "<group>"; };
 		2C54ADF21B097B8700B0D460 /* SmallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLayout.swift; sourceTree = "<group>"; };
 		2C6162971B294878005B9EA4 /* ToolsPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsPannel.swift; sourceTree = "<group>"; };
 		2C63DCFA1B161020006249D8 /* BookListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListModel.swift; sourceTree = "<group>"; };
 		2C63DD301B16920D006249D8 /* TemplateListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateListModel.swift; sourceTree = "<group>"; };
+		2C6D588B1B2A9C82002CFC3F /* FontsizePannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontsizePannel.swift; sourceTree = "<group>"; };
+		2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationPannel.swift; sourceTree = "<group>"; };
+		2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypographyPannel.swift; sourceTree = "<group>"; };
 		2C7763541B056407000DDFB2 /* IComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IComponent.swift; sourceTree = "<group>"; };
 		2C7763581B0566C8000DDFB2 /* ComponentImageNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentImageNode.swift; sourceTree = "<group>"; };
 		2C77635A1B056704000DDFB2 /* ComponentTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentTextNode.swift; sourceTree = "<group>"; };
@@ -376,7 +390,14 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */,
+				2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */,
+				2C6D588B1B2A9C82002CFC3F /* FontsizePannel.swift */,
+				2C5427031B2A9B85007FF1DE /* FontPannel.swift */,
+				2C5427011B2A9B36007FF1DE /* EffectPannel.swift */,
+				2C5426FF1B2A98A2007FF1DE /* Pannel.swift */,
 				2C6162971B294878005B9EA4 /* ToolsPannel.swift */,
+				2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */,
 				2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */,
 				2CBF584A1B1EC7690053102A /* RippleView.swift */,
 				2CBF584B1B1EC7690053102A /* QCMethod.swift */,
@@ -684,6 +705,7 @@
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */,
+				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
 				2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
@@ -705,11 +727,14 @@
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
+				2C6D588C1B2A9C82002CFC3F /* FontsizePannel.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
+				2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */,
 				2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */,
 				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2CBC16C21B15D53E00F46541 /* TemplatesManager.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
+				2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */,
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
@@ -727,15 +752,18 @@
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */,
 				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
+				2C6D58941B2AC132002CFC3F /* TypographyPannel.swift in Sources */,
 				2C7763671B056C9C000DDFB2 /* PageCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
+				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
+				2C5427041B2A9B85007FF1DE /* FontPannel.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,

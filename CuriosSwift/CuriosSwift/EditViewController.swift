@@ -440,6 +440,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     func effectsAction(sender: UIButton) {
         
         toolState = .didSelect
+        pannel.setupSubPannelWithType(.Effect)
         view.setNeedsUpdateConstraints()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -449,6 +450,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     func fontAction(sender: UIButton) {
         
         toolState = .didSelect
+        pannel.setupSubPannelWithType(.Font)
         view.setNeedsUpdateConstraints()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -458,6 +460,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     func typographyAction(sender: UIButton) {
         
         toolState = .didSelect
+        pannel.setupSubPannelWithType(.Typography)
         view.setNeedsUpdateConstraints()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -466,6 +469,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     func animationAction(sender: UIButton) {
         
         toolState = .didSelect
+        pannel.setupSubPannelWithType(.Animation)
         view.setNeedsUpdateConstraints()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
