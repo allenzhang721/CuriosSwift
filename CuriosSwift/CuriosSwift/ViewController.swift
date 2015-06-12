@@ -26,23 +26,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         didload();
-        login()
-        
-        //        let user = UsersManager.shareInstance.user
-        //        let userDic = MTLJSONAdapter.JSONDictionaryFromModel(user, error: nil)
-        //        let jsondata = NSJSONSerialization.dataWithJSONObject(userDic, options: NSJSONWritingOptions(0), error: nil)
-        //        let jsonString = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
-        
-        let da = bundle("user")
-        let stringdata = NSData(contentsOfURL: da)
-        let jsonString = NSString(data: stringdata!, encoding: NSUTF8StringEncoding) as! String
-        
-        let request =  baseRequst.requestWithComponents(["user","weixinRegister"], aJsonParameter: jsonString) { dic in
-            
-            println(dic)
-        }
-        
-        request.sendRequest()
+        loadViewController()
     }
 }
 
@@ -53,7 +37,7 @@ extension ViewController {
         LoginModel.shareInstance.viewController = self;
     }
     
-    func login() {
+    func loadViewController() {
         LoginModel.shareInstance.loadInfo()
         if LoginModel.shareInstance.isLogin {
             let user = LoginModel.shareInstance.user;

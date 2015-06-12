@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, IRegisterDelegate{
 
     @IBOutlet weak var breathView: RippleView!
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
     @IBAction func LoginAction(sender: UIButton) {
 
         let authOptions = ShareSDK.authOptionsWithAutoAuth(true, allowCallback: true, authViewStyle: SSAuthViewStyleFullScreenPopup, viewDelegate: nil, authManagerViewDelegate: nil);
-        
+
         ShareSDK.getUserInfoWithType(ShareTypeWeixiSession, authOptions: authOptions) { (result, userInfo, error) -> Void in
             //
             if result {
@@ -49,16 +49,27 @@ class LoginViewController: UIViewController {
                 
                 
                 var userModel = UserModel();
-                userModel.userID = userId;
                 userModel.nikename = nickName;
                 userModel.iconURL = profileImage;
                 userModel.weixin = userId;
                 
-                self.saveUserInfo(userModel);
+                let userRequest = UserRequest();
+                userRequest.setRegisterDelegate(self);
+                userRequest.weixinRegister(userModel);
             }else{
                 
             }
         }
+    }
+}
+
+extension LoginViewController{
+    func requestFailed(resultIndex:RegisterRequestEnum){
+        
+    }
+    
+    func requestSuccess(userModel:UserModel, resultIndex:RegisterRequestEnum){
+        saveUserInfo(userModel);
     }
     
     private func saveUserInfo(userInfo:UserModel){

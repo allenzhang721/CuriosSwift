@@ -53,14 +53,14 @@ class LoginModel: Model {
         LoginModel.shareInstance.isLogin = true;
         LoginModel.shareInstance.user  = userInfo;
         save();
-        viewController?.login();
+        viewController?.loadViewController();
     }
     
     func logout(){
         LoginModel.shareInstance.isLogin = false;
         LoginModel.shareInstance.user  = UserModel();
         save();
-        viewController?.login();
+        viewController?.loadViewController();
     }
     
     // component

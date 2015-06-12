@@ -15,7 +15,9 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
     return com
 }
 
-class baseRequst {
+
+
+class BaseRequst {
     
     let baseURL = "http://192.168.1.102:8080/curiosService"
     typealias Result = [String : AnyObject] -> Void
@@ -23,20 +25,28 @@ class baseRequst {
     let jsonParameter: String
     let result: Result
     
+    internal weak var delegate: IRequestDelegate?
+    
     init(aRequestComponents: [String], aJsonParameter: String, aResult: Result) {
         requestComponents = aRequestComponents
         jsonParameter = aJsonParameter
         result = aResult
     }
     
-    class func requestWithComponents(aRequestComponents: [String] , aJsonParameter: String, aResult: Result) -> baseRequst {
+    class func requestWithComponents(aRequestComponents: [String] , aJsonParameter: String, aResult: Result) -> BaseRequst {
     
-       return baseRequst(aRequestComponents: aRequestComponents, aJsonParameter: aJsonParameter, aResult: aResult)
+        return BaseRequst(aRequestComponents: aRequestComponents, aJsonParameter: aJsonParameter, aResult: aResult)
+    }
+    
+    func setDelegate(aDelegate: IRequestDelegate) {
+        delegate = aDelegate
+    }
+    
+    func cancelDelegate() {
+        delegate = nil
     }
     
     func sendRequest() {
-        
-        // Register - Wechat (POST http://192.168.1.102:8080/curiosService/user/weixinRegister)
         
         let URLParameters = [
             "data":jsonParameter,
@@ -54,17 +64,32 @@ class baseRequst {
             .responseJSON{ (request, response, JSON, error) in
                 if (error == nil)
                 {
-                    
                     if let jsondic = JSON as? [String : AnyObject] {
-                        
-//                        println("HTTP Response Body: \(jsondic)")
                         self.result(jsondic)
+                        if let aDelegate = self.delegate{
+                            aDelegate.requestSuccess()
+                        }
+                    }else{
+                        if let aDelegate = self.delegate{
+                            aDelegate.requestFailed()
+                        }
                     }
                 }
                 else
                 {
+                    if let aError = error{
+                        if let aDelegate = self.delegate {
+                            aDelegate.requestIOError(aError);
+                        }
+                    }
                     println("HTTP HTTP Request failed: \(error)")
                 }
         }
     }
+}
+
+protocol IRequestDelegate:NSObjectProtocol{
+    func requestSuccess()
+    func requestFailed()
+    func requestIOError(error:NSError)
 }
