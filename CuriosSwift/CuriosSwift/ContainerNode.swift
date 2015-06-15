@@ -29,8 +29,14 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     var animationName: String {
         get {
-           return containerModel.animations[0].name()
-//            return "None"
+            
+            if containerModel.animations.count > 0 {
+                return containerModel.animations[0].name()
+            } else {
+                return "None"
+            }
+           
+
         }
     }
     

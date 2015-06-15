@@ -100,19 +100,19 @@ class AnimationPannel: Pannel {
         if let aContainer = delegate?.pannelGetContainer() {
             
             let aniName = aContainer.animationName
-            var index = 0
-            var find = false
-            for item in items {
-                if item.name == aniName {
-                    find = true
-                    break
+                var index = 0
+                var find = false
+                for item in items {
+                    if item.name == aniName {
+                        find = true
+                        break
+                    }
+                    index++
                 }
-                index++
-            }
-            if find {
-                let indexPath = NSIndexPath(forItem: index, inSection: 0)
-                collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.Left)
-            }
+                if find {
+                    let indexPath = NSIndexPath(forItem: index, inSection: 0)
+                    collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.Left)
+                }
         }
     }
 }

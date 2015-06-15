@@ -68,6 +68,7 @@ class AnimationFactory {
             NSValue(CATransform3D: CATransform3DConcat(CATransform3DMakeScale(toScale, toScale, 1), CATransform3DMakeRotation(CGFloat(toRotation), 0, 0, 1)))]
         rectangleTransformAnim.keyTimes = [0, 0.5, 1]
         rectangleTransformAnim.duration = 1
+        rectangleTransformAnim.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
         
         var LayerFadeInAnim : CAAnimationGroup = QCMethod.groupAnimations([LayerOpacityAnim, LayerPositionAnim, rectangleTransformAnim], fillMode:fillMode)
         layer.addAnimation(LayerFadeInAnim, forKey:"LayerFadeInAnim")
