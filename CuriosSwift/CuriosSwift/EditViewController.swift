@@ -128,6 +128,7 @@ class EditViewController: UIViewController, IPageProtocol {
         
         bottomToolBar = ToolsBar(aframe:CGRect(x: 0, y: 568 - 64, width: 320, height: 64) , aItems: defaultBarItems, aDelegate: self)
         pannel = ToolsPannel()
+        pannel.delegate = self
         pannel.backgroundColor = UIColor.lightGrayColor()
         
         
@@ -487,7 +488,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 // MARK: - DataSource And Delegate
 // MARK: -
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol {
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol, PannelProtocol {
     
     // MARK: - UICollectionViewDataSource and CollectionView Delegate
     
@@ -508,6 +509,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout! {
         return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
+    }
+    
+    // MARK: - Pannel Delegate
+    func pannelGetContainer() -> IContainer? {
+        
+        return currentEditContainer
     }
     
     // MARK: - SmallLayout Delegate
@@ -757,7 +764,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
             
             let location = gesture.locationInView(bottomToolBar)
-            if CGRectContainsPoint(bottomToolBar.bounds, location) {
+            let locationinPannel = gesture.locationInView(pannel)
+            if CGRectContainsPoint(bottomToolBar.bounds, location) || CGRectContainsPoint(pannel.bounds, locationinPannel) {
                 return false
             }
             
@@ -955,13 +963,13 @@ extension EditViewController {
     func setupConstraints() {
         
         bottomToolBar.snp_makeConstraints({ (make) -> Void in
-            make.height.equalTo(64).constraint
+            make.height.equalTo(44).constraint
             make.left.right.equalTo(view)
             make.bottom.equalTo(view)
         })
         
         pannel.snp_updateConstraints({ (make) -> Void in
-            make.height.equalTo(80).constraint
+            make.height.equalTo(85).constraint
             make.left.right.equalTo(view)
             make.top.equalTo(bottomToolBar.snp_bottom)
         })

@@ -10,7 +10,7 @@ import UIKit
 
 protocol PannelProtocol: NSObjectProtocol {
     
-    func pannelGetContainer() -> IContainer
+    func pannelGetContainer() -> IContainer?
 }
 
 enum PannelType {
@@ -25,7 +25,16 @@ enum PannelType {
 class Pannel: UIView {
 
     
-    weak var delegate: PannelProtocol?
+    weak var delegate: PannelProtocol? {
+        
+        didSet {
+            didSetDelegate()
+        }
+    }
+    
+    func didSetDelegate() {
+        
+    }
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

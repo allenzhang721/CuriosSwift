@@ -41,6 +41,7 @@ extension ViewController {
     }
     
     func loadViewController() {
+//        adminLogin()
         LoginModel.shareInstance.loadInfo()
         if LoginModel.shareInstance.isLogin {
             let user = LoginModel.shareInstance.user;
@@ -77,6 +78,14 @@ extension ViewController {
         addChildViewController(bookListVC)
         view.addSubview(bookListVC.view)
     }
+    
+//    func adminLogin() {
+//        
+//        let loginFile = documentDirectory(login_)
+//        let adminUser = bundle(admin_)
+//        let data = NSData(contentsOfURL: adminUser)?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
+//        data?.writeToURL(loginFile, atomically: true)
+//    }
 }
 
 

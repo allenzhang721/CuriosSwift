@@ -18,3 +18,21 @@ ADDBOOKBUTTON_ERROR = "添加";
 ALERT_TITLE = "Curios奇思";
 LOGIN_ERROR = "登录失败，请稍后再试。";
 CONNECT_IOERROR = "无法链接网络，请稍后再试。";
+
+
+// Animation
+None            = "无";
+FadeIn          = "渐现";
+FloatIn         = "浮入";
+ZoomIn          = "弹入";
+ScaleIn         = "缩放入";
+DropIn          = "掉落";
+SlideIn         = "滑入";
+TeetertotterIn  = "陀螺旋转入";
+FadeOut         = "渐隐";
+FloatOut        = "浮出";
+ZoomOut         = "弹出";
+ScaleOut        = "缩放出";
+DropOut         = "滑落";
+SlideOut        = "滑出";
+TeetertotterOut = "陀螺旋转出";

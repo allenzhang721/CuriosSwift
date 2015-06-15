@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */; };
+		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
@@ -120,6 +122,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelCell.swift; sourceTree = "<group>"; };
+		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -398,6 +402,7 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */,
 				2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */,
 				2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */,
 				2C6D588B1B2A9C82002CFC3F /* FontsizePannel.swift */,
@@ -441,6 +446,7 @@
 				2CBC16C11B15D53E00F46541 /* TemplatesManager.swift */,
 				2CD3AF8B1B12C5C3008319A8 /* BooksManager.swift */,
 				2CEBE7611B1C17FD00C34920 /* Animator.swift */,
+				2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -734,6 +740,7 @@
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
 				2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */,
 				2C6162981B294878005B9EA4 /* ToolsPannel.swift in Sources */,
+				2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */,
 				2C7763551B056407000DDFB2 /* IComponent.swift in Sources */,
 				2C77636D1B05ABD9000DDFB2 /* ITextComponent.swift in Sources */,
 				2CD6C30F1B17E892000C4FC6 /* URL.swift in Sources */,
@@ -756,6 +763,7 @@
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
+				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,

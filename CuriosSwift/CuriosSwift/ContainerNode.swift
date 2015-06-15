@@ -27,6 +27,13 @@ class ContainerNode: ASDisplayNode, IContainer {
         }
     }
     
+    var animationName: String {
+        get {
+           return containerModel.animations[0].name()
+//            return "None"
+        }
+    }
+    
     private let containerModel: ContainerModel
     var component: IComponent!
     var componentNode: ASDisplayNode!
@@ -53,7 +60,67 @@ class ContainerNode: ASDisplayNode, IContainer {
         return containerModel.isEqual(aContainerModel)
     }
     
+    func addAnimation() {
+        
+        var fillMode : String = kCAFillModeForwards
+        
+        ////Layer animation
+        var layerPositionAnim            = CAKeyframeAnimation(keyPath:"position")
+        layerPositionAnim.values         = [NSValue(CGPoint: position), NSValue(CGPoint: CGPointMake(392.09, 284))]
+        layerPositionAnim.keyTimes       = [0, 1]
+        layerPositionAnim.duration       = 1
+        layerPositionAnim.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        
+        ////Layer animation
+        var layerOpacityAnim            = CAKeyframeAnimation(keyPath:"opacity")
+        layerOpacityAnim.values         = [1, 0]
+        layerOpacityAnim.keyTimes       = [0, 1]
+        layerOpacityAnim.duration       = 1
+        layerOpacityAnim.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        
+        var layerFadeOutAnim : CAAnimationGroup = QCMethod.groupAnimations([layerPositionAnim, layerOpacityAnim], fillMode:fillMode)
+        self.layer.addAnimation(layerFadeOutAnim, forKey:"layerFadeOutAnim")
+    }
+    
     // MARK: - IContainer
+    
+    func setAnimationWithName(name: String) {
+        
+        println("setAnimationName: \(name)")
+        switch name {
+            case "FadeIn":
+                AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 0, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "FloatIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: CGPoint(x: position.x, y: position.y + frame.height), toPosition: position, fromOpacity: 0, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "ZoomIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 0, toOpacity: 1, fromScale: 0.2, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "ScaleIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 0, toOpacity: 1, fromScale: 2, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "DropIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: CGPoint(x: position.x, y: 0-(frame.height / 2.0)), toPosition: position, fromOpacity: 1, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "SlideIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: CGPoint(x: 0-(frame.width / 2.0), y: position.y), toPosition: position, fromOpacity: 1, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "TeetertotterIn":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 0, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation + 270)
+                case "FadeOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 1, toOpacity: 0, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "FloatOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition:position , toPosition: CGPoint(x: position.x, y: position.y + frame.height), fromOpacity: 1, toOpacity: 0, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "ZoomOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 1, toOpacity: 0, fromScale: 1, toScale: 0.2, fromRotation: containerRotation, toRotation: containerRotation)
+                case "ScaleOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 1, toOpacity: 0, fromScale: 1, toScale: 2, fromRotation: containerRotation, toRotation: containerRotation)
+                case "DropOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: CGPoint(x: position.x, y: 504 + (frame.height / 2.0)), toPosition: position, fromOpacity: 1, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+                case "SlideOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: CGPoint(x: 320 + (frame.width / 2.0), y: position.y), toPosition: position, fromOpacity: 1, toOpacity: 1, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation)
+            case "TeetertotterOut":
+                    AnimationFactory.shareInstance.addFadeInAnimation(view.layer, fromPosition: position, toPosition: position, fromOpacity: 1, toOpacity: 0, fromScale: 1, toScale: 1, fromRotation: containerRotation, toRotation: containerRotation + 270)
+        default:
+            return
+        }
+    }
+    
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool {
         let point = targetVew.convertPoint(location, toView: view)
         return CGRectContainsPoint(bounds, point)

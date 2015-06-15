@@ -30,9 +30,11 @@ class ToolsPannel: UIControl {
         addSubview(pannel)
         subPannel.removeFromSuperview()
         subPannel = pannel
-
+        
         setNeedsUpdateConstraints()
         layoutIfNeeded()
+        
+        subPannel.delegate = self
     }
     
     override func updateConstraints() {
@@ -42,5 +44,23 @@ class ToolsPannel: UIControl {
         }
         
         super.updateConstraints()
+    }
+}
+
+// MARK: - DataSource and Delegate
+// MARK: -
+
+
+
+// MARK: - IBAction
+// MARK: -
+
+
+// MARK: - Private Method
+// MARK: -
+extension ToolsPannel: PannelProtocol {
+    
+    func pannelGetContainer() -> IContainer? {
+        return delegate?.pannelGetContainer()
     }
 }

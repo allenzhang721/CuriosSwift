@@ -20,7 +20,7 @@ class ContainerModel: Model {
     var alpha: CGFloat = 1.0
     var editable = true
     var animations:[Animation] = []
-//    var behaviors: [Behavior] = []
+    //    var behaviors: [Behavior] = []
     var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
     
@@ -36,7 +36,7 @@ class ContainerModel: Model {
             "alpha" : "ContainerAplha",
             "editable" : "Editable",
             "animations" : "Animations",
-//            "behaviors" : "Behaviors",
+            //            "behaviors" : "Behaviors",
             "effects" : "Effects",
             "component" : "Component"
         ]
@@ -84,24 +84,24 @@ class ContainerModel: Model {
     }
     
     // behaviors
-//    class func behaviorsJSONTransformer() -> NSValueTransformer {
-//        
-//        let forwardBlock: MTLValueTransformerBlock! = {
-//            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-//            
-//            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
-//            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Behavior.self, fromJSONArray: jsonArray as! [Behavior], error: nil)
-//            return something
-//        }
-//        
-//        let reverseBlock: MTLValueTransformerBlock! = {
-//            (Behaviors: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-//            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(Behaviors as! [Behavior], error: nil)
-//            return something
-//        }
-//        
-//        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
-//    }
+    //    class func behaviorsJSONTransformer() -> NSValueTransformer {
+    //
+    //        let forwardBlock: MTLValueTransformerBlock! = {
+    //            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+    //
+    //            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+    //            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(Behavior.self, fromJSONArray: jsonArray as! [Behavior], error: nil)
+    //            return something
+    //        }
+    //
+    //        let reverseBlock: MTLValueTransformerBlock! = {
+    //            (Behaviors: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+    //            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(Behaviors as! [Behavior], error: nil)
+    //            return something
+    //        }
+    //
+    //        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    //    }
     
     // effects
     class func effectsJSONTransformer() -> NSValueTransformer {
@@ -146,11 +146,48 @@ class ContainerModel: Model {
 class Animation: Model {
     
     @objc enum Types: Int {
-        case None, Rotation, FloatUp
+        case None = 1, FadeIn, FloatIn, ZoomIn, ScaleIn, DropIn, SlideIn, TeetertotterIn, FadeOut, FloatOut, ZoomOut, ScaleOut, DropOut, SlideOut, TeetertotterOut
     }
     
     @objc enum EaseTypes: Int {
         case  Linear, EaseIn, EaseOut, EaseInOut
+    }
+    
+    func name() -> String {
+            switch type {
+            case .None:
+                return "None"
+            case .FadeIn:
+                return "FadeIn"
+            case .FloatIn:
+                return "FloatIn"
+            case .ZoomIn:
+                return "ZoomIn"
+            case .ScaleIn:
+                return "ScaleIn"
+            case .DropIn:
+                return "DropIn"
+            case .SlideIn:
+                return "SlideIn"
+            case .TeetertotterIn:
+                return "TeetertotterIn"
+            case .FadeOut:
+                return "FadeOut"
+            case .FloatOut:
+                return "FloatOut"
+            case .ZoomOut:
+                return "ZoomOut"
+            case .ScaleOut:
+                return "ScaleOut"
+            case .DropOut:
+                return "DropOut"
+            case .SlideOut:
+                return "SlideOut"
+            case .TeetertotterOut:
+                return "TeetertotterOut"
+            default:
+                return "None"
+            }
     }
     
     var type: Types = .None
@@ -178,8 +215,20 @@ class Animation: Model {
         
         return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
             "None":Types.None.rawValue,
-            "Rotation":Types.Rotation.rawValue,
-            "FloatUp":Types.FloatUp.rawValue
+            "FadeIn":Types.FadeIn.rawValue,
+            "FloatIn":Types.FloatIn.rawValue,
+            "ZoomIn":Types.ZoomIn.rawValue,
+            "ScaleIn":Types.ScaleIn.rawValue,
+            "DropIn":Types.DropIn.rawValue,
+            "SlideIn":Types.SlideIn.rawValue,
+            "TeetertotterIn":Types.TeetertotterIn.rawValue,
+            "FadeOut":Types.FadeOut.rawValue,
+            "FloatOut":Types.FloatOut.rawValue,
+            "ZoomOut":Types.ZoomOut.rawValue,
+            "ScaleOut":Types.ScaleOut.rawValue,
+            "DropOut":Types.DropOut.rawValue,
+            "SlideOut":Types.SlideOut.rawValue,
+            "TeetertotterOut":Types.TeetertotterOut.rawValue
             ])
     }
     

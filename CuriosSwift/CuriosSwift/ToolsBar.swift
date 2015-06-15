@@ -65,10 +65,6 @@ private class EditToolsBarCell: UICollectionViewCell {
         button.frame = bounds
         button.userInteractionEnabled = false
         button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        let back = UIView(frame: bounds)
-//        back.layer.cornerRadius = 4
-//        back.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-//        selectedBackgroundView = back
         contentView.addSubview(button)
     }
     
@@ -89,13 +85,22 @@ private class EditToolsBarCell: UICollectionViewCell {
 class ToolsBar: UIControl {
     
     weak var delegate: EditToolsBarProtocol?
-    var collectionView: UICollectionView!
     var items = [UIBarButtonItem]()
     var accessoryView: AccessoryView!
     var isShowAccessoryView = false
     var allowShowAccessoryView = false
-    
     private var selectedIndexPath: NSIndexPath?
+    
+    let collectionView: UICollectionView = {
+        
+        let layout = EditToolsBarLayout()
+        layout.scrollDirection = .Horizontal
+        layout.itemSize = CGSize(width: 44, height: 44)
+        layout.minimumLineSpacing = 30
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        let collect = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+        return collect
+    }()
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -109,12 +114,7 @@ class ToolsBar: UIControl {
     private func setupWithFrame(aframe: CGRect, aItems: [UIBarButtonItem], aDelegate: EditToolsBarProtocol) {
         
         frame = aframe
-        let layout = EditToolsBarLayout()
-        layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
-        layout.itemSize = CGSize(width: 44, height: 44)
-        layout.minimumLineSpacing = 30
-        layout.sectionInset = UIEdgeInsets(top: (CGRectGetHeight(aframe) - 44) / 2, left: 30, bottom: (CGRectGetHeight(aframe) - 44) / 2, right: 30)
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        
         collectionView.registerClass(EditToolsBarCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -131,7 +131,15 @@ class ToolsBar: UIControl {
         addSubview(collectionView)
         addSubview(accessoryView!)
         
+        setupConstraints()
         setColor()
+    }
+    
+    func setupConstraints() {
+        
+        collectionView.snp_makeConstraints { (make) -> Void in
+            make.edges.equalTo(self)
+        }
     }
     
     func deselected() {
@@ -291,16 +299,6 @@ extension ToolsBar: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EditToolsBarCell
         cell.updateSelected()
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        
-        return true
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        
-        return true
     }
 }
 
