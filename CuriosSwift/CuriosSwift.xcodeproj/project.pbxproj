@@ -10,6 +10,7 @@
 		15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */; };
 		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
+		2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
@@ -124,6 +125,7 @@
 /* Begin PBXFileReference section */
 		2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelCell.swift; sourceTree = "<group>"; };
 		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
+		2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUAnimationFactory.swift; sourceTree = "<group>"; };
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
@@ -733,6 +736,7 @@
 				2CD8078F1B0B2C17008B286B /* UserManager.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
+				2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */,
 				2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
 				2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */,
