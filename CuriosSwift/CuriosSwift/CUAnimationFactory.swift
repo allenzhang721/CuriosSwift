@@ -50,6 +50,8 @@ class CUAnimationFactory: NSObject {
     
     static let shareInstance = CUAnimationFactory()
     
+    var animationStateListener = Dynamic(false)
+    
     var completeBlock: (Bool -> Void)!
     
     func animation(aFromValue: [Double],_ aToValue: [Double],_ aDuration: Double, _ easingFunctionType: EasingFunctionType, _ aBlock: AnimationBlock) {
@@ -83,7 +85,11 @@ class CUAnimationFactory: NSObject {
             }
         }
         
+        animationStateListener.value = false
+        
         aAnimation.completionBlock = {[unowned self] (animatoin, completed) -> Void in
+            
+            self.animationStateListener.value = completed
             
             if let com = self.completeBlock {
                 com(completed)

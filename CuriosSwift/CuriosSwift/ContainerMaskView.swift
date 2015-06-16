@@ -72,6 +72,19 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.1)
         setupPannel()
         setupGestures()
+        
+        CUAnimationFactory.shareInstance.animationStateListener.bindAndFire ("MaskView"){[unowned self] finished -> Void in
+        
+            if finished {
+                self.hidden = false
+            } else {
+                self.hidden = true
+            }
+        }
+    }
+    
+    deinit {
+        CUAnimationFactory.shareInstance.animationStateListener.removeActionWithID("MaskView")
     }
     
     override func drawRect(rect: CGRect) {

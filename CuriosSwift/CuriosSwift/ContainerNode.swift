@@ -150,7 +150,7 @@ class ContainerNode: ASDisplayNode, IContainer {
             easeType = EasingFunctionType.EasingInBounce
         case "DropOut":
             yE = Double(0 + 504)
-            easeType = EasingFunctionType.EasingInBounce
+            easeType = EasingFunctionType.EasingOutSine
         case "SlideOut":
             xE = Double(320 + frame.width)
             easeType = EasingFunctionType.EasingInBack

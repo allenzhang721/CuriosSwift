@@ -11,6 +11,7 @@
 		2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */; };
 		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
 		2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */; };
+		2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AABA1B3030E100B718B9 /* MultiObserver.swift */; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
@@ -126,6 +127,7 @@
 		2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelCell.swift; sourceTree = "<group>"; };
 		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUAnimationFactory.swift; sourceTree = "<group>"; };
+		2C00AABA1B3030E100B718B9 /* MultiObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiObserver.swift; sourceTree = "<group>"; };
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
+				2C00AABA1B3030E100B718B9 /* MultiObserver.swift */,
 				2C63DCFA1B161020006249D8 /* BookListModel.swift */,
 				2C63DD301B16920D006249D8 /* TemplateListModel.swift */,
 				2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */,
@@ -769,6 +772,7 @@
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
 				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
+				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
