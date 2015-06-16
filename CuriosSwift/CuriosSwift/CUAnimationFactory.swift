@@ -50,9 +50,12 @@ class CUAnimationFactory: NSObject {
     
     static let shareInstance = CUAnimationFactory()
     
-    var animationStateListener = Dynamic(false)
+    private var anmationing = false
+    
+    var animationStateListener = Dynamic(true)
     
     var completeBlock: (Bool -> Void)!
+
     
     func animation(aFromValue: [Double],_ aToValue: [Double],_ aDuration: Double, _ easingFunctionType: EasingFunctionType, _ aBlock: AnimationBlock) {
         
@@ -84,19 +87,28 @@ class CUAnimationFactory: NSObject {
                 return false
             }
         }
-        
+        anmationing = true
         animationStateListener.value = false
         
         aAnimation.completionBlock = {[unowned self] (animatoin, completed) -> Void in
             
-            self.animationStateListener.value = completed
+            self.anmationing = false
+            self.animationStateListener.value = true
             
             if let com = self.completeBlock {
-                com(completed)
+                com(true)
             }
         }
         
         self.pop_addAnimation(aAnimation, forKey: "Preview")
+    }
+    
+    func cancelAnimation() {
+        self.pop_removeAnimationForKey("Preview")
+    }
+    
+    func isAnimationing() -> Bool {
+        return anmationing
     }
 }
 

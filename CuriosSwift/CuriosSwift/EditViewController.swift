@@ -189,6 +189,12 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
         println("tap")
         
+        if CUAnimationFactory.shareInstance.isAnimationing() {
+            
+            CUAnimationFactory.shareInstance.cancelAnimation()
+            return
+        }
+        
         if let currentIndexPath = getCurrentIndexPath() {
             
             if toolState != .didSelect {
