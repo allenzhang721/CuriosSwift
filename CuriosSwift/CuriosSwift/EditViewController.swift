@@ -397,40 +397,80 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
+//        let bookmodel = bookModel
+//        let pagesmodel = bookModel.pageModels
+//        
+//        let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+//        let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
+//        let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
+//        let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
+//        let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
+//        let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
+//        let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = [" + pagesjsonString + "]"
+//        
+//        println(curiosResString)
+//        
+//        return
+        
         if let preeviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
             
+            // cache preview dir
             let previewName = "CuriosPreview"
-            let previewPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent(previewName)
-            let previewURL = NSURL.fileURLWithPath(previewPath!, isDirectory: true)
-            let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
-            let cachePreview = cacheDirectory.stringByAppendingPathComponent(previewName) as String
-            let res = cachePreview.stringByAppendingPathComponent("res")
+            
+            // bundle preview
+            let bundlePreviewURL = bundle(previewName)
+            // cache preview
+            let cachePreviewURL = cacheDirectory(previewName)
+            // editingBook
+            let bookid = bookModel.Id
+            let userName = UsersManager.shareInstance.getUserID()
+            let editingBookURL = temporaryDirectory(userName, bookid)
+            // /res
+            let cachePreviewResURL = cacheDirectory(previewName, "res")
+            
+            // curiosRes.js
+            let curiosResURL = cacheDirectory(previewName, "js", "curiosRes.js")
+            
+            // create cache preview book
             let fileManager = NSFileManager.defaultManager()
-            var isDirectory = false
-            if !fileManager.fileExistsAtPath(cachePreview) {
+            fileManager.removeItemAtURL(cachePreviewURL, error: nil)
+            if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
                 
-                if fileManager.copyItemAtURL(NSURL(fileURLWithPath: previewPath!)!, toURL: NSURL(fileURLWithPath: cachePreview)!, error: nil) {
-                    println("copy preview file success")
-                }
+                assert(false, "preview fail: can not copy bundle preview file to cache")
+                
             } else {
                 
-                if fileManager.fileExistsAtPath(res) {
-                    if fileManager.removeItemAtURL(NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
-                        println("remove res success")
+                // copy editing book to res dir
+                fileManager.removeItemAtURL(cachePreviewResURL, error: nil)
+                if !fileManager.copyItemAtURL(editingBookURL, toURL: cachePreviewResURL, error: nil) {
+                    assert(false, "preview fail: can not copy edit book file to res dir")
+                } else {
+                    
+                    // write mainjson and pagejson to curiosRes.js
+                    let bookmodel = bookModel
+                    let pagesmodel = bookModel.pageModels
+                    
+//                    var curiosResString = ""
+                    let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+                    let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
+                    let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
+                    let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
+                    let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
+                    let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
+                    let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = " + pagesjsonString
+                    
+                    if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
+                        assert(false, "preview fail: fail to write curiosRes.js")
+                    } else {
+                        
+                        let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
+                        println(string)
+                        
+                        presentViewController(preeviewVC, animated: true, completion: nil)
                     }
                 }
             }
-            
-            let demoBookID = "QWERTASDFGZXCVB"
-            let tempBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
-            if fileManager.copyItemAtURL(NSURL(fileURLWithPath: tempBookPath, isDirectory: true)!, toURL: NSURL(fileURLWithPath: res, isDirectory: true)!, error: nil) {
-                
-                println("copy book to preview res success")
-            }
-
-            presentViewController(preeviewVC, animated: true, completion: nil)
         }
-        
     }
     @IBAction func saveAction(sender: UIBarButtonItem) {
         

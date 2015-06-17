@@ -16,6 +16,8 @@ func URL(baseURL: String)(isDirectory: Bool)(_ components: String...) -> NSURL {
 
 let documentDirectory = URL(NSSearchPathForDirectoriesInDomains(.DocumentDirectory,  NSSearchPathDomainMask.UserDomainMask, true)[0] as! String)(isDirectory: true)
 
+let cacheDirectory = URL(NSSearchPathForDirectoriesInDomains(.CachesDirectory,  NSSearchPathDomainMask.UserDomainMask, true)[0] as! String)(isDirectory: true)
+
 let temporaryDirectory = URL(NSTemporaryDirectory())(isDirectory: true)
 
 let bundle = URL(NSBundle.mainBundle().resourcePath!)(isDirectory: true)

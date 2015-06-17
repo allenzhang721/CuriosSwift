@@ -79,8 +79,8 @@ class BookModel: Model, IFile {
             let pagePathKey = "Path"
             let PageIndexKey = "Index"
             let pageIDValue = pageId
-            let pagePathValue = pageId
-            let PageIndexValue = pageId + ".json"
+            let pagePathValue = "/" + pageId
+            let PageIndexValue = "/" + pageId + ".json"
             
             let aPageInfo = [pageIDKey : pageIDValue, pagePathKey : pagePathValue, PageIndexKey : PageIndexValue]
             newPagesInfo.append(aPageInfo)

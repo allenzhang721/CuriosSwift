@@ -15,38 +15,38 @@
     "Pages": [
               {
               "PageID": "ASDFG",
-              "Path": "ASDFG",
-              "Index": "ASDFG.json"
+              "Path": "/ASDFG",
+              "Index": "/ASDFG.json"
               },
               {
               "PageID": "IUNCF",
-              "Path": "IUNCF",
-              "Index": "IUNCF.json"
+              "Path": "/IUNCF",
+              "Index": "/IUNCF.json"
               },
               {
               "PageID": "MDCIU",
-              "Path": "MDCIU",
-              "Index": "MDCIU.json"
+              "Path": "/MDCIU",
+              "Index": "/MDCIU.json"
               },
               {
               "PageID": "QWERT",
-              "Path": "QWERT",
-              "Index": "QWERT.json"
+              "Path": "/QWERT",
+              "Index": "/QWERT.json"
               },
               {
               "PageID": "UVSAI",
-              "Path": "UVSAI",
-              "Index": "UVSAI.json"
+              "Path": "/UVSAI",
+              "Index": "/UVSAI.json"
               },
               {
               "PageID": "VBDUV",
-              "Path": "VBDUV",
-              "Index": "VBDUV.json"
+              "Path": "/VBDUV",
+              "Index": "/VBDUV.json"
               },
               {
               "PageID": "ZXCVB",
-              "Path": "ZXCVB",
-              "Index": "ZXCVB.json"
+              "Path": "/ZXCVB",
+              "Index": "/ZXCVB.json"
               }
               ]
 }

@@ -76,18 +76,18 @@ curiosPagesJson = [{
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "FloatUp",
+                                  "AnimationType": "TeetertotterIn",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
-                                  "AnimationRepeat": 2,
+                                  "AnimationRepeat": 1,
                                   "AnimationEaseType": "Linear",
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "FloatUp",
+                                  "AnimationType": "TeetertotterOut",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
-                                  "AnimationRepeat": 2,
+                                  "AnimationRepeat": 1,
                                   "AnimationEaseType": "Linear",
                                   "AnimationData": {}
                                   }
@@ -132,7 +132,7 @@ curiosPagesJson = [{
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "FloatUp",
+                                  "AnimationType": "FloatIn",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -140,7 +140,7 @@ curiosPagesJson = [{
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "FloatUp",
+                                  "AnimationType": "FloatIn",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -200,7 +200,7 @@ curiosPagesJson = [{
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"FloatIn",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -210,7 +210,7 @@ curiosPagesJson = [{
           }
         },
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"FloatOut",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -274,7 +274,7 @@ curiosPagesJson = [{
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"ZoomIn",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -284,7 +284,7 @@ curiosPagesJson = [{
           }
         },
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"ZoomOut",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -322,22 +322,22 @@ curiosPagesJson = [{
   ]
 },{
     "ID":"QWERT",
-    "PageWidth":600,
+    "PageWidth":320,
     "PageHeight":504,
     "Containers": [
         {
             "ID":"page1",
             "ContainerX":100,
             "ContainerY":100,
-            "ContaienrWidth":500,
-            "ContainerHeight":500,
+            "ContaienrWidth":200,
+            "ContainerHeight":200,
             "ContainerRotation":45,
             "ContainerAplha":0.5,
             "Editable":true,
             "Component": {
                 "ComponentType": "Image",
                 "ComponentData":{
-                    "ImagePath":"images/aaaa.jpeg",
+                    "ImagePath":"/images/aaaa.jpeg",
                     "ImageFilter":{
                         "FilterType":"black",
                         "FilterData":{
@@ -348,7 +348,7 @@ curiosPagesJson = [{
             },
             "Animations": [
                 {
-                    "AnimationType":"FloatUp",
+                    "AnimationType":"ScaleIn",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
@@ -358,7 +358,7 @@ curiosPagesJson = [{
                     }
                 },
                 {
-                    "AnimationType":"FloatUp",
+                    "AnimationType":"ScaleOut",
                     "AnimationDelay":1000,
                     "AnimationDuration":2000,
                     "AnimationRepeat":2,
@@ -422,7 +422,7 @@ curiosPagesJson = [{
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"DropIn",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -432,7 +432,7 @@ curiosPagesJson = [{
           }
         },
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"DropOut",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -496,7 +496,7 @@ curiosPagesJson = [{
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"SlideIn",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -506,7 +506,7 @@ curiosPagesJson = [{
           }
         },
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"SlideOut",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -553,7 +553,7 @@ curiosPagesJson = [{
       "ContainerY":200,
       "ContaienrWidth":100,
       "ContainerHeight":100,
-      "ContainerRotation":45,
+      "ContainerRotation":0,
       "ContainerAplha":0.5,
       "Editable":true,
       "Component": {
@@ -570,7 +570,7 @@ curiosPagesJson = [{
       },
       "Animations": [
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"RotateIn",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,
@@ -580,7 +580,7 @@ curiosPagesJson = [{
           }
         },
         {
-          "AnimationType":"FloatUp",
+          "AnimationType":"RotateOut",
           "AnimationDelay":1000,
           "AnimationDuration":2000,
           "AnimationRepeat":2,

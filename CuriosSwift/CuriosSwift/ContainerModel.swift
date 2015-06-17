@@ -64,6 +64,47 @@ class ContainerModel: Model {
     //    }
     
     // animations
+    
+    func setAnimationWithName(name: String) {
+        
+        let animation = Animation()
+        
+        switch name {
+        case "FadeIn":
+            animation.type = .FadeIn
+        case "FloatIn":
+            animation.type = .FloatIn
+        case "ZoomIn":
+            animation.type = .ZoomIn
+        case "ScaleIn":
+            animation.type = .ScaleIn
+        case "DropIn":
+            animation.type = .DropIn
+        case "SlideIn":
+            animation.type = .SlideIn
+        case "TeetertotterIn":
+            animation.type = .TeetertotterIn
+        case "FadeOut":
+            animation.type = .FadeOut
+        case "FloatOut":
+            animation.type = .FloatOut
+        case "ZoomOut":
+            animation.type = .ZoomOut
+        case "ScaleOut":
+            animation.type = .ScaleOut
+        case "DropOut":
+            animation.type = .DropOut
+        case "SlideOut":
+            animation.type = .SlideOut
+        case "TeetertotterOut":
+            animation.type = .TeetertotterOut
+        default:
+            animation.type = .None
+        }
+        
+        animations = [animation]
+    }
+    
     class func animationsJSONTransformer() -> NSValueTransformer {
         
         let forwardBlock: MTLValueTransformerBlock! = {
@@ -192,8 +233,8 @@ class Animation: Model {
     
     var type: Types = .None
     var delay: NSTimeInterval = 0
-    var duration: NSTimeInterval = 0
-    var repeat: Int = 0
+    var duration: NSTimeInterval = 1000
+    var repeat: Int = 1
     var easeType: EaseTypes = .Linear
     var attributes: [String : String] = [:]
     

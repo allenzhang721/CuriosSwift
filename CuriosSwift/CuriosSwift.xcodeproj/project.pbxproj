@@ -48,7 +48,6 @@
 		2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77636E1B05B481000DDFB2 /* ComponentNoneNode.swift */; };
 		2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */; };
 		2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */; };
-		2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8B1B08F9C6002B752A /* CuriosPreview */; };
 		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
 		2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12211B1FFF6C0096819D /* SwiftColors.swift */; };
 		2C7D12251B200D060096819D /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12241B200D060096819D /* Region.swift */; };
@@ -62,6 +61,7 @@
 		2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B91B085A7A00579E4A /* IFile.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
 		2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */; };
+		2CAD7E5E1B31743600DB8D10 /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2CAD7E5D1B31743600DB8D10 /* CuriosPreview */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
 		2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD571AE337EA00DF6019 /* Main.storyboard */; };
@@ -169,7 +169,6 @@
 		2C77636E1B05B481000DDFB2 /* ComponentNoneNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNoneNode.swift; sourceTree = "<group>"; };
 		2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGenerator.swift; sourceTree = "<group>"; };
 		2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */ = {isa = PBXFileReference; lastKnownFileType = folder; path = QWERTASDFGZXCVB; sourceTree = "<group>"; };
-		2C7BAE8B1B08F9C6002B752A /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		2C7D12211B1FFF6C0096819D /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColors.swift; sourceTree = "<group>"; };
 		2C7D12241B200D060096819D /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
@@ -183,6 +182,7 @@
 		2C9147B91B085A7A00579E4A /* IFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFile.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelItem.swift; sourceTree = "<group>"; };
+		2CAD7E5D1B31743600DB8D10 /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -350,8 +350,8 @@
 				2CD865B81B145B3100DA3646 /* Admin */,
 				2C1825D91B28103B00F3B59E /* user */,
 				2C032CEF1B0D71AD0089DC81 /* Templates */,
-				2C7BAE8B1B08F9C6002B752A /* CuriosPreview */,
 				2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */,
+				2CAD7E5D1B31743600DB8D10 /* CuriosPreview */,
 				2C828A061AEF4D6D004D4223 /* Node */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
@@ -663,9 +663,9 @@
 				2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
+				2CAD7E5E1B31743600DB8D10 /* CuriosPreview in Resources */,
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
-				2C7BAE8C1B08F9C6002B752A /* CuriosPreview in Resources */,
 				2C1825DA1B28103B00F3B59E /* user in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

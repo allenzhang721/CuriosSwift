@@ -22,70 +22,20 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.75">
-              <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="curiosRes.js" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/js/curiosRes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="298" column="14" selection-start-line="298" selection-start-column="14" selection-end-line="298" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page_4.json" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_4/page_4.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.821428">
-              <caret line="13" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page_3.json" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_3/page_3.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.535714">
-              <caret line="17" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page_2.json" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_2/page_2.json">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-6.785714">
-              <caret line="10" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
+              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.json" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/res/main.json">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.928572">
-              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
-        <entry file="file://D:/Workspace/html5/Curios/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.1981982">
-              <caret line="1064" column="0" selection-start-line="1064" selection-start-column="0" selection-end-line="1064" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
               </folding>
@@ -93,20 +43,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="curiosAnim.js" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
+      <file leaf-file-name="curiosAnim.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/curiosAnim.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45392492">
+              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="curiosRes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/curiosRes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="216" column="26" selection-start-line="216" selection-start-column="26" selection-end-line="216" selection-end-column="26" />
+              <caret line="349" column="17" selection-start-line="349" selection-start-column="17" selection-end-line="349" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="jquery-1.10.1.min.js" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+        <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.76">
+            <state vertical-scroll-proportion="0.0">
               <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
               <folding />
             </state>
@@ -126,21 +86,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="D:/Workspace/html5/Curios_1/js/tranlate3d.js" />
-        <option value="D:/Workspace/html5/Curios_1/js/main111.js" />
-        <option value="D:/Workspace/html5/Curios_1/res/Pages/page_2/page_2.json" />
-        <option value="D:/Workspace/html5/Curios_1/res/Pages/page_3/page_3.json" />
-        <option value="D:/Workspace/html5/Curios_1/res/Pages/page_1/page_1.json" />
-        <option value="D:/Workspace/html5/Curios_1/js/curiosAnim.js" />
-        <option value="D:/Workspace/html5/Curios_1/res/Pages/page_4/page_4.json" />
-        <option value="D:/Workspace/html5/Curios_1/res/Pages/QWERT/QWERT.json" />
-        <option value="D:/Workspace/html5/Curios_1/res/main.json" />
-        <option value="D:/Workspace/html5/Curios_1/js/res.js" />
-        <option value="D:/Workspace/html5/Curios_1/js/main.js" />
-        <option value="D:/Workspace/html5/Curios_1/index.html" />
-        <option value="D:/Workspace/html5/Curios_1/js/curiosRes.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/tranlate3d.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/main111.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/Pages/page_2/page_2.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/Pages/page_3/page_3.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/Pages/page_1/page_1.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/curiosAnim.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/Pages/page_4/page_4.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/Pages/QWERT/QWERT.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/res/main.json" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/res.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/main.js" />
+        <option value="$PROJECT_DIR$/../Curios_1/index.html" />
+        <option value="$PROJECT_DIR$/../Curios_1/js/curiosRes.js" />
         <option value="$USER_HOME$/Desktop/Curios_1/js/curiosRes.js" />
-        <option value="D:/Workspace/html5/Curios/js/main.js" />
+        <option value="$PROJECT_DIR$/js/curiosAnim.js" />
+        <option value="$PROJECT_DIR$/js/curiosRes.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/main.js" />
       </list>
     </option>
   </component>
@@ -152,7 +115,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -180,8 +143,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Curios_1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Curios_1" />
@@ -192,10 +163,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Curios_1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Curios" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -204,16 +187,16 @@
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="last_opened_file_path" value="D:/Workspace/html5/Curios" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Workspace\html5\Curios_1\res" />
+      <recent name="D:\Workspace\html5\Curios\js" />
       <recent name="D:\Workspace\html5\Curios\res" />
+      <recent name="D:\Workspace\html5\Curios\images" />
+      <recent name="D:\Workspace\html5\Curios_1\res" />
       <recent name="D:\Workspace\html5\Curios\res\images" />
-      <recent name="D:\Workspace\html5\Curios\res\Pages\UVSAI\images" />
-      <recent name="D:\Workspace\html5\Curios\res\Pages\page_4" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Workspace\html5\Curios\images" />
@@ -221,9 +204,6 @@
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html (2)">
     <configuration default="false" name="index.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/Curios/index.html">
-      <method />
-    </configuration>
-    <configuration default="false" name="index.html (2)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Curios_1/index.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -267,15 +247,17 @@
     <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" nameIsGenerated="true" uri="http://localhost:63342/Curios/index.html">
       <method />
     </configuration>
+    <configuration default="false" name="index.html (2)" type="JavascriptDebugType" factoryName="JavaScript Debug" nameIsGenerated="true" uri="http://localhost:63342/Curios_1/index.html">
+      <method />
+    </configuration>
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.html (2)" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html (2)" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html (2)" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -293,26 +275,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17916666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18489583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26619434" sideWeight="0.5104167" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37753037" sideWeight="0.5250404" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26619434" sideWeight="0.48958334" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299595" sideWeight="0.49791667" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299595" sideWeight="0.49583334" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37753037" sideWeight="0.4749596" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -328,7 +310,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="152" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/js/main.js</url>
+          <line>1078</line>
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="196" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
@@ -338,7 +327,97 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/js/curiosAnim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="662" column="57" selection-start-line="662" selection-start-column="57" selection-end-line="662" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosRes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="349" column="17" selection-start-line="349" selection-start-column="17" selection-end-line="349" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosAnim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="662" column="57" selection-start-line="662" selection-start-column="57" selection-end-line="662" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosRes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="349" column="17" selection-start-line="349" selection-start-column="17" selection-end-line="349" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1531" column="37" selection-start-line="1531" selection-start-column="22" selection-end-line="1531" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosAnim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosRes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
@@ -346,7 +425,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -356,7 +435,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="14464" selection-start-line="5" selection-start-column="14464" selection-end-line="5" selection-end-column="14464" />
@@ -364,7 +443,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
@@ -372,7 +451,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -382,7 +461,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="14464" selection-start-line="5" selection-start-column="14464" selection-end-line="5" selection-end-column="14464" />
@@ -390,7 +469,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
@@ -398,7 +477,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
@@ -408,22 +487,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="212" column="27" selection-start-line="212" selection-start-column="27" selection-end-line="212" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/animationEngine/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
@@ -431,7 +495,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
@@ -448,7 +512,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="11580" selection-start-line="5" selection-start-column="11580" selection-end-line="5" selection-end-column="11580" />
@@ -456,15 +520,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="212" column="27" selection-start-line="212" selection-start-column="27" selection-end-line="212" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -481,7 +537,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="11580" selection-start-line="5" selection-start-column="11580" selection-end-line="5" selection-end-column="11580" />
@@ -489,22 +545,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="191" column="34" selection-start-line="191" selection-start-column="34" selection-end-line="191" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/animationEngine/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="13" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
@@ -512,7 +553,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="277" column="59" selection-start-line="277" selection-start-column="51" selection-end-line="277" selection-end-column="59" />
@@ -529,7 +570,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
@@ -537,15 +578,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="214" column="71" selection-start-line="214" selection-start-column="31" selection-end-line="214" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
@@ -553,7 +586,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="12988" selection-start-line="3" selection-start-column="12988" selection-end-line="3" selection-end-column="12988" />
@@ -561,7 +594,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
@@ -569,7 +602,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="12988" selection-start-line="3" selection-start-column="12988" selection-end-line="3" selection-end-column="12988" />
@@ -577,7 +610,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
@@ -585,7 +618,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="12988" selection-start-line="3" selection-start-column="12988" selection-end-line="3" selection-end-column="12988" />
@@ -593,7 +626,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="38" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="38" />
@@ -601,7 +634,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="12044" selection-start-line="5" selection-start-column="12044" selection-end-line="5" selection-end-column="12044" />
@@ -613,13 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13868614">
           <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/animationEngine/curiosAnim.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -646,11 +672,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/images/error.jpeg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33241758">
@@ -658,85 +679,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_1/page_1.json">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.5">
-          <caret line="14" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="738" column="0" selection-start-line="738" selection-start-column="0" selection-end-line="738" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/audioPlay.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/error.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosRes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="349" column="17" selection-start-line="349" selection-start-column="17" selection-end-line="349" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_2/page_2.json">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.785714">
-          <caret line="10" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_3/page_3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.535714">
-          <caret line="17" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/jquery-1.10.1.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.76">
+        <state vertical-scroll-proportion="0.0">
           <caret line="3" column="229" selection-start-line="3" selection-start-column="229" selection-end-line="3" selection-end-column="229" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosAnim.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.785714">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="216" column="26" selection-start-line="216" selection-start-column="26" selection-end-line="216" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/res/Pages/page_4/page_4.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.821428">
-          <caret line="13" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.75">
-          <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/res/main.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.928572">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/curiosRes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="298" column="14" selection-start-line="298" selection-start-column="14" selection-end-line="298" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Workspace/html5/Curios/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.1981982">
-          <caret line="1064" column="0" selection-start-line="1064" selection-start-column="0" selection-end-line="1064" selection-end-column="0" />
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/curiosAnim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45392492">
+          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

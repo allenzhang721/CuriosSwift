@@ -203,6 +203,9 @@ class ContainerNode: ASDisplayNode, IContainer {
             self.layer.opacity = 1.0
             self.layer.transform = CATransform3DConcat(CATransform3DConcat(CATransform3DMakeRotation(CGFloat(angleo), 0, 0, 1), CATransform3DMakeScale(1, 1, 1)), CATransform3DMakeTranslation(0, 0, 0))
         }
+        
+        containerModel.setAnimationWithName(name)
+        page?.saveInfo()
     }
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool {

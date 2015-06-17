@@ -31,8 +31,15 @@
         currentIndex;
 
     var deviceWidth,
-        deviceHeight;
+        deviceHeight,
+        phoneDevice;
+    var pageSlideWidth,
+        pageSlideHeight;
     var pageLoadIndex;
+    var upArrowAni,
+        bgMusicAni,
+        isPlayBgMusic=false,
+        isPlayingBgMusic=false;
     var MainFile = {
         init:function(mainJson){
             fileID         = mainJson.ID;
@@ -56,10 +63,12 @@
             this.loadPageJson();
 
             $(window).on('resize', function() {
-                MainFile.setScreenSize();
-                MainFile.setMainDivCss();
-                setCurrentPage();
-                resetSlidePostition();
+                if(!phoneDevice){
+                    MainFile.setScreenSize();
+                    MainFile.setMainDivCss();
+                    setCurrentPage();
+                    resetSlidePostition();
+                }
             });
         },
 
@@ -80,19 +89,22 @@
 
         changeViewsport:function(){
             var ua = navigator.userAgent;
-            if (/Android (\d+\.\d+)/.test(ua)) {
+            if (/Android(\d+\.\d+)/.test(ua)) {
                 var version = parseFloat(RegExp.$1);
                 // andriod 2.3
                 if (version > 2.3) {
-                    document.write('<meta name="viewport" content="width=' + mainWidth + ', minimum-scale=' + fileScale + ', maximum-scale=' + fileScale + ', target-densitydpi=device-dpi"/>');
+                    document.write('<meta name="viewport" content="width=' + mainWidth + ', minimum-scale=' + fileScale + ', maximum-scale=' + fileScale + ', target-densitydpi=device-dpi", user-scalable=no/>');
                     // andriod 2.3����
                 } else {
-                    document.write('<meta name="viewport" content="width=' + mainWidth + ', target-densitydpi=device-dpi"/>');
+                    document.write('<meta name="viewport" content="width=' + mainWidth + ', target-densitydpi=device-dpi" user-scalable=no/>');
                 }
+                phoneDevice = true;
                 // ios
-            } else if (/iPhone (\d+\.\d+)/.test(ua) || /iPad (\d+\.\d+)/.test(ua)) {
-                document.write('<meta name="viewport" content="width=' + mainWidth + ', user-scalable=no, target-densitydpi=device-dpi"/>');
+            } else if (/iPhone/.test(ua) || /iPad/.test(ua)) {
+                //document.write('<meta name="viewport" content="width=' + deviceWidth + ', user-scalable=no, target-densitydpi=device-dpi"/>');
+                phoneDevice = true;
             }else {
+                phoneDevice = false;
                 //document.write('<meta name="viewport" content="width='+fileWidth+', user-scalable=yes">')
             }
         },
@@ -102,6 +114,37 @@
             $("body").append(mainDevClass);
             var slideContaierDivClass = '<div class="'+"slideContainer"+'"/>';
             $("#mainDiv").append(slideContaierDivClass);
+            $(".slideContainer")[0].addEventListener('touchstart', function(event){
+                event.preventDefault();
+            }, false);
+            if(pages.length > 0){
+                var upArrowDivClass = '<img class="'+"upArrow"+'" src="images/upArrow.png"/>';
+                $("#mainDiv").append(upArrowDivClass);
+            }
+            if(mainMusic != "" && mainMusic != null){
+                var bgMusicDivClass = '<div class="'+"bgMusic"+'"/>';
+                $("#mainDiv").append(bgMusicDivClass);
+                if(phoneDevice){
+                    $(".bgMusic")[0].addEventListener('touchend', function(event){
+                        if(isPlayBgMusic){
+                            MainFile.stopBgMusic();
+                        }else{
+                            MainFile.playBgMusic();
+                        }
+                    }, false);
+                }else{
+                    $(".bgMusic")[0].addEventListener('mousedown', function(event){
+                        if(isPlayBgMusic){
+                            MainFile.stopBgMusic();
+                        }else{
+                            MainFile.playBgMusic();
+                        }
+                    }, true);
+                }
+                setTimeout(function(){
+                    MainFile.playBgMusic();
+                }, 20);
+            }
             this.setMainDivCss();
         },
 
@@ -114,10 +157,17 @@
                 "height": deviceHeight,
                 "background-color": "black"
             });
+            if(phoneDevice){
+                pageSlideWidth  = deviceWidth;
+                pageSlideHeight = deviceHeight;
+            }else{
+                pageSlideWidth  = fileWidth;
+                pageSlideHeight = fileHeight;
+            }
             $(".slideContainer").css({
                 "position":"relative",
-                "width": fileWidth + "px",
-                "height": fileHeight + "px",
+                "width": pageSlideWidth + "px",
+                "height": pageSlideHeight + "px",
                 "margin": "0 auto",
                 "-webkit-perspective":"1200px",
                 "-moz-perspective":"1200px",
@@ -131,6 +181,114 @@
                     "background-size": "100% 100%",
                     "background-repeat": "no-repeat"
                 });
+            }
+            if(mainMusic != "" && mainMusic != null){
+                if(isPlayBgMusic){
+                    this.stopBgMusicAni();
+                }
+                this.setBgMusicStyle();
+                if(isPlayBgMusic){
+                    this.playBgMusicAni();
+                }
+            }
+            if(pages.length > 0){
+                if(upArrowAni != null){
+                    upArrowAni.stop();
+                }
+                var upArrowWidth  = fileScale*60;
+                var upArrowHeight = fileScale*52;
+                var upArrowLeft   = (deviceWidth - upArrowWidth)/2;
+                var upArrowTop  =  deviceHeight-fileScale*72;
+                $(".upArrow").css({
+                    "position":"absolute",
+                    "width":   upArrowWidth+ "px",
+                    "height":  upArrowHeight+ "px",
+                    "left":    upArrowLeft+"px",
+                    "top":  upArrowTop+"px",
+                    "zIndex":"1"
+                });
+                var upArrowImg = $(".upArrow")[0];
+                upArrowAni = CuriosAnim.createNew( {
+                    obj: upArrowImg,
+                    delay: 0,
+                    duration: 1000,
+                    repeat:0,
+                    endFrames: [{
+                        frameAlpha:0,
+                        frameY:deviceHeight-fileScale*124
+                    }]
+                });
+                upArrowAni.play();
+            }
+        },
+
+        setBgMusicStyle:function(){
+            var bgMusicWidth  = fileScale*70;
+            var bgMusicHeight = fileScale*70;
+            var bgMusicLeft   = (deviceWidth + pageSlideWidth)/2 - fileScale*90;
+            var bgMusicTop    =  fileScale*20;
+            var bgMusicPath;
+            if(isPlayBgMusic){
+                bgMusicPath  = "images/audioPlay.png";
+            }else{
+                bgMusicPath  = "images/audioStop.png";
+            }
+            $(".bgMusic").css({
+                "position":"absolute",
+                "width":   bgMusicWidth+ "px",
+                "height":  bgMusicHeight+ "px",
+                "left":    bgMusicLeft+"px",
+                "top":     bgMusicTop+"px",
+                "zIndex":"1",
+                "background": "url(" + bgMusicPath + ")",
+                "-moz-background-size": "100% 100%",
+                "background-size": "100% 100%",
+                "background-repeat": "no-repeat"
+            });
+        },
+
+        playBgMusic:function(){
+            if(!isPlayingBgMusic){
+                this.playBgMusicAni();
+            }
+            isPlayingBgMusic = true;
+            isPlayBgMusic    = true;
+            this.setBgMusicStyle();
+        },
+
+        stopBgMusic:function(){
+            if(isPlayingBgMusic){
+                this.stopBgMusicAni();
+            }
+            isPlayingBgMusic = false;
+            isPlayBgMusic    = false;
+            this.setBgMusicStyle();
+        },
+
+        playBgMusicAni:function(){
+            if(bgMusicAni == null){
+                var bgMusicImg = $(".bgMusic")[0];
+                bgMusicAni = CuriosAnim.createNew( {
+                    obj: bgMusicImg,
+                    delay: 0,
+                    duration: 2000,
+                    repeat:0,
+                    endFrames: [{
+                        frameRotation:360
+                    }]
+                });
+                bgMusicAni.play();
+            }
+        },
+
+        stopBgMusicAni:function(){
+            if(bgMusicAni != null){
+                bgMusicAni.stop();
+                bgMusicAni = null;
+                var bgMusicImg = $(".bgMusic")[0];
+                var es = bgMusicImg.style;
+                var rotationStr = 'rotate('+0+'deg) ';
+                es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = rotationStr;
             }
         },
 
@@ -200,14 +358,17 @@
         return null;
     };
 
-    var setCurrentPage = function(){
+    var setCurrentPage = function(currentPageLoadedFunc, nextPageLoadedFunc, prePageLoadedFunc){
         var currentPageClass = pages[currentIndex];
         currentSlideID = currentPageClass.pageID;
         var currentPageJquery  =  $("#"+currentSlideID);
         if(currentPageJquery.length == 0){
-            currentPageClass.initView();
+            currentPageClass.initView(currentPageLoadedFunc);
         }else{
             currentPageClass.resetSize();
+            if(currentPageLoadedFunc != null){
+                currentPageLoadedFunc();
+            }
         }
         currentSlidePage   = $("#"+currentSlideID)[0];
 
@@ -237,9 +398,12 @@
             nextSlideID = nextPageClass.pageID;
             var nextPageJquery  =  $("#"+nextSlideID);
             if(nextPageJquery.length == 0){
-                nextPageClass.initView();
+                nextPageClass.initView(nextPageLoadedFunc);
             }else{
                 nextPageClass.resetSize();
+                if(nextPageLoadedFunc != null){
+                    nextPageLoadedFunc();
+                }
             }
             nextSlidePage  =  $("#"+nextSlideID)[0];
         }
@@ -252,9 +416,12 @@
             preSlideID = prePageClass.pageID;
             var prePageJquery  =  $("#"+preSlideID);
             if(prePageJquery.length == 0){
-                prePageClass.initView();
+                prePageClass.initView(prePageLoadedFunc);
             }else{
                 prePageClass.resetSize();
+                if(prePageLoadedFunc != null){
+                    prePageLoadedFunc();
+                }
             }
             preSlidePage  =  $("#"+preSlideID)[0];
         }
@@ -276,12 +443,11 @@
 
             translateSlideClass.init = function(){
                 currentIndex = 0;
-                setCurrentPage();
-                document.getElementById(currentSlideID).addEventListener('pageLoaded', function(){
+                setCurrentPage(function(){
                     isLoadComplete = true;
                     var currentPageClass = pages[currentIndex];
                     currentPageClass.beginView();
-                });
+                },null,null);
                 setPagePosition();
                 addCurrentPageEvent();
             };
@@ -294,19 +460,19 @@
                 var currentSlidePageWidth  = parseFloat(GetCurrentStyle(currentSlidePage,"width"));
                 var currentSlidePageHeight = parseFloat(GetCurrentStyle(currentSlidePage, "height"));
                 var es = currentSlidePage.style;
-                es.left = (fileWidth-currentSlidePageWidth)/2+"px";
-                es.top  = (fileHeight-currentSlidePageHeight)/2+"px";
+                es.left = (pageSlideWidth-currentSlidePageWidth)/2+"px";
+                es.top  = (pageSlideHeight-currentSlidePageHeight)/2+"px";
                 es.zIndex = 0;
                 es.webkitTransformStyle = es.MsTransformStyle = es.msTransformStyle = es.MozTransformStyle = es.OTransformStyle = es.transformStyle = "preserve-3d";
                 if(nextSlideID != null && nextSlidePage != null){
                     var nextSlidePageWidth  = parseFloat(GetCurrentStyle(nextSlidePage,"width"));
                     var nextSlidePageHeight = parseFloat(GetCurrentStyle(nextSlidePage,"height"));
                     if(flipDirection == 'ver'){
-                        nextSlidePage.style.left = (fileWidth-nextSlidePageWidth)/2+"px";
-                        nextSlidePage.style.top  = fileHeight+"px";
+                        nextSlidePage.style.left = (pageSlideWidth-nextSlidePageWidth)/2+"px";
+                        nextSlidePage.style.top  = pageSlideHeight+"px";
                     }else if(flipDirection == 'hor'){
-                        nextSlidePage.style.left = fileWidth+"px";
-                        nextSlidePage.style.top  = (fileHeight-nextSlidePageHeight)/2+"px";
+                        nextSlidePage.style.left = pageSlideWidth+"px";
+                        nextSlidePage.style.top  = (pageSlideHeight-nextSlidePageHeight)/2+"px";
                     }
                     nextSlidePage.style.zIndex = 1;
                     $("#"+nextSlideID).hide();
@@ -315,11 +481,11 @@
                     var preSlidePageWidth  = parseFloat(GetCurrentStyle(preSlidePage,"width"));
                     var preSlidePageHeight = parseFloat(GetCurrentStyle(preSlidePage, "height"));
                     if(flipDirection == 'ver'){
-                        preSlidePage.style.left = (fileWidth-preSlidePageWidth)/2+"px";
+                        preSlidePage.style.left = (pageSlideWidth-preSlidePageWidth)/2+"px";
                         preSlidePage.style.top  = 0-preSlidePageHeight+"px";
                     }else if(flipDirection == 'hor'){
                         preSlidePage.style.left = 0-preSlidePageWidth+"px";
-                        preSlidePage.style.top  = (fileHeight-preSlidePageHeight)/2+"px";
+                        preSlidePage.style.top  = (pageSlideHeight-preSlidePageHeight)/2+"px";
                     }
                     preSlidePage.style.zIndex = 1;
                     $("#"+preSlideID).hide();
@@ -489,15 +655,15 @@
                 if(beginChangeY > 0){
                     if(preSlideID != null && preSlidePage != null){
                         var preSlidePageHeight = parseFloat(GetCurrentStyle(preSlidePage, "height"));
-                        progress = (preTop + preSlidePageHeight) / fileHeight;
+                        progress = (preTop + preSlidePageHeight) / pageSlideHeight;
                     } else{
-                        progress = beginChangeY/fileHeight*0.2;
+                        progress = beginChangeY/pageSlideHeight*0.2;
                     }
                 }else if(beginChangeY < 0){
                     if(nextSlideID != null && nextSlidePage != null){
-                        progress = (nextTop - fileHeight) / fileHeight;
+                        progress = (nextTop - pageSlideHeight) / pageSlideHeight;
                     } else{
-                        progress = beginChangeY/fileHeight*0.2;
+                        progress = beginChangeY/pageSlideHeight*0.2;
                     }
                 }else {
                     progress = 0;
@@ -540,15 +706,15 @@
                 if(beginChangeX > 0){
                     if(preSlideID != null && preSlidePage != null){
                         var preSlidePageWidth = parseFloat(GetCurrentStyle(preSlidePage, "width"));
-                        progress = (preLeft + preSlidePageWidth) / fileWidth;
+                        progress = (preLeft + preSlidePageWidth) / pageSlideWidth;
                     } else{
-                        progress = beginChangeX/fileWidth*0.2;
+                        progress = beginChangeX/pageSlideWidth*0.2;
                     }
                 }else if(beginChangeX < 0){
                     if(nextSlideID != null && nextSlidePage != null){
-                        progress = (nextLeft - fileWidth) / fileWidth;
+                        progress = (nextLeft - pageSlideWidth) / pageSlideWidth;
                     } else{
-                        progress = beginChangeX/fileWidth*0.2;
+                        progress = beginChangeX/pageSlideWidth*0.2;
                     }
                 }else {
                     progress = 0;
@@ -584,7 +750,7 @@
                                 delay: 0,
                                 duration: time,
                                 endFrames: [{
-                                    frameY:(fileHeight - preSlidePageHeight)/2
+                                    frameY:(pageSlideHeight - preSlidePageHeight)/2
                                 }]
                             });
                             preSlideAnimation.play();
@@ -610,8 +776,8 @@
                     }
                     if(nextSlideID != null && nextSlidePage != null){
                         var nextSlidePageWidth  = parseFloat(GetCurrentStyle(nextSlidePage,"width"));
-                        nextSlidePage.style.left = (fileWidth-nextSlidePageWidth)/2+"px";
-                        nextSlidePage.style.top  = fileHeight+"px";
+                        nextSlidePage.style.left = (pageSlideWidth-nextSlidePageWidth)/2+"px";
+                        nextSlidePage.style.top  = pageSlideHeight+"px";
                     }
                 }else if(beginChangeY < -5){
                     if(nextSlideID != null && nextSlidePage != null){
@@ -627,7 +793,7 @@
                                 delay: 0,
                                 duration: time,
                                 endFrames: [{
-                                    frameY:(fileHeight - nextSlidePageHeight)/2
+                                    frameY:(pageSlideHeight - nextSlidePageHeight)/2
                                 }]
                             });
                             nextSlideAnimation.play();
@@ -654,7 +820,7 @@
                     if(preSlideID != null && preSlidePage != null){
                         var preSlidePageWidth  = parseFloat(GetCurrentStyle(preSlidePage,"width"));
                         var preSlidePageHeight = parseFloat(GetCurrentStyle(preSlidePage, "height"));
-                        preSlidePage.style.left = (fileWidth-preSlidePageWidth)/2+"px";
+                        preSlidePage.style.left = (pageSlideWidth-preSlidePageWidth)/2+"px";
                         preSlidePage.style.top  = 0-preSlidePageHeight+"px";
                     }
                 }else{
@@ -683,7 +849,7 @@
                             delay: 0,
                             duration: time,
                             endFrames: [{
-                                frameX:(fileWidth - preSlidePageWidth)/2
+                                frameX:(pageSlideWidth - preSlidePageWidth)/2
                             }]
                         });
                         preSlideAnimation.play();
@@ -709,8 +875,8 @@
                     if(nextSlideID != null && nextSlidePage != null){
                         var nextSlidePageWidth  = parseFloat(GetCurrentStyle(nextSlidePage,"width"));
                         var nextSlidePageHeight = parseFloat(GetCurrentStyle(nextSlidePage,"height"));
-                        preSlidePage.style.left = fileWidth+"px";
-                        preSlidePage.style.top  = (fileHeight-nextSlidePageWidth)/2+"px";
+                        preSlidePage.style.left = pageSlideWidth+"px";
+                        preSlidePage.style.top  = (pageSlideHeight-nextSlidePageWidth)/2+"px";
                     }
                 }else if(beginChangeX < -5){
                     if(nextSlideID != null && nextSlidePage != null){
@@ -723,7 +889,7 @@
                             delay: 0,
                             duration: time,
                             endFrames: [{
-                                frameX:(fileWidth - nextSlidePageWidth)/2
+                                frameX:(pageSlideWidth - nextSlidePageWidth)/2
                             }]
                         });
                         nextSlideAnimation.play();
@@ -750,7 +916,7 @@
                         var preSlidePageWidth  = parseFloat(GetCurrentStyle(preSlidePage,"width"));
                         var preSlidePageHeight = parseFloat(GetCurrentStyle(preSlidePage, "height"));
                         preSlidePage.style.left = 0-preSlidePageWidth+"px";
-                        preSlidePage.style.top  = (fileHeight-preSlidePageHeight)/2+"px";
+                        preSlidePage.style.top  = (pageSlideHeight-preSlidePageHeight)/2+"px";
                     }
                 }else{
                     if(nextSlideID != null){
@@ -829,7 +995,7 @@
                     delay: 0,
                     duration: 100,
                     endFrames: [{
-                        frameY:fileHeight
+                        frameY:pageSlideHeight
                     }]
                 });
                 nextSlideAnimation.play();
@@ -854,7 +1020,7 @@
                     delay: 0,
                     duration: 100,
                     endFrames: [{
-                        frameY:fileWidth
+                        frameY:pageSlideWidth
                     }]
                 });
                 nextSlideAnimation.play();
@@ -873,14 +1039,14 @@
                     var preClass = getPageClassByID(preSlideID);
                     preClass.removeView();
                 }
-                setCurrentPage();
-                if(nextSlideID != null){
-                    document.getElementById(nextSlideID).addEventListener('pageLoaded',function(){
-                        isLoadComplete = true;
-                    });
-                }else{
-                    isLoadComplete = true;
+                if(currentSlideID != null && currentSlidePage != null){
+                    var currentClass = getPageClassByID(currentSlideID);
+                    currentClass.release();
                 }
+                setCurrentPage(null,function(){
+                    isLoadComplete = true;
+                },null);
+
                 var currentPageClass = pages[currentIndex];
                 currentPageClass.beginView();
                 addCurrentPageEvent();
@@ -901,14 +1067,13 @@
                     var nextClass = getPageClassByID(nextSlideID);
                     nextClass.removeView();
                 }
-                setCurrentPage();
-                if(preSlideID != null){
-                    document.getElementById(preSlideID).addEventListener('pageLoaded',function(){
-                        isLoadComplete = true;
-                    });
-                }else{
-                    isLoadComplete = true;
+                if(currentSlideID != null && currentSlidePage != null){
+                    var currentClass = getPageClassByID(currentSlideID);
+                    currentClass.release();
                 }
+                setCurrentPage(null,null,function(){
+                    isLoadComplete = true;
+                });
                 var currentPageClass = pages[currentIndex];
                 currentPageClass.beginView();
                 addCurrentPageEvent();
@@ -938,6 +1103,7 @@
             var pageHeight = pageJson.PageHeight;
             var jsonContainers = pageJson.Containers;
             var containers = new Array();
+            var pageLoadedFunc;
 
             var loadIndex  = 0;
             for(var i = 0 ; i < jsonContainers.length ; i ++){
@@ -946,29 +1112,23 @@
                 containers.push(containerClass);
             }
 
-            pageClass.initView = function(){
+            pageClass.initView = function(pageLoaded){
+                pageLoadedFunc = pageLoaded;
                 var pageDiv = '<div id="'+pageID+'"/>';
                 $(".slideContainer").append(pageDiv);
                 setPageSize();
                 loadIndex = 0;
                 for(var i=0; i < containers.length; i++){
                     var containerClass = containers[i];
-                    var containerID = containerClass.containerID;
-                    if(containerClass.initView(pageID)){
-                        var page = document.getElementById(pageID);
-                        if(page != null){
-                            page.addEventListener('containerLoaded', containerLoaded);
-                        }
-                    }else{
+                    if(!containerClass.initView(pageID, containerLoaded)){
                         containers.splice(i,1);
                         i --;
                     }
                 }
                 if(containers.length == 0){
-                    setTimeout(function(){
-                        var event = new Event('pageLoaded');
-                        document.getElementById(pageID).dispatchEvent(event);
-                    }, 20);
+                    if(pageLoadedFunc != null){
+                        pageLoadedFunc();
+                    }
                 }
             };
 
@@ -985,29 +1145,39 @@
                     "position":"absolute",
                     "width": pageWidth*fileScale + "px",
                     "height": pageHeight*fileScale + "px",
-                    "background-color":"rgba(255,255,255,1)"
-
+                    "background-color":"rgba(255,255,255,1)",
+                    "perspective":5000,
+                    "-webkit-perspective":5000
                 });
             };
 
             var containerLoaded = function(){
                 loadIndex ++ ;
                 if(loadIndex == containers.length){
-                    setTimeout(function(){
-                        var event = new Event('pageLoaded');
-                        document.getElementById(pageID).dispatchEvent(event);
-                    }, 20);
+                    if(pageLoadedFunc != null){
+                        pageLoadedFunc();
+                    }
                 }
             };
-
             pageClass.removeView = function(){
+                for(var i=0; i < containers.length; i++){
+                    var containerClass = containers[i];
+                    containerClass.removeView();
+                }
                 $("#"+pageID).remove();
             };
-
             pageClass.beginView = function(){
-
+                for(var i=0; i < containers.length; i++){
+                    var containerClass = containers[i];
+                    containerClass.beginView();
+                }
             };
-
+            pageClass.release = function(){
+                for(var i=0; i < containers.length; i++){
+                    var containerClass = containers[i];
+                    containerClass.release();
+                }
+            };
             return pageClass;
         }
     };
@@ -1015,7 +1185,7 @@
     var ContainerClass = {
         createNew:function(containerJson, pagePath){
             var containerClass = {};
-            var containerID  = containerClass.containerID = containerJson.ID;
+            var containerID          = containerJson.ID;
             var containerX           = containerJson.ContainerX;
             var containerY           = containerJson.ContainerY;
             var containerWidth       = containerJson.ContaienrWidth;
@@ -1027,9 +1197,18 @@
             var containerBehaviors   = containerJson.Behaviors;
             var containerEffects     = containerJson.Effects;
 
-            containerClass.initView = function(pageID){
+            var containerDivID;
+            var containerLoadedFunc;
+            var animationClasses;
+            var playAnimationIndex = -1;
+            var isPlayingAni = false;
+            var isPauseAni   = false;
+
+            containerClass.initView = function(pageID, containerLoaded){
+                containerDivID = pageID+'_container_'+containerID;
                 var component = getComponent(containerComponent);
                 var result = false;
+                containerLoadedFunc = containerLoaded;
                 if(component != null){
                     component.initView(pageID,componentLoaded,componentLoadError);
                     setPosition();
@@ -1040,25 +1219,41 @@
                 return result;
             };
 
-            var componentLoaded = function(pageID){
+            containerClass.beginView = function(){
+                playAniamtions();
+            };
+
+            containerClass.release = function(){
+                stopAnimations();
                 setPosition();
-                if(pageID != null){
+                if(containerAnimations.length > 0){
+                    var animationType     = containerAnimations[0].AnimationType;
+                    setAnimationFirstStatus(animationType);
+                }
+            };
+
+            containerClass.removeView = function(){
+                var componentView = $("#"+containerDivID);
+                if(componentView.length > 0){
+                    componentView.remove();
+                }
+            };
+
+            var componentLoaded = function(){
+                setPosition();
+                setAnimations();
+                if(containerLoadedFunc != null){
                     setTimeout(function(){
-                        var event = new Event('containerLoaded');
-                        var page  = document.getElementById(pageID);
-                        if(page != null){
-                            page.dispatchEvent(event);
-                        }
+                        containerLoadedFunc();
                     }, 20);
                 }
             };
 
-            var componentLoadError = function(pageID){
+            var componentLoadError = function(){
                 setPosition();
-                if(pageID != null){
+                if(containerLoadedFunc != null){
                     setTimeout(function(){
-                        var event = new Event('containerLoaded');
-                        document.getElementById(pageID).dispatchEvent(event);
+                        containerLoadedFunc();
                     }, 20);
                 }
             };
@@ -1068,7 +1263,7 @@
             };
 
             var setPosition = function(){
-                var componentView = $("#"+containerID);
+                var componentView = $("#"+containerDivID);
                 if(componentView.length > 0){
                     componentView.css({
                         "position":"absolute"
@@ -1097,13 +1292,166 @@
                 var componentData = componentJson.ComponentData;
                 switch(componentType){
                     case 'Image':
-                        return ImageComponentClass.createNew(componentData, containerID, pagePath);
+                        return ImageComponentClass.createNew(componentData, containerDivID, pagePath);
                         break;
                     default :
                         break;
                 }
                 return null;
             };
+
+            var setAnimations = function(){
+                var componentView = $("#"+containerDivID);
+                if(componentView.length > 0){
+                    var componentObj = componentView[0];
+                    animationClasses = new Array();
+                    for(var i = 0; i < containerAnimations.length; i++){
+                        var animationObj      = containerAnimations[i];
+                        var animationType     = animationObj.AnimationType;
+                        var animationDelay    = animationObj.AnimationDelay;
+                        var animationDuration = animationObj.AnimationDuration;
+                        var animationRepeat   = animationObj.AnimationRepeat;
+                        var animationIsReverse = false;
+                        var animationIsKeep    = true;
+                        var animationEaseType = animationObj.AnimationEaseType;
+                        var animationClass = AnimationsClass.createNew(animationType,componentObj,animationDelay,animationDuration,animationRepeat,animationIsReverse,animationIsKeep,animationEaseType,animationStart,animationProgress,animationEnd);
+                        animationClasses.push(animationClass);
+                        if(i == 0){
+                            setAnimationFirstStatus(animationType);
+                        }
+                    }
+                }
+            };
+
+            var playAniamtions = function(){
+                if(animationClasses != null && animationClasses.length > 0){
+                    if(!isPauseAni){
+                        if(!isPlayingAni){
+                            playAnimationIndex = 0;
+                            playAnimation();
+                        }
+                    } else{
+                        playAnimation();
+                    }
+                }
+            };
+
+            var stopAnimations = function(){
+                if(animationClasses != null && animationClasses.length > 0) {
+                    if (playAnimationIndex != -1 && isPlayingAni) {
+                        var animationClass = animationClasses[playAnimationIndex];
+                        animationClass.stop();
+                        isPlayingAni = false;
+                        isPauseAni = false;
+                        playAnimationIndex = -1;
+                    }
+                }
+            };
+
+            var pauseAnimations = function(){
+                if(animationClasses != null && animationClasses.length > 0) {
+                    if(playAnimationIndex != -1 && isPlayingAni){
+                        var animationClass = animationClasses[playAnimationIndex];
+                        animationClass.pause();
+                        isPlayingAni = false;
+                        isPauseAni   = true;
+                    }
+                }
+            };
+
+            var playAnimation = function(){
+                var componentView = $("#"+containerDivID);
+                if(componentView.length > 0) {
+                    var componentView = $("#" + containerDivID);
+                    var animationClass = animationClasses[playAnimationIndex];
+                    isPlayingAni = true;
+                    isPauseAni   = false;
+                    animationClass.play();
+                    componentView.show();
+                }else{
+                    isPlayingAni = false;
+                    isPauseAni   = false;
+                    playAnimationIndex = -1;
+                }
+            };
+
+            var animationStart = function(){
+            };
+
+            var animationProgress = function(progress){
+
+            };
+
+            var animationEnd = function(){
+                playAnimationIndex++;
+                if(playAnimationIndex < animationClasses.length){
+                    playAnimation();
+                }else{
+                    isPlayingAni = false;
+                    isPauseAni   = false;
+                    playAnimationIndex = -1;
+                }
+            };
+
+            var setAnimationFirstStatus = function(animationType){
+                var isFade = false;
+                switch (animationType){
+                    case "FadeIn":
+                        isFade = true;
+                        break;
+                    case "FadeOut":
+                        isFade = false;
+                        break;
+                    case "FloatIn":
+                        isFade = true;
+                        break;
+                    case "FloatOut":
+                        isFade = false;
+                        break;
+                    case "ZoomIn":
+                        isFade = true;
+                        break;
+                    case "ZoomOut":
+                        isFade = false;
+                        break;
+                    case "ScaleIn":
+                        isFade = true;
+                        break;
+                    case "ScaleOut":
+                        isFade = false;
+                        break;
+                    case "DropIn":
+                        isFade = true;
+                        break;
+                    case "DropOut":
+                        isFade = false;
+                        break;
+                    case "SlideIn":
+                        isFade = true;
+                        break;
+                    case "SlideOut":
+                        isFade = false;
+                        break;
+                    case "RotateIn":
+                        isFade = true;
+                        break;
+                    case "RotateOut":
+                        isFade = false;
+                        break;
+                    case "TeetertotterIn":
+                        isFade = true;
+                        break;
+                    case "TeetertotterOut":
+                        isFade = false;
+                        break;
+                    default :
+                        isFade = false;
+                }
+                if(isFade){
+                    $("#"+containerDivID).hide();
+                }
+            };
+
             return containerClass;
         }
     };
@@ -1119,15 +1467,15 @@
                 o.src = imagePath;
                 if(o.complete){
                     showImage(pageID, imagePath);
-                    loaded(pageID);
+                    loaded();
                 }else{
                     o.onload = function(){
                         showImage(pageID, imagePath);
-                        loaded(pageID);
+                        loaded();
                     };
                     o.onerror = function(){
-                        showImage(pageID, 'images/error.jpeg');
-                        loadError(pageID);
+                        showImage(pageID, 'images/error.png');
+                        loadError();
                     };
                 }
             };
@@ -1139,6 +1487,546 @@
             return imageClass;
         }
     };
+
+    var AnimationsClass = {
+        createNew:function(type,obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction){
+            var animationClass = {};
+            var curiosAni;
+            switch (type){
+                case "FadeIn":
+                    curiosAni = this.getFadeInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "FadeOut":
+                    curiosAni = this.getFadeOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "FloatIn":
+                    curiosAni = this.getFloatInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "FloatOut":
+                    curiosAni = this.getFloatOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "ZoomIn":
+                    curiosAni = this.getZoomInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "ZoomOut":
+                    curiosAni = this.getZoomOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "ScaleIn":
+                    curiosAni = this.getScaleInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "ScaleOut":
+                    curiosAni = this.getScaleOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "DropIn":
+                    curiosAni = this.getDropInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "DropOut":
+                    curiosAni = this.getDropOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "SlideIn":
+                    curiosAni = this.getSlideInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "SlideOut":
+                    curiosAni = this.getSlideOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "RotateIn":
+                    curiosAni = this.getRotateInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "RotateOut":
+                    curiosAni = this.getRotateOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "TeetertotterIn":
+                    curiosAni = this.getTeetertotterInAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                case "TeetertotterOut":
+                    curiosAni = this.getTeetertotterOutAnimation(obj,delay,duration,repeat,isReverse,isKeep,easeType,startFunction,progressFunction,endFunction);
+                    break;
+                default :
+                    curiosAni = null;
+            }
+            animationClass.play = function(){
+                if(curiosAni != null){
+                    curiosAni.play();
+                }
+            };
+            animationClass.stop = function(){
+                if(curiosAni != null){
+                    curiosAni.stop();
+                }
+            };
+            animationClass.pause = function(){
+                if(curiosAni != null){
+                    curiosAni.pause();
+                }
+            };
+            return animationClass;
+        },
+        getFadeInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseInBack",
+                playFromEnd:true,
+                endFrames: [{
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getFadeOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+        var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseInBack",
+                endFrames: [{
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getFloatInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                playFromEnd:true,
+                endFrames: [{
+                    frameY:objTop+objHeight,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getFloatOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                endFrames: [{
+                    frameY:objTop+objHeight,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getZoomInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objLeft = parseInt(GetCurrentStyle(obj,"left"));
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseOutBounce",
+                playFromEnd:true,
+                endFrames: [{
+                    frameX:objLeft+objWidth/2 -5,
+                    frameY:objTop+objHeight/2 - 5,
+                    frameWidth:5,
+                    frameHeight:5,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getZoomOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objLeft = parseInt(GetCurrentStyle(obj,"left"));
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseInBack",
+                endFrames: [{
+                    frameX:objLeft+objWidth/2 -5,
+                    frameY:objTop+objHeight/2 - 5,
+                    frameWidth:10,
+                    frameHeight:10,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getScaleInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objLeft = parseInt(GetCurrentStyle(obj,"left"));
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+
+            var animationWidth  = objWidth*2;
+            var animationHeight = objHeight*2;
+            var rate;
+            if(animationWidth/objWidth > animationHeight/objHeight){
+                rate = animationHeight/objHeight;
+            }else{
+                rate = animationWidth/objWidth;
+            }
+            animationWidth = rate * objWidth;
+            animationHeight = rate * objHeight;
+            var animationX = objLeft + objWidth/2 - animationWidth/2;
+            var aniamtionY = objTop  + objHeight/2 - animationHeight/2;
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                playFromEnd:true,
+                endFrames: [{
+                    frameX:animationX,
+                    frameY:aniamtionY,
+                    frameWidth:animationWidth,
+                    frameHeight:animationHeight,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getScaleOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objTop = parseInt(GetCurrentStyle(obj,"top"));
+            var objLeft = parseInt(GetCurrentStyle(obj,"left"));
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+
+            var animationWidth  = objWidth*2 ;
+            var animationHeight = objHeight*2;
+            var rate;
+            if(animationWidth/objWidth > animationHeight/objHeight){
+                rate = animationHeight/objHeight;
+            }else{
+                rate = animationWidth/objWidth;
+            }
+            animationWidth = rate * objWidth;
+            animationHeight = rate * objHeight;
+            var animationX = objLeft + objWidth/2 - animationWidth/2;
+            var aniamtionY = objTop  + objHeight/2 - animationHeight/2;
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                endFrames: [{
+                    frameX:animationX,
+                    frameY:aniamtionY,
+                    frameWidth:animationWidth,
+                    frameHeight:animationHeight,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getDropInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseOutBounce",
+                playFromEnd:true,
+                endFrames: [{
+                    frameY:0-objHeight*2
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getDropOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objHeight = parseInt(GetCurrentStyle(obj,"height"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                endFrames: [{
+                    frameY:pageSlideHeight+objHeight
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getSlideInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseOutBack",
+                playFromEnd:true,
+                endFrames: [{
+                    frameX:0-objWidth*2
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getSlideOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var objWidth = parseInt(GetCurrentStyle(obj,"width"));
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseInBack",
+                endFrames: [{
+                    frameX:pageSlideWidth+objWidth
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getRotateInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var rotationYBegin;
+            var transformStr    = GetCurrentStyle(obj,"-webkit-transform");
+            if(transformStr == "none") {
+                rotationYBegin = 0;
+            }else{
+                var rotationStr;
+                var rotationYReg = /(rotateY\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                var rotationYArray = transformStr.match(rotationYReg);
+                if(rotationYArray != null){
+                    var rotationYStr =rotationYArray[0];
+                    rotationYStr=rotationYStr.substring(rotationYStr.indexOf('(')+1,rotationYStr.length-4);
+                    rotationYBegin = parseFloat(rotationYStr);
+                }else{
+                    rotationYBegin = 0;
+                }
+            }
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseOutBack",
+                playFromEnd:true,
+                endFrames: [{
+                    framePercentage:0.6,
+                    frameAlpha:0,
+                    frameRotationY:rotationYBegin+360
+                },{
+                    framePercentage:0.4,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getRotateOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var rotationYBegin;
+            var transformStr    = GetCurrentStyle(obj,"-webkit-transform");
+            if(transformStr == "none") {
+                rotationYBegin = 0;
+            }else{
+                var rotationStr;
+                var rotationYReg = /(rotateY\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                var rotationYArray = transformStr.match(rotationYReg);
+                if(rotationYArray != null){
+                    var rotationYStr =rotationYArray[0];
+                    rotationYStr=rotationYStr.substring(rotationYStr.indexOf('(')+1,rotationYStr.length-4);
+                    rotationYBegin = parseFloat(rotationYStr);
+                }else{
+                    rotationYBegin = 0;
+                }
+            }
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "EaseInBack",
+                endFrames: [{
+                    framePercentage:0.6,
+                    frameAlpha:0,
+                    frameRotationY:rotationYBegin+360
+                },{
+                    framePercentage:0.4,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getTeetertotterInAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var rotationBegin;
+            var transformStr    = GetCurrentStyle(obj,"-webkit-transform");
+            if(transformStr == "none") {
+                rotationBegin = 0;
+            }else{
+                var rotationStr;
+                var rotationReg = /(rotate\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                var rotationArray = transformStr.match(rotationReg);
+                if(rotationArray != null){
+                    rotationStr =rotationArray[0];
+                    rotationStr=rotationStr.substring(rotationStr.indexOf('(')+1,rotationStr.length-4);
+                    rotationBegin = parseFloat(rotationStr);
+                }else{
+                    rotationReg = /(rotateZ\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                    rotationArray = transformStr.match(rotationReg);
+                    if(rotationArray != null){
+                        rotationStr =rotationArray[0];
+                        rotationStr=rotationStr.substring(rotationStr.indexOf('(')+1,rotationStr.length-4);
+                        rotationBegin = parseFloat(rotationStr);
+                    }else{
+                        rotationBegin = 0;
+                    }
+                }
+            }
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                playFromEnd:true,
+                endFrames: [{
+                    framePercentage:0.6,
+                    frameAlpha:0,
+                    frameRotation:rotationBegin+720
+                },{
+                    framePercentage:0.4,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        },
+        getTeetertotterOutAnimation:function(obj,delay,duration, repeat, isReverse, isKeep, easeType,startFunction, progressFunction, endFunction){
+            var rotationBegin;
+            var transformStr    = GetCurrentStyle(obj,"-webkit-transform");
+            if(transformStr == "none") {
+                rotationBegin = 0;
+            }else{
+                var rotationStr;
+                var rotationReg = /(rotate\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                var rotationArray = transformStr.match(rotationReg);
+                if(rotationArray != null){
+                    rotationStr =rotationArray[0];
+                    rotationStr=rotationStr.substring(rotationStr.indexOf('(')+1,rotationStr.length-4);
+                    rotationBegin = parseFloat(rotationStr);
+                }else{
+                    rotationReg = /(rotateZ\([\-\+]?((\d{0,}\.{0,1}\d{0,})(deg))\))/i;
+                    rotationArray = transformStr.match(rotationReg);
+                    if(rotationArray != null){
+                        rotationStr =rotationArray[0];
+                        rotationStr=rotationStr.substring(rotationStr.indexOf('(')+1,rotationStr.length-4);
+                        rotationBegin = parseFloat(rotationStr);
+                    }else{
+                        rotationBegin = 0;
+                    }
+                }
+            }
+            var divAnimation = CuriosAnim.createNew( {
+                obj: obj,
+                delay: delay,
+                duration: duration,
+                repeat: repeat,
+                isReverse: isReverse,
+                isKeep: isKeep,
+                easeType: "empty",
+                endFrames: [{
+                    framePercentage:0.6,
+                    frameAlpha:0,
+                    frameRotation:rotationBegin-720
+                },{
+                    framePercentage:0.4,
+                    frameAlpha:0
+                }],
+                frameStart: startFunction,
+                frameProgress: progressFunction,
+                frameEnd:endFunction
+            });
+            return divAnimation;
+        }
+    };
+
 
     window.onload = function(){
         MainFile.init(curiosMainJson);
