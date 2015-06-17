@@ -18,7 +18,7 @@ class ContainerModel: Model {
     var height: CGFloat = (CGFloat(rand() % 80)) + 100  // bounds.height
     var rotation: CGFloat = 0.0
     var alpha: CGFloat = 1.0
-    var editable = true
+    var editable = true //
     var animations:[Animation] = []
     //    var behaviors: [Behavior] = []
     var effects: [Effect] = []

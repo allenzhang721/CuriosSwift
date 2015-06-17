@@ -15,6 +15,8 @@ protocol IContainer: NSObjectProtocol {
     var containerRotation: CGFloat{get}
     var component: IComponent!{get}
     var animationName: String{get}
+    var locked: Bool{get}
+    weak var page: IPage?{get set}
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool
     func becomeFirstResponder()
@@ -26,5 +28,7 @@ protocol IContainer: NSObjectProtocol {
     func setRotation(angle: CGFloat)
     
     func setAnimationWithName(name: String)
-    
+    func sendForwoard() -> Bool
+    func sendBack() -> Bool
+    func lockLayer() -> Bool
 }

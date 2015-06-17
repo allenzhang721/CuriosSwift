@@ -8,33 +8,9 @@
 
 import UIKit
 
-struct Item {
-    
-    let name: String
-    let iconName: String
-    let titleName: String
-    let action: IContainer? -> Void
-}
-
 class AnimationPannel: Pannel {
     
     let items: [Item] = {
-//        let iconAndTitle = [
-//            "FadeIn": "FadeIn",
-//            "FloatIn": "FloatIn",
-//            "ZoomIn": "ZoomIn",
-//            "ScaleIn": "ScaleIn",
-//            "DropIn": "DropIn",
-//            "SlideIn": "SlideIn",
-//            "TeetertotterIn": "TeetertotterIn",
-//            "FadeOut": "FadeOut",
-//            "FloatOut": "FloatOut",
-//            "ZoomOut": "ZoomOut",
-//            "ScaleOut": "ScaleOut",
-//            "DropOut": "DropOut",
-//            "SlideOut": "SlideOut",
-//            "TeetertotterOut": "TeetertotterOut"
-//        ]
         
         let iconAndTitle = [
             "None",
@@ -53,8 +29,6 @@ class AnimationPannel: Pannel {
             "SlideOut",
             "TeetertotterOut"
         ]
-        
-//        let aKeys: [String] = iconAndTitle.keys
         
         let aItems = iconAndTitle.map { key -> Item in
             

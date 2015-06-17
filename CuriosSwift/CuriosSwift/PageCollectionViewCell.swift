@@ -95,6 +95,7 @@ extension PageCollectionViewCell {
             aContainerModel.height = realHeight
 
             let containerNode = getContainerWithModel(aContainerModel)
+            containerNode.page = self
 
             containers.append(containerNode)
             contentNode?.addSubnode(containerNode)
@@ -125,6 +126,11 @@ extension PageCollectionViewCell {
                 }
             }
         }
+    }
+    
+    func exchangeContainerFromIndex(fromIndex: Int, toIndex: Int) {
+        exchange(&pageModel.containers, fromIndex, toIndex)
+        saveInfo()
     }
     
     func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool {
@@ -334,6 +340,7 @@ extension PageCollectionViewCell {
         for containerModel in aPageModel.containers {
             let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
             aContentNode.addSubnode(aContainerNode)
+            aContainerNode.page = self
             aContainers.append(aContainerNode)
         }
         

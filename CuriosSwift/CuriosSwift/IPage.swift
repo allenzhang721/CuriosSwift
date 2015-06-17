@@ -16,7 +16,7 @@ protocol IPageProtocol: NSObjectProtocol {
     func didEndEdit(page: IPage)
 }
 
-protocol IPage {
+protocol IPage: NSObjectProtocol {
     
     func setDelegate(aDelegate: IPageProtocol)
     func cancelDelegate()
@@ -24,6 +24,7 @@ protocol IPage {
     func saveInfo()
     func addContainer(aContainerModel: ContainerModel)
     func removeContainer(aContainerModel: ContainerModel)
+    func exchangeContainerFromIndex(fromIndex: Int, toIndex: Int)
     
     func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool
     

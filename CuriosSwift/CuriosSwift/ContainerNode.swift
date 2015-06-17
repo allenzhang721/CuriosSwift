@@ -40,9 +40,17 @@ class ContainerNode: ASDisplayNode, IContainer {
         }
     }
     
+    var islocked = false
+    var locked: Bool{
+        get {
+            return islocked
+        }
+    }
+    
     private let containerModel: ContainerModel
     var component: IComponent!
     var componentNode: ASDisplayNode!
+    weak var page: IPage?
     private let aspectRatio: CGFloat
     
     init(postion: CGPoint, size: CGSize, rotation:CGFloat, aspectRatio theAspectRatio: CGFloat,aContainerModel: ContainerModel) {
@@ -58,6 +66,7 @@ class ContainerNode: ASDisplayNode, IContainer {
         if let aCom = component as? ASDisplayNode {
             println("addSubnode aCom = \(aCom)")
             addSubnode(aCom)
+            
         }
     }
     
@@ -236,10 +245,71 @@ class ContainerNode: ASDisplayNode, IContainer {
         transform = CATransform3DMakeRotation(incrementAngle, 0, 0, 1)
         containerModel.rotation = incrementAngle
     }
+    
+    func sendForwoard() -> Bool {
+        
+        return sendToForwardOrBack(true)
+    }
+    func sendBack() -> Bool {
+        
+        return sendToForwardOrBack(false)
+    }
+    
+    func lockLayer() -> Bool {
+        
+        islocked = !islocked
+        return islocked
+    }
 }
 
 // MARK: - private method
 extension ContainerNode {
+    
+    private func currentLayerIndex() -> Int {
+        
+        let nodes = supernode.subnodes
+        
+        for (index, subNode) in enumerate(nodes) {
+            
+            if subNode as! NSObject == self {
+                
+                return index
+            }
+        }
+        
+        assert(false, "this node is has no super node")
+        return -1
+    }
+    
+    private func sendToForwardOrBack(forward: Bool) -> Bool {
+        let currentIndex = currentLayerIndex()
+        let layoutCount = supernode.subnodes.count
+
+        if forward {
+            if currentIndex == layoutCount - 1 {
+                return false
+            } else {
+                if let aPage = page {
+                    
+                    
+                    aPage.exchangeContainerFromIndex(currentIndex, toIndex: currentIndex + 1)
+                }
+                supernode.insertSubnode(self, atIndex: currentIndex + 1)
+                return true
+            }
+            
+        } else {
+            if currentIndex == 0 {
+                return false
+            } else {
+                if let aPage = page {
+                    aPage.exchangeContainerFromIndex(currentIndex, toIndex: currentIndex - 1)
+                }
+                supernode.insertSubnode(self, atIndex: currentIndex - 1)
+                return true
+            }
+        }
+    }
     
     override func layout() {
         for subNode in subnodes as! [ASDisplayNode] {

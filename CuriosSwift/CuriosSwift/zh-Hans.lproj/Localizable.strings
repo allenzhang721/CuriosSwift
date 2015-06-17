@@ -36,3 +36,8 @@ ScaleOut        = "缩放出";
 DropOut         = "滑落";
 SlideOut        = "滑出";
 TeetertotterOut = "陀螺旋转出";
+
+// Typography
+Moveforward     = "前移";
+MoveBack        = "后移";
+Lock            = "锁定";
