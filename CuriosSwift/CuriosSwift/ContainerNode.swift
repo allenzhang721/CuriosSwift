@@ -35,17 +35,10 @@ class ContainerNode: ASDisplayNode, IContainer {
             } else {
                 return "None"
             }
-            
-            
         }
     }
     
-    var islocked = false
-    var locked: Bool{
-        get {
-            return islocked
-        }
-    }
+    let lockedListener = Dynamic<Bool>(false)
     
     private let containerModel: ContainerModel
     var component: IComponent!
@@ -260,8 +253,8 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     func lockLayer() -> Bool {
         
-        islocked = !islocked
-        return islocked
+         lockedListener.value = !lockedListener.value
+        return lockedListener.value
     }
 }
 

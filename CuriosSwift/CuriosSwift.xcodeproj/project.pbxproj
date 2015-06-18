@@ -61,7 +61,6 @@
 		2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B91B085A7A00579E4A /* IFile.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
 		2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */; };
-		2CAD7E5E1B31743600DB8D10 /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2CAD7E5D1B31743600DB8D10 /* CuriosPreview */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
 		2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD571AE337EA00DF6019 /* Main.storyboard */; };
@@ -96,6 +95,8 @@
 		2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */; };
 		2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */; };
 		2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE7611B1C17FD00C34920 /* Animator.swift */; };
+		2CF293501B32633800539F76 /* AnimationFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2934F1B32633800539F76 /* AnimationFunction.swift */; };
+		2CF293521B3270E900539F76 /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2CF293511B3270E900539F76 /* CuriosPreview */; };
 		2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */; };
 		2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */; };
 		2CFDFD681B1EE91800246F59 /* WeChatConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD5A1B1EE91800246F59 /* WeChatConnection.framework */; };
@@ -182,7 +183,6 @@
 		2C9147B91B085A7A00579E4A /* IFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFile.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelItem.swift; sourceTree = "<group>"; };
-		2CAD7E5D1B31743600DB8D10 /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +222,8 @@
 		2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
 		2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatePagesViewController.swift; sourceTree = "<group>"; };
 		2CEBE7611B1C17FD00C34920 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		2CF2934F1B32633800539F76 /* AnimationFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFunction.swift; sourceTree = "<group>"; };
+		2CF293511B3270E900539F76 /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
 		2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTemplateNavigationController.swift; sourceTree = "<group>"; };
 		2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITemplateSelector.swift; sourceTree = "<group>"; };
 		2CFDFD5A1B1EE91800246F59 /* WeChatConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WeChatConnection.framework; sourceTree = "<group>"; };
@@ -349,9 +351,9 @@
 				2CD6C30D1B17E877000C4FC6 /* Utilty */,
 				2CD865B81B145B3100DA3646 /* Admin */,
 				2C1825D91B28103B00F3B59E /* user */,
+				2CF293511B3270E900539F76 /* CuriosPreview */,
 				2C032CEF1B0D71AD0089DC81 /* Templates */,
 				2C7AE8E91AEA21D700ACEB65 /* QWERTASDFGZXCVB */,
-				2CAD7E5D1B31743600DB8D10 /* CuriosPreview */,
 				2C828A061AEF4D6D004D4223 /* Node */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
@@ -438,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */,
+				2CF2934F1B32633800539F76 /* AnimationFunction.swift */,
 				2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
@@ -663,7 +666,7 @@
 				2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
-				2CAD7E5E1B31743600DB8D10 /* CuriosPreview in Resources */,
+				2CF293521B3270E900539F76 /* CuriosPreview in Resources */,
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
 				2C1825DA1B28103B00F3B59E /* user in Resources */,
@@ -804,6 +807,7 @@
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,
+				2CF293501B32633800539F76 /* AnimationFunction.swift in Sources */,
 				2C9147B21B08452A00579E4A /* BookModel.swift in Sources */,
 				2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */,
 				2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */,

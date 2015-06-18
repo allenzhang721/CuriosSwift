@@ -6,12 +6,13 @@ curiosMainJson={
     "MainDesc": "Good Day have good idea!",
     "FlipDirection": "ver",
     "FlipType": "translate3d",
-    "FlipLoop":"true",
+    "FlipLoop":"false",
     "MainBackground": "/images/background.jpg",
     "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
     "PagesPath": "/Pages",
     "AuthorID": "1fdklaafdllfda",
     "PublishDate": "2015-04-23",
+    "PreviewPageID":"ZXCVB",
     "Pages": [
               {
               "PageID": "ASDFG",

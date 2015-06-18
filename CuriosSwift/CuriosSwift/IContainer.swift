@@ -15,7 +15,7 @@ protocol IContainer: NSObjectProtocol {
     var containerRotation: CGFloat{get}
     var component: IComponent!{get}
     var animationName: String{get}
-    var locked: Bool{get}
+    var lockedListener: Dynamic<Bool>{get}
     weak var page: IPage?{get set}
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool

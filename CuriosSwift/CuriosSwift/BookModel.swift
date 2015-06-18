@@ -30,6 +30,7 @@ class BookModel: Model, IFile {
     var backgroundMusic = ""
     var pagesPath = "/Pages"
     var autherID = ""
+    var previewPageID = ""
     var publishDate: NSDate! = NSDate(timeIntervalSinceNow: 0)
     var pagesInfo: [[String : String]] = [[:]]
     var pageModels: [PageModel] = []
@@ -49,7 +50,8 @@ class BookModel: Model, IFile {
             "pagesPath" : "PagesPath",
             "autherID" : "AutherID",
             "publishDate" : "PublishDate",
-            "pagesInfo" : "Pages"
+            "pagesInfo" : "Pages",
+            "previewPageID" : "PreviewPageID"
         ]
     }
     

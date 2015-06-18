@@ -3,7 +3,6 @@
  */
 (function(){
     var resPath = './res',
-        mainJsonPath = "/main.json",
         fileID,
         fileAuthorID,
         mainHeight,
@@ -15,6 +14,7 @@
         flipLoop,
         mainBackground,
         mainMusic,
+        previewPageID,
         pagesPath,
         pages,
         publishDate;
@@ -53,6 +53,7 @@
             flipLoop       = mainJson.FlipLoop == 'true'?true:false;
             mainBackground = mainJson.MainBackground;
             mainMusic      = mainJson.MainMusic;
+            previewPageID  = mainJson.PreviewPageID;
             pagesPath      = mainJson.PagesPath;
             pages          = mainJson.Pages;
             publishDate    = mainJson.PublishDate;
@@ -393,6 +394,9 @@
         if(nextIndex == -1|| (preIndex == nextIndex && currentIndex == pages.length -1)){
             nextSlideID   = null;
             nextSlidePage = null;
+            if(nextPageLoadedFunc != null){
+                nextPageLoadedFunc();
+            }
         }else{
             var nextPageClass = pages[nextIndex];
             nextSlideID = nextPageClass.pageID;
@@ -411,6 +415,9 @@
         if(preIndex == -1 || (preIndex == nextIndex && currentIndex == 0)){
             preSlideID   = null;
             preSlidePage = null;
+            if(prePageLoadedFunc != null){
+                prePageLoadedFunc();
+            }
         }else{
             var prePageClass = pages[preIndex];
             preSlideID = prePageClass.pageID;
@@ -443,6 +450,15 @@
 
             translateSlideClass.init = function(){
                 currentIndex = 0;
+                if(previewPageID != null){
+                    for(var i = 0 ; i < pages.length; i++){
+                        var pageClass = pages[i];
+                        if(pageClass.pageID == previewPageID){
+                            currentIndex = i;
+                            break;
+                        }
+                    }
+                }
                 setCurrentPage(function(){
                     isLoadComplete = true;
                     var currentPageClass = pages[currentIndex];

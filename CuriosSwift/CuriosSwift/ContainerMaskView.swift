@@ -84,6 +84,10 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     }
     
     deinit {
+        if let aContainer = container {
+            aContainer.lockedListener.removeActionWithID("MaskView")
+        }
+        
         CUAnimationFactory.shareInstance.animationStateListener.removeActionWithID("MaskView")
     }
     
@@ -92,7 +96,6 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         CuriosKit.drawControlPannel(frame: rect)
         resizePannel.center = CGPointMake(bounds.width, bounds.height)
         rotationPannel.center = CGPointMake(bounds.width, 0)
-        
     }
     
     
@@ -128,9 +131,14 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         
         let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
-        let circlePannel = circle(20.0, CGPointMake(bounds.size.width, bounds.size.height))
-        let rotationPanne = circle(20.0, CGPointMake(bounds.size.width, 0))
-        return union(rotationPanne, (union(rec, circlePannel)))(point)
+        
+        if let aContainer = container where aContainer.lockedListener.value == true {
+            return rec(point)
+        } else {
+            let circlePannel = circle(20.0, CGPointMake(bounds.size.width, bounds.size.height))
+            let rotationPanne = circle(20.0, CGPointMake(bounds.size.width, 0))
+            return union(rotationPanne, (union(rec, circlePannel)))(point)
+        }
     }
     
     
@@ -149,6 +157,11 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
 //    }
     
     func rotaionAction(sender: UIRotationGestureRecognizer) {
+        
+        if let aContainer = container where aContainer.lockedListener.value == true {
+            
+            return
+        }
         
         let rotation = sender.rotation
         
@@ -174,6 +187,11 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     var beginSize: CGSize = CGSizeZero
     
     func pinchAction(sender: UIPinchGestureRecognizer) {
+        
+        if let aContainer = container where aContainer.lockedListener.value == true {
+            
+            return
+        }
         
         
         switch sender.state {
@@ -206,6 +224,11 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     var begainAngle: CGFloat = 0.0
     
     func panAction(sender: UIPanGestureRecognizer) {
+        
+        if let aContainer = container where aContainer.lockedListener.value == true {
+            
+            return
+        }
         
         let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
         let rotationRegion = circle(22.0, CGPointMake(bounds.size.width, 0))
@@ -310,8 +333,6 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         }
         
         setNeedsDisplay()
-        
-        
     }
 }
 
@@ -325,6 +346,14 @@ extension ContainerMaskView {
     
     func setTarget(target: IContainer) {
         container = target
+        
+        container?.lockedListener.bindAndFire ("MaskView"){ [unowned self] locked -> Void in
+            
+            self.resizePannel.hidden = locked
+            self.rotationPannel.hidden = locked
+        }
+        
+        setNeedsDisplay()
     }
     func getTarget() -> IContainer? {
         return container

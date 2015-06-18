@@ -68,7 +68,7 @@ class TypographyPannel: Pannel {
         
         if let aContainer = delegate?.pannelGetContainer() {
             
-            if aContainer.locked {
+            if aContainer.lockedListener.value == true {
                 
                 let indexPath = NSIndexPath(forItem: 2, inSection: 0)
                 collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.None)

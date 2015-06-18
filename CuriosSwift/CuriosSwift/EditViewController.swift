@@ -449,8 +449,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     // write mainjson and pagejson to curiosRes.js
                     let bookmodel = bookModel
                     let pagesmodel = bookModel.pageModels
+                    bookmodel.previewPageID = pagesmodel[0].Id
                     
-//                    var curiosResString = ""
                     let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
                     let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
                     let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
