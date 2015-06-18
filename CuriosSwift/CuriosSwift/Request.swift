@@ -19,7 +19,7 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
 
 class BaseRequst {
     
-    let baseURL = "http://192.168.1.101:8080/curiosService"
+    let baseURL = "http://192.168.1.111:8080/curiosService"
     typealias Result = [String : AnyObject] -> Void
     let requestComponents: [String]
     let jsonParameter: String
@@ -52,11 +52,7 @@ class BaseRequst {
             "data":jsonParameter,
         ]
         
-        debugPrintln(self.requestComponents)
-        
         let url = requstURL(baseURL)(requestComponents)
-        
-        debugPrintln(url)
         
         // Fetch Request
         Alamofire.request(.POST, url, parameters: URLParameters)

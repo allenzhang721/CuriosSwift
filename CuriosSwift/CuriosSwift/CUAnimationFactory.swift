@@ -83,7 +83,6 @@ class CUAnimationFactory: NSObject {
                 aBlock(currentTime: t, duration: d, currentValues: values, animationTarget: target)
                 return true
             } else {
-                println("end")
                 return false
             }
         }

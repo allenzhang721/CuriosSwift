@@ -73,7 +73,6 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         if NSFileManager.defaultManager().createDirectoryAtURL(toUrl!, withIntermediateDirectories: true, attributes: nil, error: nil) {
             
             if UsersManager.shareInstance.duplicateBookTo(templateId, toUrl: toUrl!.URLByAppendingPathComponent(templateId)) {
-                println("copy to Temp")
                 
                 let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
                 edit.loadBookWith(templateId)

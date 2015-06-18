@@ -41,7 +41,6 @@ class DemoBookViewController: UIViewController {
         
         let toBookPath = NSTemporaryDirectory().stringByAppendingPathComponent(demoBookID)
         let toBookURL = NSURL.fileURLWithPath(toBookPath, isDirectory: true)
-        //        println("demoBookURL = \(demoBookURL)\ntoBookURL = \(toBookURL)")
         NSFileManager.defaultManager().removeItemAtURL(toBookURL!, error: nil)
         if NSFileManager.defaultManager().copyItemAtURL(documentBookURL!, toURL: toBookURL!, error: nil) {
             

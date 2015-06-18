@@ -26,6 +26,7 @@ protocol IContainer: NSObjectProtocol {
     func setTransation(translation: CGPoint)
     func setResize(size: CGSize, center: CGPoint)
     func setRotation(angle: CGFloat)
+    func removed()
     
     func setAnimationWithName(name: String)
     func sendForwoard() -> Bool

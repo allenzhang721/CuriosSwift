@@ -65,6 +65,11 @@ class ContainerModel: Model {
     
     // animations
     
+    func removed() {
+        
+        component.removed()
+    }
+    
     func setAnimationWithName(name: String) {
         
         let animation = Animation()

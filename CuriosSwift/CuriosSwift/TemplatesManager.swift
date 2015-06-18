@@ -24,17 +24,13 @@ class TemplatesManager: templateMangeInterface {
         
         let specialTemplateUrl = documentDirectory(templates,templateId)
         
-        println("specialTemplateUrl.path! = \(specialTemplateUrl.path!)")
-        
         if NSFileManager.defaultManager().fileExistsAtPath(specialTemplateUrl.path!) {
             
-            println("exist template")
         }
         
         let error = NSErrorPointer()
         if NSFileManager.defaultManager().copyItemAtURL(specialTemplateUrl, toURL: toUrl, error: error) {
             
-            println(" duplicate selected template")
             // change the new book id
             let newId = toUrl.lastPathComponent!
             let mainjsonUrl = toUrl.URLByAppendingPathComponent(main_json)
@@ -43,13 +39,11 @@ class TemplatesManager: templateMangeInterface {
             json["ID"] = newId
             var jsonData = NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(0), error: nil)
             if (jsonData?.writeToURL(mainjsonUrl, atomically: true) != nil) {
-                println("change templ")
                 return true
             } else {
                 return false
             }
         } else {
-            println(error.debugDescription)
             return false
         }
     }

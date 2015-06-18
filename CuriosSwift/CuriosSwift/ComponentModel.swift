@@ -36,6 +36,10 @@ class ComponentModel: Model, IFile  {
         }
     }
     
+    func removed() {
+        
+    }
+    
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
         
         if let type = JSONDictionary["ComponentType"] as? NSString {
@@ -120,6 +124,14 @@ class ImageContentModel: ComponentModel, IFile {
         set {
             attributes["ImagePath"] = newValue
         }
+    }
+    
+    override func removed() {
+        
+        let fileManager = NSFileManager()
+        fileManager.removeItemAtPath(imagePath, error: nil)
+        
+        super.removed()
     }
 }
 

@@ -63,10 +63,10 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
         let toUrl = temporaryDirectory(userId, newTemplateId)
         
         if NSFileManager.defaultManager().createDirectoryAtURL(userURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
-            println("create temp > user > templateID")
+            // "create temp > user > templateID"
             if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl) {
                 
-                println("copy to Temp")
+                // copy to Temp
                 
                let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
                 edit.loadBookWith(newTemplateId)

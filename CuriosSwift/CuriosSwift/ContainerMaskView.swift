@@ -52,13 +52,18 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         case Rotaion, Resize, Transition
     }
     
+    private weak var delegate: IMaskAttributeSetterProtocol?
+    
     var controlStyle: ControlStyle = .Transition
     var angle: CGFloat = 0.0
     
     var resizePannel: UIImageView!
     var rotationPannel: UIImageView!
+    var deletePannel: UIImageView!
     
     var container: IContainer?
+    
+    var willDeletedTargetContainer = false
     
     var currentCenter = CGPointZero
     
@@ -96,6 +101,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         CuriosKit.drawControlPannel(frame: rect)
         resizePannel.center = CGPointMake(bounds.width, bounds.height)
         rotationPannel.center = CGPointMake(bounds.width, 0)
+        deletePannel.center = CGPointMake(0, bounds.height)
     }
     
     
@@ -116,6 +122,12 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         rotationPannel.bounds.size = CGSizeMake(40, 40)
         rotationPannel.center = CGPointMake(bounds.width, 0)
         addSubview(rotationPannel)
+        
+        let deletePannelImage = UIImage(named: "Editor_DeletePannel")
+        deletePannel = UIImageView(image: deletePannelImage)
+        deletePannel.bounds.size = CGSizeMake(40, 40)
+        deletePannel.center = CGPointMake(0, bounds.height)
+        addSubview(deletePannel)
     }
     
     func setupGestures() {
@@ -123,9 +135,11 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
         let rot = UIRotationGestureRecognizer(target: self, action: "rotaionAction:")
         let pin = UIPinchGestureRecognizer(target: self, action: "pinchAction:")
+        let tap = UITapGestureRecognizer(target: self, action: "tapAction:")
         addGestureRecognizer(pan)
         addGestureRecognizer(rot)
         addGestureRecognizer(pin)
+        addGestureRecognizer(tap)
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
@@ -135,9 +149,10 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         if let aContainer = container where aContainer.lockedListener.value == true {
             return rec(point)
         } else {
-            let circlePannel = circle(20.0, CGPointMake(bounds.size.width, bounds.size.height))
-            let rotationPanne = circle(20.0, CGPointMake(bounds.size.width, 0))
-            return union(rotationPanne, (union(rec, circlePannel)))(point)
+            let resizePannel = circle(20.0, CGPointMake(bounds.size.width, bounds.size.height))
+            let rotationPannel = circle(20.0, CGPointMake(bounds.size.width, 0))
+            let deletePannel = circle(20.0, CGPointMake(0, bounds.height))
+            return union(deletePannel, union(rotationPannel, (union(rec, resizePannel))))(point)
         }
     }
     
@@ -155,6 +170,25 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
 //        
 //        sender.setTranslation(CGPointZero, inView: self.superview)
 //    }
+    // MARK: - Gestures
+    
+    func tapAction(sender: UITapGestureRecognizer) {
+        
+        if let aContainer = container where aContainer.lockedListener.value == true {
+            return
+        }
+        
+        let point = sender.locationInView(self)
+        let deleteRegion = circle(20.0, CGPointMake(0, bounds.height))
+        
+        if deleteRegion(point) {
+            
+            if let aDelegate = delegate {
+                willDeletedTargetContainer = true
+                aDelegate.maskAttributeWillDeleted(self)
+            }
+        }
+    }
     
     func rotaionAction(sender: UIRotationGestureRecognizer) {
         
@@ -197,7 +231,6 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         switch sender.state {
             
         case .Began:
-            println("scale = \(sender.scale)")
             beginSize = bounds.size
             
         case .Changed:
@@ -325,9 +358,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
             default:
                 return
             }
-            
-            
-            
+
         default:
             return
         }
@@ -342,6 +373,13 @@ extension ContainerMaskView {
     static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat) -> IMaskAttributeSetter {
         
         return ContainerMaskView(postion: postion, size: size, rotation: rotation)
+    }
+    
+    func setDelegate(aDelegate: IMaskAttributeSetterProtocol) {
+        delegate = aDelegate
+    }
+    func cancelDelegate() {
+        delegate = nil
     }
     
     func setTarget(target: IContainer) {
@@ -360,6 +398,15 @@ extension ContainerMaskView {
     }
     
     func remove() {
+        
+        if willDeletedTargetContainer {
+            if let aContainer = container {
+                aContainer.removed()
+            }
+        }
+        
+        
+        cancelDelegate()
         removeFromSuperview()
     }
 }

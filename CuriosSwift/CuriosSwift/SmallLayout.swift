@@ -342,7 +342,6 @@ extension smallLayout {
         
 //        collectionView?.performBatchUpdates({ [unowned self] () -> Void in
             self.fakeCellCenter.x += scrollRate
-        println(fakeCellCenter.x)
             let contentOffset = CGPoint(x: self.collectionView!.contentOffset.x + scrollRate, y: self.collectionView!.contentOffset.y)
             self.collectionView?.contentOffset = contentOffset
 //        changeItemIfNeed()

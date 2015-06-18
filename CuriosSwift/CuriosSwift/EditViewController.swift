@@ -154,13 +154,11 @@ class EditViewController: UIViewController, IPageProtocol {
     
     func loadBookWith(aBookID: String) {
         
-//        println("aBookID = \(aBookID)")
         bookModel = getbookModelWith(aBookID)
     }
     
     deinit {
         
-        println("deinit")
     }
     
     override func updateViewConstraints() {
@@ -175,7 +173,6 @@ class EditViewController: UIViewController, IPageProtocol {
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
-        println("double")
         if let currentIndexPath = getCurrentIndexPath() {
             
             if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
@@ -187,7 +184,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @IBAction func TapAction(sender: UITapGestureRecognizer) {
-        println("tap")
         
         if CUAnimationFactory.shareInstance.isAnimationing() {
             
@@ -373,7 +369,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 textComponentModel.attributes = ["contentText": "New Text"]
                 let aContainer = ContainerModel()
                 aContainer.component = textComponentModel
-//                println(aContainer.component)
                 page.addContainer(aContainer)
                 page.saveInfo()
             }
@@ -407,8 +402,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //        let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
 //        let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
 //        let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = [" + pagesjsonString + "]"
-//        
-//        println(curiosResString)
+//
 //        
 //        return
         
@@ -464,7 +458,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     } else {
                         
                         let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
-                        println(string)
                         
                         presentViewController(preeviewVC, animated: true, completion: nil)
                     }
@@ -481,7 +474,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func settingAction(sender: UIButton) {
         
-        debugPrintln("Setting")
     }
     
     func effectsAction(sender: UIButton) {
@@ -534,7 +526,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 // MARK: - DataSource And Delegate
 // MARK: -
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol, PannelProtocol {
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol, PannelProtocol, IMaskAttributeSetterProtocol {
     
     // MARK: - UICollectionViewDataSource and CollectionView Delegate
     
@@ -607,8 +599,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             if fileManager.copyItemAtURL(orginPageURL, toURL: newPageURL, error: nil) {
                 
-                println("Copy template page succeess")
-                
                 let copyPageOriginJson = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId ,aPage.Id + ".json")
                 let copyPageNewJson = URL(bookModel.filePath)(isDirectory: true)(pages,newPageId ,newPageId + ".json")
                 let copyPageOriginData = NSData(contentsOfURL: copyPageOriginJson)
@@ -618,8 +608,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 newJsonData?.writeToURL(copyPageNewJson, atomically: true)
                 
                 let newPageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: newJson, error: nil) as! PageModel
-                
-//                println(newPageModel.containers)
                 
                 fileManager.removeItemAtURL(copyPageOriginJson, error: nil)
                 
@@ -636,12 +624,10 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             }, completion: { (completed) -> Void in
         })
-        
-        println("Did Move in = \(indexPath.item)")
     }
     
     func layoutDidMoveOut(layout: UICollectionViewLayout) {
-         println("Did Move Out")
+
         if !fakePageView!.fromTemplate {
             let aPageModel = fakePageView!.getPlaceholderPage()
             let bookPath = bookModel.filePath
@@ -652,7 +638,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func layout(layout: UICollectionViewLayout, didFinished finished: Bool) {
-        println("didFinished")
+
         bookModel.savePagesInfo()
     }
     
@@ -680,9 +666,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
         
-        let mask = ContainerMaskView.createMask(position, size: size, rotation: rotation)
+        let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation)
         mask.setTarget(selectedContainer)
-        
+        mask.setDelegate(self)
         if let aMask = mask as? UIView {
             view.addSubview(aMask)
         }
@@ -698,7 +684,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         if deSelectedContainers.count > 0 {
             for container in deSelectedContainers {
                 var index = 0
-                println(index)
+
                 for maskAttribute in maskAttributes {
                     
                     if let aTarget = maskAttribute.getTarget() {
@@ -731,6 +717,19 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
+    }
+    
+    // MARK: - IMaskAttributer Protocol
+    func maskAttributeWillDeleted(sender: IMaskAttributeSetter) {
+        
+        if let currentIndexPath = getCurrentIndexPath() {
+                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+                    let location = CGPointZero
+                    self.collectionView.scrollEnabled = false
+                    page.setDelegate(self)
+                    page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
+                }
+        }
     }
     
     // MARK: - imagePicker Delegate
@@ -776,12 +775,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 let imageData = UIImagePNGRepresentation(selectedImage)
                 
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
-                let realtiveImagePath = "images/" + imageName + ".png"
+                let realtiveImagePath = "/images/" + imageName + ".png"
                 let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
                 
-                println("the Image = \(imagePath)")
+
                 if imageData.writeToFile(imagePath, atomically: true) {
-                    println("iamge save = \(imagePath)")
+
                 }
                 
                 
@@ -791,7 +790,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 textComponentModel.imagePath = realtiveImagePath
                 let aContainer = ContainerModel()
                 aContainer.component = textComponentModel
-                //                println(aContainer.component)
                 page.addContainer(aContainer)
                 page.saveInfo()
             }

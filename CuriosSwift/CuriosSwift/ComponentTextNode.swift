@@ -47,8 +47,6 @@ extension ComponentTextNode {
         if let attributeString = editableTextNode.attributedText {
             let aString = attributeString.string
             contentText = aString
-            println(contentText)
         }
-//        println(editableTextNode.attributedText.string)
     }
 }

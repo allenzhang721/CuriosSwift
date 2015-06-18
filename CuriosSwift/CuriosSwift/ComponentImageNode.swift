@@ -21,8 +21,6 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         let aImage = UIImage(contentsOfFile: aImagePath)
         image = aImage
         
-        println("aImage = \(aImage)")
-        
         clipsToBounds = true
     }
     

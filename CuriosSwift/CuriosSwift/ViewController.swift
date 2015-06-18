@@ -29,7 +29,6 @@ class ViewController: UIViewController {
         loadViewController()
         
         let string = NSLocalizedString("TEST", comment: "国际化的语言测试")
-        debugPrintln(string)
     }
 }
 

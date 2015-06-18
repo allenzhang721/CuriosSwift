@@ -42,7 +42,6 @@ class PageModel: Model, IFile {
     
     func addContainer(aContainer: ContainerModel) {
         
-        println("addContainer = \(aContainer)")
         containers.append(aContainer)
         aContainer.component.delegate = self
     }
@@ -93,7 +92,6 @@ extension PageModel {
     
     func fileGetSuperPath(file: IFile) -> String {
         
-//        println(self.delegate)
         if let superPath = delegate?.fileGetSuperPath(self) {
             let selfPath = superPath.stringByAppendingPathComponent("Pages/\(Id)")
             return selfPath

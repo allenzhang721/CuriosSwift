@@ -29,7 +29,6 @@ class UsersManager: IUser, IBook {
                 if fileManager.createDirectoryAtURL(userDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
                     
                     if fileManager.createDirectoryAtURL(userBookDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
-                        println("create user and Books Dir")
                         // booklist File
                         let bookListFileURL = userBookDirURL.URLByAppendingPathComponent(bookList_)
                         
@@ -84,12 +83,10 @@ class UsersManager: IUser, IBook {
     
     func updateBookWith(aBookID: String, aBookName: String, aDescription: String, aDate: NSDate, aIconUrl: NSURL) {
         
-        println(" updateID = \(aBookID)")
         var index = 0
         var find = false
         for bookListModel in bookList {
             
-            println("bookListModel = \(bookListModel.bookID)")
             if bookListModel.bookID == aBookID {
                 bookList.removeAtIndex(index)
                 let aBookListModel = BookListModel()
@@ -133,7 +130,6 @@ class UsersManager: IUser, IBook {
         let originBookURL = documentDirectory(users,userID,books,bookId)
         if NSFileManager.defaultManager().copyItemAtURL(originBookURL, toURL: toUrl, error: nil) {
             // change the new book id
-            println("copy book")
             return true
         } else {
             return false

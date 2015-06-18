@@ -81,7 +81,6 @@ extension PageCollectionViewCell {
         
         pageModel.addContainer(aContainerModel)
         
-        println(pageModel.containers.count)
         if let aContentNode = contentNode {
             let realWidth: CGFloat = 100.0
             let realHeight: CGFloat = 100.0
@@ -118,14 +117,32 @@ extension PageCollectionViewCell {
         pageModel.removeContainer(aContainerModel)
         if contentNode != nil {
             
-            for subNode in contentNode?.subnodes as! [ContainerNode] {
+            for (index, subNode) in enumerate(contentNode?.subnodes as! [ContainerNode]) {
                 
                 if subNode.containAcontainer(aContainerModel) {
+                    
+                    for (index, theSuNode) in enumerate(containers) {
+                        
+                        if theSuNode.isEqual(subNode) {
+                            containers.removeAtIndex(index)
+                            break
+                        }
+                    }
+                    
+                    for (index, theSuNode) in enumerate(selectedContainers) {
+                        
+                        if theSuNode.isEqual(subNode) {
+                            selectedContainers.removeAtIndex(index)
+                            break
+                        }
+                    }
+                    
                     subNode.removeFromSupernode()
                     break
                 }
             }
         }
+        saveInfo()
     }
     
     func exchangeContainerFromIndex(fromIndex: Int, toIndex: Int) {
@@ -151,8 +168,6 @@ extension PageCollectionViewCell {
             var find = false
             for container in reverseContainers {
                 if container.responderToLocation(location, onTargetView: targetView) {
-    
-                    println("selected")
                     find = true
                     break
                 }
@@ -161,8 +176,6 @@ extension PageCollectionViewCell {
             if !find {
                 for container in reverseContainers {
                     if container.isFirstResponder() {
-    
-                        println("selected")
                         container.resignFirstResponder()
                         break
                     }

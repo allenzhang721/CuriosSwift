@@ -57,7 +57,6 @@ class ContainerNode: ASDisplayNode, IContainer {
         component = containerModel.component.createComponent()
         
         if let aCom = component as? ASDisplayNode {
-            println("addSubnode aCom = \(aCom)")
             addSubnode(aCom)
             
         }
@@ -94,7 +93,6 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     func setAnimationWithName(name: String) {
         
-        println("setAnimationName: \(name)")
         let center = position
         let width = 320
         let height = 40
@@ -255,6 +253,14 @@ class ContainerNode: ASDisplayNode, IContainer {
         
          lockedListener.value = !lockedListener.value
         return lockedListener.value
+    }
+    
+    func removed() {
+        
+        if let aPage = page {
+            containerModel.removed()
+            page?.removeContainer(containerModel)
+        }
     }
 }
 

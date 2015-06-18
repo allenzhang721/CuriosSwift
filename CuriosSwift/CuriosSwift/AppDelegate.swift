@@ -75,18 +75,18 @@ extension AppDelegate {
         // public templates dir
         
         if duplicateTemplatesTo(publicTemplateDirURL) {
-            println("copy template");
+//            println("copy template");
         }
         if fileManager.createDirectoryAtURL(publicTemplateDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
             
             fileManager.removeItemAtURL(publicTemplateDirURL, error: nil);
-            println("create template");
+//            println("create template");
             
         }
         
         // users dir
         if fileManager.createDirectoryAtURL(usersDirURL, withIntermediateDirectories: false, attributes: nil, error: nil) {
-            println("Create Users Dir");
+//            println("Create Users Dir");
 //            adminLogin()
         }
     }
@@ -104,7 +104,6 @@ extension AppDelegate {
     private func duplicateTemplatesTo(toUrl: NSURL) -> Bool {
 
         let bundleTemplateURL = bundle(templates);
-        println(toUrl);
         return NSFileManager.defaultManager().copyItemAtURL(bundleTemplateURL, toURL: toUrl, error: nil);
     }
 }
