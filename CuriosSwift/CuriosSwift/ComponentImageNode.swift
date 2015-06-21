@@ -19,8 +19,8 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         let aImagePath = componentModel.imagePath
         
         let aImage = UIImage(contentsOfFile: aImagePath)
+//        self.view.contentMode = .ScaleToFill
         image = aImage
-        
         clipsToBounds = true
     }
     

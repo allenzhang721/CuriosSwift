@@ -82,8 +82,8 @@ extension PageCollectionViewCell {
         pageModel.addContainer(aContainerModel)
         
         if let aContentNode = contentNode {
-            let realWidth: CGFloat = 100.0
-            let realHeight: CGFloat = 100.0
+            let realWidth: CGFloat = 400.0
+            let realHeight: CGFloat = 400.0
             let centerX = contentNodeCenter.x
             let centerY = contentNodeCenter.y
             let x = centerX - realWidth / 2.0

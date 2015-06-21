@@ -406,7 +406,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //        
 //        return
         
-        if let preeviewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+//        })
+        
+        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
             
             // cache preview dir
             let previewName = "CuriosPreview"
@@ -414,16 +417,20 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             // bundle preview
             let bundlePreviewURL = bundle(previewName)
             // cache preview
-            let cachePreviewURL = cacheDirectory(previewName)
+            let cachePreviewURL = temporaryDirectory(previewName)
             // editingBook
             let bookid = bookModel.Id
             let userName = UsersManager.shareInstance.getUserID()
             let editingBookURL = temporaryDirectory(userName, bookid)
+            
+            // 
+            preeviewVC.bookId = bookid
+            
             // /res
-            let cachePreviewResURL = cacheDirectory(previewName, "res")
+            let cachePreviewResURL = temporaryDirectory(previewName, "res")
             
             // curiosRes.js
-            let curiosResURL = cacheDirectory(previewName, "js", "curiosRes.js")
+            let curiosResURL = temporaryDirectory(previewName, "js", "curiosRes.js")
             
             // create cache preview book
             let fileManager = NSFileManager.defaultManager()
@@ -459,7 +466,11 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                         
                         let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
                         
-                        presentViewController(preeviewVC, animated: true, completion: nil)
+                       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
+                        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
+                            prev.bookId = bookid
+                            presentViewController(preeviewNavigationC, animated: true, completion: nil)
+                        }
                     }
                 }
             }
@@ -467,8 +478,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
-        
+        let userid = UsersManager.shareInstance.getUserID()
         saveBook()
+        deleteTemporaryBookWithUserId(userid)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -772,10 +784,10 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 
                 let pageFile = bookModel.pageModels[indexPath.item]
                 let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-                let imageData = UIImagePNGRepresentation(selectedImage)
+                let imageData = UIImageJPEGRepresentation(selectedImage, 0.5)
                 
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
-                let realtiveImagePath = "/images/" + imageName + ".png"
+                let realtiveImagePath = "/images/" + imageName + ".jpg"
                 let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
                 
 
@@ -783,8 +795,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
 
                 }
                 
-                
-
                 let textComponentModel = ImageContentModel()
                 textComponentModel.type = .Image
                 textComponentModel.imagePath = realtiveImagePath
@@ -990,18 +1000,23 @@ extension EditViewController {
     
     private func saveBook() {
         
+        let fileManager = NSFileManager.defaultManager()
         let userID = UsersManager.shareInstance.getUserID()
         let bookId = bookModel.Id
         let originBookUrl = documentDirectory(users,userID,books,bookId)
         let tempBookUlr = temporaryDirectory(userID,bookId)
         
-        if NSFileManager.defaultManager().replaceItemAtURL(originBookUrl, withItemAtURL: tempBookUlr, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
+        if fileManager.replaceItemAtURL(originBookUrl, withItemAtURL: tempBookUlr, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
             
             let saveDate = NSDate();
             UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
             
-            NSFileManager.defaultManager().removeItemAtURL(temporaryDirectory(userID), error: nil)
+            
         }
+    }
+    
+    private func deleteTemporaryBookWithUserId(userID: String) {
+        NSFileManager.defaultManager().removeItemAtURL(temporaryDirectory(userID), error: nil)
     }
     
     func setupConstraints() {

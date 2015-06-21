@@ -49,12 +49,12 @@ class Control {
 class ContainerMaskView: UIView, IMaskAttributeSetter {
     
     enum ControlStyle {
-        case Rotaion, Resize, Transition
+        case Rotaion, Resize, Transition, None
     }
     
     private weak var delegate: IMaskAttributeSetterProtocol?
     
-    var controlStyle: ControlStyle = .Transition
+    var controlStyle: ControlStyle = .None
     var angle: CGFloat = 0.0
     
     var resizePannel: UIImageView!
@@ -115,18 +115,21 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         resizePannel = UIImageView(image: resizePannelImage)
         resizePannel.bounds.size = CGSizeMake(40, 40)
         resizePannel.center = CGPointMake(bounds.width, bounds.height)
+        resizePannel.backgroundColor = UIColor.blackColor()
         addSubview(resizePannel)
         
         let rotationPannelImage = UIImage(named: "Editor_RotationPannel")
         rotationPannel = UIImageView(image: rotationPannelImage)
         rotationPannel.bounds.size = CGSizeMake(40, 40)
         rotationPannel.center = CGPointMake(bounds.width, 0)
+        rotationPannel.backgroundColor = UIColor.blackColor()
         addSubview(rotationPannel)
         
         let deletePannelImage = UIImage(named: "Editor_DeletePannel")
         deletePannel = UIImageView(image: deletePannelImage)
         deletePannel.bounds.size = CGSizeMake(40, 40)
         deletePannel.center = CGPointMake(0, bounds.height)
+        deletePannel.backgroundColor = UIColor.blackColor()
         addSubview(deletePannel)
     }
     
@@ -149,9 +152,9 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         if let aContainer = container where aContainer.lockedListener.value == true {
             return rec(point)
         } else {
-            let resizePannel = circle(20.0, CGPointMake(bounds.size.width, bounds.size.height))
-            let rotationPannel = circle(20.0, CGPointMake(bounds.size.width, 0))
-            let deletePannel = circle(20.0, CGPointMake(0, bounds.height))
+            let resizePannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
+            let rotationPannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
+            let deletePannel = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
             return union(deletePannel, union(rotationPannel, (union(rec, resizePannel))))(point)
         }
     }
@@ -179,7 +182,8 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         }
         
         let point = sender.locationInView(self)
-        let deleteRegion = circle(20.0, CGPointMake(0, bounds.height))
+        
+        let deleteRegion = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
         
         if deleteRegion(point) {
             
@@ -264,8 +268,8 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         }
         
         let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
-        let rotationRegion = circle(22.0, CGPointMake(bounds.size.width, 0))
-        let resizeRegion = circle(22.0, CGPointMake(bounds.size.width, bounds.size.height))
+        let resizeRegion = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
+        let rotationRegion = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
         
         switch sender.state {
             
@@ -281,8 +285,10 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 controlStyle = .Rotaion
             case let point where resizeRegion(point):
                 controlStyle = .Resize
-            default:
+            case let point where rec(point):
                 controlStyle = .Transition
+            default:
+                controlStyle = .None
             }
             
         case .Changed:

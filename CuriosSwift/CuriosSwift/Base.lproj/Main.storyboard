@@ -454,53 +454,6 @@
             </objects>
             <point key="canvasLocation" x="1752" y="475"/>
         </scene>
-        <!--Preview View Controller-->
-        <scene sceneID="j0k-Dv-O3s">
-            <objects>
-                <viewController storyboardIdentifier="PreviewController" id="aB5-E3-6EP" customClass="PreviewViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Pgq-S2-REv"/>
-                        <viewControllerLayoutGuide type="bottom" id="Op2-lk-HCZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pJ8-h1-zbI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpL-Ek-SDU">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQg-ig-Vea">
-                                <rect key="frame" x="549" y="550" width="35" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backAction:" destination="aB5-E3-6EP" eventType="touchUpInside" id="Etg-sA-tRJ"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="oQg-ig-Vea" secondAttribute="bottom" constant="20" symbolic="YES" id="2Xi-VB-Pwe"/>
-                            <constraint firstItem="cpL-Ek-SDU" firstAttribute="bottom" secondItem="Op2-lk-HCZ" secondAttribute="top" id="4BS-xV-0Nk"/>
-                            <constraint firstItem="cpL-Ek-SDU" firstAttribute="top" secondItem="pJ8-h1-zbI" secondAttribute="top" id="51p-ec-Q9p"/>
-                            <constraint firstAttribute="trailing" secondItem="cpL-Ek-SDU" secondAttribute="trailing" id="H1X-XJ-KT5"/>
-                            <constraint firstItem="cpL-Ek-SDU" firstAttribute="leading" secondItem="pJ8-h1-zbI" secondAttribute="leading" id="K4f-yZ-5kp"/>
-                            <constraint firstItem="oQg-ig-Vea" firstAttribute="trailing" secondItem="pJ8-h1-zbI" secondAttribute="trailingMargin" id="w9f-5M-7Wj"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="webView" destination="cpL-Ek-SDU" id="TMm-vt-sZw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5U3-L3-3cN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-753" y="957"/>
-        </scene>
         <!--Login View Controller-->
         <scene sceneID="MtE-Wr-Z1D">
             <objects>

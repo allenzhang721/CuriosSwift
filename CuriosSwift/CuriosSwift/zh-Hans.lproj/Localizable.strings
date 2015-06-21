@@ -41,3 +41,7 @@ TeetertotterOut = "陀螺旋转出";
 Moveforward     = "前移";
 MoveBack        = "后移";
 Lock            = "锁定";
+
+// Preview
+Pubish          = "发布";
+Share           = "分享";

@@ -97,6 +97,12 @@
 		2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBE7611B1C17FD00C34920 /* Animator.swift */; };
 		2CF293501B32633800539F76 /* AnimationFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2934F1B32633800539F76 /* AnimationFunction.swift */; };
 		2CF293521B3270E900539F76 /* CuriosPreview in Resources */ = {isa = PBXBuildFile; fileRef = 2CF293511B3270E900539F76 /* CuriosPreview */; };
+		2CF293541B32C03D00539F76 /* Independent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CF293531B32C03D00539F76 /* Independent.storyboard */; };
+		2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */; };
+		2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2939D1B33B43400539F76 /* BookDetailImageCell.swift */; };
+		2CF293A01B33B43400539F76 /* BookDetailImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF2939E1B33B43400539F76 /* BookDetailImageCell.xib */; };
+		2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF293A11B33B46900539F76 /* BookDetailInfoCell.swift */; };
+		2CF293A41B33B46900539F76 /* BookDetailInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF293A21B33B46900539F76 /* BookDetailInfoCell.xib */; };
 		2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */; };
 		2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */; };
 		2CFDFD681B1EE91800246F59 /* WeChatConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD5A1B1EE91800246F59 /* WeChatConnection.framework */; };
@@ -112,6 +118,7 @@
 		2CFDFD761B1EE96000246F59 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD751B1EE96000246F59 /* libicucore.dylib */; };
 		2CFDFD781B1EE96600246F59 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD771B1EE96600246F59 /* libz.1.2.5.dylib */; };
 		2CFDFD7A1B1EE96D00246F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDFD791B1EE96D00246F59 /* Security.framework */; };
+		2CFE73871B36A1FC00C2510D /* UpLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE73861B36A1FC00C2510D /* UpLoadManager.swift */; };
 		66C783A01B281956002139F1 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7839F1B281956002139F1 /* UserRequest.swift */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +231,12 @@
 		2CEBE7611B1C17FD00C34920 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		2CF2934F1B32633800539F76 /* AnimationFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFunction.swift; sourceTree = "<group>"; };
 		2CF293511B3270E900539F76 /* CuriosPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CuriosPreview; sourceTree = "<group>"; };
+		2CF293531B32C03D00539F76 /* Independent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Independent.storyboard; sourceTree = "<group>"; };
+		2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		2CF2939D1B33B43400539F76 /* BookDetailImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailImageCell.swift; sourceTree = "<group>"; };
+		2CF2939E1B33B43400539F76 /* BookDetailImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookDetailImageCell.xib; sourceTree = "<group>"; };
+		2CF293A11B33B46900539F76 /* BookDetailInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailInfoCell.swift; sourceTree = "<group>"; };
+		2CF293A21B33B46900539F76 /* BookDetailInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookDetailInfoCell.xib; sourceTree = "<group>"; };
 		2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTemplateNavigationController.swift; sourceTree = "<group>"; };
 		2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITemplateSelector.swift; sourceTree = "<group>"; };
 		2CFDFD5A1B1EE91800246F59 /* WeChatConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WeChatConnection.framework; sourceTree = "<group>"; };
@@ -242,6 +255,7 @@
 		2CFDFD751B1EE96000246F59 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		2CFDFD771B1EE96600246F59 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		2CFDFD791B1EE96D00246F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2CFE73861B36A1FC00C2510D /* UpLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadManager.swift; sourceTree = "<group>"; };
 		3710D29BD499FC10B173F11C /* Pods-CuriosSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		3D4225D294F178DED635E676 /* Pods_CuriosSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuriosSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuriosSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CuriosSwift/Pods-CuriosSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -367,6 +381,7 @@
 				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
+				2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */,
@@ -374,6 +389,7 @@
 				2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */,
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
+				2CF293531B32C03D00539F76 /* Independent.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
 				2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */,
 				2CB4BD511AE337EA00DF6019 /* Supporting Files */,
@@ -410,6 +426,10 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CF2939D1B33B43400539F76 /* BookDetailImageCell.swift */,
+				2CF2939E1B33B43400539F76 /* BookDetailImageCell.xib */,
+				2CF293A11B33B46900539F76 /* BookDetailInfoCell.swift */,
+				2CF293A21B33B46900539F76 /* BookDetailInfoCell.xib */,
 				2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */,
 				2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */,
 				2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */,
@@ -439,6 +459,7 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2CFE73861B36A1FC00C2510D /* UpLoadManager.swift */,
 				2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */,
 				2CF2934F1B32633800539F76 /* AnimationFunction.swift */,
 				2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */,
@@ -662,11 +683,14 @@
 				2C032CF01B0D71AD0089DC81 /* Templates in Resources */,
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
 				2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */,
+				2CF293541B32C03D00539F76 /* Independent.storyboard in Resources */,
 				2CFDFD6A1B1EE91800246F59 /* ShareSDKLocalizable.strings in Resources */,
+				2CF293A41B33B46900539F76 /* BookDetailInfoCell.xib in Resources */,
 				2C7AE8EA1AEA21D700ACEB65 /* QWERTASDFGZXCVB in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
 				2CF293521B3270E900539F76 /* CuriosPreview in Resources */,
+				2CF293A01B33B43400539F76 /* BookDetailImageCell.xib in Resources */,
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
 				2C1825DA1B28103B00F3B59E /* user in Resources */,
@@ -739,6 +763,7 @@
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
+				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
@@ -764,6 +789,7 @@
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
+				2CFE73871B36A1FC00C2510D /* UpLoadManager.swift in Sources */,
 				2C6D588C1B2A9C82002CFC3F /* FontsizePannel.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
 				2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */,
@@ -778,6 +804,7 @@
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
 				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
+				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
@@ -803,6 +830,7 @@
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
+				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,
 				2C5427041B2A9B85007FF1DE /* FontPannel.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
