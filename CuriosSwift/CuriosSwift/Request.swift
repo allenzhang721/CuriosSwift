@@ -11,7 +11,7 @@ import Alamofire
 
 private func requstURL(baseURL: String)(_ components: [String]) -> String {
     let abaseUrl = baseURL
-    let com = components.reduce(abaseUrl, combine: { $0.stringByAppendingPathComponent($1) })
+    let com = components.reduce(abaseUrl, combine: { $0.stringByAppendingString("/" + $1) })
     return com
 }
 
@@ -19,21 +19,21 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
 
 class BaseRequst {
     
-    let baseURL = "http://192.168.1.111:8080/curiosService"
+    let baseURL = "http://192.168.1.100:8080/curiosService"
     typealias Result = [String : AnyObject] -> Void
     let requestComponents: [String]
-    let jsonParameter: String
+    let jsonParameter: String?
     let result: Result
     
     internal weak var delegate: IRequestDelegate?
     
-    init(aRequestComponents: [String], aJsonParameter: String, aResult: Result) {
+    init(aRequestComponents: [String], aJsonParameter: String?, aResult: Result) {
         requestComponents = aRequestComponents
         jsonParameter = aJsonParameter
         result = aResult
     }
     
-    class func requestWithComponents(aRequestComponents: [String] , aJsonParameter: String, aResult: Result) -> BaseRequst {
+    class func requestWithComponents(aRequestComponents: [String] , aJsonParameter: String?, aResult: Result) -> BaseRequst {
     
         return BaseRequst(aRequestComponents: aRequestComponents, aJsonParameter: aJsonParameter, aResult: aResult)
     }
@@ -48,9 +48,13 @@ class BaseRequst {
     
     func sendRequest() {
         
-        let URLParameters = [
-            "data":jsonParameter,
-        ]
+        var URLParameters: [String : AnyObject]? = nil
+        if let ajson = jsonParameter {
+            
+                URLParameters = [
+                "data":ajson
+            ]
+        }
         
         let url = requstURL(baseURL)(requestComponents)
         
@@ -83,6 +87,8 @@ class BaseRequst {
         }
     }
 }
+
+
 
 protocol IRequestDelegate:NSObjectProtocol{
     func requestSuccess()

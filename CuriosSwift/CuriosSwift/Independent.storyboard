@@ -7,7 +7,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Jj6-cH-cLy">
             <objects>
-                <navigationController storyboardIdentifier="BookDetailController" id="bUC-le-3re" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="bookdetailNavigationController" id="bUC-le-3re" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MP2-4q-j6L">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -24,7 +24,7 @@
         <!--Book Detail View Controller-->
         <scene sceneID="0Kl-2N-a49">
             <objects>
-                <viewController id="QyR-gs-Vcv" customClass="BookDetailViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookDetailViewController" id="QyR-gs-Vcv" customClass="BookDetailViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aZM-wr-WIt"/>
                         <viewControllerLayoutGuide type="bottom" id="lbI-sj-cky"/>
@@ -33,10 +33,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vcB-PI-ok3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="vcB-PI-ok3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="QyR-gs-Vcv" id="Nqv-dY-9IC"/>
                                     <outlet property="delegate" destination="QyR-gs-Vcv" id="xTh-ra-arP"/>
@@ -52,7 +52,13 @@
                             <constraint firstAttribute="trailing" secondItem="vcB-PI-ok3" secondAttribute="trailing" id="n3H-BE-akj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="T1n-UC-hId"/>
+                    <navigationItem key="navigationItem" id="T1n-UC-hId">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="tUw-fd-TqT">
+                            <connections>
+                                <action selector="backAction:" destination="QyR-gs-Vcv" id="EEx-U1-FRL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="vcB-PI-ok3" id="Ayd-Qv-sVm"/>
                     </connections>

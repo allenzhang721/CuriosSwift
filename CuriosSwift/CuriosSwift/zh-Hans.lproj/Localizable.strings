@@ -45,3 +45,9 @@ Lock            = "锁定";
 // Preview
 Pubish          = "发布";
 Share           = "分享";
+
+// Book Detail
+BookDetailIcon              = "图标";
+BookDetailTitle             = "标题";
+BookDetailDescri            = "简介";
+BookDetailBackground        = "北京";

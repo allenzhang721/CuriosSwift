@@ -39,11 +39,19 @@ final class UpLoadManager {
         let customOptions = QNUploadOption(mime: defaultOptions.mimeType, progressHandler:defaultOptions.progressHandler, params: defaultOptions.params, checkCrc: defaultOptions.checkCrc, cancellationSignal: cancelSignal)
         
         let totalCount = fileKeys.count
+        println("total = \(totalCount)")
         for (key, filePath) in fileKeys {
             results[key] = false
-            uploadMananger.putFile(filePath, key: key, token: token, complete: { (ResponseInfo, key, response) -> Void in
+            uploadMananger.putFile(filePath, key: key, token: token, complete: { [unowned self] (ResponseInfo, key, response) -> Void in
+                if response == nil {
+                    
+                    println("\(key) = \(ResponseInfo)")
+                    
+                }
+                println("response = \(response)")
                 self.results[key] = (response != nil) ? true : false
                 self.completeCount++
+                println("count = \(self.completeCount)")
                 if self.completeCount == totalCount {
                     var results = self.results
                     let successes = results.values.array.reduce(true, combine: { (now, next) -> Bool in
@@ -56,7 +64,7 @@ final class UpLoadManager {
         }
     }
     
-    static func getFileKeys(rootURL: NSURL,rootDirectoryName:String, bookId: String, userDirectoryName: String) -> [String : String] {  // get special book upload infomation
+    static func getFileKeys(rootURL: NSURL,rootDirectoryName:String, bookId: String, publishID: String, userDirectoryName: String) -> [String : String] {  // get special book upload infomation
         
         let fileManger = NSFileManager.defaultManager()
         var error = NSErrorPointer()
@@ -82,7 +90,7 @@ final class UpLoadManager {
                         break
                     }
                 }
-                let key = userDirectoryName + "/" + bookId + relative
+                let key = userDirectoryName + "/" + publishID + relative
                 dics[key] = url.path!
             }
         }

@@ -60,6 +60,9 @@
 		2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B71B08462400579E4A /* ComponentModel.swift */; };
 		2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B91B085A7A00579E4A /* IFile.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
+		2CA8F08D1B391D050063E964 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F08C1B391D050063E964 /* TokenRequest.swift */; };
+		2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */; };
+		2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */; };
 		2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
@@ -189,6 +192,9 @@
 		2C9147B71B08462400579E4A /* ComponentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentModel.swift; sourceTree = "<group>"; };
 		2C9147B91B085A7A00579E4A /* IFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFile.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
+		2CA8F08C1B391D050063E964 /* TokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
+		2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishIDRequest.swift; sourceTree = "<group>"; };
+		2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishFileRequest.swift; sourceTree = "<group>"; };
 		2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelItem.swift; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -581,6 +587,9 @@
 			children = (
 				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				66C7839F1B281956002139F1 /* UserRequest.swift */,
+				2CA8F08C1B391D050063E964 /* TokenRequest.swift */,
+				2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */,
+				2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -773,6 +782,7 @@
 				2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */,
 				2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
+				2CA8F08D1B391D050063E964 /* TokenRequest.swift in Sources */,
 				2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */,
 				2C828A051AEF43F8004D4223 /* ViewModels.swift in Sources */,
 				2C77635F1B056ABE000DDFB2 /* IPage.swift in Sources */,
@@ -807,9 +817,11 @@
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
+				2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
+				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
 				2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */,

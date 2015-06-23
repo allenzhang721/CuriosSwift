@@ -392,25 +392,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
-//        let bookmodel = bookModel
-//        let pagesmodel = bookModel.pageModels
-//        
-//        let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-//        let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
-//        let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
-//        let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
-//        let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
-//        let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
-//        let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = [" + pagesjsonString + "]"
-//
-//        
-//        return
+//        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
         
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-//        })
-        
-        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
-            
             // cache preview dir
             let previewName = "CuriosPreview"
             
@@ -424,8 +407,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             let editingBookURL = temporaryDirectory(userName, bookid)
             
             // 
-            preeviewVC.bookId = bookid
-            
+//            preeviewVC.bookId = bookid
+        
             // /res
             let cachePreviewResURL = temporaryDirectory(previewName, "res")
             
@@ -474,7 +457,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     }
                 }
             }
-        }
+//        }
     }
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
@@ -484,8 +467,14 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // book detail Action
     func settingAction(sender: UIButton) {
         
+        if let bookdetailNavigationController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("bookdetailNavigationController") as? UINavigationController,
+            let bookdetailController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("BookDetailViewController") as? BookDetailViewController {
+                
+                presentViewController(bookdetailNavigationController, animated: true, completion: nil)
+        }
     }
     
     func effectsAction(sender: UIButton) {
@@ -747,36 +736,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - imagePicker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
 
-//        if let indexPath = getCurrentIndexPath() {
-//
-//            let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-//            let imageData = UIImagePNGRepresentation(selectedImage)
-//            
-//            let currentPageViewModel = pageViewModels[indexPath.item]
-//            let relativeImagePath = "QWERTASDFGZXCVB/Pages/\(currentPageViewModel.model.Id)/images/\(UniqueIDString()).png"
-//            let imagePath = NSTemporaryDirectory().stringByAppendingString(relativeImagePath)
-//            let imageURl = NSURL.fileURLWithPath(imagePath, isDirectory: false)
-//            
-//            
-//            let aError = NSErrorPointer()
-//            if NSFileManager.defaultManager().createFileAtPath(imagePath, contents: imageData, attributes: nil) {
-//
-//            }
-//            
-//            let imageComponentModel = ImageContentModel()
-//            imageComponentModel.type = .Image
-//            imageComponentModel.attributes = ["ImagePath": relativeImagePath]
-//            let aContainer = ContainerModel()
-//            aContainer.component = imageComponentModel
-//            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
-//            currentPageViewModel.containers.append(aContainerViewModel)
-//            collectionView.reloadItemsAtIndexPaths([indexPath])
-//        }
-        
-        
         if let indexPath = getCurrentIndexPath() {
-            
-            
             
             if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
                 
@@ -784,7 +744,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 
                 let pageFile = bookModel.pageModels[indexPath.item]
                 let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-                let imageData = UIImageJPEGRepresentation(selectedImage, 0.5)
+                let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
+                
+                println("selectedImageSize:\(Double(imageData.length) / (1024.0 * 1024.0))")
                 
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
                 let realtiveImagePath = "/images/" + imageName + ".jpg"

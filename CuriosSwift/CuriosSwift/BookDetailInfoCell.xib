@@ -21,7 +21,7 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="109" id="NLU-il-Z6v"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EKu-f9-iQs">
@@ -41,6 +41,11 @@
                 </constraints>
             </tableViewCellContentView>
             <animations/>
+            <connections>
+                <outlet property="descriText" destination="EKu-f9-iQs" id="Noq-lQ-FJ9"/>
+                <outlet property="titleLabel" destination="HRz-2k-JZ2" id="6xk-hD-f50"/>
+            </connections>
+            <point key="canvasLocation" x="543" y="449"/>
         </tableViewCell>
     </objects>
 </document>

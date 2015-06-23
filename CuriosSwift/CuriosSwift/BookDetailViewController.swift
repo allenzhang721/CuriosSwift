@@ -19,25 +19,34 @@ class BookDetailViewController: UIViewController {
         tableView.registerNib(UINib(nibName: "BookDetailInfoCell", bundle: nil), forCellReuseIdentifier: "BookDetailInfoCell")
         tableView.rowHeight = 72
     }
-
+    @IBAction func backAction(sender: UIBarButtonItem) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 // MARK: - DataSource and Delegate
 // MARK: -
 
-
-
 // MARK: - IBAction
 // MARK: -
-
 
 // MARK: - Private Method
 // MARK: -
 extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        return 2
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 4
+        if section == 0 {
+            return 3
+        } else {
+            return 1
+        }
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -45,12 +54,23 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.item == 0 || indexPath == 4 {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if section == 0 {
+            if row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
+                cell.titleLabel.text = ""
+                return cell
+            } else if row == 1{
+                let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
+                cell.titleLabel.
+                return cell
+            }
+            
+        } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailInfoCell
             return cell
         }
     }

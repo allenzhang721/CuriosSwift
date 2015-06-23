@@ -27,6 +27,12 @@ class PreviewViewController: UIViewController {
         }
     }
     
+    deinit {
+        webView.stopLoading()
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,31 +53,90 @@ class PreviewViewController: UIViewController {
     }
     
     func publish(sender: UIBarButtonItem) {
-        
-        let userID = UsersManager.shareInstance.getUserID()
-        let bookID = bookId
-        let bookURL = temporaryDirectory("CuriosPreview")
-        let fileKeys = UpLoadManager.getFileKeys(bookURL, rootDirectoryName: "CuriosPreview", bookId: bookId, userDirectoryName: userID)
-        println(bookID)
-        let token = "zXqNlKjpzQpFzydm6OCcngSa76aVNp-SwmqG-kUy:r-DjVHj8Ri2LjOMTXLUaYaKBKlQ=:eyJzY29wZSI6ImN1cmlvc3B1Ymxpc2giLCJkZWFkbGluZSI6MTQzNDg4NTc1Mn0="
-        uploader = UpLoadManager(aFileKeys: fileKeys, aToken: token, aCompleteHandler: { [unowned self] (result, finished) -> Void in
+
+        let request = TokenRequest.requestWithComponents(["upload/publishUptoken"], aJsonParameter: nil) {[unowned self] JSON -> Void in
             
-            if finished {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    self.type = .Internet
-                    println("http://7xjqsu.com2.z0.glb.qiniucdn.com/" + "\(userID)" + "/" + "\(bookID)" + "/index.html")
-                })
-                
-                
+            println(JSON)
+            
+            if let aToken = JSON["uptoken"] as? String {
+                self.getPublishID(aToken)
             }
-        })
+        }
         
-        uploader?.start()
+        request.sendRequest()
+
+    }
+    
+    func getPublishID(token: String) {
+        
+        let aToken = token
+        let request = PublishIDRequest.requestWithComponents(["publish/getPublishID"], aJsonParameter: nil) {[unowned self] JSON -> Void in
+            
+            println(JSON)
+            if let publishID = JSON["newID"] as? String {
+                
+                println(publishID)
+                self.upload(publishID, token: aToken)
+            }
+        }
+        
+        request.sendRequest()
     }
     
     func share(sender: UIBarButtonItem) {
         
+    }
+
+    func upload(publishID: String, token: String) {
+        let userID = UsersManager.shareInstance.getUserID()
+        let bookID = bookId
+        let bookURL = temporaryDirectory("CuriosPreview")
+        let aPublishID = publishID
+        let fileKeys = UpLoadManager.getFileKeys(bookURL, rootDirectoryName: "CuriosPreview", bookId: bookId, publishID: publishID, userDirectoryName: userID)
+        
+        self.uploader = UpLoadManager(aFileKeys: fileKeys, aToken: token, aCompleteHandler: { [unowned self] (result, successed) -> Void in
+            
+            
+            if successed {
+                self.publishFile(aPublishID)
+                dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
+                    
+                    self.type = .Internet
+                    })
+            } else {
+                println("upload fail: \(result)")
+            }
+            })
+        
+        self.uploader?.start()
+    }
+    
+    
+    
+    func publishFile(publishID: String) {
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        println(userID)
+        let aPublishID = publishID
+        let iconURL = userID + "/" + aPublishID + "/" + "icon.png"
+        let publishURL = userID + "/" + aPublishID + "/" + "index.html"
+        
+        let data = ["userID": userID,
+            "publishID": aPublishID,
+            "publishIconURL": iconURL,
+            "publishURL": publishURL,
+            "publishTitle": "美丽的日子",
+            "publishDesc": "在那最美的日子我和你在一起，手牵手一直到永远"]
+        
+        let dataStringData = NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions(0), error: nil)
+        
+        let dataString = NSString(data: dataStringData!, encoding: NSUTF8StringEncoding) as! String
+       let aRequest = PublishFileRequest.requestWithComponents(["publish/publishFile"], aJsonParameter: dataString) {[unowned self] JSON -> Void in
+            
+            println("file = \(JSON)")
+        }
+        
+        aRequest.sendRequest()
     }
     
     func updateRightButton() {
