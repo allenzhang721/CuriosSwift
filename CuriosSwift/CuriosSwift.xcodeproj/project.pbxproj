@@ -15,6 +15,7 @@
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
+		2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */; };
 		2C1825D61B2802DB00F3B59E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1825D51B2802DB00F3B59E /* Request.swift */; };
 		2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1825D71B28031400F3B59E /* Alamofire.framework */; };
 		2C1825DA1B28103B00F3B59E /* user in Resources */ = {isa = PBXBuildFile; fileRef = 2C1825D91B28103B00F3B59E /* user */; };
@@ -147,6 +148,7 @@
 		2C0BB48A1B2AD4B4007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2C0BB4C21B2AD99B007C18AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2C0BB4C41B2AD9A8007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
 		2C1825D51B2802DB00F3B59E /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2C1825D71B28031400F3B59E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/Alamofire.framework"; sourceTree = "<group>"; };
 		2C1825D91B28103B00F3B59E /* user */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
+				2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */,
 				2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
@@ -772,6 +775,7 @@
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
+				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2CD3AF8C1B12C5C3008319A8 /* BooksManager.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,

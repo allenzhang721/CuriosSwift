@@ -24,29 +24,32 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j81-Ur-aiY">
-                        <rect key="frame" x="232" y="8" width="55" height="55"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Animation_DropIn" translatesAutoresizingMaskIntoConstraints="NO" id="aJg-6H-i6A">
+                        <rect key="frame" x="216" y="4" width="63" height="63"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="55" id="5de-tw-HUD"/>
-                            <constraint firstAttribute="height" constant="55" id="dtl-mM-JcB"/>
+                            <constraint firstAttribute="width" constant="63" id="IvF-09-BqP"/>
+                            <constraint firstAttribute="height" constant="63" id="jD2-Bq-jOR"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstAttribute="centerY" secondItem="j81-Ur-aiY" secondAttribute="centerY" id="2Ck-5S-nhV"/>
+                    <constraint firstItem="aJg-6H-i6A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="Eex-rA-UoR"/>
                     <constraint firstAttribute="bottomMargin" secondItem="SxX-wZ-41t" secondAttribute="bottom" constant="17" id="Rm5-kR-I85"/>
                     <constraint firstItem="SxX-wZ-41t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Vfy-1g-4fm"/>
+                    <constraint firstItem="aJg-6H-i6A" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="XZa-pO-JdX"/>
                     <constraint firstItem="SxX-wZ-41t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="h0j-kz-85l"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="j81-Ur-aiY" secondAttribute="trailing" constant="-8" id="zaW-Pt-edy"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="iconImageView" destination="j81-Ur-aiY" id="4Fy-yv-zKz"/>
+                <outlet property="iconImageView" destination="aJg-6H-i6A" id="9ES-uX-4Dy"/>
                 <outlet property="titleLabel" destination="SxX-wZ-41t" id="yYO-J8-Tz6"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Animation_DropIn" width="100" height="100"/>
+    </resources>
 </document>

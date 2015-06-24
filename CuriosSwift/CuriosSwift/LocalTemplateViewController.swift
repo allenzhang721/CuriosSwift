@@ -56,7 +56,6 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
         
         let selectedTemplate = TemplatesManager.instanShare.templateList[indexPath.item]
         let templateId = selectedTemplate.bookID
-        
         let newTemplateId = UniqueIDString()
         let userId = UsersManager.shareInstance.getUserID()
         let userURL = temporaryDirectory(userId)

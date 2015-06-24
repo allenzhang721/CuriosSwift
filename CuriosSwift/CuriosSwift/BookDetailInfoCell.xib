@@ -24,10 +24,14 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EKu-f9-iQs">
-                        <rect key="frame" x="143" y="6" width="144" height="59"/>
+                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKu-f9-iQs">
+                        <rect key="frame" x="143" y="25" width="144" height="24"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="144" id="9kM-nZ-55i"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="rxw-46-en1"/>
+                        </constraints>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -35,7 +39,11 @@
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="EKu-f9-iQs" secondAttribute="trailing" constant="-8" id="Hbu-ZI-UvW"/>
+                    <constraint firstItem="EKu-f9-iQs" firstAttribute="leading" secondItem="HRz-2k-JZ2" secondAttribute="trailing" constant="26" id="QeV-LZ-6FG"/>
                     <constraint firstItem="HRz-2k-JZ2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Vh5-vF-UX7"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="EKu-f9-iQs" secondAttribute="bottom" constant="14" id="Von-wo-XIo"/>
+                    <constraint firstItem="EKu-f9-iQs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="hBs-Lw-9Md"/>
                     <constraint firstAttribute="bottomMargin" secondItem="HRz-2k-JZ2" secondAttribute="bottom" constant="17" id="s2f-SZ-RTk"/>
                     <constraint firstItem="HRz-2k-JZ2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="wle-GF-Z6N"/>
                 </constraints>

@@ -67,7 +67,7 @@
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="g6Z-I8-PgP"/>
+                                                        <constraint firstAttribute="height" constant="56" id="g6Z-I8-PgP"/>
                                                     </constraints>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitodioque civiuda.</string>
                                                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -85,15 +85,15 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="H2u-B2-PlT" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="12" id="0vX-PS-OoF"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="1gf-x6-Z2f"/>
+                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="2" id="1gf-x6-Z2f"/>
                                                 <constraint firstItem="pjm-jv-21R" firstAttribute="leading" secondItem="B5b-hP-79G" secondAttribute="leadingMargin" id="7Km-U8-qtv"/>
                                                 <constraint firstItem="6Os-hC-1LI" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="12" id="8a8-YA-rEv"/>
                                                 <constraint firstItem="H2u-B2-PlT" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="BA4-pl-cbG"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="top" secondItem="6Os-hC-1LI" secondAttribute="bottom" constant="6" id="E3q-02-eM3"/>
+                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="top" secondItem="6Os-hC-1LI" secondAttribute="bottom" constant="5" id="E3q-02-eM3"/>
                                                 <constraint firstItem="pjm-jv-21R" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="LJ5-aT-8eg"/>
                                                 <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="Gqc-6s-1LM" secondAttribute="bottom" id="NSj-P3-8CY"/>
                                                 <constraint firstItem="Gqc-6s-1LM" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="gh4-ef-DQm"/>
-                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="Gqc-6s-1LM" secondAttribute="bottom" constant="6" id="hfc-nT-azG"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="Gqc-6s-1LM" secondAttribute="bottom" id="hfc-nT-azG"/>
                                                 <constraint firstItem="6Os-hC-1LI" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="ho2-Ug-Y0h"/>
                                                 <constraint firstItem="6Os-hC-1LI" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="i5I-wc-s3f"/>
                                             </constraints>

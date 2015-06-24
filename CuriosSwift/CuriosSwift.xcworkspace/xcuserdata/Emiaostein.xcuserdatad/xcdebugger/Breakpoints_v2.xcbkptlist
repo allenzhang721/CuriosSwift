@@ -4,51 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/PreviewViewController.swift"
-            timestampString = "456744321.503652"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "deinit"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CuriosSwift.PreviewViewController.__deallocating_deinit"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/PreviewViewController.swift"
-                  timestampString = "456746268.395689"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "@objc CuriosSwift.PreviewViewController.__deallocating_deinit"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/PreviewViewController.swift"
-                  timestampString = "456746268.395888"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

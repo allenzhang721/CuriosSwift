@@ -471,8 +471,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     func settingAction(sender: UIButton) {
         
         if let bookdetailNavigationController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("bookdetailNavigationController") as? UINavigationController,
-            let bookdetailController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("BookDetailViewController") as? BookDetailViewController {
+            let bookdetailController = bookdetailNavigationController.topViewController as? BookDetailViewController {
                 
+                bookdetailController.bookModel = bookModel
                 presentViewController(bookdetailNavigationController, animated: true, completion: nil)
         }
     }

@@ -24,9 +24,10 @@ class BookModel: Model, IFile {
     var height = 1008
     var title = "New Book"
     var desc = ""
+    var icon = "images/icon.jpg"
+    var background = "images/background.jpg"
     var flipDirection: FlipDirections = .ver
     var flipType: FlipTypes = .bb
-    var background = ""
     var backgroundMusic = ""
     var pagesPath = "/Pages"
     var autherID = ""
@@ -43,9 +44,10 @@ class BookModel: Model, IFile {
             "height" : "MainHeight",
             "title" : "MainTitle",
             "desc" : "MainDesc",
+//            "background" : "MainBackground",
+//            "icon": "Icon",
             "flipDirection" : "FlipDirection",
             "flipType" : "FlipType",
-            "background" : "MainBackground",
             "backgroundMusic" : "MainMusic",
             "pagesPath" : "PagesPath",
             "autherID" : "AutherID",
