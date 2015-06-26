@@ -53,17 +53,28 @@ class PreviewViewController: UIViewController {
     }
     
     func publish(sender: UIBarButtonItem) {
-
-        let request = TokenRequest.requestWithComponents(["upload/publishUptoken"], aJsonParameter: nil) {[unowned self] JSON -> Void in
+        
+        if let upload = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("UploadSettingViewController") as? UploadSettingViewController {
             
-            println(JSON)
+            view.addSubview(upload.view)
             
-            if let aToken = JSON["uptoken"] as? String {
-                self.getPublishID(aToken)
-            }
+            upload.view.center = CGPointMake(160, 200)
+        
         }
         
-        request.sendRequest()
+        
+        
+
+//        let request = TokenRequest.requestWithComponents(["upload/publishUptoken"], aJsonParameter: nil) {[unowned self] JSON -> Void in
+//            
+//            println(JSON)
+//            
+//            if let aToken = JSON["uptoken"] as? String {
+//                self.getPublishID(aToken)
+//            }
+//        }
+//        
+//        request.sendRequest()
 
     }
     

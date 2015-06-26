@@ -31,6 +31,7 @@
 		2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427011B2A9B36007FF1DE /* EffectPannel.swift */; };
 		2C5427041B2A9B85007FF1DE /* FontPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427031B2A9B85007FF1DE /* FontPannel.swift */; };
 		2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54ADF21B097B8700B0D460 /* SmallLayout.swift */; };
+		2C5D46B91B3CF1A4001D77FF /* UploadSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */; };
 		2C6162981B294878005B9EA4 /* ToolsPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6162971B294878005B9EA4 /* ToolsPannel.swift */; };
 		2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DCFA1B161020006249D8 /* BookListModel.swift */; };
 		2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD301B16920D006249D8 /* TemplateListModel.swift */; };
@@ -164,6 +165,7 @@
 		2C5427011B2A9B36007FF1DE /* EffectPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectPannel.swift; sourceTree = "<group>"; };
 		2C5427031B2A9B85007FF1DE /* FontPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPannel.swift; sourceTree = "<group>"; };
 		2C54ADF21B097B8700B0D460 /* SmallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLayout.swift; sourceTree = "<group>"; };
+		2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingViewController.swift; sourceTree = "<group>"; };
 		2C6162971B294878005B9EA4 /* ToolsPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsPannel.swift; sourceTree = "<group>"; };
 		2C63DCFA1B161020006249D8 /* BookListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListModel.swift; sourceTree = "<group>"; };
 		2C63DD301B16920D006249D8 /* TemplateListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateListModel.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
 				2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */,
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
+				2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CF293531B32C03D00539F76 /* Independent.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
@@ -810,6 +813,7 @@
 				2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */,
 				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2CBC16C21B15D53E00F46541 /* TemplatesManager.swift in Sources */,
+				2C5D46B91B3CF1A4001D77FF /* UploadSettingViewController.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
 				2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */,
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
@@ -1017,6 +1021,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1059,6 +1064,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

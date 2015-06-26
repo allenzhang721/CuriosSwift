@@ -28,7 +28,6 @@ class BookDetailViewController: UIViewController {
         
         let userID = UsersManager.shareInstance.getUserID()
         
-        
         let bookID = bookModel.Id
         let iconPath = bookModel.icon
         let url = temporaryDirectory(userID, bookID, iconPath)
