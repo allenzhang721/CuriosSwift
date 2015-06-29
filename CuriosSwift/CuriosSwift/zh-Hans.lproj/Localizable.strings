@@ -42,6 +42,13 @@ Moveforward     = "前移";
 MoveBack        = "后移";
 Lock            = "锁定";
 
+// Font
+LeftAlignment       = "左对齐";
+CenterAlignment       = "居中";
+RightAlignment       = "右对齐";
+FontSizePlus       = "字体加";
+FontSizeSubstract       = "字体减";
+
 // Preview
 Pubish          = "发布";
 Share           = "分享";

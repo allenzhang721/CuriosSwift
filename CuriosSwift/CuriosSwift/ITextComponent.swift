@@ -10,5 +10,8 @@ import Foundation
 
 protocol ITextComponent: IComponent {
     
+    func setFontAligement(aligement: Int)
+    func setFontSize(plus: Bool)
+    
     //    var componentModel: ComponentModel{get set}
 }
