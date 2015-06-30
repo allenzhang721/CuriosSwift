@@ -8,13 +8,32 @@
 
 import UIKit
 
-class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeDelegate {
+class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate {
    
     var componentModel: ComponentModel
     var contentText: String = "New Text" {
         didSet {
             componentModel.attributes["contentText"] = contentText
-            self.attributedText = NSAttributedString(string: contentText)
+            self.attributedString = NSAttributedString(string: contentText)
+        }
+    }
+    
+    var fontsName: String = "RTWSYueGoG0v1-UltLight" {
+        
+        didSet {
+            componentModel.attributes["FontsName"] = fontsName
+            let style = NSMutableParagraphStyle()
+            if textAligement == 0 {
+                style.alignment = NSTextAlignment.Left
+            } else if textAligement == 1 {
+                style.alignment = NSTextAlignment.Center
+            } else {
+                style.alignment = NSTextAlignment.Right
+            }
+            
+            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
+                NSParagraphStyleAttributeName: style]
+            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
         }
     }
     
@@ -31,9 +50,9 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
                 style.alignment = NSTextAlignment.Right
             }
             
-            let attribute = [NSFontAttributeName: UIFont.systemFontOfSize(fontsSize),
+            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
                 NSParagraphStyleAttributeName: style]
-            attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
         }
     }
     
@@ -48,28 +67,10 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
             } else {
                 style.alignment = NSTextAlignment.Right
             }
-            let attribute = [NSFontAttributeName: UIFont.systemFontOfSize(fontsSize),
+            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
                 NSParagraphStyleAttributeName: style]
-            attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
         }
-    }
-    
-    var fontName: String = "" {
-        didSet {
-            componentModel.attributes["fontName"] = fontName
-            let style = NSMutableParagraphStyle()
-            if textAligement == 0 {
-                style.alignment = NSTextAlignment.Left
-            } else if textAligement == 1 {
-                style.alignment = NSTextAlignment.Center
-            } else {
-                style.alignment = NSTextAlignment.Right
-            }
-            let attribute = [NSFontAttributeName: UIFont.systemFontOfSize(fontsSize),
-                NSParagraphStyleAttributeName: style]
-            attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
-        }
-        
     }
     
     
@@ -91,6 +92,10 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
             textAligement = 0
         }
         
+        if let aFontsName = componentModel.attributes["FontsName"] as? String {
+            fontsName = aFontsName
+        }
+        
         let style = NSMutableParagraphStyle()
         if textAligement == 0 {
             style.alignment = NSTextAlignment.Left
@@ -99,25 +104,23 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
         } else {
             style.alignment = NSTextAlignment.Right
         }
-        let attribute = [NSFontAttributeName: UIFont.systemFontOfSize(fontsSize),
+        let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
             NSParagraphStyleAttributeName: style]
         
-        self.attributedText = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
-        delegate = self
+        attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+//        delegate = self
     }
     
 // MARK: - ITextComponent
     
     func iBecomeFirstResponder() {
         userInteractionEnabled = true
-        becomeFirstResponder()
     }
     func iResignFirstResponder() {
         userInteractionEnabled = false
-        resignFirstResponder()
     }
     func iIsFirstResponder() -> Bool {
-        return isFirstResponder()
+        return false
     }
     
     func setFontAligement(aligement: Int) {
@@ -133,6 +136,11 @@ class ComponentTextNode: ASEditableTextNode, ITextComponent, ASEditableTextNodeD
         } else {
             fontsSize -= 1.0
         }
+    }
+    
+    func settFontsName(name: String) {
+        
+        fontsName = name
     }
     
     private func myString(fontSize: Int) {

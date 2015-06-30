@@ -22,6 +22,9 @@ class PannelFactory {
         case .Font:
             return FontPannel()
             
+        case .FontAttribute:
+            return FontAttributePannel()
+            
         case .FontSize:
             
             return FontsizePannel()

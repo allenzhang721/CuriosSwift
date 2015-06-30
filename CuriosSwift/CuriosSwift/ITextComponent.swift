@@ -12,6 +12,7 @@ protocol ITextComponent: IComponent {
     
     func setFontAligement(aligement: Int)
     func setFontSize(plus: Bool)
+    func settFontsName(name: String)
     
     //    var componentModel: ComponentModel{get set}
 }

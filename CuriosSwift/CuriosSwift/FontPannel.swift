@@ -2,7 +2,7 @@
 //  FontPannel.swift
 //  
 //
-//  Created by Emiaostein on 6/12/15.
+//  Created by Emiaostein on 6/29/15.
 //
 //
 
@@ -12,13 +12,10 @@ class FontPannel: Pannel {
     
     let items: [Item] = {
         
-        let iconAndTitle = [
-            "LeftAlignment",
-            "CenterAlignment",
-            "RightAlignment",
-            "FontSizePlus",
-            "FontSizeSubstract"
-        ]
+        let iconAndTitle = FontsManager.share.getFontsList().map { fontInfo -> String in
+            
+            return fontInfo.fontName
+        }
         
         let aItems = iconAndTitle.map { key -> Item in
             
@@ -27,23 +24,7 @@ class FontPannel: Pannel {
             let titleName = NSLocalizedString(key, comment: "title")
             let action: IContainer? -> Void = { container in
                 if let aComponent = container!.component as? ITextComponent {
-                    switch name {
-                        
-                        case "LeftAlignment":
-                        aComponent.setFontAligement(0)
-                    case "CenterAlignment":
-                        aComponent.setFontAligement(1)
-                    case "RightAlignment":
-                        aComponent.setFontAligement(2)
-                    case "FontSizePlus":
-                        aComponent.setFontSize(true)
-                    case "FontSizeSubstract":
-                        aComponent.setFontSize(false)
-                        
-                    default:
-                        return
-                    }
-//                    aContainer.setAnimationWithName(name)
+                    aComponent.settFontsName(name)
                 }
             }
             let item = Item(name: name, iconName: iconName, titleName: titleName, action: action)
@@ -73,7 +54,7 @@ class FontPannel: Pannel {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 
 // MARK: - DataSource and Delegate
@@ -82,7 +63,7 @@ extension FontPannel: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return items.count
+        return FontsManager.share.getFontsList().count
     }
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -91,7 +72,7 @@ extension FontPannel: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("fontPannel", forIndexPath: indexPath) as! PannelCell
         
         let item = items[indexPath.item]
-        let image = UIImage(named: item.iconName)!
+        let image = UIImage(named: "Font_LeftAlignment")!
         cell.setImage(image, title: item.titleName)
         cell.updateSelected()
         

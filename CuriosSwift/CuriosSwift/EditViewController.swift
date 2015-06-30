@@ -18,7 +18,7 @@ import SnapKit
     data[j] = temp
 }
 
-class EditViewController: UIViewController, IPageProtocol {
+class EditViewController: UIViewController, IPageProtocol, preViewControllerProtocol {
     
     enum ToolState {
         case willSelect
@@ -68,7 +68,8 @@ class EditViewController: UIViewController, IPageProtocol {
         "addText": "Editor_Text",
         "preview": "Editor_Preview",
         "effects": "Editor_Effects",
-        "font" : "Editor_Text",
+        "fontName": "Editor_FontName",
+        "fontAttribute" : "Editor_Text",
         "typography": "Editor_Typography",
         "animation": "Editor_Animation",
         "interact": "Editor_Interact"
@@ -81,7 +82,8 @@ class EditViewController: UIViewController, IPageProtocol {
         "addText": "addTextAction:",
         "preview": "previewAction:",
         "effects": "effectsAction:",
-        "font" : "fontAction:",
+        "fontName": "fontNameAction:",
+        "fontAttribute" : "fontAction:",
         "typography": "typographyAction:",
         "animation": "animationAction:",
         "interact": "interactActtion:"
@@ -101,7 +103,7 @@ class EditViewController: UIViewController, IPageProtocol {
     
     var textBarItems: [UIBarButtonItem] {
         
-        let itemsKey = ["effects", "font", "typography", "animation", "interact"]
+        let itemsKey = ["effects", "fontName", "fontAttribute", "typography", "animation", "interact"]
         return getBarButtonItem(itemsKey)
     }
     
@@ -452,6 +454,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                        if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
                         let prev = preeviewNavigationC.topViewController as? PreviewViewController {
                             prev.bookId = bookid
+                            prev.delegate = self
                             presentViewController(preeviewNavigationC, animated: true, completion: nil)
                         }
                     }
@@ -488,10 +491,19 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         })
     }
     
+    func fontNameAction(sender: UIButton) {
+        toolState = .didSelect
+        pannel.setupSubPannelWithType(.Font)
+        view.setNeedsUpdateConstraints()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     func fontAction(sender: UIButton) {
         
         toolState = .didSelect
-        pannel.setupSubPannelWithType(.Font)
+        pannel.setupSubPannelWithType(.FontAttribute)
         view.setNeedsUpdateConstraints()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -772,6 +784,13 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         })
     }
+    
+    // MARK: - PreviewController delegate
+    func previewControllerGetBookModel(controller: PreviewViewController) -> BookModel {
+        
+        return bookModel
+    }
+    
     
     // MARK: - Gesture Delegate
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {

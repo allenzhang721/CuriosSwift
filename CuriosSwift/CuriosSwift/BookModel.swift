@@ -68,9 +68,10 @@ class BookModel: Model, IFile {
     
     func saveBookInfo() {
         
-        let bookJson = NSJSONSerialization.dataWithJSONObject(self, options: NSJSONWritingOptions(0), error: nil)
+        let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
+        let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
         let main = filePath.stringByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
-        bookJson?.writeToFile(main, atomically: true)
+        data?.writeToFile(main, atomically: true)
     }
     
     func savePagesInfo() {

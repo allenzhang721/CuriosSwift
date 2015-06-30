@@ -17,6 +17,7 @@ enum PannelType {
     
     case Effect
     case Font
+    case FontAttribute
     case FontSize
     case Typography
     case Animation

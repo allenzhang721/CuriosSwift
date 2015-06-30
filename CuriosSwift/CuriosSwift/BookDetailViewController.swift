@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookDetailViewController: UIViewController {
+class BookDetailViewController: UIViewController,UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -158,6 +158,15 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
                     aInputVC.delegate = self
                     navigationController?.pushViewController(aInputVC, animated: true)
                 }
+            } else if row == 0 {
+                
+                var imagePickerController = UIImagePickerController()
+                imagePickerController.delegate = self
+                imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+                imagePickerController.allowsEditing = true
+                self.presentViewController(imagePickerController, animated: true, completion: { imageP in
+                    
+                })
             }
         }
     }
@@ -172,12 +181,22 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         
         tableView.reloadData()
     }
+}
+
+extension BookDetailViewController: UIImagePickerControllerDelegate {
     
-    
-    
-    
-    
-    
-    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+        let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        let coverURL = temporaryDirectory(userID, bookModel.Id, "images", "icon.jpg")
+        
+        imageData.writeToURL(coverURL, atomically: true)
+        
+        tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }

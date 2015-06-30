@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         didload();
         loadViewController()
-        
+        FontsManager.share.registerLocalFonts()
         let string = NSLocalizedString("TEST", comment: "国际化的语言测试")
     }
 }
