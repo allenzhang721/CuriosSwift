@@ -26,7 +26,7 @@ enum PannelType {
 
 enum PannelEvent {
     
-    case FontNameChanged, FontAligementChanged
+    case FontNameChanged, FontAligementChanged, FontColorSetting
 }
 
 class Pannel: UIView {

@@ -103,7 +103,15 @@ extension FontAttributePannel: UICollectionViewDataSource, UICollectionViewDeleg
             cell.updateSelected()
             if let aDelegate = delegate {
                 let item = items[indexPath.item]
-                item.action(aDelegate.pannelGetContainer())
+                
+                
+                if indexPath.item == 3 {
+                    
+                    aDelegate.pannelDidSendEvent(.FontColorSetting, object: nil)
+                } else {
+                     item.action(aDelegate.pannelGetContainer())
+                }
+               
             }
             
         }

@@ -106,7 +106,8 @@ extension TypographyPannel: UICollectionViewDataSource, UICollectionViewDelegate
             cell.updateSelected()
             if let aDelegate = delegate {
                 let item = items[indexPath.item]
-                item.action(aDelegate.pannelGetContainer())
+                    item.action(aDelegate.pannelGetContainer())
+                
             }
         }
     }

@@ -14,6 +14,7 @@ protocol ITextComponent: IComponent {
     func setFontSize(plus: Bool)
     func settFontsName(name: String) -> CGSize
     func setTextContent(text: String) -> CGSize
+    func setTextColor(colorDic: [String: CGFloat])
     func getAttributeText() -> NSAttributedString
     
     //    var componentModel: ComponentModel{get set}

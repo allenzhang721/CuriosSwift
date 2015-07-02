@@ -90,10 +90,13 @@ extension FontPannel: UICollectionViewDataSource, UICollectionViewDelegate {
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PannelCell {
             cell.updateSelected()
             if let aDelegate = delegate {
-                let item = items[indexPath.item]
-                let fontName = item.name
-                aDelegate.pannelDidSendEvent(.FontNameChanged, object: fontName)
-//                item.action(aDelegate.pannelGetContainer())
+                    
+                    let item = items[indexPath.item]
+                    let fontName = item.name
+                    aDelegate.pannelDidSendEvent(.FontNameChanged, object: fontName)
+                    //                item.action(aDelegate.pannelGetContainer())
+                
+
             }
             
         }

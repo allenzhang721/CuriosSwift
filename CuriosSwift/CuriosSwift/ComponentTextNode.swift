@@ -14,18 +14,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
     var contentText: String = "New Text" {
         didSet {
             componentModel.attributes["contentText"] = contentText
-            let style = NSMutableParagraphStyle()
-            if textAligement == 0 {
-                style.alignment = NSTextAlignment.Left
-            } else if textAligement == 1 {
-                style.alignment = NSTextAlignment.Center
-            } else {
-                style.alignment = NSTextAlignment.Right
-            }
-            
-            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
-                NSParagraphStyleAttributeName: style]
-            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            setAttributeText()
         }
     }
     
@@ -33,18 +22,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         
         didSet {
             componentModel.attributes["FontsName"] = fontsName
-            let style = NSMutableParagraphStyle()
-            if textAligement == 0 {
-                style.alignment = NSTextAlignment.Left
-            } else if textAligement == 1 {
-                style.alignment = NSTextAlignment.Center
-            } else {
-                style.alignment = NSTextAlignment.Right
-            }
-            
-            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
-                NSParagraphStyleAttributeName: style]
-            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            setAttributeText()
         }
     }
     
@@ -52,39 +30,25 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         
         didSet {
             componentModel.attributes["aligement"] = textAligement
-            let style = NSMutableParagraphStyle()
-            if textAligement == 0 {
-                style.alignment = NSTextAlignment.Left
-            } else if textAligement == 1 {
-                style.alignment = NSTextAlignment.Center
-            } else {
-                style.alignment = NSTextAlignment.Right
-            }
-            
-            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
-                NSParagraphStyleAttributeName: style]
-            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            setAttributeText()
         }
     }
     
     var fontsSize: CGFloat = 30 {
         didSet {
             componentModel.attributes["fontSize"] = fontsSize
-            let style = NSMutableParagraphStyle()
-            if textAligement == 0 {
-                style.alignment = NSTextAlignment.Left
-            } else if textAligement == 1 {
-                style.alignment = NSTextAlignment.Center
-            } else {
-                style.alignment = NSTextAlignment.Right
-            }
-            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
-                NSParagraphStyleAttributeName: style]
-            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+            setAttributeText()
         }
     }
     
-    
+    var fontColor: [String: CGFloat] = ["red": 255.0, "blue": 255.0, "green": 255.0, "alpha": 1.0] {
+        
+        didSet {
+            componentModel.attributes["fontColor"] = fontColor
+            setAttributeText()
+        }
+        
+    }
     
     required init(aComponentModel: ComponentModel) {
         self.componentModel = aComponentModel
@@ -107,18 +71,12 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
             fontsName = aFontsName
         }
         
-        let style = NSMutableParagraphStyle()
-        if textAligement == 0 {
-            style.alignment = NSTextAlignment.Left
-        } else if textAligement == 1 {
-            style.alignment = NSTextAlignment.Center
-        } else {
-            style.alignment = NSTextAlignment.Right
+        if let aFontsColor = componentModel.attributes["fontColor"] as? [String: CGFloat] {
+            fontColor = aFontsColor
+            
         }
-        let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
-            NSParagraphStyleAttributeName: style]
         
-        attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+        setAttributeText()
 //        delegate = self
     }
     
@@ -193,6 +151,34 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         let size = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
         let aSize = attributedString.boundingRectWithSize(size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil).size
         return aSize
+    }
+    
+    func setTextColor(colorDic: [String: CGFloat]) {
+        
+        fontColor = colorDic
+    }
+    
+    func setAttributeText() {
+        
+        let style = NSMutableParagraphStyle()
+        if textAligement == 0 {
+            style.alignment = NSTextAlignment.Left
+        } else if textAligement == 1 {
+            style.alignment = NSTextAlignment.Center
+        } else {
+            style.alignment = NSTextAlignment.Right
+        }
+        
+        let red = fontColor["red"]!
+        let blue = fontColor["blue"]!
+        let green = fontColor["green"]!
+        let alpha = fontColor["alpha"]!
+        
+        let color = UIColor(red: red / 255.0, green: green / 255.0, blue: blue / 255.0, alpha: alpha)
+        
+        let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
+            NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: color]
+        attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
     }
     
 }

@@ -68,6 +68,8 @@
 		2C92EA7E1B413F5200ABFABB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C92EA7D1B413F5200ABFABB /* CoreText.framework */; };
 		2C92EA801B413F6A00ABFABB /* Font in Resources */ = {isa = PBXBuildFile; fileRef = 2C92EA7F1B413F6A00ABFABB /* Font */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
+		2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0343F1B4572C000EFA603 /* ColorPickView.swift */; };
+		2CA034421B45734F00EFA603 /* ColorPickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CA034411B45734F00EFA603 /* ColorPickView.xib */; };
 		2CA8F08D1B391D050063E964 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F08C1B391D050063E964 /* TokenRequest.swift */; };
 		2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */; };
 		2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */; };
@@ -211,6 +213,8 @@
 		2C92EA7D1B413F5200ABFABB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2C92EA7F1B413F6A00ABFABB /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
+		2CA0343F1B4572C000EFA603 /* ColorPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickView.swift; sourceTree = "<group>"; };
+		2CA034411B45734F00EFA603 /* ColorPickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickView.xib; sourceTree = "<group>"; };
 		2CA8F08C1B391D050063E964 /* TokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishIDRequest.swift; sourceTree = "<group>"; };
 		2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishFileRequest.swift; sourceTree = "<group>"; };
@@ -469,6 +473,8 @@
 				2CF293A21B33B46900539F76 /* BookDetailInfoCell.xib */,
 				2CE121E21B45434200FB10C5 /* TextInputView.swift */,
 				2CE121E41B45436400FB10C5 /* TextInputView.xib */,
+				2CA0343F1B4572C000EFA603 /* ColorPickView.swift */,
+				2CA034411B45734F00EFA603 /* ColorPickView.xib */,
 				2C00AA3C1B2E6A2F00B718B9 /* PannelCell.swift */,
 				2C6D58931B2AC132002CFC3F /* TypographyPannel.swift */,
 				2C6D58911B2A9E20002CFC3F /* AnimationPannel.swift */,
@@ -739,6 +745,7 @@
 				2CF293A01B33B43400539F76 /* BookDetailImageCell.xib in Resources */,
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
+				2CA034421B45734F00EFA603 /* ColorPickView.xib in Resources */,
 				2C1825DA1B28103B00F3B59E /* user in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,6 +860,7 @@
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */,
 				2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */,
+				2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */,
 				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,

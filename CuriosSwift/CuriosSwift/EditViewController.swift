@@ -622,6 +622,18 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 }
             }
             
+        case .FontColorSetting:
+            if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent {
+                atextComponent.setTextColor(["red": 100.0, "blue": 200.0, "green": 255.0, "alpha": 1.0])
+//                aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
+//                
+//                if !maskAttributes.isEmpty {
+//                    
+//                    let mask = maskAttributes[0]
+//                    mask.setMaskSize(size)
+//                }
+            }
+            
         default:
             return
         }
