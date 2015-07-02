@@ -82,16 +82,14 @@ extension PageCollectionViewCell {
         pageModel.addContainer(aContainerModel)
         
         if let aContentNode = contentNode {
-            let realWidth: CGFloat = 400.0
-            let realHeight: CGFloat = 400.0
+            let realWidth = aContainerModel.width
+            let realHeight = aContainerModel.height
             let centerX = contentNodeCenter.x
             let centerY = contentNodeCenter.y
             let x = centerX - realWidth / 2.0
             let y = centerY - realHeight / 2.0
             aContainerModel.x = centerX
             aContainerModel.y = centerY
-            aContainerModel.width = realWidth
-            aContainerModel.height = realHeight
 
             let containerNode = getContainerWithModel(aContainerModel)
             containerNode.page = self
@@ -241,7 +239,31 @@ extension PageCollectionViewCell {
     
     private func respondToDoubleTapLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
         
-        return false
+        if let aDelegate = delegate {
+            
+            let reverseContainers = containers.reverse()
+            var find = false
+            
+            for container in reverseContainers {
+                if container.responderToLocation(location, onTargetView: targetView) {
+//                    deselectedAllContainers()
+                    aDelegate.pageDidDoubleSelected(self, doubleSelectedContainer: container)
+                    find = true
+                    break
+                }
+            }
+            
+            return find
+            
+//            if find {
+//                deselectedAllContainers()
+//                aDelegate.didEndEdit(self)
+//            }
+            
+        } else {
+            
+            return false
+        }
     }
     
     private func respondToLongPressLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
@@ -255,7 +277,8 @@ extension PageCollectionViewCell {
             let position = contentNodeView?.convertPoint(container.containerPostion, toView: targetView)
             let size = container.containerSize
             let rotation = container.containerRotation
-            aDelegate.pageDidSelected(self, selectedContainer: container, position: position!, size: size, rotation: rotation, inTargetView: targetView)
+            let aRatio = size.height / size.width
+            aDelegate.pageDidSelected(self, selectedContainer: container, position: position!, size: size, rotation: rotation, ratio: aRatio, inTargetView: targetView)
         }
         selectedContainers.append(container)
     }

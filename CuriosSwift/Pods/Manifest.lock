@@ -29,6 +29,7 @@ PODS:
   - Qiniu (7.0.11):
     - AFNetworking (~> 2.0)
   - SnapKit (0.10.0)
+  - SVProgressHUD (1.1.3)
 
 DEPENDENCIES:
   - Alamofire (~> 1.2.0)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - pop (~> 1.0.7)
   - Qiniu (~> 7.0)
   - SnapKit (~> 0.10.0)
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -46,5 +48,6 @@ SPEC CHECKSUMS:
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Qiniu: 70c3364afbc6993989edaf3da4a784c7d5ad296b
   SnapKit: 53696873f2cf84a15e8d7d0d9729ed4381196b16
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
 COCOAPODS: 0.36.0.beta.1

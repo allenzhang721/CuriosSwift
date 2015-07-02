@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A4C9BC2113B2602B3059B90"
+               BlueprintIdentifier = "68713BC4B363EE34FD415562"
                BuildableName = "Qiniu.framework"
                BlueprintName = "Pods-CuriosSwift-Qiniu"
                ReferencedContainer = "container:Pods.xcodeproj">

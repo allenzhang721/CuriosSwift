@@ -10,8 +10,9 @@ import Foundation
 
 protocol IPageProtocol: NSObjectProtocol {
     
-    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView)
+    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView)
     func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer])
+    func pageDidDoubleSelected(page: IPage, doubleSelectedContainer: IContainer)
     func shouldMultiSelection() -> Bool
     func didEndEdit(page: IPage)
 }

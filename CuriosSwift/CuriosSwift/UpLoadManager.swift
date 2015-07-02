@@ -11,6 +11,7 @@ import Qiniu
 
 final class UpLoadManager {
     
+    typealias UploadProgressBlock = (Int, Int, CGFloat) -> Void  //total, finishedCount, progress
     typealias UploadCompletedBlock = ([String : Bool], Bool) -> Void  //results, completed
     private var canceled = false
     private var completeCount = 0
@@ -18,12 +19,14 @@ final class UpLoadManager {
     private let token: String // token
     private let fileKeys: [String : String] // [key : filePath]
     private let completeHandler: UploadCompletedBlock
+    private let progressHandler: UploadProgressBlock?
     private let uploadMananger = QNUploadManager.sharedInstanceWithConfiguration(nil)
 
-    init(aFileKeys: [String : String], aToken: String, aCompleteHandler: UploadCompletedBlock) {
+    init(aFileKeys: [String : String], aToken: String, aProgressHandler: UploadProgressBlock?, aCompleteHandler: UploadCompletedBlock) {
         fileKeys = aFileKeys
         token = aToken
         completeHandler = aCompleteHandler
+        progressHandler = aProgressHandler
     }
     
     func cancel() {
@@ -51,6 +54,7 @@ final class UpLoadManager {
                 println("response = \(response)")
                 self.results[key] = (response != nil) ? true : false
                 self.completeCount++
+                self.progressHandler?(totalCount, self.completeCount, (CGFloat(self.completeCount) / CGFloat(totalCount)))
                 println("count = \(self.completeCount)")
                 if self.completeCount == totalCount {
                     var results = self.results

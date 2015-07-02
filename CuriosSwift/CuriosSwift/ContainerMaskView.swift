@@ -66,12 +66,14 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     var willDeletedTargetContainer = false
     
     var currentCenter = CGPointZero
+    var ratio: CGFloat = 0.0 // height / width
     
-    init(postion: CGPoint, size: CGSize, rotation: CGFloat) {
+    init(postion: CGPoint, size: CGSize, rotation: CGFloat, aRatio: CGFloat) {
         angle = rotation
         super.init(frame: CGRectZero)
         self.center = postion
         currentCenter = postion
+        ratio = aRatio
         self.bounds.size = size
         self.transform = CGAffineTransformMakeRotation(rotation)
         self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.1)
@@ -109,27 +111,33 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setMaskSize(size: CGSize) {
+        
+        bounds.size = size
+        setNeedsDisplay()
+    }
+    
     func setupPannel() {
         
         let resizePannelImage = UIImage(named: "Editor_ResizePannel")
         resizePannel = UIImageView(image: resizePannelImage)
         resizePannel.bounds.size = CGSizeMake(40, 40)
         resizePannel.center = CGPointMake(bounds.width, bounds.height)
-        resizePannel.backgroundColor = UIColor.blackColor()
+//        resizePannel.backgroundColor = UIColor.blackColor()
         addSubview(resizePannel)
         
         let rotationPannelImage = UIImage(named: "Editor_RotationPannel")
         rotationPannel = UIImageView(image: rotationPannelImage)
         rotationPannel.bounds.size = CGSizeMake(40, 40)
         rotationPannel.center = CGPointMake(bounds.width, 0)
-        rotationPannel.backgroundColor = UIColor.blackColor()
+//        rotationPannel.backgroundColor = UIColor.blackColor()
         addSubview(rotationPannel)
         
         let deletePannelImage = UIImage(named: "Editor_DeletePannel")
         deletePannel = UIImageView(image: deletePannelImage)
         deletePannel.bounds.size = CGSizeMake(40, 40)
         deletePannel.center = CGPointMake(0, bounds.height)
-        deletePannel.backgroundColor = UIColor.blackColor()
+//        deletePannel.backgroundColor = UIColor.blackColor()
         addSubview(deletePannel)
     }
     
@@ -245,7 +253,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
             bounds.size.height = beginSize.height + heightDel
             
             if let aContainer = container {
-                aContainer.setResize(bounds.size, center: CGPointZero)
+                aContainer.setResize(bounds.size, center: CGPointZero, resizeComponent: true, scale: false)
             }
             
         case .Ended, .Changed:
@@ -307,29 +315,32 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 currentCenter = center
                 
             case .Resize:
-                let sizeDel = sender.translationInView(self)
-                let centerDel = sender.translationInView(superview!)
+                let translationX = sender.translationInView(self).x
+                let delX = translationX
+                let delY = delX * ratio
+                let sizeDel = CGPointMake(delX, delY)
+//                let centerDel = sender.translationInView(superview!)
                 let width = bounds.size.width + sizeDel.x
                 let height = bounds.size.height + sizeDel.y
                 
                 let realWidth = width <= 50 ? 50 : width
                 let realHeight = height <= 50 ? 50 : height
                 
-                let delCenX = width <= 50 ? 0 : centerDel.x / 2.0
-                let delCenY = height <= 50 ? 0 : centerDel.y / 2.0
+//                let delCenX = width <= 50 ? 0 : centerDel.x / 2.0
+//                let delCenY = height <= 50 ? 0 : centerDel.y / 2.0
                 
-                let centerX = center.x + delCenX
-                let centerY = center.y + delCenY
+//                let centerX = center.x + delCenX
+//                let centerY = center.y + delCenY
                 
-                bounds.size.width = realWidth
+                bounds.size.width = realWidth // 对于屏幕的大小
                 bounds.size.height = realHeight
-                center.x = centerX
-                center.y = centerY
+//                center.x = centerX
+//                center.y = centerY
                 
                 currentCenter = center
                 
                 if let aContainer = container {
-                    aContainer.setResize(CGSize(width: realWidth, height: realHeight), center: CGPoint(x: delCenX, y: delCenY))
+                    aContainer.setResize(CGSize(width: realWidth, height: realHeight), center: CGPoint(x: 0, y: 0), resizeComponent: true, scale: false)
                 }
                 
             case .Rotaion:
@@ -376,9 +387,9 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
 // MARK: - IMaskAttributeSetter 
 extension ContainerMaskView {
     
-    static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat) -> IMaskAttributeSetter {
+    static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat, aRatio: CGFloat) -> IMaskAttributeSetter {
         
-        return ContainerMaskView(postion: postion, size: size, rotation: rotation)
+        return ContainerMaskView(postion: postion, size: size, rotation: rotation, aRatio: aRatio)
     }
     
     func setDelegate(aDelegate: IMaskAttributeSetterProtocol) {

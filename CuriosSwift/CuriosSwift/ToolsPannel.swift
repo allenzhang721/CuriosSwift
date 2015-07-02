@@ -63,4 +63,8 @@ extension ToolsPannel: PannelProtocol {
     func pannelGetContainer() -> IContainer? {
         return delegate?.pannelGetContainer()
     }
+    
+    func pannelDidSendEvent(event: PannelEvent, object: AnyObject?) -> Void {
+         delegate?.pannelDidSendEvent(event, object: object)
+    }
 }

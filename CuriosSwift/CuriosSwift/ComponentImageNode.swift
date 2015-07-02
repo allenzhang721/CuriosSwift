@@ -24,6 +24,10 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         clipsToBounds = true
     }
     
+    func resizeScale(scale: CGFloat) {
+        
+    }
+    
     // MARK: - IComponent
     func iBecomeFirstResponder(){}
     func iResignFirstResponder(){}

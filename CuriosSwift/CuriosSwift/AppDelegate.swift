@@ -8,6 +8,7 @@
 
 import UIKit
 import Mantle
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         registerShareSDK();
         createBaseDirectory();
+        
+        SVProgressHUD.setBackgroundColor(UIColor.clearColor())
+        SVProgressHUD.setForegroundColor(UIColor(red:0.26, green:0.52, blue:0.82, alpha:1))
+        
         return true
     }
     

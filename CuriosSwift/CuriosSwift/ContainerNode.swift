@@ -224,15 +224,23 @@ class ContainerNode: ASDisplayNode, IContainer {
         containerModel.y += translation.y / aspectRatio
     }
     
-    func setResize(size: CGSize, center: CGPoint) {
+    func setResize(size: CGSize, center: CGPoint, resizeComponent: Bool = false, scale: Bool = false) {
         
         bounds.size = size
         position.x += center.x
         position.y += center.y
-        containerModel.width = size.width / aspectRatio
-        containerModel.height = size.height / aspectRatio
+        
+        let width = !scale ? size.width / aspectRatio : size.width
+        let height = !scale ? size.height / aspectRatio : size.height
+        
+        let aScale = (width) / containerModel.width
+        
+        containerModel.width = width
+        containerModel.height = height
         containerModel.x = frame.origin.x / aspectRatio
         containerModel.y = frame.origin.y / aspectRatio
+        
+        if resizeComponent { component.resizeScale(aScale) }
     }
     
     func setRotation(incrementAngle: CGFloat) {

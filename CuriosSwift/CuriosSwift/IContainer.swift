@@ -24,7 +24,8 @@ protocol IContainer: NSObjectProtocol {
     func isFirstResponder() -> Bool
     
     func setTransation(translation: CGPoint)
-    func setResize(size: CGSize, center: CGPoint)
+//    func setResize(size: CGSize, center: CGPoint)
+    func setResize(size: CGSize, center: CGPoint, resizeComponent: Bool, scale: Bool)
     func setRotation(angle: CGFloat)
     func removed()
     

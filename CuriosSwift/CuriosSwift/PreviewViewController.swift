@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol preViewControllerProtocol: NSObjectProtocol {
     
@@ -17,6 +18,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     
     typealias RequestCompeletedBlock = (String?) -> Void
     typealias uploadCompletedBlock = (Bool) -> Void
+    typealias aUploadProgressBlock = (CGFloat) -> Void
     
     enum PreviewType {
         case Local, Internet
@@ -72,22 +74,11 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
             uploadVC.delegate = self
             presentViewController(uploadNavi, animated: true, completion: nil)
         }
-        
-        
-//        let request = TokenRequest.requestWithComponents(["upload/publishUptoken"], aJsonParameter: nil) {[unowned self] JSON -> Void in
-//            
-//            println(JSON)
-//            
-//            if let aToken = JSON["uptoken"] as? String {
-//                self.getPublishID(aToken)
-//            }
-//        }
-//        
-//        request.sendRequest()
-
     }
     
     func begainUpload() {
+        
+        SVProgressHUD.showProgress(0.01, status: "0%")
         
         // 1. get publishID
         getPublishID {[unowned self] (publishID) -> Void in
@@ -107,23 +98,45 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
                             if successed {
                                 println("3. upload icon success")
                                 
-                                self.getPublishToken({[unowned self] (publishToken) -> Void in
+                                self.getPublishToken({[unowned self] (thePublishToken) -> Void in
                                     
                                     // 5. upload html5
-                                    if let apublishToken = publishToken {
+                                    if let apublishToken = thePublishToken {
                                         println("4. get publish token success")
                                         
-                                        self.uploadHtml(aPublishID, publishToken: apublishToken, uploadCompletedHandler: { [unowned self] (successed) -> Void in
+                                        println(apublishToken)
+                                        self.uploadHtml(aPublishID, publishToken: apublishToken, uploadProgressHandler: { [unowned self] (progress) -> Void in
+                                            
+                                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                                
+                                                SVProgressHUD.showProgress(Float(progress), status: "\(floor(progress * 100))%")
+                                            })
+                                            
+                                        }, uploadCompletedHandler: { (successed) -> Void in
                                             
                                             // 6. upload file info
                                             if successed {
                                                 println("5. upload html5 success")
-                                                self.uploadhtmlInfo(aPublishID, uploadCompletedHandler: { [unowned self](successed) -> Void in
+                                                
+                                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                                     
+                                                    SVProgressHUD.showProgress(1, status: "success!")
+                                                    
+                                                    let time: NSTimeInterval = 0.5
+                                                    let delay = dispatch_time(DISPATCH_TIME_NOW,
+                                                        Int64(time * Double(NSEC_PER_SEC)))
+                                                    dispatch_after(delay, dispatch_get_main_queue()) {
+                                                        
+                                                        SVProgressHUD.dismiss()
+                                                    }
+                                                })
+                                                
+                                                self.uploadhtmlInfo(aPublishID, uploadCompletedHandler: { [unowned self](successed) -> Void in
+
                                                     if successed {
                                                         println("6. upload file info success")
                                                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                                            
+
                                                             self.type = .Internet
                                                         })
                                                     }
@@ -136,10 +149,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
                         })
                     }
                 })
-                
             }
         }
-        
     }
     
     func getPublishID(compeletedHandler: RequestCompeletedBlock) {
@@ -177,7 +188,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
         let filePath = coverURL.path!
         let fileDic: [String: String] = [fileKey: filePath]
         
-        imageLoader = UpLoadManager(aFileKeys: fileDic, aToken: aImageToken, aCompleteHandler: { [unowned self] (result, successed) -> Void in
+        imageLoader = UpLoadManager(aFileKeys: fileDic, aToken: aImageToken, aProgressHandler: nil, aCompleteHandler: { [unowned self] (result, successed) -> Void in
             
             println(result)
             uploadCompletedHandler(successed)
@@ -197,7 +208,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
         request.sendRequest()
     }
     
-    func uploadHtml(publishID: String, publishToken: String, uploadCompletedHandler: uploadCompletedBlock) {
+    func uploadHtml(publishID: String, publishToken: String, uploadProgressHandler: aUploadProgressBlock, uploadCompletedHandler: uploadCompletedBlock) {
         
         
         let userID = UsersManager.shareInstance.getUserID()
@@ -206,18 +217,13 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
         let aPublishID = publishID
         let fileKeys = UpLoadManager.getFileKeys(bookURL, rootDirectoryName: "CuriosPreview", bookId: bookId, publishID: publishID, userDirectoryName: userID)
         
-        self.uploader = UpLoadManager(aFileKeys: fileKeys, aToken: publishToken, aCompleteHandler: { [unowned self] (result, successed) -> Void in
+        self.uploader = UpLoadManager(aFileKeys: fileKeys, aToken: publishToken, aProgressHandler: {[unowned self] (total, compeletedCount, progress) -> Void in
             
-            uploadCompletedHandler(successed)
-//            if successed {
-//                self.publishFile(aPublishID)
-//                dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
-//                    
-//                    self.type = .Internet
-//                    })
-//            } else {
-//                println("upload fail: \(result)")
-//            }
+            uploadProgressHandler(progress)
+            
+            }, aCompleteHandler: { [unowned self] (result, successed) -> Void in
+                
+                uploadCompletedHandler(successed)
             })
         
         self.uploader?.start()

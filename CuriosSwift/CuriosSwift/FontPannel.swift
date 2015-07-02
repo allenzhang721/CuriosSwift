@@ -10,24 +10,30 @@ import UIKit
 
 class FontPannel: Pannel {
     
-    let items: [Item] = {
+    let items: [EventItem] = {
         
         let iconAndTitle = FontsManager.share.getFontsList().map { fontInfo -> String in
             
             return fontInfo.fontName
         }
         
-        let aItems = iconAndTitle.map { key -> Item in
+        let aItems = iconAndTitle.map { key -> EventItem in
             
             let name = key
             let iconName = "Font_" + key
             let titleName = NSLocalizedString(key, comment: "title")
-            let action: IContainer? -> Void = { container in
-                if let aComponent = container!.component as? ITextComponent {
-                    aComponent.settFontsName(name)
-                }
+            let action: () -> () = {
+//                if let aComponent = container!.component as? ITextComponent {
+//                
+//                if let aDelegate = self.delegate {
+//
+//                }
+                
+//                   let size = aComponent.settFontsName(name)
+//                    container!.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
+//                }
             }
-            let item = Item(name: name, iconName: iconName, titleName: titleName, action: action)
+            let item = EventItem(name: name, iconName: iconName, titleName: titleName, action: action)
             
             return item
         }
@@ -85,7 +91,9 @@ extension FontPannel: UICollectionViewDataSource, UICollectionViewDelegate {
             cell.updateSelected()
             if let aDelegate = delegate {
                 let item = items[indexPath.item]
-                item.action(aDelegate.pannelGetContainer())
+                let fontName = item.name
+                aDelegate.pannelDidSendEvent(.FontNameChanged, object: fontName)
+//                item.action(aDelegate.pannelGetContainer())
             }
             
         }

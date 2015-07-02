@@ -11,6 +11,7 @@ import UIKit
 protocol PannelProtocol: NSObjectProtocol {
     
     func pannelGetContainer() -> IContainer?
+    func pannelDidSendEvent(event: PannelEvent, object: AnyObject?) -> Void
 }
 
 enum PannelType {
@@ -21,6 +22,11 @@ enum PannelType {
     case FontSize
     case Typography
     case Animation
+}
+
+enum PannelEvent {
+    
+    case FontNameChanged, FontAligementChanged
 }
 
 class Pannel: UIView {

@@ -107,6 +107,8 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
         return getBarButtonItem(itemsKey)
     }
     
+    var textInputView: TextInputView?
+    
     func getBarButtonItem(itemsKey: [String]) -> [UIBarButtonItem] {
         var items = [UIBarButtonItem]()
         for akey in itemsKey {
@@ -138,6 +140,8 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
         view.addSubview(pannel)
         
         setupConstraints()
+        
+        addKeyboardNotification()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -161,6 +165,7 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     
     deinit {
         
+        removeKeyboardNotification()
     }
     
     override func updateViewConstraints() {
@@ -175,6 +180,8 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
+        
+        println("Double")
         if let currentIndexPath = getCurrentIndexPath() {
             
             if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
@@ -363,13 +370,19 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let indexPath = getCurrentIndexPath() {
             
             if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
-                
-
 
                 let textComponentModel = TextContentModel()
                 textComponentModel.type = .Text
-                textComponentModel.attributes = ["contentText": "New Text"]
+                textComponentModel.attributes = ["contentText": "双击\n修改", "FontsName": "RTWSYueGoG0v1-UltLight", "fontSize": 40, "aligement": 1]
+                
+                let size = defaultTextSize()
+                println(size)
                 let aContainer = ContainerModel()
+                aContainer.width = size.width * 3
+                aContainer.height = size.height * 3
+                
+                println(aContainer.width)
+                println(aContainer.height)
                 aContainer.component = textComponentModel
                 page.addContainer(aContainer)
                 page.saveInfo()
@@ -390,7 +403,31 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
     }
     
-    
+    func defaultTextSize() -> CGSize {
+        
+        let textTextContent = NSString(string: "双击\n修改")
+        let font = UIFont.systemFontOfSize(40)
+        let size = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
+        
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        
+        let textFontAttributes = [
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSParagraphStyleAttributeName: textStyle
+        ]
+        
+        let rect = textTextContent.boundingRectWithSize(
+            size,
+            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+            attributes: textFontAttributes,
+            context: nil
+        )
+        
+        return rect.size
+    }
+
     
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
@@ -569,6 +606,28 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         return currentEditContainer
     }
     
+    func pannelDidSendEvent(event: PannelEvent, object: AnyObject?) -> Void {
+        
+        switch event {
+            
+        case .FontNameChanged:
+            if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent, let name = object as? String {
+                let size = atextComponent.settFontsName(name)
+                    aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
+                
+                if !maskAttributes.isEmpty {
+                    
+                    let mask = maskAttributes[0]
+                    mask.setMaskSize(size)
+                }
+            }
+            
+        default:
+            return
+        }
+        
+    }
+    
     // MARK: - SmallLayout Delegate
     
     func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath) {
@@ -678,9 +737,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - Ipage Protocol
     
-    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, inTargetView: UIView) {
+    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView) {
         
-        let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation)
+        let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation, aRatio: ratio)
         mask.setTarget(selectedContainer)
         mask.setDelegate(self)
         if let aMask = mask as? UIView {
@@ -713,6 +772,32 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 }
             }
         }
+    }
+    
+    func pageDidDoubleSelected(page: IPage, doubleSelectedContainer: IContainer) {
+        
+        
+        
+        if let aTextComponent = doubleSelectedContainer.component as? ITextComponent {
+            
+            if textInputView == nil {
+                
+                textInputView = UINib(nibName: "TextInputView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TextInputView
+                
+                view.addSubview(textInputView!)
+                textInputView?.alpha = 0
+                
+                let attribute = aTextComponent.getAttributeText()
+                textInputView?.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
+
+                    self.editTextContent(string, container: doubleSelectedContainer, textCompoent: aTextComponent)
+                })
+            }
+            
+//            println("pageDidDoubleSelected ITextComponent")
+//            editTextContent(doubleSelectedContainer, textCompoent: aTextComponent)
+        }
+        
     }
     
     func shouldMultiSelection() -> Bool {
@@ -822,6 +907,86 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             return true
         }
     }
+}
+
+// MARK: - TextEdit
+extension EditViewController {
+    
+    func editTextContent(string: String, container: IContainer, textCompoent: ITextComponent) {
+        
+       let size = textCompoent.setTextContent(string)
+        container.setResize(CGSize(width: size.width , height: size.height + 10 ), center: CGPointZero, resizeComponent: false, scale: false)
+        
+        if !maskAttributes.isEmpty {
+            
+            let mask = maskAttributes[0]
+            mask.setMaskSize(size)
+        }
+    }
+}
+
+// MARK: - UIKeyBoard
+
+extension EditViewController {
+    
+    func addKeyboardNotification() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification() {
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+//        println(notification)
+        let point = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        let bottom = point.CGRectValue().size.height
+//        println("bottom = \(bottom)")
+        let edges = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+        textInputView?.snp_makeConstraints({ [unowned self] (make) -> Void in
+            make.edges.equalTo(self.view).insets(edges)
+            })
+        textInputView?.alpha = 0
+        
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            
+            self.textInputView?.alpha = 1
+        })
+    }
+    
+    func keyboardWillHidden(notification: NSNotification) {
+        
+        if textInputView != nil {
+            
+            textInputView?.alpha = 1
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                
+                self.textInputView?.alpha = 0
+                
+            }, completion: { (finished) -> Void in
+                
+                if finished {
+                    self.textInputView?.removeFromSuperview()
+                    self.textInputView = nil
+                }
+            })
+//            UIView.animateWithDuration(0.25, animations: { () -> Void in
+//                
+//                self.textInputView.apha = 0
+//            }, completion: { (finished) -> Void in
+//                
+//                if finished {
+//                    self.textInputView?.removeFromSuperview()
+//                    textInputView = nil
+//                }
+//            })
+        }
+    }
+    
 }
 
 

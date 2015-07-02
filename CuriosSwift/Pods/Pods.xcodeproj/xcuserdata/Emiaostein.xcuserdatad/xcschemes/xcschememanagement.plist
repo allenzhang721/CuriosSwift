@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-CuriosSwift-SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CuriosSwift-SnapKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,42 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0D82AF62F1309F15B435C38F</key>
+		<key>05DA4CCB2B7382984242524C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>14FCB774EF2B773E4C2B9703</key>
+		<key>070586C33076F4B3D052BEDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A4C9BC2113B2602B3059B90</key>
+		<key>68713BC4B363EE34FD415562</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>500DD9DD0530B7DDD8A713CB</key>
+		<key>B98373A92B3D64CC64261AFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>63028D0C6D9069E1E9EBE5B0</key>
+		<key>BFBFECD1D2582FC0A1D0C15D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8BC766297A97A3CC45BE821B</key>
+		<key>C7BB74CF4F3F9DA50EE577B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C412A6079FF5A8329AB08446</key>
+		<key>D8395A37DB3D8297DCB17B13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB732CE9A82F1EEFBF0BAAE3</key>
+		<key>E8ED77B84952A6292B6E7CA9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F06DC81AB2937BE04D0BAACB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -15,3 +15,11 @@ struct Item {
     let titleName: String
     let action: IContainer? -> Void
 }
+
+struct EventItem {
+    
+    let name: String
+    let iconName: String
+    let titleName: String
+    let action: () -> ()
+}

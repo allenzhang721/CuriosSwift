@@ -17,12 +17,12 @@ protocol IMaskAttributeSetter: IAttributeSetter {
     
 //    weak var delegate: IMaskAttributeSetterProtocol?{get set}
     
-    
+    func setMaskSize(size: CGSize)
     func setDelegate(aDelegate: IMaskAttributeSetterProtocol)
     func cancelDelegate()
     
     var currentCenter: CGPoint {get}
-  static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat) -> IMaskAttributeSetter
+    static func createMask(postion: CGPoint, size: CGSize, rotation: CGFloat, aRatio: CGFloat) -> IMaskAttributeSetter
     
     func remove()
 }

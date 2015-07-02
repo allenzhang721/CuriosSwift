@@ -221,7 +221,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iZq-bP-c7n">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iZq-bP-c7n">
                                 <rect key="frame" x="0.0" y="64" width="600" height="546"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90980392156862744" green="0.92156862745098034" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -246,7 +246,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Launch_Screen" translatesAutoresizingMaskIntoConstraints="NO" id="PeM-Ie-cnO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cover" translatesAutoresizingMaskIntoConstraints="NO" id="PeM-Ie-cnO">
                                                     <rect key="frame" x="10" y="8" width="82" height="130"/>
                                                     <animations/>
                                                 </imageView>
@@ -270,10 +270,10 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iZq-bP-c7n" firstAttribute="bottom" secondItem="8Vh-bJ-y0E" secondAttribute="top" id="8QM-Ir-aJl"/>
+                            <constraint firstItem="iZq-bP-c7n" firstAttribute="bottom" secondItem="8Vh-bJ-y0E" secondAttribute="top" constant="10" id="8QM-Ir-aJl"/>
                             <constraint firstAttribute="trailing" secondItem="iZq-bP-c7n" secondAttribute="trailing" id="YWL-nJ-g8I"/>
                             <constraint firstItem="iZq-bP-c7n" firstAttribute="leading" secondItem="ZZX-d9-ejl" secondAttribute="leading" id="bJC-DT-P1Q"/>
-                            <constraint firstItem="iZq-bP-c7n" firstAttribute="top" secondItem="ZZX-d9-ejl" secondAttribute="top" id="k6Y-nB-PXq"/>
+                            <constraint firstItem="iZq-bP-c7n" firstAttribute="top" secondItem="ZZX-d9-ejl" secondAttribute="top" constant="64" id="k6Y-nB-PXq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="选取模版" id="Q0Q-k9-o7P">
@@ -715,6 +715,7 @@
         <image name="Launch_Logo" width="190" height="60"/>
         <image name="Launch_Screen" width="320" height="568"/>
         <image name="Template_Back" width="19" height="15"/>
+        <image name="cover" width="82" height="130"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

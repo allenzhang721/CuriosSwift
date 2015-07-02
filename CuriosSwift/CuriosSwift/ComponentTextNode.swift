@@ -14,7 +14,18 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
     var contentText: String = "New Text" {
         didSet {
             componentModel.attributes["contentText"] = contentText
-            self.attributedString = NSAttributedString(string: contentText)
+            let style = NSMutableParagraphStyle()
+            if textAligement == 0 {
+                style.alignment = NSTextAlignment.Left
+            } else if textAligement == 1 {
+                style.alignment = NSTextAlignment.Center
+            } else {
+                style.alignment = NSTextAlignment.Right
+            }
+            
+            let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
+                NSParagraphStyleAttributeName: style]
+            attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
         }
     }
     
@@ -56,7 +67,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         }
     }
     
-    var fontsSize: CGFloat = 12 {
+    var fontsSize: CGFloat = 30 {
         didSet {
             componentModel.attributes["fontSize"] = fontsSize
             let style = NSMutableParagraphStyle()
@@ -84,7 +95,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         if let afontsSize = componentModel.attributes["fontSize"] as? CGFloat {
             fontsSize = afontsSize
         } else {
-            fontsSize = 14
+            fontsSize = 30
         }
         if let aTextAligement = componentModel.attributes["aligement"] as? Int {
             textAligement = aTextAligement
@@ -138,16 +149,52 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         }
     }
     
-    func settFontsName(name: String) {
+    func settFontsName(name: String) -> CGSize {
         
         fontsName = name
+        
+        return textSize()
     }
     
-    private func myString(fontSize: Int) {
+    func setTextContent(text: String) -> CGSize {
         
+        contentText = text
+        
+        return textSize()
+    }
+    
+    func resizeScale(scale: CGFloat) {
+        
+        fontsSize = fontsSize * scale
         
         
     }
+    
+    func getAttributeText() -> NSAttributedString {
+        
+        let style = NSMutableParagraphStyle()
+        if textAligement == 0 {
+            style.alignment = NSTextAlignment.Left
+        } else if textAligement == 1 {
+            style.alignment = NSTextAlignment.Center
+        } else {
+            style.alignment = NSTextAlignment.Right
+        }
+        
+        let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: 20)!,
+            NSParagraphStyleAttributeName: style]
+        let aAttributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
+        
+        return aAttributedString
+    }
+    
+    func textSize() -> CGSize {
+        
+        let size = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
+        let aSize = attributedString.boundingRectWithSize(size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil).size
+        return aSize
+    }
+    
 }
 
 extension ComponentTextNode {

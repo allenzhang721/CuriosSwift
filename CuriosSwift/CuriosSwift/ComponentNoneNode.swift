@@ -17,6 +17,10 @@ class ComponentNoneNode: ASDisplayNode, IComponent {
         super.init()
     }
     
+    func resizeScale(scale: CGFloat) {
+        
+    }
+    
     // MARK: - IComponent 
     func iBecomeFirstResponder(){}
     func iResignFirstResponder(){}
