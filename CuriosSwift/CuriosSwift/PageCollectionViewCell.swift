@@ -331,7 +331,7 @@ extension PageCollectionViewCell {
             if let strongSelf = self {
                 
                 let content: (ASDisplayNode, [IContainer]) = strongSelf.getContainerNodesWithPageModel(aPageModel)
-                content.0.backgroundColor = UIColor.orangeColor()
+                content.0.backgroundColor = UIColor.whiteColor()
                 content.0.clipsToBounds = true
                 
                 if operation.cancelled {

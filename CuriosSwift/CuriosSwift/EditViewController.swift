@@ -108,6 +108,7 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     }
     
     var textInputView: TextInputView?
+    var colorPickView: ColorPickView?
     
     func getBarButtonItem(itemsKey: [String]) -> [UIBarButtonItem] {
         var items = [UIBarButtonItem]()
@@ -624,14 +625,43 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         case .FontColorSetting:
             if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent {
-                atextComponent.setTextColor(["red": 100.0, "blue": 200.0, "green": 255.0, "alpha": 1.0])
-//                aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
-//                
-//                if !maskAttributes.isEmpty {
-//                    
-//                    let mask = maskAttributes[0]
-//                    mask.setMaskSize(size)
-//                }
+                
+                colorPickView = UINib(nibName: "ColorPickView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? ColorPickView
+
+                colorPickView?.setDidSelectedBlock({ (colorDic) -> Void in
+                    
+                    atextComponent.setTextColor(colorDic)
+                })
+                
+                colorPickView?.setdissmissBlock({[unowned self] () -> () in
+                    
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        
+                        self.colorPickView?.alpha = 0.0
+                        
+                    }, completion: { (finished) -> Void in
+                        
+                        self.colorPickView?.removeFromSuperview()
+                        self.colorPickView = nil
+                    })
+                })
+                
+                view.addSubview(colorPickView!)
+                colorPickView?.alpha = 0.0
+                
+                colorPickView!.snp_makeConstraints({[unowned self] (make) -> Void in
+                    
+                    make.height.equalTo(149)
+                    make.left.right.bottom.equalTo(self.view)
+                })
+                
+                
+                
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    
+                    self.colorPickView?.alpha = 1.0
+                })
+
             }
             
         default:
@@ -898,8 +928,17 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             let location = gesture.locationInView(bottomToolBar)
             let locationinPannel = gesture.locationInView(pannel)
+            
             if CGRectContainsPoint(bottomToolBar.bounds, location) || CGRectContainsPoint(pannel.bounds, locationinPannel) {
                 return false
+            }
+            
+            if let aColorPickView = colorPickView {
+                
+                let locationInColorPick = gesture.locationInView(aColorPickView)
+                if CGRectContainsPoint(aColorPickView.bounds, locationInColorPick) {
+                    return false
+                }
             }
             
             return self.collectionView.collectionViewLayout is NormalLayout ? true : false
@@ -1276,6 +1315,19 @@ extension EditViewController {
             })
             
             bottomToolBar.deselected()
+            
+            if let acolorPick = colorPickView {
+                
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    
+                    acolorPick.alpha = 0.0
+                    
+                    }, completion: { (finished) -> Void in
+                        
+                        acolorPick.removeFromSuperview()
+                        self.colorPickView = nil
+                })
+            }
             
         default:
             return

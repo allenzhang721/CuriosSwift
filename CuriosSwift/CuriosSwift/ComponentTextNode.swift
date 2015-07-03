@@ -41,7 +41,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         }
     }
     
-    var fontColor: [String: CGFloat] = ["red": 255.0, "blue": 255.0, "green": 255.0, "alpha": 1.0] {
+    var fontColor: [String: CGFloat] = ["red": 0, "blue": 0, "green":0, "alpha": 1.0] {
         
         didSet {
             componentModel.attributes["fontColor"] = fontColor
@@ -174,7 +174,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         let green = fontColor["green"]!
         let alpha = fontColor["alpha"]!
         
-        let color = UIColor(red: red / 255.0, green: green / 255.0, blue: blue / 255.0, alpha: alpha)
+        let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
         
         let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
             NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: color]
