@@ -12,16 +12,18 @@ class FontPannel: Pannel {
     
     let items: [EventItem] = {
         
-        let iconAndTitle = FontsManager.share.getFontsList().map { fontInfo -> String in
+        let iconAndTitle = FontsManager.share.getFontsList().map { fontInfo -> [String:String] in
             
-            return fontInfo.fontName
+            return ["name":fontInfo.fontName, "titleName": fontInfo.fontTitle]
         }
         
-        let aItems = iconAndTitle.map { key -> EventItem in
+        let aItems = iconAndTitle.map { dic -> EventItem in
             
+            let key = dic["name"]!
+            let title = dic["titleName"]!
             let name = key
             let iconName = "Font_" + key
-            let titleName = NSLocalizedString(key, comment: "title")
+            let titleName = title
             let action: () -> () = {
 //                if let aComponent = container!.component as? ITextComponent {
 //                
@@ -47,7 +49,7 @@ class FontPannel: Pannel {
         layout.minimumLineSpacing = 0.0
         layout.itemSize = CGSize(width: 80, height: 85)
         let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
-        collectionView.registerClass(PannelCell.self, forCellWithReuseIdentifier: "fontPannel")
+        collectionView.registerClass(FontCollectionViewCell.self, forCellWithReuseIdentifier: "fontPannel")
         collectionView.allowsSelection = true
         return collectionView
         }()
@@ -75,29 +77,29 @@ extension FontPannel: UICollectionViewDataSource, UICollectionViewDelegate {
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("fontPannel", forIndexPath: indexPath) as! PannelCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("fontPannel", forIndexPath: indexPath) as! FontCollectionViewCell
         
         let item = items[indexPath.item]
-        let image = UIImage(named: "Font_LeftAlignment")!
-        cell.setImage(image, title: item.titleName)
-        cell.updateSelected()
+        let fontName = item.name
+        cell.fontLabel.font = UIFont(name: fontName, size: 17)
+        cell.titleLabel.text = item.titleName
         
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PannelCell {
-            cell.updateSelected()
-            if let aDelegate = delegate {
-                    
-                    let item = items[indexPath.item]
-                    let fontName = item.name
-                    aDelegate.pannelDidSendEvent(.FontNameChanged, object: fontName)
-                    //                item.action(aDelegate.pannelGetContainer())
-                
-
-            }
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? FontCollectionViewCell {
+//            cell.updateSelected()
+        }
+        
+        if let aDelegate = delegate {
+            
+            let item = items[indexPath.item]
+            let fontName = item.name
+            aDelegate.pannelDidSendEvent(.FontNameChanged, object: fontName)
+            //                item.action(aDelegate.pannelGetContainer())
+            
             
         }
     }

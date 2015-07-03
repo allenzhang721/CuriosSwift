@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CuriosSwift/FontCollectionViewCell.swift">
+   </FileRef>
+   <FileRef
+      location = "group:CuriosSwift/ColorPickCollectionViewCell.swift">
+   </FileRef>
+   <FileRef
       location = "group:CuriosSwift/ColorPickView.swift">
    </FileRef>
    <FileRef

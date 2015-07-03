@@ -15,7 +15,7 @@
                    "Component": {
                    "ComponentType": "Image",
                    "ComponentData": {
-                   "ImagePath": "/images/aaaa.jpeg",
+                   "ImagePath": "/images/aaaa.jpg",
                    "ImageFilter": {
                    "FilterType": "black",
                    "FilterData": {}

@@ -11,4 +11,6 @@ import Foundation
 protocol IImageComponent: IComponent {
     
     //    var componentModel: ComponentModel{get set}
+    func getImageID() -> String
+    func updateImage()
 }

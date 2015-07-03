@@ -57,6 +57,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     var controlStyle: ControlStyle = .None
     var angle: CGFloat = 0.0
     
+    var settingPannel: UIImageView!
     var resizePannel: UIImageView!
     var rotationPannel: UIImageView!
     var deletePannel: UIImageView!
@@ -104,6 +105,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         resizePannel.center = CGPointMake(bounds.width, bounds.height)
         rotationPannel.center = CGPointMake(bounds.width, 0)
         deletePannel.center = CGPointMake(0, bounds.height)
+        settingPannel.center = CGPointMake(0, 0)
     }
     
     
@@ -118,6 +120,13 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
     }
     
     func setupPannel() {
+        
+        let settingPannelImage = UIImage(named: "Editor_SettingPannel")
+        settingPannel = UIImageView(image: settingPannelImage)
+        settingPannel.bounds.size = CGSizeMake(40, 40)
+        settingPannel.center = CGPointMake(0, 0)
+        //        resizePannel.backgroundColor = UIColor.blackColor()
+        addSubview(settingPannel)
         
         let resizePannelImage = UIImage(named: "Editor_ResizePannel")
         resizePannel = UIImageView(image: resizePannelImage)
@@ -163,11 +172,10 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
             let resizePannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
             let rotationPannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
             let deletePannel = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
-            return union(deletePannel, union(rotationPannel, (union(rec, resizePannel))))(point)
+            let setPannel = retangle(CGSizeMake(40, 40), CGPointMake(0, 0))
+            return union(setPannel ,union(deletePannel, union(rotationPannel, (union(rec, resizePannel)))))(point)
         }
     }
-    
-    
     
 //    func panAction(sender: UIPanGestureRecognizer) {
 //        
@@ -192,6 +200,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         let point = sender.locationInView(self)
         
         let deleteRegion = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
+        let settingRegion = retangle(CGSizeMake(40, 40), CGPointMake(0, 0))
         
         if deleteRegion(point) {
             
@@ -199,7 +208,13 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 willDeletedTargetContainer = true
                 aDelegate.maskAttributeWillDeleted(self)
             }
+        } else if settingRegion(point) {
+            
+            if let aDelegate = delegate {
+                aDelegate.maskAttributeWillSetting(self)
+            }
         }
+        
     }
     
     func rotaionAction(sender: UIRotationGestureRecognizer) {

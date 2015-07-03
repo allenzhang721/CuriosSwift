@@ -41,7 +41,7 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         }
     }
     
-    var fontColor: [String: CGFloat] = ["red": 0, "blue": 0, "green":0, "alpha": 1.0] {
+    var fontColor: String = "#FFFFFF" {
         
         didSet {
             componentModel.attributes["fontColor"] = fontColor
@@ -71,13 +71,12 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
             fontsName = aFontsName
         }
         
-        if let aFontsColor = componentModel.attributes["fontColor"] as? [String: CGFloat] {
+        if let aFontsColor = componentModel.attributes["fontColor"] as? String {
             fontColor = aFontsColor
             
         }
         
         setAttributeText()
-//        delegate = self
     }
     
 // MARK: - ITextComponent
@@ -128,6 +127,11 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         
     }
     
+    func getTextColor() -> String {
+        
+        return fontColor
+    }
+    
     func getAttributeText() -> NSAttributedString {
         
         let style = NSMutableParagraphStyle()
@@ -153,9 +157,9 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         return aSize
     }
     
-    func setTextColor(colorDic: [String: CGFloat]) {
+    func setTextColor(colorHex: String) {
         
-        fontColor = colorDic
+        fontColor = colorHex
     }
     
     func setAttributeText() {
@@ -169,18 +173,12 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
             style.alignment = NSTextAlignment.Right
         }
         
-        let red = fontColor["red"]!
-        let blue = fontColor["blue"]!
-        let green = fontColor["green"]!
-        let alpha = fontColor["alpha"]!
-        
-        let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        let color = UIColor(hexString: fontColor)!
         
         let attribute = [NSFontAttributeName: UIFont(name: fontsName, size: fontsSize)!,
             NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: color]
         attributedString = NSAttributedString(string: componentModel.attributes["contentText"] as! String, attributes: attribute)
     }
-    
 }
 
 extension ComponentTextNode {

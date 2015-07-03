@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="149"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Yzy-0l-8sr">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Yzy-0l-8sr">
                     <rect key="frame" x="0.0" y="64" width="600" height="85"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -19,11 +19,11 @@
                         <constraint firstAttribute="height" constant="85" id="lkD-E2-sIc"/>
                     </constraints>
                     <inset key="scrollIndicatorInsets" minX="0.0" minY="25" maxX="0.0" maxY="25"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="25" id="4up-Zs-PfB">
-                        <size key="itemSize" width="35" height="35"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="26" minimumInteritemSpacing="10" id="4up-Zs-PfB">
+                        <size key="itemSize" width="25" height="25"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                        <inset key="sectionInset" minX="30" minY="10" maxX="30" maxY="10"/>
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rH5-R7-6Kg">
@@ -46,14 +46,23 @@
                                 <action selector="dismissAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="DNk-cJ-CT6"/>
                             </connections>
                         </button>
+                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejd-9q-miL">
+                            <rect key="frame" x="0.0" y="63" width="600" height="1"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="sXe-Kf-Ciu" firstAttribute="baseline" secondItem="mAj-Jb-7yz" secondAttribute="baseline" id="8aE-Yj-qWS"/>
+                        <constraint firstAttribute="bottom" secondItem="ejd-9q-miL" secondAttribute="bottom" id="Qg9-mj-KQL"/>
+                        <constraint firstItem="ejd-9q-miL" firstAttribute="top" secondItem="mAj-Jb-7yz" secondAttribute="bottom" constant="16" id="YJL-qk-xlt"/>
                         <constraint firstItem="mAj-Jb-7yz" firstAttribute="trailing" secondItem="rH5-R7-6Kg" secondAttribute="trailingMargin" id="agY-2c-YkT"/>
+                        <constraint firstItem="ejd-9q-miL" firstAttribute="leading" secondItem="rH5-R7-6Kg" secondAttribute="leading" id="fnS-rt-Igu"/>
                         <constraint firstItem="sXe-Kf-Ciu" firstAttribute="centerY" secondItem="rH5-R7-6Kg" secondAttribute="centerY" id="fvb-D4-xlw"/>
                         <constraint firstItem="sXe-Kf-Ciu" firstAttribute="leading" secondItem="rH5-R7-6Kg" secondAttribute="leadingMargin" id="ljk-Qd-GdK"/>
+                        <constraint firstAttribute="trailing" secondItem="ejd-9q-miL" secondAttribute="trailing" id="qSv-Ln-3H6"/>
                     </constraints>
                 </view>
             </subviews>

@@ -11,6 +11,7 @@ import Foundation
 protocol IMaskAttributeSetterProtocol: NSObjectProtocol {
     
     func maskAttributeWillDeleted(sender: IMaskAttributeSetter)
+    func maskAttributeWillSetting(sender: IMaskAttributeSetter)
 }
 
 protocol IMaskAttributeSetter: IAttributeSetter {

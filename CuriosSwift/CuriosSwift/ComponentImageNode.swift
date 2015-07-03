@@ -15,7 +15,7 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     required init(aComponentModel: ImageContentModel) {
         self.componentModel = aComponentModel
         super.init()
-        backgroundColor = UIColor.blueColor()
+//        backgroundColor = UIColor.blueColor()
         let aImagePath = componentModel.imagePath
         
         let aImage = UIImage(contentsOfFile: aImagePath)
@@ -25,6 +25,24 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     }
     
     func resizeScale(scale: CGFloat) {
+        
+    }
+    
+    func getImageID() -> String {
+        
+        let aImagePath = componentModel.imagePath
+        println("getaImagePath = \(aImagePath)")
+        let imageID = aImagePath.lastPathComponent.stringByDeletingPathExtension
+        return imageID
+    }
+    
+    func updateImage() {
+        
+        let aImagePath = componentModel.imagePath
+        println("updateImagePath = \(aImagePath)")
+        let aImage = UIImage(contentsOfFile: aImagePath)
+        //        self.view.contentMode = .ScaleToFill
+        image = aImage
         
     }
     
