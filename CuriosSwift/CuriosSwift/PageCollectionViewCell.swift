@@ -105,9 +105,18 @@ extension PageCollectionViewCell {
         }
     }
     
+    func setNeedUpload(needUpload: Bool) {
+        
+        pageModel.needUpload = needUpload
+    }
+    
     func saveInfo() {
         
         pageModel.saveInfo()
+    }
+    
+    func uploadInfo(userID: String, publishID: String) {
+        pageModel.uploadInfo(userID, publishID: publishID)
     }
     
     func removeContainer(aContainerModel: ContainerModel) {

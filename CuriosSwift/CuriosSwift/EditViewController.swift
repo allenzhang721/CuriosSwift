@@ -853,6 +853,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func didEndEdit(page: IPage) {
         page.saveInfo()
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        let bookID = bookModel.Id
+        
+        page.uploadInfo(userID, publishID: bookID)
+        
         page.cancelDelegate()
         collectionView.scrollEnabled = true
         
@@ -862,6 +868,8 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
+        
+        
     }
     
     // MARK: - IMaskAttributer Protocol
@@ -911,7 +919,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         if let aCurrentContainer = currentEditContainer {
             
+            // replace image
             if let aImageCom = aCurrentContainer.component as? IImageComponent {
+                aImageCom.setNeedUpload(true)
                 
                 let indexPath = getCurrentIndexPath()!
                 let imageID = aImageCom.getImageID()
@@ -931,16 +941,14 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 }
                 if imageData.writeToFile(imagePath, atomically: true) {
                     
-                    println("imagePath = \(imagePath)")
-                    println("writeToFile file")
-                    
                 }
                 
-                aImageCom.updateImage()
+                
             }
 
         } else if let indexPath = getCurrentIndexPath() {
             
+            // new image
             if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
                 
                 let imageName = UniqueIDString()
@@ -965,6 +973,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 textComponentModel.imagePath = realtiveImagePath
                 let aContainer = ContainerModel()
                 aContainer.component = textComponentModel
+                aContainer.component.needUpload = true
                 page.addContainer(aContainer)
                 page.saveInfo()
             }

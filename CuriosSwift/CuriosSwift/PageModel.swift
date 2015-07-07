@@ -16,6 +16,7 @@ class PageModel: Model, IFile {
     var width: CGFloat = 640.0
     var height: CGFloat = 1008.0
     var containers: [ContainerModel] = []
+    var needUpload = false
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
@@ -44,6 +45,7 @@ class PageModel: Model, IFile {
         
         containers.append(aContainer)
         aContainer.component.delegate = self
+        needUpload = true
     }
     
     func removeContainer(aContainer: ContainerModel) {
@@ -56,6 +58,7 @@ class PageModel: Model, IFile {
             }
             index++
         }
+        needUpload = true
     }
     
     func saveInfo() {
@@ -65,6 +68,33 @@ class PageModel: Model, IFile {
         let pagejson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
         let data = NSJSONSerialization.dataWithJSONObject(pagejson, options: NSJSONWritingOptions(0), error: nil)
         data?.writeToFile(JsonPath, atomically: true)
+        
+        
+    }
+    
+    func uploadInfo(userID: String, publishID: String) {
+        
+        for container in containers {
+            if !needUpload && container.needUpload {
+                needUpload = true
+            }
+            container.needUpload = false
+            let component = container.component
+            component.uploadInfo(userID, publishID: publishID, pageID: Id)
+        }
+        
+        if needUpload {
+            needUpload = false
+        } else {
+            return
+        }
+        
+        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(Id + ".json")
+        let path = fileGetSuperPath(self)
+        let value = path.stringByAppendingPathComponent(Id + ".json")
+        
+        FileUplodRequest.uploadFileWithKeyFile([key:value])
+        println("PageModel:Key:\(key)")
     }
     
     // congtainers

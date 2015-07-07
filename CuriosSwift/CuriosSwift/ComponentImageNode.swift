@@ -43,7 +43,10 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         let aImage = UIImage(contentsOfFile: aImagePath)
         //        self.view.contentMode = .ScaleToFill
         image = aImage
-        
+    }
+    
+    func setNeedUpload(needUpload: Bool) {
+        componentModel.needUpload = true
     }
     
     // MARK: - IComponent

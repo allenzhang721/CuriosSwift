@@ -22,7 +22,9 @@ protocol IPage: NSObjectProtocol {
     func setDelegate(aDelegate: IPageProtocol)
     func cancelDelegate()
     
+    func setNeedUpload(needUpload: Bool)
     func saveInfo()
+    func uploadInfo(userID: String, publishID: String)
     func addContainer(aContainerModel: ContainerModel)
     func removeContainer(aContainerModel: ContainerModel)
     func exchangeContainerFromIndex(fromIndex: Int, toIndex: Int)

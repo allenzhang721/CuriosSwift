@@ -23,6 +23,7 @@ class ContainerModel: Model {
     //    var behaviors: [Behavior] = []
     var effects: [Effect] = []
     var component: ComponentModel! = NoneContentModel()
+    var needUpload = false
     
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         

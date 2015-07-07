@@ -19,3 +19,9 @@ func UniqueIDString() -> String {
     return result!
     
 }
+
+func UniqueIDStringWithCount(count: Int = 5) -> String {
+    
+    let string = UniqueIDString() as NSString
+    return string.substringToIndex(count)
+}

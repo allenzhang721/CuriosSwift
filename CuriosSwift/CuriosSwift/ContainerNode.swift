@@ -218,13 +218,19 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     func setTransation(translation: CGPoint) {
         
+        containerModel.needUpload = true
+        
         self.position.x += translation.x
         self.position.y += translation.y
         containerModel.x += translation.x / aspectRatio
         containerModel.y += translation.y / aspectRatio
+        
+        
     }
     
     func setResize(size: CGSize, center: CGPoint, resizeComponent: Bool = false, scale: Bool = false) {
+        
+        containerModel.needUpload = true
         
         bounds.size = size
         position.x += center.x
@@ -244,15 +250,22 @@ class ContainerNode: ASDisplayNode, IContainer {
     }
     
     func setRotation(incrementAngle: CGFloat) {
+        
+        containerModel.needUpload = true
+        
         transform = CATransform3DMakeRotation(incrementAngle, 0, 0, 1)
         containerModel.rotation = incrementAngle
     }
     
     func sendForwoard() -> Bool {
         
+        containerModel.needUpload = true
+        
         return sendToForwardOrBack(true)
     }
     func sendBack() -> Bool {
+        
+        containerModel.needUpload = true
         
         return sendToForwardOrBack(false)
     }

@@ -32,6 +32,9 @@
 		2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427011B2A9B36007FF1DE /* EffectPannel.swift */; };
 		2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5427031B2A9B85007FF1DE /* FontAttributePannel.swift */; };
 		2C54ADF31B097B8700B0D460 /* SmallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C54ADF21B097B8700B0D460 /* SmallLayout.swift */; };
+		2C5526B21B4A6B4E000F2C7D /* FileUplodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */; };
+		2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */; };
+		2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */; };
 		2C5D46B91B3CF1A4001D77FF /* UploadSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */; };
 		2C6162981B294878005B9EA4 /* ToolsPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6162971B294878005B9EA4 /* ToolsPannel.swift */; };
 		2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DCFA1B161020006249D8 /* BookListModel.swift */; };
@@ -181,6 +184,9 @@
 		2C5427011B2A9B36007FF1DE /* EffectPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectPannel.swift; sourceTree = "<group>"; };
 		2C5427031B2A9B85007FF1DE /* FontAttributePannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontAttributePannel.swift; sourceTree = "<group>"; };
 		2C54ADF21B097B8700B0D460 /* SmallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLayout.swift; sourceTree = "<group>"; };
+		2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUplodRequest.swift; sourceTree = "<group>"; };
+		2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishTokenRequest.swift; sourceTree = "<group>"; };
+		2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTokenRequest.swift; sourceTree = "<group>"; };
 		2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingViewController.swift; sourceTree = "<group>"; };
 		2C6162971B294878005B9EA4 /* ToolsPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsPannel.swift; sourceTree = "<group>"; };
 		2C63DCFA1B161020006249D8 /* BookListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListModel.swift; sourceTree = "<group>"; };
@@ -643,6 +649,9 @@
 				2CA8F08C1B391D050063E964 /* TokenRequest.swift */,
 				2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */,
 				2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */,
+				2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */,
+				2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */,
+				2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -855,9 +864,11 @@
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
+				2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
+				2C5526B21B4A6B4E000F2C7D /* FileUplodRequest.swift in Sources */,
 				2CFE73871B36A1FC00C2510D /* UpLoadManager.swift in Sources */,
 				2C92EA7C1B413F3500ABFABB /* FontsManager.swift in Sources */,
 				2C6D588C1B2A9C82002CFC3F /* FontsizePannel.swift in Sources */,
@@ -901,6 +912,7 @@
 				2C6924321B46914800CC327D /* ColorPickCollectionViewCell.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
+				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,

@@ -10,10 +10,13 @@ import Foundation
 
 protocol IComponent: NSObjectProtocol {
     
+    
     func iBecomeFirstResponder()
     func iResignFirstResponder()
     func iIsFirstResponder() -> Bool
     func resizeScale(scale: CGFloat)
+    
+    func setNeedUpload(needUpload: Bool)
     
 //    var componentModel: ComponentModel{get set}
 }

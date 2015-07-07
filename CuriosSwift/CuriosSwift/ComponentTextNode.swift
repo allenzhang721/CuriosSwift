@@ -127,6 +127,11 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
         
     }
     
+    func setNeedUpload(needUpload: Bool) {
+        
+        componentModel.needUpload = needUpload
+    }
+    
     func getTextColor() -> String {
         
         return fontColor

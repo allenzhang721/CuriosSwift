@@ -18,6 +18,7 @@ class ComponentModel: Model, IFile  {
     weak var delegate: IFile?
     var type: Type = .None
     var attributes: [String : AnyObject] = [:]
+    var needUpload = false
     
     // listener
     //    let lIsFirstResponder: Dynamic<Bool>
@@ -38,6 +39,14 @@ class ComponentModel: Model, IFile  {
     
     func removed() {
         
+    }
+    
+    func uploadInfo(userID: String, publishID: String, pageID: String) {
+        if needUpload {
+            needUpload = false
+        } else {
+            return
+        }
     }
     
     class func classForParsingJSONDictionary(JSONDictionary: [NSObject : AnyObject]!) -> AnyClass! {
@@ -112,25 +121,41 @@ class ImageContentModel: ComponentModel, IFile {
         get {
             let selfPath = attributes["ImagePath"] as! String
             if let string = delegate?.fileGetSuperPath(self).stringByAppendingPathComponent(selfPath) {
-                
-                
                 return string
             } else {
                 return ""
             }
-            
         }
         
         set {
+            needUpload = true
             attributes["ImagePath"] = newValue
         }
+    }
+    
+    override func uploadInfo(userID: String, publishID: String, pageID: String) {
+//        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
+        
+        if needUpload {
+            needUpload = false
+        }else {
+            return
+        }
+        
+        let selfPath = attributes["ImagePath"] as! String
+        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(pageID).stringByAppendingPathComponent(selfPath)
+        let value = imagePath
+        
+        FileUplodRequest.uploadFileWithKeyFile([key:value])
+        
+        println("imageModel:key:\(key)")
     }
     
     override func removed() {
         
         let fileManager = NSFileManager()
         fileManager.removeItemAtPath(imagePath, error: nil)
-        
+        needUpload = false
         super.removed()
     }
 }

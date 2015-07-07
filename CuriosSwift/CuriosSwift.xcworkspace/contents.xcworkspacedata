@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CuriosSwift/ImageTokenRequest.swift">
+   </FileRef>
+   <FileRef
+      location = "group:CuriosSwift/PublishTokenRequest.swift">
+   </FileRef>
+   <FileRef
       location = "group:CuriosSwift/FontCollectionViewCell.swift">
    </FileRef>
    <FileRef
