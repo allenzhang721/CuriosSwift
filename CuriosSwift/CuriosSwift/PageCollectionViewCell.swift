@@ -77,7 +77,7 @@ extension PageCollectionViewCell {
         delegate = nil
     }
     
-    func addContainer(aContainerModel: ContainerModel) {
+    func addContainer(aContainerModel: ContainerModel, finishCompletedBlock:((UIImage) -> ())? = nil) {
         
         pageModel.addContainer(aContainerModel)
         
@@ -93,14 +93,17 @@ extension PageCollectionViewCell {
 
             let containerNode = getContainerWithModel(aContainerModel)
             containerNode.page = self
-
+            containerNode.component.setNeedUpload(true)
             containers.append(containerNode)
             contentNode?.addSubnode(containerNode)
             
+            
+            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 aContentNode.setNeedsDisplay()
+                let image = containerNode.view.snapshotImageAfterScreenUpdate(true)
+                finishCompletedBlock?(image)
             })
-            
 //            pageModel.saveInfo()
         }
     }
@@ -111,6 +114,40 @@ extension PageCollectionViewCell {
     }
     
     func saveInfo() {
+        
+        for container in containers {
+            
+            if let component = container.component as? ITextComponent where component.getNeedUpload() {
+                
+//                let image = container.getSnapshotImageAfterScreenUpdate(false)
+//
+                let attributeString = component.getAttributeText()
+                let size = container.containerSize
+//
+                let textView = UITextView(frame: CGRectMake(0, 0, size.width, size.height))
+                textView.attributedText = attributeString
+                textView.backgroundColor = UIColor.blackColor()
+                let textsnap = textView.snapshotViewAfterScreenUpdates(true)
+                UIGraphicsBeginImageContext(size)
+                textsnap.layer.renderInContext(UIGraphicsGetCurrentContext())
+                let image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+
+                let imageData = UIImageJPEGRepresentation(image, 0.01)
+                let pagePath = pageModel.fileGetSuperPath(pageModel)
+                let relativePath = component.getImageRelativePath()
+                let imagePath = pagePath.stringByAppendingPathComponent(relativePath)
+                
+                println(imagePath)
+                if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
+                    
+                    println("remove file")
+                }
+                if imageData.writeToFile(imagePath, atomically: true) {
+                   println("iamge write scuccessful")
+                }
+            }
+        }
         
         pageModel.saveInfo()
     }
@@ -340,7 +377,7 @@ extension PageCollectionViewCell {
             if let strongSelf = self {
                 
                 let content: (ASDisplayNode, [IContainer]) = strongSelf.getContainerNodesWithPageModel(aPageModel)
-                content.0.backgroundColor = UIColor.whiteColor()
+                content.0.backgroundColor = UIColor.blackColor()
                 content.0.clipsToBounds = true
                 
                 if operation.cancelled {

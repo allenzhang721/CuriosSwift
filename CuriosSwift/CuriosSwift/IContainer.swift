@@ -25,6 +25,7 @@ protocol IContainer: NSObjectProtocol {
     
     func setTransation(translation: CGPoint)
 //    func setResize(size: CGSize, center: CGPoint)
+    func getSnapshotImageAfterScreenUpdate(afterScreenUpdate: Bool) -> UIImage!
     func setResize(size: CGSize, center: CGPoint, resizeComponent: Bool, scale: Bool)
     func setRotation(angle: CGFloat)
     func removed()

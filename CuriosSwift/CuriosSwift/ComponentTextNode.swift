@@ -81,6 +81,11 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
     
 // MARK: - ITextComponent
     
+    func getNeedUpload() -> Bool {
+        
+        return componentModel.needUpload
+    }
+    
     func iBecomeFirstResponder() {
         userInteractionEnabled = true
     }
@@ -130,6 +135,12 @@ class ComponentTextNode: ASTextNode, ITextComponent, ASEditableTextNodeDelegate 
     func setNeedUpload(needUpload: Bool) {
         
         componentModel.needUpload = needUpload
+    }
+    
+    func getImageRelativePath() -> String {
+        
+        let relativeImagePath = componentModel.attributes["ImagePath"] as! String
+        return relativeImagePath
     }
     
     func getTextColor() -> String {

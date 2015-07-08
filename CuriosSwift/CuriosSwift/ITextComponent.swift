@@ -17,6 +17,6 @@ protocol ITextComponent: IComponent {
     func setTextColor(hexString: String)
     func getAttributeText() -> NSAttributedString
     func getTextColor() -> String
-    
+    func getImageRelativePath() -> String
     //    var componentModel: ComponentModel{get set}
 }

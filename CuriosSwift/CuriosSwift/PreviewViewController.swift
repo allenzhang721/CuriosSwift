@@ -47,12 +47,21 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        updateRightButton()
+        let userid = UsersManager.shareInstance.getUserID()
+        let url = "http://192.168.1.100:8080/curiosService".stringByAppendingPathComponent(userid).stringByAppendingPathComponent(bookId).stringByAppendingPathComponent("index.html")
         
-        if type == .Local {
-            loadPreviewWithURL(localPreviewURL())
-        }
+        let s = NSURL(string: url)
+        
+        println(s)
+        
+        let request = NSURLRequest(URL: s!)
+        webView.loadRequest(request)
+
+//        updateRightButton()
+//        
+//        if type == .Local {
+//            loadPreviewWithURL(localPreviewURL())
+//        }
     }
 
     func loadPreviewWithURL(previewURL: NSURL) {

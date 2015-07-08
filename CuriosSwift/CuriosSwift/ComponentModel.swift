@@ -143,7 +143,7 @@ class ImageContentModel: ComponentModel, IFile {
         }
         
         let selfPath = attributes["ImagePath"] as! String
-        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(pageID).stringByAppendingPathComponent(selfPath)
+        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("res").stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(pageID).stringByAppendingPathComponent(selfPath)
         let value = imagePath
         
         FileUplodRequest.uploadFileWithKeyFile([key:value])
@@ -161,4 +161,23 @@ class ImageContentModel: ComponentModel, IFile {
 }
 
 class TextContentModel: ComponentModel {
+    
+    override func uploadInfo(userID: String, publishID: String, pageID: String) {
+        //        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
+        
+        if needUpload {
+            needUpload = false
+        }else {
+            return
+        }
+        
+        let selfPath = attributes["ImagePath"] as! String
+        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("res").stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(pageID).stringByAppendingPathComponent(selfPath)
+        let valuePath = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(pageID).stringByAppendingPathComponent(selfPath)
+        let value = temporaryDirectory(valuePath).path!
+        
+        FileUplodRequest.uploadFileWithKeyFile([key:value])
+        
+        println("TextimageModel:key:\(key)")
+    }
 }

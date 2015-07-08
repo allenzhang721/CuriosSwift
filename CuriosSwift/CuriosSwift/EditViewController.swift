@@ -375,8 +375,12 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
 
                 let textComponentModel = TextContentModel()
+                let pageFile = bookModel.pageModels[indexPath.item]
+                let imageName = UniqueIDString()
+                let realtiveImagePath = "/images/" + imageName + ".jpg"
                 textComponentModel.type = .Text
-                textComponentModel.attributes = ["contentText": "双击\n修改", "FontsName": "RTWSYueGoG0v1-UltLight", "fontSize": 40, "aligement": 1]
+                textComponentModel.attributes = ["contentText": "双击\n修改", "FontsName": "RTWSYueGoG0v1-UltLight", "fontSize": 40, "aligement": 1, "ImagePath": realtiveImagePath]
+                
                 
                 let size = defaultTextSize()
                 println(size)
@@ -387,8 +391,30 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 println(aContainer.width)
                 println(aContainer.height)
                 aContainer.component = textComponentModel
-                page.addContainer(aContainer)
-                page.saveInfo()
+                textComponentModel.needUpload = true
+//                page.addContainer(aContainer)!
+                page.addContainer(aContainer) {[unowned self] (image) -> () in
+                    
+                    page.saveInfo()
+                    
+                    let userID = UsersManager.shareInstance.getUserID()
+                    let bookID = self.bookModel.Id
+                    
+                    page.uploadInfo(userID, publishID: bookID)
+                }
+//                let imageData = UIImageJPEGRepresentation(image, 0.01)
+//                let pagePath = pageFile.fileGetSuperPath(pageFile)
+//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
+//                
+//                if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
+//                    
+//                    println("remove file")
+//                }
+//                if imageData.writeToFile(imagePath, atomically: true) {
+//                    
+//                }
+                
+                
             }
             
 //
@@ -434,74 +460,153 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func previewAction(sender: UIBarButtonItem) {
         
-//        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
+        let userID = UsersManager.shareInstance.getUserID()
+        let bookID = bookModel.Id
+//        let mainjsonPath = temporaryDirectory(userID,bookID,"main.json").path!
+//        let key = userID.stringByAppendingPathComponent(bookID).stringByAppendingPathComponent("main.json")
+//        FileUplodRequest.uploadFileWithKeyFile([key: mainjsonPath])
+//        
+//       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
+//        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
+//            prev.bookId = bookID
+//            prev.delegate = self
+//            presentViewController(preeviewNavigationC, animated: true, completion: nil)
+//        }
         
-            // cache preview dir
-            let previewName = "CuriosPreview"
-            
-            // bundle preview
-            let bundlePreviewURL = bundle(previewName)
-            // cache preview
-            let cachePreviewURL = temporaryDirectory(previewName)
-            // editingBook
-            let bookid = bookModel.Id
-            let userName = UsersManager.shareInstance.getUserID()
-            let editingBookURL = temporaryDirectory(userName, bookid)
-            
-            // 
-//            preeviewVC.bookId = bookid
         
-            // /res
-            let cachePreviewResURL = temporaryDirectory(previewName, "res")
+        // cache preview dir
+        let previewName = "CuriosPreview"
+        
+        // bundle preview
+        let bundlePreviewURL = bundle(previewName)
+        // cache preview
+        let cachePreviewURL = temporaryDirectory(previewName)
+        
+        // /res
+        let cachePreviewResURL = temporaryDirectory(previewName, "res")
+        
+        // curiosRes.js
+        let curiosResURL = temporaryDirectory(previewName, "js", "curiosRes.js")
+        
+        // copy cachePreviewURL
+        let fileManager = NSFileManager.defaultManager()
+        fileManager.removeItemAtURL(cachePreviewURL, error: nil)
+        if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
+
+            assert(false, "preview fail: can not copy bundle preview file to cache")
+
+        } else {
+        
+            // write mainjson and pagejson to curiosRes.js
+            let bookmodel = bookModel
+            let pagesmodel = bookModel.pageModels
+            bookmodel.previewPageID = pagesmodel[0].Id
             
-            // curiosRes.js
-            let curiosResURL = temporaryDirectory(previewName, "js", "curiosRes.js")
-            
-            // create cache preview book
-            let fileManager = NSFileManager.defaultManager()
-            fileManager.removeItemAtURL(cachePreviewURL, error: nil)
-            if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
-                
-                assert(false, "preview fail: can not copy bundle preview file to cache")
-                
+            let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+            let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
+            let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
+            let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
+            let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
+            let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
+            let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = " + pagesjsonString
+        
+            if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
+
             } else {
                 
-                // copy editing book to res dir
-                fileManager.removeItemAtURL(cachePreviewResURL, error: nil)
-                if !fileManager.copyItemAtURL(editingBookURL, toURL: cachePreviewResURL, error: nil) {
-                    assert(false, "preview fail: can not copy edit book file to res dir")
-                } else {
-                    
-                    // write mainjson and pagejson to curiosRes.js
-                    let bookmodel = bookModel
-                    let pagesmodel = bookModel.pageModels
-                    bookmodel.previewPageID = pagesmodel[0].Id
-                    
-                    let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-                    let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
-                    let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
-                    let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
-                    let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
-                    let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
-                    let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = " + pagesjsonString
-                    
-                    if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
-                        assert(false, "preview fail: fail to write curiosRes.js")
-                    } else {
-                        
-                        let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
-                        
-                       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
-                        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
-                            prev.bookId = bookid
-                            prev.delegate = self
-                            presentViewController(preeviewNavigationC, animated: true, completion: nil)
-                        }
-                    }
-                }
+                println("curiosRes.js write successful")
+                
+                let fileKeys  = getFileKeys(previewName, rootURL: cachePreviewURL, userID: userID, publishID: bookID)
+                
+                FileUplodRequest.uploadFileWithKeyFile(fileKeys)
+                
+                println(fileKeys)
             }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+////        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
+        
+            
+            // create cache preview book
+        
+//            if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
+//                
+//                assert(false, "preview fail: can not copy bundle preview file to cache")
+//                
+//            } else {
+//                
+//                // copy editing book to res dir
+//                fileManager.removeItemAtURL(cachePreviewResURL, error: nil)
+//                if !fileManager.copyItemAtURL(editingBookURL, toURL: cachePreviewResURL, error: nil) {
+//                    assert(false, "preview fail: can not copy edit book file to res dir")
+//                } else {
+
+//
+//                    if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
+//                        assert(false, "preview fail: fail to write curiosRes.js")
+//                    } else {
+//                        
+//                        let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
+//                        
+//                       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
+//                        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
+//                            prev.bookId = bookid
+//                            prev.delegate = self
+//                            presentViewController(preeviewNavigationC, animated: true, completion: nil)
+//                        }
+//                    }
+//                }
+//            }
 //        }
     }
+    
+    
+    func getFileKeys(rootDirectoryName: String, rootURL: NSURL, userID: String, publishID: String) -> [String : String] {
+        
+        
+        let fileManger = NSFileManager.defaultManager()
+        var error = NSErrorPointer()
+        let mainDirEntries = fileManger.enumeratorAtURL(rootURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsPackageDescendants | NSDirectoryEnumerationOptions.SkipsHiddenFiles) { (url, error) -> Bool in
+            println(url.lastPathComponent)
+            return true
+        }
+        
+        var dics = [String : String]()
+        while let url = mainDirEntries?.nextObject() as? NSURL {
+//           var dic = [String : String]()
+            var flag = ObjCBool(false)
+            fileManger.fileExistsAtPath(url.path!, isDirectory: &flag)
+            if flag.boolValue == false {
+                
+                let relativePath = url.pathComponents?.reverse()
+                var relative = ""
+                for path in relativePath as! [String] {
+                    
+                    if path != rootDirectoryName {
+                        relative = ("/" + path + relative)
+                    } else {
+                        break
+                    }
+                }
+                let key = userID + "/" + publishID + relative
+                dics[key] = url.path!
+//                dics.append(dic)
+            }
+        }
+        return dics
+        
+    }
+    
+    
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
         let userid = UsersManager.shareInstance.getUserID()
@@ -852,6 +957,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func didEndEdit(page: IPage) {
+        
+        
+        
         page.saveInfo()
         
         let userID = UsersManager.shareInstance.getUserID()
@@ -868,8 +976,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
-        
-        
     }
     
     // MARK: - IMaskAttributer Protocol
@@ -934,9 +1040,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
                 let realtiveImagePath = "/images/" + imageID + ".jpg"
                 let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
-                
                 if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
-                    
                     println("remove file")
                 }
                 if imageData.writeToFile(imagePath, atomically: true) {
@@ -974,7 +1078,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 let aContainer = ContainerModel()
                 aContainer.component = textComponentModel
                 aContainer.component.needUpload = true
-                page.addContainer(aContainer)
+                page.addContainer(aContainer, finishCompletedBlock: nil)
                 page.saveInfo()
             }
         }

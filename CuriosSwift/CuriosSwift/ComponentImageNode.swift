@@ -45,6 +45,11 @@ class ComponentImageNode: ASImageNode, IImageComponent {
         image = aImage
     }
     
+    func getNeedUpload() -> Bool {
+        
+        return componentModel.needUpload
+    }
+    
     func setNeedUpload(needUpload: Bool) {
         componentModel.needUpload = true
     }

@@ -32,6 +32,8 @@ class FileUplodRequest: BaseRequst {
                     let filePath = keyfiles[key]
                     let token = dic["upToken"]
                     
+                    println("dic = \(dic)")
+                    
                     QNUploadManager.sharedInstanceWithConfiguration(nil).putFile(filePath, key: key, token: token, complete: { (responseInfo, key, response) -> Void in
                         
                         if response != nil {

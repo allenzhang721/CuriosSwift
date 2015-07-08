@@ -276,6 +276,11 @@ class ContainerNode: ASDisplayNode, IContainer {
         return lockedListener.value
     }
     
+    func getSnapshotImageAfterScreenUpdate(_ afterScreenUpdate: Bool = false) -> UIImage! {
+        
+       return view.snapshotImageAfterScreenUpdate(afterScreenUpdate)
+    }
+    
     func removed() {
         
         if let aPage = page {

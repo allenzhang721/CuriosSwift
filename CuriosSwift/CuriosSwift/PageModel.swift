@@ -89,7 +89,7 @@ class PageModel: Model, IFile {
             return
         }
         
-        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(Id + ".json")
+        let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("res").stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(Id + ".json")
         let path = fileGetSuperPath(self)
         let value = path.stringByAppendingPathComponent(Id + ".json")
         
