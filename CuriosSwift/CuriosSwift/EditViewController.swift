@@ -212,12 +212,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                   page.setDelegate(self)
                     let location = sender.locationInView(page)
                   page.begainResponseToTap(location, tapCount: 1)
-                    self.collectionView.scrollEnabled = false
                 }
             } else {
                 if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
                     let location = CGPointZero
-                    self.collectionView.scrollEnabled = false
                     page.setDelegate(self)
                     page.respondToLocation(location, onTargetView: view, sender: sender)
                 }
@@ -821,6 +819,7 @@ extension EditViewController {
   
   func pageDidSelected(page: PageModel, selectedContainer container: ContainerModel, onView: UIView ,onViewCenter: CGPoint, size: CGSize, angle: CGFloat) {
     
+    collectionView.scrollEnabled = false
     let aCenter = onView.convertPoint(onViewCenter, toView: view)
     addMask(aCenter, size: size, angle: angle, targetContainerModel: container)
   }
@@ -832,12 +831,11 @@ extension EditViewController {
   
   func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel) {
     
-    
   }
   
   func pageDidEndEdit(page: PageModel) {
     
-    
+    collectionView.scrollEnabled = true
   }
   
   
@@ -964,7 +962,6 @@ extension EditViewController {
     page.uploadInfo(userID, publishID: bookID)
     
     page.cancelDelegate()
-    collectionView.scrollEnabled = true
     
     endContainer()
     toolState = .endEdit
@@ -1202,7 +1199,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let currentIndexPath = getCurrentIndexPath() {
                 if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
                     let location = CGPointZero
-                    self.collectionView.scrollEnabled = false
                     page.setDelegate(self)
                     page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
                 }
@@ -1344,12 +1340,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             return self.collectionView.collectionViewLayout is NormalLayout ? true : false
             
         case let gesture where gesture is UIPanGestureRecognizer:
-            
-            for subView in view.subviews {
-                if subView is ContainerMaskView {
-                    return false
-                }
-            }
+          
+          if maskView != nil {
+            return false
+          }
+          
             return transitionLayout == nil ? true : false
         case let gesture where gesture is UILongPressGestureRecognizer:
             return true

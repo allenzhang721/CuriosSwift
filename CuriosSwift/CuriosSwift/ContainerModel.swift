@@ -26,22 +26,29 @@ class ContainerModel: Model {
   var needUpload = false
   var selected = false
   
+  var aspectio: CGFloat = 1.0
   
   // Observers
-  var postionChangeListener = Dynamic(CGPointZero)
+  var centerChangeListener = Dynamic(CGPointZero)
   var sizeChangeListener = Dynamic(CGSizeZero)
   var rotationListener = Dynamic(CGFloat(0))
   
-  func setPostionChange(point: CGPoint) {
+  func setOriginChange(point: CGPoint) {
+    x += point.x / aspectio
+    y += point.y / aspectio
+  }
+  
+  func setCenterChange(point: CGPoint) {
     
-    postionChangeListener.value = point
-    
+    centerChangeListener.value = point
   }
   
   func setSizeChange(size: CGSize) {
     
     sizeChangeListener.value = size
     
+    width += size.width / aspectio
+    height += size.height / aspectio
   }
   
   func setAngleChange(angle: CGFloat) {
@@ -49,7 +56,6 @@ class ContainerModel: Model {
     let newAngle = angle + rotation
     rotationListener.value = newAngle
     rotation = newAngle
-    
   }
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

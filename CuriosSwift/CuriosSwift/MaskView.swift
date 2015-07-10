@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MaskView: UIView {
+class MaskView: UIView, UIGestureRecognizerDelegate {
   
   enum ControlStyle {
     case Rotaion, Resize, Transition, None
@@ -22,6 +22,8 @@ class MaskView: UIView {
   var deletePannel: UIImageView!
   
   var begainAngle: CGFloat = 0.0
+  var beginSize: CGSize = CGSizeZero
+  var begainScale: CGFloat = 1.0
   var controlStyle: ControlStyle = .None
   
   static func maskWithCenter(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel aContainerModel: ContainerModel) -> MaskView {
@@ -63,19 +65,29 @@ class MaskView: UIView {
   }
 }
 
+// MARK: - Gesture Delegate
+extension MaskView {
+  
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  return true
+  }
+}
+
 // MARK: - Private Method Init
 extension MaskView {
   
   func bindingContainerModel() {
     
-    containerMomdel.postionChangeListener.bind("Mask_View") {[unowned self] postion -> Void in
+    containerMomdel.centerChangeListener.bind("Mask_View") {[unowned self] postion -> Void in
       
       self.center.x += postion.x
       self.center.y += postion.y
     }
     
-    containerMomdel.sizeChangeListener.bind("Mask_View") { size -> Void in
+    containerMomdel.sizeChangeListener.bind("Mask_View") {[unowned self] size -> Void in
       
+      self.bounds.size.width += size.width
+      self.bounds.size.height += size.height
     }
     
     containerMomdel.rotationListener.bind("Mask_View") { [unowned self] angle -> Void in
@@ -86,7 +98,7 @@ extension MaskView {
   
   func unBindingContainerModel() {
     
-    containerMomdel.postionChangeListener.removeActionWithID("Mask_View")
+    containerMomdel.centerChangeListener.removeActionWithID("Mask_View")
     containerMomdel.sizeChangeListener.removeActionWithID("Mask_View")
     containerMomdel.rotationListener.removeActionWithID("Mask_View")
   }
@@ -96,6 +108,10 @@ extension MaskView {
     let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
     let rot = UIRotationGestureRecognizer(target: self, action: "rotationAction:")
     let pin = UIPinchGestureRecognizer(target: self, action: "pinchAction:")
+    
+    pan.delegate = self
+    rot.delegate = self
+    pin.delegate = self
     
     addGestureRecognizer(pan)
     addGestureRecognizer(rot)
@@ -128,12 +144,23 @@ extension MaskView {
     deletePannel.center = CGPointMake(0, bounds.height)
     addSubview(deletePannel)
   }
+  
+  override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    
+    let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
+    
+    
+    let resizePannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
+    let rotationPannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
+    let deletePannel = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
+    let setPannel = retangle(CGSizeMake(40, 40), CGPointMake(0, 0))
+    return union(setPannel ,union(deletePannel, union(rotationPannel, (union(rec, resizePannel)))))(point)
+  }
 }
 
 // MARK: - Private Method gestures
 extension MaskView {
-  
-  
+
   func panAction(sender: UIPanGestureRecognizer) {
     
     let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
@@ -165,10 +192,15 @@ extension MaskView {
         
       case .Transition:
         let transition = sender.translationInView(superview!)
-        containerMomdel.setPostionChange(transition)
+        containerMomdel.setCenterChange(transition)
+        containerMomdel.setOriginChange(transition)
         
       case .Resize:
-        println("")
+        let transition = sender.translationInView(self)
+        let transitionx = sender.translationInView(superview!)
+        containerMomdel.setSizeChange(CGSize(width: transition.x, height: transition.y))
+        containerMomdel.setCenterChange(CGPoint(x: transitionx.x / 2.0, y: transitionx.y / 2.0))
+        containerMomdel.setOriginChange(CGPoint(x: 0 - transition.x / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
         
       case .Rotaion:
         let location = sender.locationInView(superview!)
@@ -184,6 +216,7 @@ extension MaskView {
       
       sender.setTranslation(CGPointZero, inView: self)
       sender.setTranslation(CGPointZero, inView: superview!)
+      setNeedsDisplay()
       
     case .Cancelled, .Ended:
       println("")
@@ -196,10 +229,53 @@ extension MaskView {
   
   func rotationAction(sender: UIRotationGestureRecognizer) {
     
+    let rotation = sender.rotation
+    
+    switch sender.state {
+      
+    case .Began:
+      begainAngle = 0
+      
+      case .Changed:
+      
+      let angleChanged = rotation - begainAngle
+      containerMomdel.setAngleChange(angleChanged)
+      begainAngle = rotation
+      
+    case .Cancelled, .Ended:
+      
+      return
+      
+    default:
+      return
+    }
   }
   
   func pinchAction(sender: UIPinchGestureRecognizer) {
     
+    switch sender.state {
+      
+    case .Began:
+      beginSize = bounds.size
+      begainScale = sender.scale
+      
+    case .Changed:
+      let scale = ceil((sender.scale - begainScale) * 100) / 100.0
+      begainScale = sender.scale
+      let widthDel = beginSize.width * scale
+      let heightDel = beginSize.height * scale
+      containerMomdel.setSizeChange(CGSize(width: widthDel, height: heightDel))
+      containerMomdel.setOriginChange(CGPoint(x: 0 - widthDel / 2.0, y: 0 - heightDel / 2.0))
+      
+      
+    case .Ended, .Changed:
+      return
+      
+    default:
+      return
+    }
+    
+    setNeedsDisplay()
   }
 }
 

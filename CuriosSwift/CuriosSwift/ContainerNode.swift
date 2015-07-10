@@ -37,6 +37,8 @@ class ContainerNode: ASDisplayNode, IContainer {
             }
         }
     }
+  
+  let randID = UniqueIDString()
     
     let lockedListener = Dynamic<Bool>(false)
     
@@ -51,6 +53,7 @@ class ContainerNode: ASDisplayNode, IContainer {
         self.containerModel = aContainerModel
         
         super.init()
+        containerModel.aspectio = theAspectRatio
         position = postion
         bounds.size = size
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
@@ -70,19 +73,33 @@ class ContainerNode: ASDisplayNode, IContainer {
   
   func bindingContainerModel() {
     
-    containerModel.postionChangeListener.bind("ContainerNode") {[unowned self] postion -> Void in
+    containerModel.centerChangeListener.bind("ContainerNode_\(randID)") {[unowned self] postion -> Void in
       
       self.view.center.x += postion.x
       self.view.center.y += postion.y
     }
     
-    containerModel.sizeChangeListener.bind("ContainerNode") { size -> Void in
+    containerModel.sizeChangeListener.bind("ContainerNode_\(randID)") {[unowned self] size -> Void in
       
+      self.view.bounds.size.width += size.width
+      self.view.bounds.size.height += size.height
     }
     
-    containerModel.rotationListener.bind("ContainerNode") { angle -> Void in
+    containerModel.rotationListener.bind("ContainerNode_\(randID)") { angle -> Void in
       self.view.transform = CGAffineTransformMakeRotation(angle)
     }
+  }
+  
+  func unbindingContainerModel() {
+    
+    containerModel.centerChangeListener.removeActionWithID("ContainerNode_\(randID)")
+    containerModel.sizeChangeListener.removeActionWithID("ContainerNode_\(randID)")
+    containerModel.rotationListener.removeActionWithID("ContainerNode_\(randID)")
+  }
+  
+  deinit {
+    
+    unbindingContainerModel()
   }
     
     func addAnimation() {
