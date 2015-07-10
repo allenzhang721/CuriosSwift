@@ -17,7 +17,7 @@ struct Listener<T>: Hashable {
     
     let name: String
     
-    typealias Action = T -> Void
+    typealias Action = (T) -> Void
     let action: Action
     
     

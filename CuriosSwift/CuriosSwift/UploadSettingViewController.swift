@@ -38,9 +38,7 @@ class UploadSettingViewController: UIViewController, UIImagePickerControllerDele
             titleTextField.text = bookTitle
             textView.text = bookDescr
         }
-        
-        
-
+      
         // Do any additional setup after loading the view.
     }
     

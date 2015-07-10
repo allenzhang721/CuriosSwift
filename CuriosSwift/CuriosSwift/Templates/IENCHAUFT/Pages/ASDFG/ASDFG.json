@@ -1,7 +1,7 @@
 {
     "ID": "ASDFG",
-    "PageWidth": 640,
-    "PageHeight": 1008,
+    "PageWidth": 320,
+    "PageHeight": 504,
     "Containers": [
                    {
                    "ID": "123154564",
@@ -15,7 +15,7 @@
                    "Component": {
                    "ComponentType": "Image",
                    "ComponentData": {
-                   "ImagePath": "/images/aaaa.jpg",
+                   "ImagePath": "/images/aaaa.jpeg",
                    "ImageFilter": {
                    "FilterType": "black",
                    "FilterData": {}
@@ -24,7 +24,7 @@
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "None",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -32,7 +32,7 @@
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "None",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -80,7 +80,7 @@
                    },
                    "Animations": [
                                   {
-                                  "AnimationType": "FadeIn",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,
@@ -88,7 +88,7 @@
                                   "AnimationData": {}
                                   },
                                   {
-                                  "AnimationType": "FadeIn",
+                                  "AnimationType": "FloatUp",
                                   "AnimationDelay": 1000,
                                   "AnimationDuration": 2000,
                                   "AnimationRepeat": 2,

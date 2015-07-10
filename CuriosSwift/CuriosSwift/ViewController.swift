@@ -29,6 +29,19 @@ class ViewController: UIViewController {
         loadViewController()
         FontsManager.share.registerLocalFonts()
         let string = NSLocalizedString("TEST", comment: "国际化的语言测试")
+      
+      
+//      let main = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent("main.json")
+//      let data = NSData(contentsOfURL: main!)
+//      
+//      let dic :[NSObject : AnyObject] = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
+//      
+//      println(dic)
+//      
+//      let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: dic, error: nil) as! BookModel
+//      
+//      println(book)
+      
     }
 }
 
@@ -70,7 +83,6 @@ extension ViewController {
                 childVC.view.removeFromSuperview();
                 childVC.removeFromParentViewController();
             }
-            
         }
     }
     

@@ -27,22 +27,22 @@ class FontAttributePannel: Pannel {
             let titleName = NSLocalizedString(key, comment: "title")
             let action: IContainer? -> Void = { container in
                 if let aComponent = container!.component as? ITextComponent {
-                    switch name {
-                        
-                        case "LeftAlignment":
-                        aComponent.setFontAligement(0)
-                    case "CenterAlignment":
-                        aComponent.setFontAligement(1)
-                    case "RightAlignment":
-                        aComponent.setFontAligement(2)
-                    case "FontSizePlus":
-                        aComponent.setFontSize(true)
-                    case "FontSizeSubstract":
-                        aComponent.setFontSize(false)
-                        
-                    default:
-                        return
-                    }
+//                    switch name {
+//                        
+//                        case "LeftAlignment":
+//                        aComponent.setFontAligement(0)
+//                    case "CenterAlignment":
+//                        aComponent.setFontAligement(1)
+//                    case "RightAlignment":
+//                        aComponent.setFontAligement(2)
+//                    case "FontSizePlus":
+//                        aComponent.setFontSize(true)
+//                    case "FontSizeSubstract":
+//                        aComponent.setFontSize(false)
+//                        
+//                    default:
+//                        return
+//                    }
                 }
             }
             let item = Item(name: name, iconName: iconName, titleName: titleName, action: action)

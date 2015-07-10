@@ -52,13 +52,19 @@
 #define COCOAPODS_POD_AVAILABLE_Alamofire
 #define COCOAPODS_VERSION_MAJOR_Alamofire 1
 #define COCOAPODS_VERSION_MINOR_Alamofire 2
-#define COCOAPODS_VERSION_PATCH_Alamofire 0
+#define COCOAPODS_VERSION_PATCH_Alamofire 3
 
 // Kingfisher
 #define COCOAPODS_POD_AVAILABLE_Kingfisher
 #define COCOAPODS_VERSION_MAJOR_Kingfisher 1
-#define COCOAPODS_VERSION_MINOR_Kingfisher 1
-#define COCOAPODS_VERSION_PATCH_Kingfisher 1
+#define COCOAPODS_VERSION_MINOR_Kingfisher 4
+#define COCOAPODS_VERSION_PATCH_Kingfisher 2
+
+// MJExtension
+#define COCOAPODS_POD_AVAILABLE_MJExtension
+#define COCOAPODS_VERSION_MAJOR_MJExtension 2
+#define COCOAPODS_VERSION_MINOR_MJExtension 4
+#define COCOAPODS_VERSION_PATCH_MJExtension 4
 
 // Mantle
 #define COCOAPODS_POD_AVAILABLE_Mantle

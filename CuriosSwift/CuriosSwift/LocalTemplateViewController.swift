@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mantle
 
 class LocalTemplateViewController: UIViewController {
 
@@ -53,25 +54,11 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+      getBookWithBookID("") { [unowned self] (book) -> () in
         
-        let selectedTemplate = TemplatesManager.instanShare.templateList[indexPath.item]
-        let templateId = selectedTemplate.bookID
-        let newTemplateId = UniqueIDString()
-        let userId = UsersManager.shareInstance.getUserID()
-        let userURL = temporaryDirectory(userId)
-        let toUrl = temporaryDirectory(userId, newTemplateId)
-        
-        if NSFileManager.defaultManager().createDirectoryAtURL(userURL, withIntermediateDirectories: true, attributes: nil, error: nil) {
-            // "create temp > user > templateID"
-            if TemplatesManager.instanShare.duplicateTemplateTo(templateId, toUrl: toUrl) {
-                
-                // copy to Temp
-                
-               let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
-                edit.loadBookWith(newTemplateId)
-                navigationController?.presentViewController(edit, animated: true, completion: nil)
-            }
-        }
+        self.showEditViewControllerWithBook(book)
+      }
     }
 }
 
@@ -88,5 +75,6 @@ extension LocalTemplateViewController {
 
 // MARK: - Private Method
 // MARK: -
+
 
 

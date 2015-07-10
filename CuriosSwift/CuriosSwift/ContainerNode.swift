@@ -40,7 +40,7 @@ class ContainerNode: ASDisplayNode, IContainer {
     
     let lockedListener = Dynamic<Bool>(false)
     
-    private let containerModel: ContainerModel
+    let containerModel: ContainerModel
     var component: IComponent!
     var componentNode: ASDisplayNode!
     weak var page: IPage?
@@ -58,14 +58,32 @@ class ContainerNode: ASDisplayNode, IContainer {
         
         if let aCom = component as? ASDisplayNode {
             addSubnode(aCom)
-            
         }
+      
+      bindingContainerModel()
     }
     
     func containAcontainer(aContainerModel: ContainerModel) -> Bool {
         
         return containerModel.isEqual(aContainerModel)
     }
+  
+  func bindingContainerModel() {
+    
+    containerModel.postionChangeListener.bind("ContainerNode") {[unowned self] postion -> Void in
+      
+      self.view.center.x += postion.x
+      self.view.center.y += postion.y
+    }
+    
+    containerModel.sizeChangeListener.bind("ContainerNode") { size -> Void in
+      
+    }
+    
+    containerModel.rotationListener.bind("ContainerNode") { angle -> Void in
+      self.view.transform = CGAffineTransformMakeRotation(angle)
+    }
+  }
     
     func addAnimation() {
         

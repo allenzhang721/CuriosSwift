@@ -46,13 +46,14 @@ class BookModel: Model, IFile {
             "desc" : "MainDesc",
 //            "background" : "MainBackground",
 //            "icon": "Icon",
+          "pageModels" : "Pages",
             "flipDirection" : "FlipDirection",
             "flipType" : "FlipType",
             "backgroundMusic" : "MainMusic",
             "pagesPath" : "PagesPath",
             "autherID" : "AutherID",
             "publishDate" : "PublishDate",
-            "pagesInfo" : "Pages",
+//            "pagesInfo" : "Pages",
             "previewPageID" : "PreviewPageID"
         ]
     }
@@ -65,6 +66,18 @@ class BookModel: Model, IFile {
     "Index": "/ASDFG.json"
     }
     */
+  
+  required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+    super.init(dictionary: dictionaryValue, error: error)
+    
+    for page in pageModels {
+      page.delegate = self
+    }
+  }
+  
+  override init!() {
+    super.init()
+  }
     
     func saveBookInfo() {
         
@@ -101,22 +114,13 @@ class BookModel: Model, IFile {
     }
     
     func paraserPageInfo() {
+      
+      for page in pageModels {
         
-        let file = filePath
-        for pageInfo in pagesInfo {
-            let path: String = pageInfo["Path"]!
-            let index: String = pageInfo["Index"]!
-            let relpagePath = path + index
-            let pagejsonURL = URL(file)(isDirectory: true)(pages, path, index)
-            let pagePath = pagejsonURL.path!
-            let data: AnyObject? = NSData.dataWithContentsOfMappedFile(pagePath)
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            
-            appendPageModel(page)
-        }
+        page.delegate = self
+      }
     }
-    
+  
     func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
         
         var i = index
@@ -129,8 +133,8 @@ class BookModel: Model, IFile {
     
     func appendPageModel(aPageModel: PageModel) {
         aPageModel.delegate = self
-        pageModels.append(aPageModel)
-        
+//        pageModels.append(aPageModel)
+      
     }
     
     func removePageModelAtIndex(index: Int) {
@@ -175,32 +179,31 @@ class BookModel: Model, IFile {
         
         return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
     }
+  
+  // pages
+  class func pageModelsJSONTransformer() -> NSValueTransformer {
     
-    // pageModels
-    class func pageModelsJSONTransformer() -> NSValueTransformer {
-        
-        let forwardBlock: MTLValueTransformerBlock! = {
-            (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-            
-            //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
-            let something: AnyObject! = MTLJSONAdapter.modelsOfClass(PageModel.self, fromJSONArray: jsonArray as! [PageModel], error: nil)
-            return something
-        }
-        
-        let reverseBlock: MTLValueTransformerBlock! = {
-            (pages: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-            let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(pages as! [PageModel], error: nil)
-            return something
-        }
-        
-        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    let forwardBlock: MTLValueTransformerBlock! = {
+      (jsonArray: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+      
+      //            let something: AnyObject! = MTLJSONAdapter.modelOfClass(ComponentModel.self, fromJSONDictionary: jsonDic as! [NSObject : AnyObject], error: aerror)
+      let something: AnyObject! = MTLJSONAdapter.modelsOfClass(PageModel.self, fromJSONArray: jsonArray as! [PageModel], error: nil)
+      return something
     }
+    
+    let reverseBlock: MTLValueTransformerBlock! = {
+      (containers: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+      let something: AnyObject! = MTLJSONAdapter.JSONArrayFromModels(containers as! [PageModel], error: nil)
+      return something
+    }
+    
+    return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+  }
 }
 
 extension BookModel {
     
     func fileGetSuperPath(file: IFile) -> String {
-        
-        return filePath
+        return Id
     }
 }

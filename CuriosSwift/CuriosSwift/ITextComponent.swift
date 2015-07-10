@@ -10,13 +10,6 @@ import Foundation
 
 protocol ITextComponent: IComponent {
     
-    func setFontAligement(aligement: Int)
-    func setFontSize(plus: Bool)
-    func settFontsName(name: String) -> CGSize
-    func setTextContent(text: String) -> CGSize
-    func setTextColor(hexString: String)
-    func getAttributeText() -> NSAttributedString
-    func getTextColor() -> String
-    func getImageRelativePath() -> String
+    func getSnapshotImage() -> UIImage
     //    var componentModel: ComponentModel{get set}
 }

@@ -38,7 +38,6 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     var templateViewController: EditorTemplateNavigationController!
     var SmallLayout = smallLayout()
     var normalLayout = NormalLayout()
-    var pageViewModels: [PageViewModel] = []
     let queue = NSOperationQueue()
     var fakePageView: FakePageView?
     var transitionLayout: TransitionLayout!
@@ -46,6 +45,10 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     var beganPanY: CGFloat = 0.0
     var isToSmallLayout = false
     var multiSection = false
+    var maskView: MaskView?
+  
+  
+  
     var maskAttributes = [IMaskAttributeSetter]()
     var currentEditContainer: IContainer?
     var pageEditing: Bool {
@@ -205,11 +208,11 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             if toolState != .didSelect {
                 
-                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-                    let location = sender.locationInView(view)
+                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+                  page.setDelegate(self)
+                    let location = sender.locationInView(page)
+                  page.begainResponseToTap(location, tapCount: 1)
                     self.collectionView.scrollEnabled = false
-                    page.setDelegate(self)
-                    page.respondToLocation(location, onTargetView: view, sender: sender)
                 }
             } else {
                 if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
@@ -219,7 +222,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     page.respondToLocation(location, onTargetView: view, sender: sender)
                 }
             }
-            
         }
     }
     
@@ -356,9 +358,13 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @IBAction func ImageAction(sender: UIBarButtonItem) {
+      
+      let image = UIImage(named: "Demo.jpg")
+      
+      addImage(image!)
         
-        showsheet()
-        
+//        showsheet()
+      
 //        var imagePickerController = UIImagePickerController()
 //        imagePickerController.delegate = self
 //        imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
@@ -369,6 +375,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @IBAction func addTextAction(sender: UIBarButtonItem) {
+      
+      addText("")
+      
+      return
 
         if let indexPath = getCurrentIndexPath() {
             
@@ -377,6 +387,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 let textComponentModel = TextContentModel()
                 let pageFile = bookModel.pageModels[indexPath.item]
                 let imageName = UniqueIDString()
+//              textComponentModel.name = imageName
                 let realtiveImagePath = "/images/" + imageName + ".jpg"
                 textComponentModel.type = .Text
                 textComponentModel.attributes = ["contentText": "双击\n修改", "FontsName": "RTWSYueGoG0v1-UltLight", "fontSize": 40, "aligement": 1, "ImagePath": realtiveImagePath]
@@ -392,6 +403,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 println(aContainer.height)
                 aContainer.component = textComponentModel
                 textComponentModel.needUpload = true
+              
 //                page.addContainer(aContainer)!
                 page.addContainer(aContainer) {[unowned self] (image) -> () in
                     
@@ -520,6 +532,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
                 FileUplodRequest.uploadFileWithKeyFile(fileKeys)
                 
+                publish()
+                
                 println(fileKeys)
             }
         }
@@ -567,6 +581,21 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //                }
 //            }
 //        }
+    }
+    
+    func publish() {
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        let publishID = bookModel.Id
+        let publishURL = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("index.html")
+        let snapshot = [["pageNumber":"1","snapshotURL":"73ed8dc9b0794a079d430c8f7fce9d79/91abba1e30f848c7a4fde6c96bd95a0c/snapshot/1.png"]]
+        
+       let requset = PublishRequest.requestWith(userID, publishID: publishID, publishURL: publishURL, publisherIconURL: "", publishTitle: "Emiaostein", publishDesc: "hhaah", publishSnapshots: snapshot) { (result) -> Void in
+            
+            println("publish reslut = \(result)")
+        }
+        
+        requset.sendRequest()
     }
     
     
@@ -683,10 +712,291 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
+
+// MARK: - Action
+extension EditViewController {
+  
+  func addText(text: String) {
+    
+    if let indexPath = getCurrentIndexPath() {
+      
+      if bookModel.pageModels.count <= 0 {
+        return
+      }
+      
+      let pageModel = bookModel.pageModels[indexPath.item]
+      
+      let defaultTextAttribute = [ "Text": "Double Click\nto Change",
+        "FontName": "RTWSYueRoudGoG0v1-Regular",
+        "FontSize": 30,
+        "TextColor": "#282A35",
+        "TextAligment": "Center",
+        "ImagePath": " "
+      ]
+      
+      let textComponent = TextContentModel()
+      textComponent.type = .Text
+      textComponent.attributes = defaultTextAttribute
+      let container = ContainerModel()
+      container.component = textComponent
+      
+      pageModel.addContainerModel(container, OnScreenSize: CGSize(width: 100, height: 50))
+    }
+  }
+  
+  
+  func addImage(image: UIImage) {
+    
+    if let indexPath = getCurrentIndexPath() {
+      
+      if bookModel.pageModels.count <= 0 {
+        return
+      }
+      
+      let pageModel = bookModel.pageModels[indexPath.item]
+      
+      let defaultTextAttribute = [ "ImageSourceType": "Relative",
+        "ImagePath": ""
+      ]
+      
+      let imageComponent = ImageContentModel()
+      imageComponent.type = .Image
+      imageComponent.updateImage(image)
+      let container = ContainerModel()
+      container.component = imageComponent
+      
+      pageModel.addContainerModel(container, OnScreenSize: image.size)
+    }
+  }
+  
+  func removeContainer(aContainer: ContainerModel) {
+    
+    if let indexPath = getCurrentIndexPath() {
+      
+      if bookModel.pageModels.count <= 0 {
+        return
+      }
+      
+      let pageModel = bookModel.pageModels[indexPath.item]
+      pageModel.removeContainerModel(aContainer)
+    }
+  }
+  
+  func addMask(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel containerModel: ContainerModel) {
+    
+    if let aMaskView = maskView {
+      aMaskView.removeFromSuperview()
+      maskView = nil
+    }
+    
+    maskView = MaskView.maskWithCenter(center, size: size, angle: angle, targetContainerModel: containerModel)
+    
+    view.addSubview(maskView!)
+  }
+  
+  func removeMaskByModel(targetContainerModel containerModel: ContainerModel) {
+    
+    if let aMaskView = maskView where aMaskView.containerMomdel == containerModel {
+      aMaskView.removeFromSuperview()
+      maskView = nil
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MARK: - Ipage Protocol
+extension EditViewController {
+  
+  func pageDidSelected(page: PageModel, selectedContainer container: ContainerModel, onView: UIView ,onViewCenter: CGPoint, size: CGSize, angle: CGFloat) {
+    
+    let aCenter = onView.convertPoint(onViewCenter, toView: view)
+    addMask(aCenter, size: size, angle: angle, targetContainerModel: container)
+  }
+  
+  func pageDidDeSelected(page: PageModel, deselectedContainer container: ContainerModel) {
+    
+    removeMaskByModel(targetContainerModel: container)
+  }
+  
+  func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel) {
+    
+    
+  }
+  
+  func pageDidEndEdit(page: PageModel) {
+    
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // selected
+  func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView) {
+    
+    let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation, aRatio: ratio)
+    mask.setTarget(selectedContainer)
+    mask.setDelegate(self)
+    if let aMask = mask as? UIView {
+      view.addSubview(aMask)
+    }
+    
+    changeToContainer(selectedContainer)
+    
+    
+    maskAttributes.append(mask)
+  }
+  
+  // deseleted
+  func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer]) {
+    
+    if deSelectedContainers.count > 0 {
+      for container in deSelectedContainers {
+        var index = 0
+        
+        for maskAttribute in maskAttributes {
+          
+          if let aTarget = maskAttribute.getTarget() {
+            if aTarget.isEqual(container) {
+              
+              maskAttribute.remove()
+              maskAttributes.removeAtIndex(index)
+              break
+            }
+          }
+          index++
+        }
+      }
+    }
+  }
+  
+  // double selected
+  func pageDidDoubleSelected(page: IPage, doubleSelectedContainer: IContainer) {
+    
+    if let aTextComponent = doubleSelectedContainer.component as? ITextComponent {
+      
+      if textInputView == nil {
+        
+        textInputView = UINib(nibName: "TextInputView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TextInputView
+        
+        view.addSubview(textInputView!)
+        textInputView?.alpha = 0
+        
+        //                let attribute = aTextComponent.getAttributeText()
+        //                textInputView!.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
+        //
+        //                    self.editTextContent(string, container: doubleSelectedContainer, textCompoent: aTextComponent)
+        //                })
+      }
+      
+      //            println("pageDidDoubleSelected ITextComponent")
+      //            editTextContent(doubleSelectedContainer, textCompoent: aTextComponent)
+    } else if let aImageCom = doubleSelectedContainer.component as? IImageComponent {
+      
+      showsheet()
+    }
+    
+  }
+  
+  // wheather multiSelection
+  func shouldMultiSelection() -> Bool {
+    
+    return multiSection
+  }
+  
+  // end edit
+  func didEndEdit(page: IPage) {
+
+    page.saveInfo()
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let bookID = bookModel.Id
+    
+    page.uploadInfo(userID, publishID: bookID)
+    
+    page.cancelDelegate()
+    collectionView.scrollEnabled = true
+    
+    endContainer()
+    toolState = .endEdit
+    view.setNeedsUpdateConstraints()
+    UIView.animateWithDuration(0.3, animations: { () -> Void in
+      self.view.layoutIfNeeded()
+    })
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // MARK: - DataSource And Delegate
 // MARK: -
 extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol, PannelProtocol, IMaskAttributeSetterProtocol {
-    
+  
     // MARK: - UICollectionViewDataSource and CollectionView Delegate
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -720,13 +1030,13 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         case .FontNameChanged:
             if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent, let name = object as? String {
-                let size = atextComponent.settFontsName(name)
-                    aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
-                
+//                let size = atextComponent.settFontsName(name)
+//                    aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
+              
                 if !maskAttributes.isEmpty {
                     
                     let mask = maskAttributes[0]
-                    mask.setMaskSize(size)
+//                    mask.setMaskSize(size)
                 }
             }
             
@@ -737,7 +1047,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
 
                 colorPickView?.setDidSelectedBlock({ (colorDic) -> Void in
                     
-                    atextComponent.setTextColor(colorDic)
+//                    atextComponent.setTextColor(colorDic)
                 })
                 
                 colorPickView?.setdissmissBlock({[unowned self] () -> () in
@@ -753,7 +1063,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                     })
                 })
                 
-                colorPickView?.setSelectedColorString(atextComponent.getTextColor())
+//                colorPickView?.setSelectedColorString(atextComponent.getTextColor())
                 
                 view.addSubview(colorPickView!)
                 colorPickView?.alpha = 0.0
@@ -775,7 +1085,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         default:
             return
         }
-        
     }
     
     // MARK: - SmallLayout Delegate
@@ -883,100 +1192,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
             self.view.layoutIfNeeded()
         })
     }
-    
-    
-    // MARK: - Ipage Protocol
-    
-    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView) {
-        
-        let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation, aRatio: ratio)
-        mask.setTarget(selectedContainer)
-        mask.setDelegate(self)
-        if let aMask = mask as? UIView {
-            view.addSubview(aMask)
-        }
-        
-        changeToContainer(selectedContainer)
-        
-        
-        maskAttributes.append(mask)
-    }
-    
-    func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer]) {
-        
-        if deSelectedContainers.count > 0 {
-            for container in deSelectedContainers {
-                var index = 0
 
-                for maskAttribute in maskAttributes {
-                    
-                    if let aTarget = maskAttribute.getTarget() {
-                        if aTarget.isEqual(container) {
-                            
-                            maskAttribute.remove()
-                            maskAttributes.removeAtIndex(index)
-                            break
-                        }
-                    }
-                    index++
-                }
-            }
-        }
-    }
     
-    func pageDidDoubleSelected(page: IPage, doubleSelectedContainer: IContainer) {
-        
-        if let aTextComponent = doubleSelectedContainer.component as? ITextComponent {
-            
-            if textInputView == nil {
-                
-                textInputView = UINib(nibName: "TextInputView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TextInputView
-                
-                view.addSubview(textInputView!)
-                textInputView?.alpha = 0
-                
-                let attribute = aTextComponent.getAttributeText()
-                textInputView!.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
-
-                    self.editTextContent(string, container: doubleSelectedContainer, textCompoent: aTextComponent)
-                })
-            }
-            
-//            println("pageDidDoubleSelected ITextComponent")
-//            editTextContent(doubleSelectedContainer, textCompoent: aTextComponent)
-        } else if let aImageCom = doubleSelectedContainer.component as? IImageComponent {
-            
-            showsheet()
-        }
-        
-    }
-    
-    func shouldMultiSelection() -> Bool {
-        
-        return multiSection
-    }
-    
-    func didEndEdit(page: IPage) {
-        
-        
-        
-        page.saveInfo()
-        
-        let userID = UsersManager.shareInstance.getUserID()
-        let bookID = bookModel.Id
-        
-        page.uploadInfo(userID, publishID: bookID)
-        
-        page.cancelDelegate()
-        collectionView.scrollEnabled = true
-        
-        endContainer()
-        toolState = .endEdit
-        view.setNeedsUpdateConstraints()
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.layoutIfNeeded()
-        })
-    }
+  
     
     // MARK: - IMaskAttributer Protocol
     func maskAttributeWillDeleted(sender: IMaskAttributeSetter) {
@@ -1004,11 +1222,11 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                     view.addSubview(textInputView!)
                     textInputView?.alpha = 0
                     
-                    let attribute = aTextCom.getAttributeText()
-                    textInputView?.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
-                        
-                        self.editTextContent(string, container: aContainer, textCompoent: aTextCom)
-                        })
+//                    let attribute = aTextCom.getAttributeText()
+//                    textInputView?.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
+//                        
+//                        self.editTextContent(string, container: aContainer, textCompoent: aTextCom)
+//                        })
                 }
                 
                 //            println("pageDidDoubleSelected ITextComponent")
@@ -1039,15 +1257,17 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
                 let realtiveImagePath = "/images/" + imageID + ".jpg"
-                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
+//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
+              
+              let imagePath = temporaryDirectory("\(imageID).jpg").path!
                 if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
                     println("remove file")
                 }
                 if imageData.writeToFile(imagePath, atomically: true) {
-                    
+                  
                 }
                 
-                
+                aImageCom.updateImage()
             }
 
         } else if let indexPath = getCurrentIndexPath() {
@@ -1065,20 +1285,24 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 
                 let pagePath = pageFile.fileGetSuperPath(pageFile)
                 let realtiveImagePath = "/images/" + imageName + ".jpg"
-                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
-                
+//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
+                let imagePath = temporaryDirectory("\(imageName).jpg").path!
 
                 if imageData.writeToFile(imagePath, atomically: true) {
 
+                  println(" success")
                 }
                 
                 let textComponentModel = ImageContentModel()
+//              textComponentModel.name = imageName
                 textComponentModel.type = .Image
-                textComponentModel.imagePath = realtiveImagePath
+//                textComponentModel.imagePath = realtiveImagePath
                 let aContainer = ContainerModel()
                 aContainer.component = textComponentModel
                 aContainer.component.needUpload = true
                 page.addContainer(aContainer, finishCompletedBlock: nil)
+              
+              
                 page.saveInfo()
             }
         }
@@ -1141,14 +1365,14 @@ extension EditViewController {
     
     func editTextContent(string: String, container: IContainer, textCompoent: ITextComponent) {
         
-       let size = textCompoent.setTextContent(string)
-        container.setResize(CGSize(width: size.width , height: size.height + 10 ), center: CGPointZero, resizeComponent: false, scale: false)
-        
-        if !maskAttributes.isEmpty {
-            
-            let mask = maskAttributes[0]
-            mask.setMaskSize(size)
-        }
+//       let size = textCompoent.setTextContent(string)
+//        container.setResize(CGSize(width: size.width , height: size.height + 10 ), center: CGPointZero, resizeComponent: false, scale: false)
+//        
+//        if !maskAttributes.isEmpty {
+//            
+//            let mask = maskAttributes[0]
+//            mask.setMaskSize(size)
+//        }
     }
 }
 
@@ -1285,16 +1509,18 @@ extension EditViewController {
         book.filePath = bookURL!.path!
         let basePagePath = URL(bookURL!.URLByAppendingPathComponent(pages).absoluteString!)(isDirectory: true)
         
-        for pageInfo in book.pagesInfo {
-            let path: String = pageInfo["Path"]!
-            let index: String = pageInfo["Index"]!
-            let pageJsonURL = basePagePath(path,index)
-            let data: AnyObject? = NSData(contentsOfURL: pageJsonURL)
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
-            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            book.appendPageModel(page)
-        }
-        
+//        for pageInfo in book.pagesInfo {
+//            let path: String = pageInfo["Path"]!
+//            let index: String = pageInfo["Index"]!
+//            let pageJsonURL = basePagePath(path,index)
+//            let data: AnyObject? = NSData(contentsOfURL: pageJsonURL)
+//            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+//            let page = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+//            book.appendPageModel(page)
+//        }
+      
+      book.paraserPageInfo()
+      
         return book
         
     }
@@ -1416,6 +1642,12 @@ extension EditViewController {
         let fileManager = NSFileManager.defaultManager()
         let userID = UsersManager.shareInstance.getUserID()
         let bookId = bookModel.Id
+      
+      let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+      let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+      let main = temporaryDirectory(userID,bookId,"main.json")
+      data?.writeToURL(main, atomically: true)
+
         let originBookUrl = documentDirectory(users,userID,books,bookId)
         let tempBookUlr = temporaryDirectory(userID,bookId)
         
@@ -1423,8 +1655,7 @@ extension EditViewController {
             
             let saveDate = NSDate();
             UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
-            
-            
+
         }
     }
     

@@ -39,6 +39,7 @@ class FileUplodRequest: BaseRequst {
                         if response != nil {
                             
                             println(responseInfo)
+                          
                         } else {
                             
                             println("image uopload response == nil")
@@ -48,9 +49,8 @@ class FileUplodRequest: BaseRequst {
                 
                 }
             }
-            
         }
-        
+      
         base.sendRequest()
     }
 }

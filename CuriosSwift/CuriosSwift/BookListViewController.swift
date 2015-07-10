@@ -63,22 +63,11 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let selectedBook = UsersManager.shareInstance.bookList[indexPath.item]
-        let templateId = selectedBook.bookID
-        let tempDirUrl = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        
-        let toUrl = NSURL(string: UsersManager.shareInstance.getUserID(), relativeToURL: tempDirUrl) // temp/user
-        NSFileManager.defaultManager().removeItemAtURL(toUrl!, error: nil)
-        if NSFileManager.defaultManager().createDirectoryAtURL(toUrl!, withIntermediateDirectories: true, attributes: nil, error: nil) {
-            
-            if UsersManager.shareInstance.duplicateBookTo(templateId, toUrl: toUrl!.URLByAppendingPathComponent(templateId)) {
-                
-                let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
-                edit.loadBookWith(templateId)
-                navigationController?.presentViewController(edit, animated: true, completion: nil)
-            }
-        }
+      
+      // open a book
+      getBookWithBookID("", getBookHandler: { [unowned self] (book) -> () in
+        self.showEditViewControllerWithBook(book)
+      })
     }
 }
 

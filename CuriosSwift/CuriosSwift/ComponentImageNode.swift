@@ -15,12 +15,17 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     required init(aComponentModel: ImageContentModel) {
         self.componentModel = aComponentModel
         super.init()
-//        backgroundColor = UIColor.blueColor()
-        let aImagePath = componentModel.imagePath
+
+      backgroundColor = UIColor.yellowColor()
+     componentModel.generateImage {[unowned self] (image) -> () in
         
-        let aImage = UIImage(contentsOfFile: aImagePath)
-//        self.view.contentMode = .ScaleToFill
-        image = aImage
+        self.image = image
+      }
+      
+      componentModel.updateImageHandler({[unowned self] (image) -> () in
+        self.image = image
+        })
+
         clipsToBounds = true
     }
     
@@ -29,21 +34,13 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     }
     
     func getImageID() -> String {
-        
-        let aImagePath = componentModel.imagePath
-        println("getaImagePath = \(aImagePath)")
-        let imageID = aImagePath.lastPathComponent.stringByDeletingPathExtension
-        return imageID
+      
+      return ""
     }
+  
+  func updateImage() {
     
-    func updateImage() {
-        
-        let aImagePath = componentModel.imagePath
-        println("updateImagePath = \(aImagePath)")
-        let aImage = UIImage(contentsOfFile: aImagePath)
-        //        self.view.contentMode = .ScaleToFill
-        image = aImage
-    }
+  }
     
     func getNeedUpload() -> Bool {
         

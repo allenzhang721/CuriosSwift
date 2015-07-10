@@ -9,6 +9,14 @@
 import Foundation
 
 protocol IPageProtocol: NSObjectProtocol {
+  
+  
+  func pageDidSelected(page: PageModel, selectedContainer container: ContainerModel, onView: UIView ,onViewCenter: CGPoint, size: CGSize, angle: CGFloat)
+  func pageDidDeSelected(page: PageModel, deselectedContainer container: ContainerModel)
+  func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel)
+  func pageDidEndEdit(page: PageModel)
+  
+  
     
     func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView)
     func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer])
@@ -18,6 +26,8 @@ protocol IPageProtocol: NSObjectProtocol {
 }
 
 protocol IPage: NSObjectProtocol {
+  
+  func begainResponseToTap(onScreenPoint: CGPoint, tapCount: Int)
     
     func setDelegate(aDelegate: IPageProtocol)
     func cancelDelegate()
