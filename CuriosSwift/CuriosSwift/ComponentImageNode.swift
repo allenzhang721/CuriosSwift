@@ -9,50 +9,49 @@
 import UIKit
 
 class ComponentImageNode: ASImageNode, IImageComponent {
-   
-    var componentModel: ImageContentModel
+  
+  var componentModel: ImageContentModel
+  
+  required init(aComponentModel: ImageContentModel) {
+    self.componentModel = aComponentModel
+    super.init()
     
-    required init(aComponentModel: ImageContentModel) {
-        self.componentModel = aComponentModel
-        super.init()
-
-      backgroundColor = UIColor.yellowColor()
-     componentModel.generateImage {[unowned self] (image) -> () in
-        
-        self.image = image
-      }
+    componentModel.generateImage {[unowned self] (image) -> () in
       
-      componentModel.updateImageHandler({[unowned self] (image) -> () in
-        self.image = image
-        })
-
-        clipsToBounds = true
+      self.image = image
     }
     
-    func resizeScale(scale: CGFloat) {
-        
-    }
+    componentModel.updateImageHandler({[unowned self] (image) -> () in
+      self.image = image
+      })
+    cropEnabled = false
+    clipsToBounds = true
+  }
+  
+  func resizeScale(scale: CGFloat) {
     
-    func getImageID() -> String {
-      
-      return ""
-    }
+  }
+  
+  func getImageID() -> String {
+    
+    return ""
+  }
   
   func updateImage() {
     
   }
+  
+  func getNeedUpload() -> Bool {
     
-    func getNeedUpload() -> Bool {
-        
-        return componentModel.needUpload
-    }
-    
-    func setNeedUpload(needUpload: Bool) {
-        componentModel.needUpload = true
-    }
-    
-    // MARK: - IComponent
-    func iBecomeFirstResponder(){}
-    func iResignFirstResponder(){}
-    func iIsFirstResponder() -> Bool {return false}
+    return componentModel.needUpload
+  }
+  
+  func setNeedUpload(needUpload: Bool) {
+    componentModel.needUpload = true
+  }
+  
+  // MARK: - IComponent
+  func iBecomeFirstResponder(){}
+  func iResignFirstResponder(){}
+  func iIsFirstResponder() -> Bool {return false}
 }
