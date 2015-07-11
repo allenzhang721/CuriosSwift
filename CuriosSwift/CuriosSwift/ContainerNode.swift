@@ -58,14 +58,26 @@ class ContainerNode: ASDisplayNode, IContainer {
         bounds.size = size
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
         component = containerModel.component.createComponent()
-        
+      
         if let aCom = component as? ASDisplayNode {
             addSubnode(aCom)
         }
       
       bindingContainerModel()
     }
+  
+  override func calculateSizeThatFits(constrainedSize: CGSize) -> CGSize {
     
+    if let subNode = component as? ASTextNode {
+      
+      let minTextSize = subNode.measure(constrainedSize)
+      return CGSize(width: minTextSize.width, height: minTextSize.height + 10)
+    } else {
+      return bounds.size
+    }
+    
+  }
+  
     func containAcontainer(aContainerModel: ContainerModel) -> Bool {
         
         return containerModel.isEqual(aContainerModel)

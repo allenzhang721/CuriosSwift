@@ -117,9 +117,10 @@ extension PageCollectionViewCell {
     if let aContentNode = contentNode {
       
       let containerNode = getContainerWithModel(model)
-      containerNode.backgroundColor = UIColor.redColor()
       aContentNode.addSubnode(containerNode)
-      
+//      let size = containerNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
+//      containerNode.bounds.size = size
+//      model.setOnScreenSize(size)
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         aContentNode.setNeedsDisplay()
       })
@@ -599,8 +600,6 @@ extension PageCollectionViewCell {
       }
     }
     
-    
-    
     return operation
   }
   
@@ -630,6 +629,9 @@ extension PageCollectionViewCell {
     
     let aContainerNode = ContainerNode(postion: info.0, size: info.1, rotation: info.2, aspectRatio: aspectRatio, aContainerModel: aContainerModel)
     
+    let size = aContainerNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
+    aContainerNode.bounds.size = size
+    aContainerModel.setOnScreenSize(size)
     return aContainerNode
   }
   

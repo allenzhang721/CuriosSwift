@@ -32,6 +32,15 @@ class ContainerModel: Model {
   var centerChangeListener = Dynamic(CGPointZero)
   var sizeChangeListener = Dynamic(CGSizeZero)
   var rotationListener = Dynamic(CGFloat(0))
+  var sizeListener = Dynamic(CGSizeZero)
+  
+  func setOnScreenSize(size: CGSize) {
+    
+    sizeListener.value = size
+    
+    width = size.width / aspectio
+    height = size.height / aspectio
+  }
   
   func setOriginChange(point: CGPoint) {
     x += point.x / aspectio

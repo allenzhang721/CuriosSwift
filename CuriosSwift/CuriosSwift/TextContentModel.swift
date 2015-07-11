@@ -106,6 +106,12 @@ class TextContentModel: ComponentModel {
     return attributeString
   }
   
+  func getFontSize() -> CGFloat {
+    
+    let fontSize = attributes["FontSize"] as! CGFloat
+    return fontSize
+  }
+  
   override func uploadInfo(userID: String, publishID: String, pageID: String) {
     //        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
     

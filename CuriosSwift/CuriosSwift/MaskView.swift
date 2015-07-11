@@ -23,7 +23,12 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   
   var begainAngle: CGFloat = 0.0
   var beginSize: CGSize = CGSizeZero
+  var panBeginSize: CGSize = CGSizeZero
+  var pinchbegainFontSize: CGFloat = 0
   var begainScale: CGFloat = 1.0
+  var begainFontSize: CGFloat = 1.0
+  var begainFontScale: CGFloat = 1.0
+  var ratio: CGFloat = 0.0 // bounds width / height
   var controlStyle: ControlStyle = .None
   
   static func maskWithCenter(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel aContainerModel: ContainerModel) -> MaskView {
@@ -170,6 +175,14 @@ extension MaskView {
     switch sender.state {
     case .Began:
       
+      if let compoenent = containerMomdel.component as? TextContentModel {
+        
+        panBeginSize = bounds.size
+        ratio = bounds.width / bounds.height
+        begainFontSize = compoenent.getFontSize()
+      }
+      
+      
       let position = sender.locationInView(self)
       
       switch position {
@@ -196,11 +209,30 @@ extension MaskView {
         containerMomdel.setOriginChange(transition)
         
       case .Resize:
-        let transition = sender.translationInView(self)
-        let transitionx = sender.translationInView(superview!)
-        containerMomdel.setSizeChange(CGSize(width: transition.x, height: transition.y))
-        containerMomdel.setCenterChange(CGPoint(x: transitionx.x / 2.0, y: transitionx.y / 2.0))
-        containerMomdel.setOriginChange(CGPoint(x: 0 - transition.x / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
+        
+        if containerMomdel.component is ImageContentModel {
+          
+          let transition = sender.translationInView(self)
+          let transitionx = sender.translationInView(superview!)
+          containerMomdel.setSizeChange(CGSize(width: transition.x, height: transition.y))
+          containerMomdel.setCenterChange(CGPoint(x: transitionx.x / 2.0, y: transitionx.y / 2.0))
+          containerMomdel.setOriginChange(CGPoint(x: 0 - transition.x / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
+          
+        } else if let textComponent = containerMomdel.component as? TextContentModel {
+          
+          let transition = sender.translationInView(self)
+          let transitionx = sender.translationInView(superview!)
+          
+          let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
+          let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
+          containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
+          containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
+//          containerMomdel.setOriginChange(CGPoint(x: 0 - transition.y * ratio / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
+
+          let scale = bounds.width / panBeginSize.width
+          textComponent.setFontSize(scale * begainFontSize)
+        }
+        
         
       case .Rotaion:
         let location = sender.locationInView(superview!)
@@ -259,6 +291,11 @@ extension MaskView {
       beginSize = bounds.size
       begainScale = sender.scale
       
+      if let compoenent = containerMomdel.component as? TextContentModel {
+        pinchbegainFontSize = compoenent.getFontSize()
+        begainFontScale = 1.0
+      }
+      
     case .Changed:
       let scale = ceil((sender.scale - begainScale) * 100) / 100.0
       begainScale = sender.scale
@@ -267,9 +304,15 @@ extension MaskView {
       containerMomdel.setSizeChange(CGSize(width: widthDel, height: heightDel))
       containerMomdel.setOriginChange(CGPoint(x: 0 - widthDel / 2.0, y: 0 - heightDel / 2.0))
       
+      if let compoenent = containerMomdel.component as? TextContentModel {
+        
+        let ascale = bounds.width / beginSize.width
+        compoenent.setFontSize(pinchbegainFontSize * ascale)
+      }
       
-    case .Ended, .Changed:
-      return
+      
+    case .Ended, .Cancelled:
+      println("")
       
     default:
       return
