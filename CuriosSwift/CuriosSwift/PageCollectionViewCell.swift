@@ -67,6 +67,7 @@ extension PageCollectionViewCell {
   func targetPageModel(model: PageModel, DidAddContainer container: ContainerModel) {
     
     addContainerByModel(container)
+    begainResponseToTap(center, tapCount: 1)
   }
   
   func targetpageModel(model: PageModel, DidRemoveContainer container: ContainerModel) {

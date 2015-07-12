@@ -663,6 +663,8 @@ extension EditViewController {
   
   func addText(text: String) {
     
+    EndEdit()
+    
     if let indexPath = getCurrentIndexPath() {
       
       if bookModel.pageModels.count <= 0 {
@@ -686,11 +688,14 @@ extension EditViewController {
       container.component = textComponent
       
       pageModel.addContainerModel(container, OnScreenSize: CGSize(width: 100, height: 50))
+      begainEdit()
     }
   }
   
   
   func addImage(image: UIImage) {
+    
+    EndEdit()
     
     if let indexPath = getCurrentIndexPath() {
       
@@ -711,6 +716,7 @@ extension EditViewController {
       container.component = imageComponent
       
       pageModel.addContainerModel(container, OnScreenSize: image.size)
+      begainEdit()
     }
   }
   
@@ -753,6 +759,18 @@ extension EditViewController {
     if let aMaskView = maskView where aMaskView.containerMomdel == containerModel {
       aMaskView.removeFromSuperview()
       maskView = nil
+    }
+  }
+  
+  func begainEdit() {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      
+      if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+        page.setDelegate(self)
+        let location = page.contentView.center
+        page.begainResponseToTap(location, tapCount: 1)
+      }
     }
   }
   
