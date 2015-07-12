@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol MaskViewDelegate: NSObjectProtocol {
+  
+  func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel)
+  func maskViewDidSelectedEditItem(mask: MaskView, EditedContainerModel containerModel: ContainerModel)
+  
+}
+
 class MaskView: UIView, UIGestureRecognizerDelegate {
   
   enum ControlStyle {
@@ -15,6 +22,8 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   }
   
   var containerMomdel: ContainerModel!
+  
+  weak var delegate: MaskViewDelegate?
   
   var settingPannel: UIImageView!
   var resizePannel: UIImageView!
@@ -86,6 +95,10 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
 extension MaskView {
   
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    if otherGestureRecognizer is UITapGestureRecognizer {
+      return false
+    }
   return true
   }
 }
@@ -144,6 +157,7 @@ extension MaskView {
   
   func addGestures() {
     
+    let tap = UITapGestureRecognizer(target: self, action: "tapAction:")
     let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
     let rot = UIRotationGestureRecognizer(target: self, action: "rotationAction:")
     let pin = UIPinchGestureRecognizer(target: self, action: "pinchAction:")
@@ -152,6 +166,7 @@ extension MaskView {
     rot.delegate = self
     pin.delegate = self
     
+    addGestureRecognizer(tap)
     addGestureRecognizer(pan)
     addGestureRecognizer(rot)
     addGestureRecognizer(pin)
@@ -199,6 +214,24 @@ extension MaskView {
 
 // MARK: - Private Method gestures
 extension MaskView {
+  
+  func tapAction(sender: UITapGestureRecognizer) {
+    
+    let deleteRegion = retangle(CGSizeMake(40, 40), CGPoint(x: 0, y: bounds.height))
+    let editRegion = retangle(CGSize(width: 40, height: 40), CGPointZero)
+    
+    let location = sender.locationInView(self)
+    switch location {
+    case let point where deleteRegion(point):
+      delegate?.maskViewDidSelectedDeleteItem(self, deletedContainerModel: containerMomdel)
+      
+    case let point where editRegion(point):
+      delegate?.maskViewDidSelectedEditItem(self, EditedContainerModel: containerMomdel)
+      
+    default:
+      return
+    }
+  }
 
   func panAction(sender: UIPanGestureRecognizer) {
     

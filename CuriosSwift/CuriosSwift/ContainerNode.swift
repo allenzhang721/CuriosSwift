@@ -205,7 +205,6 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     } else {
       unbindingContainerModel()
     }
-    
   }
   
   

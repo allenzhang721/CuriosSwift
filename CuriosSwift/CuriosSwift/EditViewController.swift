@@ -18,7 +18,7 @@ import SnapKit
     data[j] = temp
 }
 
-class EditViewController: UIViewController, UIViewControllerTransitioningDelegate ,IPageProtocol, preViewControllerProtocol {
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, MaskViewDelegate,IPageProtocol, preViewControllerProtocol {
     
     enum ToolState {
         case willSelect
@@ -603,7 +603,8 @@ extension EditViewController {
   }
   
   @IBAction func addTextAction(sender: UIBarButtonItem) {
-//    showTextInputControllerWithAttributeString(<#attributeString: NSAttributedString#>, compelectedBlock: <#(NSAttributedString) -> ()##(NSAttributedString) -> ()#>)
+
+    addText("")
     
   }
   
@@ -722,18 +723,18 @@ extension EditViewController {
     }
   }
   
-  func removeContainer(aContainer: ContainerModel) {
-    
-    if let indexPath = getCurrentIndexPath() {
-      
-      if bookModel.pageModels.count <= 0 {
-        return
-      }
-      
-      let pageModel = bookModel.pageModels[indexPath.item]
-      pageModel.removeContainerModel(aContainer)
-    }
-  }
+//  func removeContainer(aContainer: ContainerModel) {
+//    
+//    if let indexPath = getCurrentIndexPath() {
+//      
+//      if bookModel.pageModels.count <= 0 {
+//        return
+//      }
+//      
+//      let pageModel = bookModel.pageModels[indexPath.item]
+//      pageModel.removeContainerModel(aContainer)
+//    }
+//  }
   
   func addMask(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel containerModel: ContainerModel) {
     
@@ -743,7 +744,7 @@ extension EditViewController {
     }
     
     maskView = MaskView.maskWithCenter(center, size: size, angle: angle, targetContainerModel: containerModel)
-    
+    maskView!.delegate = self
     view.insertSubview(maskView!, aboveSubview: collectionView)
   }
   
@@ -754,10 +755,63 @@ extension EditViewController {
       maskView = nil
     }
   }
+  
+  func EndEdit() {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      
+      if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+        page.setDelegate(self)
+        let location = CGPoint(x: CGFloat.max, y: CGFloat.max)
+        page.begainResponseToTap(location, tapCount: 1)
+      }
+    }
+  }
 }
 
 
 
+// MARK: - MaskViewDelgate - New
+extension EditViewController {
+  
+  func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel) {
+    
+     if let currentIndexPath = getCurrentIndexPath() {
+      
+      // EndEdit
+      EndEdit()
+      
+      // remove Model
+      let pageModel = bookModel.pageModels[currentIndexPath.item]
+      pageModel.removeContainerModel(containerModel)
+    }
+  }
+  
+  
+  func maskViewDidSelectedEditItem(mask: MaskView, EditedContainerModel containerModel: ContainerModel) {
+    
+    // Replace Image
+    if let component = containerModel.component as? ImageContentModel {
+      isReplacedImage = true
+      showsheet()
+    } else if let component = containerModel.component as? TextContentModel {
+      // Edit Text
+      let attriString = component.getDemoAttributeString()
+      showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          
+          let size = component.updateFromDemoAttributeString(attri)
+          containerModel.needUpdateOnScreenSize(true)
+        })
+      }
+    }
+    
+    
+    
+  }
+  
+}
 
 
 
