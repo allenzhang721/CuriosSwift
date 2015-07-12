@@ -30,6 +30,7 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   var begainFontScale: CGFloat = 1.0
   var ratio: CGFloat = 0.0 // bounds width / height
   var controlStyle: ControlStyle = .None
+  var binding = false
   
   static func maskWithCenter(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel aContainerModel: ContainerModel) -> MaskView {
     
@@ -43,6 +44,16 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     bounds.size = size
     transform = CGAffineTransformMakeRotation(aAngle)
     backgroundColor = UIColor.clearColor()
+    
+//    aContainerModel.selectedListener.bind("Mask_View") {[weak self] selected -> Void in
+//      
+//      if selected {
+//        self?.bindingContainerModel()
+//      } else {
+//        self?.unBindingContainerModel()
+//      }
+//      
+//    }
     
     bindingContainerModel()
     addGestures()
@@ -66,6 +77,7 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     }
   
   deinit {
+//    containerMomdel.selectedListener.removeActionWithID("Mask_View")
     unBindingContainerModel()
   }
 }
@@ -82,6 +94,20 @@ extension MaskView {
 extension MaskView {
   
   func bindingContainerModel() {
+    
+    if binding {
+      return
+    }
+    
+    binding = true
+    
+    println("Mask begain binding")
+    
+    containerMomdel.updateSizeListener.bind("Mask_View") {[unowned self] size -> Void in
+      
+      self.bounds.size = size
+      self.setNeedsDisplay()
+    }
     
     containerMomdel.centerChangeListener.bind("Mask_View") {[unowned self] postion -> Void in
       
@@ -102,7 +128,15 @@ extension MaskView {
   }
   
   func unBindingContainerModel() {
+
+    if !binding {
+      return
+    }
     
+    binding = false
+    
+    println("Mask End binding")
+    containerMomdel.updateSizeListener.removeActionWithID("Mask_View")
     containerMomdel.centerChangeListener.removeActionWithID("Mask_View")
     containerMomdel.sizeChangeListener.removeActionWithID("Mask_View")
     containerMomdel.rotationListener.removeActionWithID("Mask_View")

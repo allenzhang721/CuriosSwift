@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerNode: ASDisplayNode, IContainer {
+class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
     var containerSize: CGSize{
         get {
@@ -38,7 +38,9 @@ class ContainerNode: ASDisplayNode, IContainer {
         }
     }
   
-  let randID = UniqueIDString()
+  var binding = false
+  
+  let randID: String
     
     let lockedListener = Dynamic<Bool>(false)
     
@@ -51,7 +53,7 @@ class ContainerNode: ASDisplayNode, IContainer {
     init(postion: CGPoint, size: CGSize, rotation:CGFloat, aspectRatio theAspectRatio: CGFloat,aContainerModel: ContainerModel) {
         self.aspectRatio = theAspectRatio
         self.containerModel = aContainerModel
-        
+        randID = aContainerModel.Id
         super.init()
         containerModel.aspectio = theAspectRatio
         position = postion
@@ -63,8 +65,33 @@ class ContainerNode: ASDisplayNode, IContainer {
             addSubnode(aCom)
         }
       
-      bindingContainerModel()
+      if aContainerModel.component is TextContentModel {
+        println("Node Init: Text_\(randID)")
+      } else {
+        println("Node Init: Image_\(randID)")
+      }
+      
+      aContainerModel.delegate = self
+      
+//      containerModel.selectedListener.bind("ContainerNode_\(randID)") {[unowned self] selected -> Void in
+//        
+//        if selected {
+//          self.bindingContainerModel()
+//        } else {
+//          self.unbindingContainerModel()
+//        }
+//        
+//      }
+
+      
+//      bindingContainerModel()
     }
+  
+  func updateSize() {
+    let newSize = calculateSizeThatFits(CGSize(width: CGFloat.max, height: CGFloat.max))
+    println("newSize = \(newSize)")
+    containerModel.updateOnScreenSize(newSize)
+  }
   
   override func calculateSizeThatFits(constrainedSize: CGSize) -> CGSize {
     
@@ -85,32 +112,65 @@ class ContainerNode: ASDisplayNode, IContainer {
   
   func bindingContainerModel() {
     
-    containerModel.centerChangeListener.bind("ContainerNode_\(randID)") {[unowned self] postion -> Void in
-      
-      self.view.center.x += postion.x
-      self.view.center.y += postion.y
+    if binding {
+      return
     }
     
-    containerModel.sizeChangeListener.bind("ContainerNode_\(randID)") {[unowned self] size -> Void in
+    binding = true
+    
+    println("Node begain binding: \(randID)")
+    
+    containerModel.needUpdateSizeListener.bind("ContainerNode_\(randID)") {[weak self] need -> Void in
       
-      self.view.bounds.size.width += size.width
-      self.view.bounds.size.height += size.height
+      if need {
+          self?.updateSize()
+      }
+      
     }
     
-    containerModel.rotationListener.bind("ContainerNode_\(randID)") { angle -> Void in
-      self.view.transform = CGAffineTransformMakeRotation(angle)
+    containerModel.updateSizeListener.bind("ContainerNode_\(randID)") {[weak self] size -> Void in
+
+        self?.view.bounds.size.width = size.width
+        self?.view.bounds.size.height = size.height
+    }
+    
+    containerModel.centerChangeListener.bind("ContainerNode_\(randID)") {[weak self] postion -> Void in
+      
+      self?.view.center.x += postion.x
+      self?.view.center.y += postion.y
+    }
+    
+    containerModel.sizeChangeListener.bind("ContainerNode_\(randID)") {[weak self] size -> Void in
+      
+      self?.view.bounds.size.width += size.width
+      self?.view.bounds.size.height += size.height
+    }
+    
+    containerModel.rotationListener.bind("ContainerNode_\(randID)") {[weak self] angle -> Void in
+      self?.view.transform = CGAffineTransformMakeRotation(angle)
     }
   }
   
   func unbindingContainerModel() {
     
+    if !binding {
+      return
+    }
+    
+    binding = false
+    
+    println("Node End binding: \(randID)")
+//    println("ContainerNode_\(randID) unbindingContainerModel")
+    containerModel.needUpdateSizeListener.removeActionWithID("ContainerNode_\(randID)")
+    containerModel.updateSizeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.centerChangeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.sizeChangeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.rotationListener.removeActionWithID("ContainerNode_\(randID)")
   }
   
   deinit {
-    
+    println("Node Deinit: \(randID)")
+    containerModel.selectedListener.removeActionWithID("ContainerNode_\(randID)")
     unbindingContainerModel()
   }
     
@@ -135,6 +195,36 @@ class ContainerNode: ASDisplayNode, IContainer {
         var layerFadeOutAnim : CAAnimationGroup = QCMethod.groupAnimations([layerPositionAnim, layerOpacityAnim], fillMode:fillMode)
         self.layer.addAnimation(layerFadeOutAnim, forKey:"layerFadeOutAnim")
     }
+  
+  
+  
+  func containerModel(model: ContainerModel, selectedDidChanged selected: Bool) {
+    
+    if selected {
+      bindingContainerModel()
+    } else {
+      unbindingContainerModel()
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     
     // MARK: - IContainer
     
@@ -274,35 +364,7 @@ class ContainerNode: ASDisplayNode, IContainer {
         
         
     }
-    
-    func setResize(size: CGSize, center: CGPoint, resizeComponent: Bool = false, scale: Bool = false) {
-        
-        containerModel.needUpload = true
-        
-        bounds.size = size
-        position.x += center.x
-        position.y += center.y
-        
-        let width = !scale ? size.width / aspectRatio : size.width
-        let height = !scale ? size.height / aspectRatio : size.height
-        
-        let aScale = (width) / containerModel.width
-        
-        containerModel.width = width
-        containerModel.height = height
-        containerModel.x = frame.origin.x / aspectRatio
-        containerModel.y = frame.origin.y / aspectRatio
-        
-        if resizeComponent { component.resizeScale(aScale) }
-    }
-    
-    func setRotation(incrementAngle: CGFloat) {
-        
-        containerModel.needUpload = true
-        
-        transform = CATransform3DMakeRotation(incrementAngle, 0, 0, 1)
-        containerModel.rotation = incrementAngle
-    }
+  
     
     func sendForwoard() -> Bool {
         
@@ -332,7 +394,6 @@ class ContainerNode: ASDisplayNode, IContainer {
         
         if let aPage = page {
             containerModel.removed()
-            page?.removeContainer(containerModel)
         }
     }
 }

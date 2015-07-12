@@ -231,7 +231,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
         case .Began, .Changed:
             transform = CGAffineTransformMakeRotation(angle + rotation)
             if let aContainer = container {
-                aContainer.setRotation(angle + rotation)
+//                aContainer.setRotation(angle + rotation)
             }
         case .Cancelled, .Ended:
             
@@ -268,7 +268,6 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
             bounds.size.height = beginSize.height + heightDel
             
             if let aContainer = container {
-                aContainer.setResize(bounds.size, center: CGPointZero, resizeComponent: true, scale: false)
             }
             
         case .Ended, .Changed:
@@ -355,7 +354,7 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 currentCenter = center
                 
                 if let aContainer = container {
-                    aContainer.setResize(CGSize(width: realWidth, height: realHeight), center: CGPoint(x: 0, y: 0), resizeComponent: true, scale: false)
+                  
                 }
                 
             case .Rotaion:
@@ -367,7 +366,6 @@ class ContainerMaskView: UIView, IMaskAttributeSetter {
                 transform = CGAffineTransformMakeRotation(angle + angDel)
                 
                 if let aContainer = container {
-                    aContainer.setRotation(angle + angDel)
                 }
                 
             default:

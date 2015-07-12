@@ -169,6 +169,75 @@
             </objects>
             <point key="canvasLocation" x="-753" y="957"/>
         </scene>
+        <!--Text Editor View Controller-->
+        <scene sceneID="CoD-jV-8pu">
+            <objects>
+                <viewController storyboardIdentifier="TextEditorViewController" id="Krh-qP-WDS" customClass="TextEditorViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3d5-nZ-CZm"/>
+                        <viewControllerLayoutGuide type="bottom" id="dUk-C3-L3v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tsl-7o-EVr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGa-yA-GPx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jtK-37-B1l">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96X-8b-BQ3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-Ug-fPG">
+                                                    <rect key="frame" x="8" y="8" width="584" height="584"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="0.59749461206896548" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="oZU-Ug-fPG" firstAttribute="trailing" secondItem="96X-8b-BQ3" secondAttribute="trailingMargin" id="X5s-BW-4Oj"/>
+                                                <constraint firstItem="oZU-Ug-fPG" firstAttribute="leading" secondItem="96X-8b-BQ3" secondAttribute="leadingMargin" id="dSc-8h-mP9"/>
+                                                <constraint firstItem="oZU-Ug-fPG" firstAttribute="top" secondItem="96X-8b-BQ3" secondAttribute="topMargin" id="gH6-DT-cjl"/>
+                                                <constraint firstItem="oZU-Ug-fPG" firstAttribute="bottom" secondItem="96X-8b-BQ3" secondAttribute="bottomMargin" id="yj9-cq-LW2"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="96X-8b-BQ3" secondAttribute="bottom" id="78I-Wh-bIM"/>
+                                        <constraint firstItem="96X-8b-BQ3" firstAttribute="leading" secondItem="jtK-37-B1l" secondAttribute="leading" id="A1L-Y8-PWW"/>
+                                        <constraint firstAttribute="trailing" secondItem="96X-8b-BQ3" secondAttribute="trailing" id="RA2-r8-tYx"/>
+                                        <constraint firstItem="96X-8b-BQ3" firstAttribute="top" secondItem="jtK-37-B1l" secondAttribute="top" id="ZzT-7C-1ui"/>
+                                    </constraints>
+                                </view>
+                                <animations/>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NGa-yA-GPx" firstAttribute="top" secondItem="Tsl-7o-EVr" secondAttribute="top" id="2od-LM-Bap"/>
+                            <constraint firstItem="NGa-yA-GPx" firstAttribute="bottom" secondItem="dUk-C3-L3v" secondAttribute="top" id="MVy-b1-PSq"/>
+                            <constraint firstAttribute="trailing" secondItem="NGa-yA-GPx" secondAttribute="trailing" id="ffE-Ri-gZp"/>
+                            <constraint firstItem="NGa-yA-GPx" firstAttribute="leading" secondItem="Tsl-7o-EVr" secondAttribute="leading" id="nMn-FM-3LI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="oZU-Ug-fPG" id="huX-HJ-L0W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rmP-9B-NVP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-141" y="938"/>
+        </scene>
         <!--Upload Setting View Controller-->
         <scene sceneID="2iX-Ud-bGm">
             <objects>

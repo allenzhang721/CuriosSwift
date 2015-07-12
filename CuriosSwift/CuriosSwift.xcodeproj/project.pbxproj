@@ -14,6 +14,8 @@
 		2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AABA1B3030E100B718B9 /* MultiObserver.swift */; };
 		2C032CF01B0D71AD0089DC81 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2C032CEF1B0D71AD0089DC81 /* Templates */; };
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
+		2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359901B50FEB100B66574 /* TextEditorViewController.swift */; };
+		2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
 		2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */; };
 		2C1825D61B2802DB00F3B59E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1825D51B2802DB00F3B59E /* Request.swift */; };
@@ -176,6 +178,8 @@
 		2C00AABA1B3030E100B718B9 /* MultiObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiObserver.swift; sourceTree = "<group>"; };
 		2C032CEF1B0D71AD0089DC81 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
+		2C0359901B50FEB100B66574 /* TextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorViewController.swift; sourceTree = "<group>"; };
+		2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorTransitionAnimation.swift; sourceTree = "<group>"; };
 		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C0BB4891B2AD4B3007C18AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C0BB48A1B2AD4B4007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -400,6 +404,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2C03598E1B50FE1A00B66574 /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */,
+			);
+			name = Unused;
+			sourceTree = "<group>";
+		};
+		2C03598F1B50FE4B00B66574 /* EditViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */,
+				2C0359901B50FEB100B66574 /* TextEditorViewController.swift */,
+				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
+			);
+			name = EditViewController;
+			sourceTree = "<group>";
+		};
 		2C828A031AEF4372004D4223 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,6 +486,7 @@
 				2CD807891B0AF043008B286B /* Interface */,
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
+				2C03598F1B50FE4B00B66574 /* EditViewController */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
 				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
@@ -472,7 +495,6 @@
 				2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */,
 				2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
-				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
 				2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */,
@@ -518,6 +540,7 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C03598E1B50FE1A00B66574 /* Unused */,
 				2C6924311B46914800CC327D /* ColorPickCollectionViewCell.swift */,
 				2CF2939D1B33B43400539F76 /* BookDetailImageCell.swift */,
 				2CF2939E1B33B43400539F76 /* BookDetailImageCell.xib */,
@@ -548,7 +571,6 @@
 				2C7763661B056C9C000DDFB2 /* PageCollectionViewCell.swift */,
 				2CB4BD811AE476A500DF6019 /* PageCell.swift */,
 				2C4388881AF7BCB40084236F /* FakePageView.swift */,
-				2CD909DB1AF8D4CD0028223C /* ContainerMaskView.swift */,
 				2C2FB2421B4FD50E000F0FFA /* MaskView.swift */,
 				2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */,
 				2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */,
@@ -982,6 +1004,7 @@
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2CFD5AD81B4F608900473C44 /* ImageContentModel.swift in Sources */,
 				2CEBE7601B1C163700C34920 /* TemplatePagesViewController.swift in Sources */,
+				2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */,
 				2C5526E61B4B9961000F2C7D /* ViewExtension.swift in Sources */,
 				2C63DCFB1B161020006249D8 /* BookListModel.swift in Sources */,
 				2C6D58941B2AC132002CFC3F /* TypographyPannel.swift in Sources */,
@@ -997,6 +1020,7 @@
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
 				2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */,
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
+				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CB4BD821AE476A500DF6019 /* PageCell.swift in Sources */,
 				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,

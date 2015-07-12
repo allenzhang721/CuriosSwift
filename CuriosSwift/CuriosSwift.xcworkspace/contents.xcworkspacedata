@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CuriosSwift/TextEditorViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:CuriosSwift/ImageTokenRequest.swift">
    </FileRef>
    <FileRef

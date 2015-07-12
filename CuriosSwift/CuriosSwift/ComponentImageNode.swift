@@ -16,13 +16,13 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     self.componentModel = aComponentModel
     super.init()
     
-    componentModel.generateImage {[unowned self] (image) -> () in
+    componentModel.generateImage {[weak self] (image) -> () in
       
-      self.image = image
+      self?.image = image
     }
     
-    componentModel.updateImageHandler({[unowned self] (image) -> () in
-      self.image = image
+    componentModel.updateImageHandler({[weak self] (image) -> () in
+      self?.image = image
       })
     cropEnabled = false
     clipsToBounds = true

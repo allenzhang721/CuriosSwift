@@ -17,9 +17,9 @@ class ComponentTextNode: ASTextNode, ITextComponent {
         super.init()
         userInteractionEnabled = false
       
-      componentModel.updateAttributeStringBlock { [unowned self] (attributeString) -> () in
+      componentModel.updateAttributeStringBlock { [weak self] (attributeString) -> () in
         
-        self.updateByAttributeString(attributeString)
+        self?.updateByAttributeString(attributeString)
       }
       
       componentModel.generateAttributeString()
@@ -30,8 +30,8 @@ class ComponentTextNode: ASTextNode, ITextComponent {
   func updateByAttributeString(attrString: NSAttributedString) {
     
     attributedString = attrString
-    let size = measure(CGSize(width: CGFloat.max, height: CGFloat.max))
-    bounds.size = size
+//    let size = measure(CGSize(width: CGFloat.max, height: CGFloat.max))
+//    bounds.size = size
   }
   
 // MARK: - ITextComponent

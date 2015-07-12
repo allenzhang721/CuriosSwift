@@ -9,6 +9,11 @@
 import Foundation
 import Mantle
 
+protocol ContainerModelDelegate: NSObjectProtocol {
+  
+  func containerModel(model: ContainerModel, selectedDidChanged selected: Bool)
+}
+
 class ContainerModel: Model {
   
   var Id = ""
@@ -24,7 +29,8 @@ class ContainerModel: Model {
   var effects: [Effect] = []
   var component: ComponentModel! = NoneContentModel()
   var needUpload = false
-  var selected = false
+  var selected: Bool = false
+  weak var delegate: ContainerModelDelegate?
   
   var aspectio: CGFloat = 1.0
   
@@ -33,10 +39,32 @@ class ContainerModel: Model {
   var sizeChangeListener = Dynamic(CGSizeZero)
   var rotationListener = Dynamic(CGFloat(0))
   var sizeListener = Dynamic(CGSizeZero)
+  var updateSizeListener = Dynamic(CGSizeZero)
+  var needUpdateSizeListener = Dynamic(false)
+  var selectedListener = Dynamic(false)
+  
+  func setSelectedState(select: Bool) {
+    
+    selected = select
+    delegate?.containerModel(self, selectedDidChanged: selected)
+  }
+  
+  func needUpdateOnScreenSize(need: Bool) {
+    
+    needUpdateSizeListener.value = need
+  }
+  
+  func updateOnScreenSize(size: CGSize) {
+    
+    updateSizeListener.value = size
+    
+    width = size.width / aspectio
+    height = size.height / aspectio
+  }
   
   func setOnScreenSize(size: CGSize) {
     
-    sizeListener.value = size
+//    sizeListener.value = size
     
     width = size.width / aspectio
     height = size.height / aspectio

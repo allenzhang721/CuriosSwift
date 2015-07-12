@@ -20,22 +20,28 @@ class TextContentModel: ComponentModel {
     updateAttributeStringHandler = handler
   }
   
-  func generateAttributeString() -> NSAttributedString {
-
+  func updateFromDemoAttributeString(attributeString: NSAttributedString) -> CGSize {
+    attributes["Text"] = attributeString.string
+    let str = generateAttributeString()
+     return str.boundingRectWithSize(CGSize(width: CGFloat.max, height: CGFloat.max), options: NSStringDrawingOptions(0), context: nil).size
+  }
+  
+  func getDemoAttributeString() -> NSAttributedString {
+    
     let text: String =  attributes["Text"] as! String
     let alignment: String = attributes["TextAligment"] as! String
     let color: String =  attributes["TextColor"] as! String
     let name: String = attributes["FontName"] as! String
-    let size: CGFloat = attributes["FontSize"] as! CGFloat
+    let size: CGFloat = 28
     
     let style = NSMutableParagraphStyle()
     
     switch alignment {
-      case "center":
-       style.alignment = .Center
-      case "left":
+    case "center":
+      style.alignment = .Center
+    case "left":
       style.alignment = .Left
-      case "rigth":
+    case "rigth":
       style.alignment = .Right
     default:
       style.alignment = .Left
@@ -49,8 +55,51 @@ class TextContentModel: ComponentModel {
       NSParagraphStyleAttributeName: style,
       NSForegroundColorAttributeName: textColor
     ]
-
+    
     let string = NSAttributedString(string: text, attributes: attribute)
+    
+    return string
+    
+  }
+  
+  func getAttributeString() -> NSAttributedString {
+    
+    let text: String =  attributes["Text"] as! String
+    let alignment: String = attributes["TextAligment"] as! String
+    let color: String =  attributes["TextColor"] as! String
+    let name: String = attributes["FontName"] as! String
+    let size: CGFloat = attributes["FontSize"] as! CGFloat
+    
+    let style = NSMutableParagraphStyle()
+    
+    switch alignment {
+    case "center":
+      style.alignment = .Center
+    case "left":
+      style.alignment = .Left
+    case "rigth":
+      style.alignment = .Right
+    default:
+      style.alignment = .Left
+    }
+    
+    let textColor = UIColor(hexString: color)!
+    let font = UIFont(name: name, size: size)!
+    
+    let attribute = [
+      NSFontAttributeName: font,
+      NSParagraphStyleAttributeName: style,
+      NSForegroundColorAttributeName: textColor
+    ]
+    
+    let string = NSAttributedString(string: text, attributes: attribute)
+    
+    return string
+  }
+  
+  func generateAttributeString() -> NSAttributedString {
+
+    let string = getAttributeString()
     updateAttributeStringHandler?(string)
     return string
   }

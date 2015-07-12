@@ -21,15 +21,6 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
   private var nodeRenderOperation: NSOperation?
   private var pageModel: PageModel!
   private var aspectRatio: CGFloat = 0.0
-
-  private var containers = [IContainer]()
-  private var selectedContainers = [IContainer]()
-  
-  private var contentNodeCenter: CGPoint {
-    get {
-      return contentNodeView?.center ?? CGPointZero
-    }
-  }
   
   override func prepareForReuse() {
     super.prepareForReuse()
@@ -39,7 +30,6 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
     
     contentNode?.recursivelySetDisplaySuspended(true)
     contentNodeView?.removeFromSuperview()
-    containers.removeAll(keepCapacity: true)
     pageModel = nil
     contentNodeView = nil
     contentNode = nil
@@ -118,9 +108,6 @@ extension PageCollectionViewCell {
       
       let containerNode = getContainerWithModel(model)
       aContentNode.addSubnode(containerNode)
-//      let size = containerNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
-//      containerNode.bounds.size = size
-//      model.setOnScreenSize(size)
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         aContentNode.setNeedsDisplay()
       })
@@ -175,11 +162,12 @@ extension PageCollectionViewCell {
           for aContainerModel in pageModel.containers {
             
             if aContainerModel.selected {
-              aContainerModel.selected = false
+              
+              aContainerModel.setSelectedState(false)
               delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
             }
           }
-          containerModel.selected = true
+          containerModel.setSelectedState(true)
           delegate?.pageDidSelected(pageModel, selectedContainer: containerModel, onView: aContentNode.view, onViewCenter: node!.view.center, size: node!.view.bounds.size, angle: containerModel.rotation)
         }
         
@@ -190,7 +178,7 @@ extension PageCollectionViewCell {
           
           if aContainerModel.selected {
             needEndEdit = true
-            aContainerModel.selected = false
+            aContainerModel.setSelectedState(false)
             delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
           }
         }
@@ -218,7 +206,26 @@ extension PageCollectionViewCell {
   
   // double selected
   func doubleTap(onScreenPoint: CGPoint) {
-  
+    
+    if contentNode?.subnodes.count <= 0 {
+      return
+    }
+    
+    let aContentNode = contentNode!
+    let reverseSubNodes = aContentNode.subnodes.reverse() as! [ContainerNode]
+    
+    func pointInContainerNode(node: ContainerNode) {
+      let containerModel = node.containerModel
+      delegate?.pageDidDoubleSelected(pageModel, doubleSelectedContainer: containerModel)
+    }
+    
+    for subNode in reverseSubNodes {
+      let point = convertPoint(onScreenPoint, toView: subNode.view)
+      if CGRectContainsPoint(subNode.view.bounds, point) {
+        pointInContainerNode(subNode)
+        break
+      }
+    }
   }
   //
   
@@ -262,37 +269,6 @@ extension PageCollectionViewCell {
   }
   func cancelDelegate() {
     delegate = nil
-  }
-  
-  func addContainer(aContainerModel: ContainerModel, finishCompletedBlock:((UIImage) -> ())? = nil) {
-    
-    pageModel.addContainer(aContainerModel)
-    
-    if let aContentNode = contentNode {
-      let realWidth = aContainerModel.width
-      let realHeight = aContainerModel.height
-      let centerX = contentNodeCenter.x
-      let centerY = contentNodeCenter.y
-      let x = centerX - realWidth / 2.0
-      let y = centerY - realHeight / 2.0
-      aContainerModel.x = centerX
-      aContainerModel.y = centerY
-      
-      let containerNode = getContainerWithModel(aContainerModel)
-      containerNode.page = self
-      containerNode.component.setNeedUpload(true)
-      containers.append(containerNode)
-      contentNode?.addSubnode(containerNode)
-      
-      
-      
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        aContentNode.setNeedsDisplay()
-        let image = containerNode.view.snapshotImageAfterScreenUpdate(true)
-        finishCompletedBlock?(image)
-      })
-      //            pageModel.saveInfo()
-    }
   }
   
   func setNeedUpload(needUpload: Bool) {
@@ -349,214 +325,21 @@ extension PageCollectionViewCell {
     pageModel.uploadInfo(userID, publishID: publishID)
   }
   
-  func removeContainer(aContainerModel: ContainerModel) {
-    
-    pageModel.removeContainer(aContainerModel)
-    if contentNode != nil {
-      
-      for (index, subNode) in enumerate(contentNode?.subnodes as! [ContainerNode]) {
-        
-        if subNode.containAcontainer(aContainerModel) {
-          
-          for (index, theSuNode) in enumerate(containers) {
-            
-            if theSuNode.isEqual(subNode) {
-              containers.removeAtIndex(index)
-              break
-            }
-          }
-          
-          for (index, theSuNode) in enumerate(selectedContainers) {
-            
-            if theSuNode.isEqual(subNode) {
-              selectedContainers.removeAtIndex(index)
-              break
-            }
-          }
-          
-          subNode.removeFromSupernode()
-          break
-        }
-      }
-    }
-    saveInfo()
-  }
   
   func exchangeContainerFromIndex(fromIndex: Int, toIndex: Int) {
     exchange(&pageModel.containers, fromIndex, toIndex)
     saveInfo()
   }
   
-  func respondToLocation(location: CGPoint, onTargetView targetView: UIView, sender: UIGestureRecognizer?) -> Bool {
-    
-    if let gesture = sender {
-      switch gesture {
-      case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 1 :
-        return respondToSingleTapLocation(location, onTargetView: targetView)
-      case let gesture as UITapGestureRecognizer where gesture.numberOfTapsRequired == 2 :
-        return respondToDoubleTapLocation(location, onTargetView: targetView)
-      case is UILongPressGestureRecognizer :
-        return respondToLongPressLocation(location, onTargetView: targetView)
-      default:
-        return false
-      }
-    } else {
-      let reverseContainers = containers.reverse()
-      var find = false
-      for container in reverseContainers {
-        if container.responderToLocation(location, onTargetView: targetView) {
-          find = true
-          break
-        }
-      }
-      
-      if !find {
-        for container in reverseContainers {
-          if container.isFirstResponder() {
-            container.resignFirstResponder()
-            break
-          }
-        }
-      }
-      
-      return find
-    }
-  }
 }
 
 // MARK: - Private Method
 extension PageCollectionViewCell {
   
-  private func respondToSingleTapLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
-    
-    if let aDelegate = delegate {
-      
-      let reverseContainers = containers.reverse()
-      var find = false
-      // multi selection
-      if aDelegate.shouldMultiSelection() {
-        
-        for container in reverseContainers {
-          if container.responderToLocation(location, onTargetView: targetView) {
-            find = true
-            var selected = false
-            for con in selectedContainers {
-              if con.isEqual(container) {
-                selected = true
-                break
-              }
-            }
-            // selected or deselected
-            selected ? selectedContainer(container, location: location, onTargetView: targetView) : deselectedContainer(container)
-          }
-          break
-        }
-        // single selection
-      } else {
-        
-        for container in reverseContainers {
-          if container.responderToLocation(location, onTargetView: targetView) {
-            deselectedAllContainers()
-            selectedContainer(container, location: location, onTargetView: targetView)
-            find = true
-            break
-          }
-        }
-        
-        if !find {
-          deselectedAllContainers()
-          aDelegate.didEndEdit(self)
-        }
-      }
-      
-      return find
-      
-    } else {
-      return false
-    }
-  }
-  
-  private func respondToDoubleTapLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
-    
-    if let aDelegate = delegate {
-      
-      let reverseContainers = containers.reverse()
-      var find = false
-      
-      for container in reverseContainers {
-        if container.responderToLocation(location, onTargetView: targetView) {
-          //                    deselectedAllContainers()
-          aDelegate.pageDidDoubleSelected(self, doubleSelectedContainer: container)
-          find = true
-          break
-        }
-      }
-      
-      return find
-      
-      //            if find {
-      //                deselectedAllContainers()
-      //                aDelegate.didEndEdit(self)
-      //            }
-      
-    } else {
-      
-      return false
-    }
-  }
   
   private func respondToLongPressLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
     
     return false
-  }
-  
-  private func selectedContainer(container: IContainer, location: CGPoint, onTargetView targetView: UIView) {
-    
-    if let aDelegate = delegate {
-      let position = contentNodeView?.convertPoint(container.containerPostion, toView: targetView)
-      let size = container.containerSize
-      let rotation = container.containerRotation
-      let aRatio = size.height / size.width
-      aDelegate.pageDidSelected(self, selectedContainer: container, position: position!, size: size, rotation: rotation, ratio: aRatio, inTargetView: targetView)
-    }
-    selectedContainers.append(container)
-  }
-  
-  private func deselectedContainer(container: IContainer) {
-    
-    if selectedContainers.count > 0 {
-      
-      if let aDelegate = delegate {
-        aDelegate.pageDidDeSelected(self, deSelectedContainers: [container])
-        if container.isFirstResponder() {
-          container.resignFirstResponder()
-        }
-      }
-      var index = 0
-      for con in selectedContainers {
-        if con.isEqual(container) {
-          break
-        }
-        index++
-      }
-      selectedContainers.removeAtIndex(index)
-    }
-  }
-  
-  private func deselectedAllContainers() {
-    
-    if selectedContainers.count > 0 {
-      
-      if let aDelegate = delegate {
-        aDelegate.pageDidDeSelected(self, deSelectedContainers: selectedContainers)
-        for container in selectedContainers {
-          if container.isFirstResponder() {
-            container.resignFirstResponder()
-          }
-        }
-      }
-      selectedContainers.removeAll(keepCapacity: true)
-    }
   }
   
   private func configPageWithPageModel(aPageModel: PageModel, queue: NSOperationQueue) -> NSOperation {
@@ -569,9 +352,9 @@ extension PageCollectionViewCell {
       
       if let strongSelf = self {
         
-        let content: (ASDisplayNode, [IContainer]) = strongSelf.getContainerNodesWithPageModel(aPageModel)
-        content.0.backgroundColor = UIColor.blackColor()
-        content.0.clipsToBounds = true
+        let aContentNode: ASDisplayNode = strongSelf.getContainerNodesWithPageModel(aPageModel)
+        aContentNode.backgroundColor = UIColor.blackColor()
+        aContentNode.clipsToBounds = true
         
         if operation.cancelled {
           return
@@ -586,15 +369,14 @@ extension PageCollectionViewCell {
               return
             }
             
-            if content.0.displaySuspended {
+            if aContentNode.displaySuspended {
               return
             }
             
-            strongSelf.contentView.addSubview(content.0.view)
-            content.0.setNeedsDisplay()
-            strongSelf.contentNodeView = content.0.view
-            strongSelf.containers = content.1
-            strongSelf.contentNode = content.0
+            strongSelf.contentView.addSubview(aContentNode.view)
+            aContentNode.setNeedsDisplay()
+            strongSelf.contentNodeView = aContentNode.view
+            strongSelf.contentNode = aContentNode
           }
           })
       }
@@ -603,9 +385,8 @@ extension PageCollectionViewCell {
     return operation
   }
   
-  private func getContainerNodesWithPageModel(aPageModel: PageModel) -> (ASDisplayNode, [IContainer]) {
+  private func getContainerNodesWithPageModel(aPageModel: PageModel) -> ASDisplayNode {
     let aContentNode = ASDisplayNode()
-    var aContainers = [IContainer]()
     let contentNodeFrame = getContentNodeFrame(aPageModel)
     aContentNode.frame = contentNodeFrame
     aContentNode.layerBacked = false
@@ -613,15 +394,12 @@ extension PageCollectionViewCell {
     for containerModel in aPageModel.containers {
       let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
       aContentNode.addSubnode(aContainerNode)
-      aContainerNode.page = self
-      aContainers.append(aContainerNode)
+//      aContainerNode.page = self
     }
     
-    return (aContentNode, aContainers)
+    return aContentNode
   }
-  
-  
-  
+
   
   private func getContainerWithModel(aContainerModel: ContainerModel) -> ContainerNode {
     
@@ -632,6 +410,7 @@ extension PageCollectionViewCell {
     let size = aContainerNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
     aContainerNode.bounds.size = size
     aContainerModel.setOnScreenSize(size)
+//    aContainerNode.bindingContainerModel()
     return aContainerNode
   }
   

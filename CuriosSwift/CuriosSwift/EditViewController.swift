@@ -18,7 +18,7 @@ import SnapKit
     data[j] = temp
 }
 
-class EditViewController: UIViewController, IPageProtocol, preViewControllerProtocol {
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate ,IPageProtocol, preViewControllerProtocol {
     
     enum ToolState {
         case willSelect
@@ -46,7 +46,7 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     var isToSmallLayout = false
     var multiSection = false
     var maskView: MaskView?
-  
+  var isReplacedImage: Bool = false
   
   
     var maskAttributes = [IMaskAttributeSetter]()
@@ -81,7 +81,7 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
     let barActionName: [String : String] = [
     
        "setting": "settingAction:",
-        "addImage": "ImageAction:",
+        "addImage": "addImageAction:",
         "addText": "addTextAction:",
         "preview": "previewAction:",
         "effects": "effectsAction:",
@@ -183,45 +183,7 @@ class EditViewController: UIViewController, IPageProtocol, preViewControllerProt
 // MARK: - IBActions
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
-        
-        println("Double")
-        if let currentIndexPath = getCurrentIndexPath() {
-            
-            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-                let location = sender.locationInView(view)
-                page.setDelegate(self)
-                page.respondToLocation(location, onTargetView: view, sender: sender)
-            }
-        }
-    }
-    
-    @IBAction func TapAction(sender: UITapGestureRecognizer) {
-        
-        if CUAnimationFactory.shareInstance.isAnimationing() {
-            
-            CUAnimationFactory.shareInstance.cancelAnimation()
-            return
-        }
-        
-        if let currentIndexPath = getCurrentIndexPath() {
-            
-            if toolState != .didSelect {
-                
-                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
-                  page.setDelegate(self)
-                    let location = sender.locationInView(page)
-                  page.begainResponseToTap(location, tapCount: 1)
-                }
-            } else {
-                if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-                    let location = CGPointZero
-                    page.setDelegate(self)
-                    page.respondToLocation(location, onTargetView: view, sender: sender)
-                }
-            }
-        }
-    }
+
     
     @IBAction func PanAction(sender: UIPanGestureRecognizer) {
         
@@ -298,7 +260,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                     if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
                         let location = sender.locationInView(view)
                         page.setDelegate(self)
-                        page.respondToLocation(location, onTargetView: view, sender: sender)
                     }
                 }
             }
@@ -355,92 +316,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
     }
     
-    @IBAction func ImageAction(sender: UIBarButtonItem) {
-      
-      let image = UIImage(named: "Demo.jpg")
-      
-      addImage(image!)
-        
-//        showsheet()
-      
-//        var imagePickerController = UIImagePickerController()
-//        imagePickerController.delegate = self
-//        imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-//        imagePickerController.allowsEditing = true
-//        self.presentViewController(imagePickerController, animated: true, completion: { imageP in
-//            
-//        })
-    }
+
     
-    @IBAction func addTextAction(sender: UIBarButtonItem) {
-      
-      addText("")
-      
-      return
-
-        if let indexPath = getCurrentIndexPath() {
-            
-            if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
-
-                let textComponentModel = TextContentModel()
-                let pageFile = bookModel.pageModels[indexPath.item]
-                let imageName = UniqueIDString()
-//              textComponentModel.name = imageName
-                let realtiveImagePath = "/images/" + imageName + ".jpg"
-                textComponentModel.type = .Text
-                textComponentModel.attributes = ["contentText": "双击\n修改", "FontsName": "RTWSYueGoG0v1-UltLight", "fontSize": 40, "aligement": 1, "ImagePath": realtiveImagePath]
-                
-                
-                let size = defaultTextSize()
-                println(size)
-                let aContainer = ContainerModel()
-                aContainer.width = size.width * 3
-                aContainer.height = size.height * 3
-                
-                println(aContainer.width)
-                println(aContainer.height)
-                aContainer.component = textComponentModel
-                textComponentModel.needUpload = true
-              
-//                page.addContainer(aContainer)!
-                page.addContainer(aContainer) {[unowned self] (image) -> () in
-                    
-                    page.saveInfo()
-                    
-                    let userID = UsersManager.shareInstance.getUserID()
-                    let bookID = self.bookModel.Id
-                    
-                    page.uploadInfo(userID, publishID: bookID)
-                }
-//                let imageData = UIImageJPEGRepresentation(image, 0.01)
-//                let pagePath = pageFile.fileGetSuperPath(pageFile)
-//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
-//                
-//                if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
-//                    
-//                    println("remove file")
-//                }
-//                if imageData.writeToFile(imagePath, atomically: true) {
-//                    
-//                }
-                
-                
-            }
-            
-//
-//            let currentPageViewModel = pageViewModels[indexPath.item]
-//            let textComponentModel = TextContentModel()
-//            textComponentModel.type = .Text
-//            textComponentModel.attributes = ["contentText": "New Text"]
-//            let aContainer = ContainerModel()
-//            aContainer.component = textComponentModel
-//            let aContainerViewModel = ContainerViewModel(model: aContainer, aspectRatio: currentPageViewModel.aspectRatio)
-//            currentPageViewModel.containers.append(aContainerViewModel)
-//            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PageCell
-//            let contanerNode = ContainerNode(aContainerViewModel: aContainerViewModel, aspectR: currentPageViewModel.aspectRatio)
-//            cell.containerNode?.addSubnode(contanerNode)
-        }
-    }
+  
     
     func defaultTextSize() -> CGSize {
         
@@ -711,7 +589,75 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 
-// MARK: - Action
+
+
+
+
+
+
+// MARK: - ToolBar Action
+extension EditViewController {
+  
+  @IBAction func addImageAction(sender: UIBarButtonItem) {
+    showsheet()
+  }
+  
+  @IBAction func addTextAction(sender: UIBarButtonItem) {
+//    showTextInputControllerWithAttributeString(<#attributeString: NSAttributedString#>, compelectedBlock: <#(NSAttributedString) -> ()##(NSAttributedString) -> ()#>)
+    
+  }
+  
+}
+
+
+
+
+
+
+
+
+// MARK: - Gesture - New
+extension EditViewController {
+  
+  @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+        page.setDelegate(self)
+        let location = sender.locationInView(page)
+        page.begainResponseToTap(location, tapCount: 2)
+      }
+    }
+  }
+  
+  @IBAction func TapAction(sender: UITapGestureRecognizer) {
+    
+    if CUAnimationFactory.shareInstance.isAnimationing() {
+      CUAnimationFactory.shareInstance.cancelAnimation()
+      return
+    }
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      
+      if toolState != .didSelect {
+        
+        if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+          page.setDelegate(self)
+          let location = sender.locationInView(page)
+          page.begainResponseToTap(location, tapCount: 1)
+        }
+      } else {
+        if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+          let location = CGPointZero
+          page.setDelegate(self)
+        }
+      }
+    }
+  }
+}
+
+
+// MARK: - Action  - New
 extension EditViewController {
   
   func addText(text: String) {
@@ -767,6 +713,15 @@ extension EditViewController {
     }
   }
   
+  func replaceImage(image: UIImage) {
+    
+    if let aMaskView = maskView,
+      let imagecomponent = aMaskView.containerMomdel.component as? ImageContentModel {
+        
+        imagecomponent.updateImage(image)
+    }
+  }
+  
   func removeContainer(aContainer: ContainerModel) {
     
     if let indexPath = getCurrentIndexPath() {
@@ -789,7 +744,7 @@ extension EditViewController {
     
     maskView = MaskView.maskWithCenter(center, size: size, angle: angle, targetContainerModel: containerModel)
     
-    view.addSubview(maskView!)
+    view.insertSubview(maskView!, aboveSubview: collectionView)
   }
   
   func removeMaskByModel(targetContainerModel containerModel: ContainerModel) {
@@ -814,7 +769,7 @@ extension EditViewController {
 
 
 
-// MARK: - Ipage Protocol
+// MARK: - Ipage Protocol - New
 extension EditViewController {
   
   func pageDidSelected(page: PageModel, selectedContainer container: ContainerModel, onView: UIView ,onViewCenter: CGPoint, size: CGSize, angle: CGFloat) {
@@ -822,15 +777,34 @@ extension EditViewController {
     collectionView.scrollEnabled = false
     let aCenter = onView.convertPoint(onViewCenter, toView: view)
     addMask(aCenter, size: size, angle: angle, targetContainerModel: container)
+    
+    container.setSelectedState(true)
   }
   
   func pageDidDeSelected(page: PageModel, deselectedContainer container: ContainerModel) {
     
+    container.setSelectedState(false)
     removeMaskByModel(targetContainerModel: container)
   }
   
   func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel) {
     
+    if container.component is ImageContentModel {
+      isReplacedImage = true
+      showsheet()
+    } else if let textComponent = container.component as? TextContentModel {
+      
+      let attriString = textComponent.getDemoAttributeString()
+      showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
+        
+       dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        
+        let size = textComponent.updateFromDemoAttributeString(attri)
+        container.needUpdateOnScreenSize(true)
+       })
+//        container.updateOnScreenSize(CGSize(width: 300, height: 300))
+      }
+    }
   }
   
   func pageDidEndEdit(page: PageModel) {
@@ -838,6 +812,11 @@ extension EditViewController {
     collectionView.scrollEnabled = true
   }
   
+}
+
+
+
+
   
   
   
@@ -850,34 +829,126 @@ extension EditViewController {
   
   
   
+
+// MARK: - ImageEditor
+extension EditViewController {
+  
+  // show Sheet
+  private func showsheet() {
+    
+    let sheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+    
+    if (UIImagePickerController.availableMediaTypesForSourceType(.Camera) != nil) {
+      
+      let CameraAction = UIAlertAction(title: "Camera", style: .Default) { (action) -> Void in
+        
+        self.showImagePicker(.Camera)
+      }
+      sheet.addAction(CameraAction)
+    }
+    
+    let LibarayAction = UIAlertAction(title: "Libaray", style: .Default) { (action) -> Void in
+      
+      self.showImagePicker(.PhotoLibrary)
+    }
+    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+      
+    }
+    
+    sheet.addAction(LibarayAction)
+    sheet.addAction(CancelAction)
+    presentViewController(sheet, animated: true, completion: nil)
+  }
+  
+  // show Image Picker
+  private func showImagePicker(type: UIImagePickerControllerSourceType) {
+    
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = type
+    imagePicker.delegate = self
+//    imagePicker.allowsEditing = true
+    presentViewController(imagePicker, animated: true, completion: nil)
+  }
+  
+  
+  // ImagePicker
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    
+    
+    // Selected Image
+    let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+    let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
+    let image = UIImage(data: imageData)!
+    
+    isReplacedImage ? replaceImage(image) : addImage(image)
+    isReplacedImage = false
+    
+    picker.dismissViewControllerAnimated(true, completion: nil)
+  }
+}
+
+
+
+
+ // MARK: - TextEditor
+extension EditViewController {
+  
+  private func showTextInputControllerWithAttributeString(attributeString: NSAttributedString, compelectedBlock: (NSAttributedString) -> ()) {
+    
+    if let textEditorViewController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextEditorViewController") as? TextEditorViewController {
+      textEditorViewController.setAttributeString(attributeString)
+      textEditorViewController.transitioningDelegate = self
+      textEditorViewController.completeBlock = compelectedBlock
+      presentViewController(textEditorViewController, animated: true, completion: nil)
+    }
+  }
+  
+  
+}
+
   
   
   
+
+
+
+
+
+
+
+
+
   
   
+
+
+// MARK: - UIViewControllerTransitionDelegate
+extension EditViewController {
   
+  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    
+    return TextEditorTransitionAnimation(dismissed: false)
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    
+    return TextEditorTransitionAnimation(dismissed: true)
+  }
+}
+
+// MARK: - ☄
+// MARK: - ☄ Deprecated
+
+
+
+
+
+
+
+
+
+  // MARK: - Ipage Protocol - Old
+extension EditViewController {
   // selected
   func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView) {
     
@@ -915,34 +986,6 @@ extension EditViewController {
         }
       }
     }
-  }
-  
-  // double selected
-  func pageDidDoubleSelected(page: IPage, doubleSelectedContainer: IContainer) {
-    
-    if let aTextComponent = doubleSelectedContainer.component as? ITextComponent {
-      
-      if textInputView == nil {
-        
-        textInputView = UINib(nibName: "TextInputView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TextInputView
-        
-        view.addSubview(textInputView!)
-        textInputView?.alpha = 0
-        
-        //                let attribute = aTextComponent.getAttributeText()
-        //                textInputView!.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
-        //
-        //                    self.editTextContent(string, container: doubleSelectedContainer, textCompoent: aTextComponent)
-        //                })
-      }
-      
-      //            println("pageDidDoubleSelected ITextComponent")
-      //            editTextContent(doubleSelectedContainer, textCompoent: aTextComponent)
-    } else if let aImageCom = doubleSelectedContainer.component as? IImageComponent {
-      
-      showsheet()
-    }
-    
   }
   
   // wheather multiSelection
@@ -1200,7 +1243,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
                 if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
                     let location = CGPointZero
                     page.setDelegate(self)
-                    page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
                 }
         }
     }
@@ -1235,78 +1277,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     // MARK: - imagePicker Delegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        if let aCurrentContainer = currentEditContainer {
-            
-            // replace image
-            if let aImageCom = aCurrentContainer.component as? IImageComponent {
-                aImageCom.setNeedUpload(true)
-                
-                let indexPath = getCurrentIndexPath()!
-                let imageID = aImageCom.getImageID()
-                let pageFile = bookModel.pageModels[indexPath.item]
-                let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-                let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
-                
-                println("selectedImageSize:\(Double(imageData.length) / (1024.0 * 1024.0))")
-                
-                let pagePath = pageFile.fileGetSuperPath(pageFile)
-                let realtiveImagePath = "/images/" + imageID + ".jpg"
-//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
-              
-              let imagePath = temporaryDirectory("\(imageID).jpg").path!
-                if NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil) {
-                    println("remove file")
-                }
-                if imageData.writeToFile(imagePath, atomically: true) {
-                  
-                }
-                
-                aImageCom.updateImage()
-            }
-
-        } else if let indexPath = getCurrentIndexPath() {
-            
-            // new image
-            if let page = collectionView.cellForItemAtIndexPath(indexPath) as? IPage {
-                
-                let imageName = UniqueIDString()
-                
-                let pageFile = bookModel.pageModels[indexPath.item]
-                let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-                let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
-                
-                println("selectedImageSize:\(Double(imageData.length) / (1024.0 * 1024.0))")
-                
-                let pagePath = pageFile.fileGetSuperPath(pageFile)
-                let realtiveImagePath = "/images/" + imageName + ".jpg"
-//                let imagePath = pagePath.stringByAppendingPathComponent(realtiveImagePath)
-                let imagePath = temporaryDirectory("\(imageName).jpg").path!
-
-                if imageData.writeToFile(imagePath, atomically: true) {
-
-                  println(" success")
-                }
-                
-                let textComponentModel = ImageContentModel()
-//              textComponentModel.name = imageName
-                textComponentModel.type = .Image
-//                textComponentModel.imagePath = realtiveImagePath
-                let aContainer = ContainerModel()
-                aContainer.component = textComponentModel
-                aContainer.component.needUpload = true
-                page.addContainer(aContainer, finishCompletedBlock: nil)
-              
-              
-                page.saveInfo()
-            }
-        }
-        
-        picker.dismissViewControllerAnimated(true, completion: { () -> Void in
-            
-        })
-    }
+  
     
     // MARK: - PreviewController delegate
     func previewControllerGetBookModel(controller: PreviewViewController) -> BookModel {
@@ -1442,40 +1413,9 @@ extension EditViewController {
     
     // MARK: - ImagePick
     
-   private func showsheet() {
-        
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        if (UIImagePickerController.availableMediaTypesForSourceType(.Camera) != nil) {
-            
-            let CameraAction = UIAlertAction(title: "Camera", style: .Default) { (action) -> Void in
-                
-                self.showImagePicker(.Camera)
-            }
-            sheet.addAction(CameraAction)
-        }
-        
-        let LibarayAction = UIAlertAction(title: "Libaray", style: .Default) { (action) -> Void in
-            
-            self.showImagePicker(.PhotoLibrary)
-        }
-        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
-            
-        }
-        
-        sheet.addAction(LibarayAction)
-        sheet.addAction(CancelAction)
-        presentViewController(sheet, animated: true, completion: nil)
-    }
+  
     
-   private func showImagePicker(type: UIImagePickerControllerSourceType) {
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = type
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        presentViewController(imagePicker, animated: true, completion: nil)
-    }
+
     
     
     //
