@@ -175,12 +175,20 @@ extension PageCollectionViewCell {
       // End Edit
       } else {
         var needEndEdit = false
-        for aContainerModel in pageModel.containers {
+        for containerNode in reverseSubNodes {
           
-          if aContainerModel.selected {
+          if containerNode.containerModel.selected {
+            let aContainerModel = containerNode.containerModel
             needEndEdit = true
             aContainerModel.setSelectedState(false)
             delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+            
+            // should get text/ image snapshot
+            let abounds = containerNode.bounds
+            UIGraphicsBeginImageContext(abounds.size)
+            containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
+            let iamge = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
           }
         }
         if needEndEdit {
