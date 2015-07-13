@@ -65,9 +65,14 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
       
       // open a book
-      getBookWithBookID("", getBookHandler: { [unowned self] (book) -> () in
-        self.showEditViewControllerWithBook(book)
-      })
+      PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
+        
+        if let publishID = json["newID"] as? String {
+          self.getBookWithBookID(publishID, getBookHandler: { [unowned self] (book) -> () in
+            self.showEditViewControllerWithBook(book)
+            })
+        }
+      }.sendRequest()
     }
 }
 

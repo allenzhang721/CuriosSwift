@@ -37,6 +37,8 @@
 		2C4777D31B4E028200B47F9A /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C4777D21B4E028200B47F9A /* main.json */; };
 		2C4777D51B4E055E00B47F9A /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C4777D41B4E055E00B47F9A /* page.json */; };
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
+		2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81041B5349A200A93383 /* RequestURL.swift */; };
+		2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81061B535FFC00A93383 /* UploadsManager.swift */; };
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
 		2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */; };
@@ -205,6 +207,8 @@
 		2C4777D21B4E028200B47F9A /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = main.json; path = Templates/IENCHAUFT/main.json; sourceTree = "<group>"; };
 		2C4777D41B4E055E00B47F9A /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
+		2C4D81041B5349A200A93383 /* RequestURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestURL.swift; sourceTree = "<group>"; };
+		2C4D81061B535FFC00A93383 /* UploadsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadsManager.swift; sourceTree = "<group>"; };
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelFactory.swift; sourceTree = "<group>"; };
@@ -487,11 +491,11 @@
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
-				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
-				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
+				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2CFD5AD21B4F5BD200473C44 /* ViewController+Extension.swift */,
-				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
+				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
+				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */,
 				2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */,
 				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
@@ -585,6 +589,7 @@
 				2CFD5AD51B4F603400473C44 /* Manager */,
 				2CFD5AD41B4F601D00473C44 /* EditModels */,
 				2CF2934F1B32633800539F76 /* AnimationFunction.swift */,
+				2CFE73861B36A1FC00C2510D /* UpLoadManager.swift */,
 				2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */,
 				2C7D12241B200D060096819D /* Region.swift */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
@@ -667,8 +672,8 @@
 			children = (
 				2CBC16C11B15D53E00F46541 /* TemplatesManager.swift */,
 				2C69242F1B46894900CC327D /* ColorManager.swift */,
-				2CFE73861B36A1FC00C2510D /* UpLoadManager.swift */,
 				2C92EA7B1B413F3500ABFABB /* FontsManager.swift */,
+				2C4D81061B535FFC00A93383 /* UploadsManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 		66C7839E1B281483002139F1 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				2C4D81041B5349A200A93383 /* RequestURL.swift */,
 				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				66C7839F1B281956002139F1 /* UserRequest.swift */,
 				2CA8F08C1B391D050063E964 /* TokenRequest.swift */,
@@ -959,6 +965,7 @@
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */,
+				2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
 				2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */,
 				2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */,
@@ -1014,6 +1021,7 @@
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
+				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,

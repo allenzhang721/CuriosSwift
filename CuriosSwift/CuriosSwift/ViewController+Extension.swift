@@ -15,7 +15,7 @@ extension UIViewController {
    func getBookWithBookID(bookID: String, getBookHandler: (BookModel) -> ()) {
     
     let book = demoBook()
-    let page = book.pageModels[0]
+    book.Id = bookID
     
     getBookHandler(book)
     

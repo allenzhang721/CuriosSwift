@@ -66,9 +66,9 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         }
       
       if aContainerModel.component is TextContentModel {
-        println("Node Init: Text_\(randID)")
+//        println("Node Init: Text_\(randID)")
       } else {
-        println("Node Init: Image_\(randID)")
+//        println("Node Init: Image_\(randID)")
       }
       
       aContainerModel.delegate = self
@@ -89,7 +89,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
   
   func updateSize() {
     let newSize = calculateSizeThatFits(CGSize(width: CGFloat.max, height: CGFloat.max))
-    println("newSize = \(newSize)")
+//    println("newSize = \(newSize)")
     containerModel.updateOnScreenSize(newSize)
   }
   
@@ -118,7 +118,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
     binding = true
     
-    println("Node begain binding: \(randID)")
+//    println("Node begain binding: \(randID)")
     
     containerModel.needUpdateSizeListener.bind("ContainerNode_\(randID)") {[weak self] need -> Void in
       
@@ -159,7 +159,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
     binding = false
     
-    println("Node End binding: \(randID)")
+//    println("Node End binding: \(randID)")
 //    println("ContainerNode_\(randID) unbindingContainerModel")
     containerModel.needUpdateSizeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.updateSizeListener.removeActionWithID("ContainerNode_\(randID)")
@@ -169,7 +169,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
   }
   
   deinit {
-    println("Node Deinit: \(randID)")
+//    println("Node Deinit: \(randID)")
     containerModel.selectedListener.removeActionWithID("ContainerNode_\(randID)")
     unbindingContainerModel()
   }

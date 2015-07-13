@@ -126,6 +126,11 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      prepareForPreivew { (finished) -> () in
+        
+        
+      }
         
         SmallLayout.delegate = self
         collectionView.dataSource = self
@@ -724,7 +729,6 @@ extension EditViewController {
     
     if let aMaskView = maskView,
       let imagecomponent = aMaskView.containerMomdel.component as? ImageContentModel {
-        
         imagecomponent.updateImage(image)
     }
   }
@@ -974,13 +978,95 @@ extension EditViewController {
       presentViewController(textEditorViewController, animated: true, completion: nil)
     }
   }
+}
   
+// MARK: - PreviewEditor
+extension EditViewController {
   
+  func pathByComponents(components: [String]) -> String {
+    let begain = ""
+    let path = components.reduce(begain) {$0.stringByAppendingString("/" + $1)}
+    return path
+  }
+  
+  //Upload main json and html file
+  func prepareForPreivew(completedBlock:(Bool) -> ()) {
+    
+//    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+//    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    
+    UploadsManager.shareInstance.setCompeletedHandler { (finished) -> () in
+      
+      println(" upload finished")
+    }
+    
+    uploadPublishFile { (datas, keys, tokens) -> () in
+      
+      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+    }
+  }
+  
+  func uploadPublishFile(compeletedBlock:([NSData], [String], [String]) -> ()) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let bookID = bookModel.Id
+    let res = "res"
+    let js = "js"
+    let ani = "curiosAnim.js"
+    let cur = "curiosRes.js"
+    let jqu = "jquery-1.10.1.min.js"
+    let mai = "main.js"
+    let index = "index.html"
+    let main = "main.json"
+    
+    let indexKey = pathByComponents([userID, bookID, index])
+    let aniKey = pathByComponents([userID, bookID, js, ani])
+    let curKey = pathByComponents([userID, bookID, js, cur])
+    let jquKey = pathByComponents([userID, bookID, js, jqu])
+    let maiKey = pathByComponents([userID, bookID, js, mai])
+    
+    let publishTokenDic: String = {
+      let dic = ["list":[
+//        ["key": indexKey],
+//        ["key": aniKey],
+        ["key": curKey]
+//        ["key": jquKey],
+//        ["key": maiKey]
+        ]
+      ]
+      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
+      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+      return string
+    }()
+    
+    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    
+    PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
+      if let keyLokens = json["list"] as? [[String:String]] {
+        
+        var datas = [NSData]()
+        var keys = [String]()
+        var tokens = [String]()
+        
+        for keyToken in keyLokens {
+         if let key = keyToken["key"],
+          let token = keyToken["upToken"] {
+            if key == curKey {
+              datas.append(data!)
+              keys.append(key)
+              tokens.append(token)
+            }
+          }
+        }
+        
+        compeletedBlock(datas, keys, tokens)
+      }
+
+    }.sendRequest()
+  }
 }
 
-  
-  
-  
 
 
 

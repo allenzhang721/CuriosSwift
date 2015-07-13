@@ -187,7 +187,7 @@ extension PageCollectionViewCell {
             let abounds = containerNode.bounds
             UIGraphicsBeginImageContext(abounds.size)
             containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
-            let iamge = UIGraphicsGetImageFromCurrentImageContext()!
+            let image = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
           }
         }
