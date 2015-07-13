@@ -217,7 +217,6 @@ extension PageCollectionViewCell {
         findNode = subNode
         break
       }
-      
     }
     
     pointInContainerNode(findNode)

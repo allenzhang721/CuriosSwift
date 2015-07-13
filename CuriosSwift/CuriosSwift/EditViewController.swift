@@ -20,7 +20,7 @@ import SnapKit
 
 func pathByComponents(components: [String]) -> String {
   let begain = ""
-  let path = components.reduce(begain) {$0.stringByAppendingString("/" + $1)}
+  let path = components.reduce(begain) {$0.stringByAppendingString($1 + "/")}
   return path
 }
 
@@ -798,6 +798,37 @@ extension EditViewController {
       }
     }
   }
+  
+  func begainUploadPageSnapShotWithModel(pageModel: PageModel) {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      
+      if let pageCell = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
+        
+        // should get text/ image snapshot
+        let abounds = pageCell.bounds
+        UIGraphicsBeginImageContext(abounds.size)
+        pageCell.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        let userID = UsersManager.shareInstance.getUserID()
+        let publishID = bookModel.Id
+        let pageID = pageModel.Id
+        
+        let key = pathByComponents([userID, publishID, pageID, "icon.jpg"])
+        let data = UIImageJPEGRepresentation(image, 0.01)
+        
+        prepareUploadImageData(data!, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
+          
+          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+        })
+        
+        
+      }
+      
+    }
+  }
 }
 
 // MARK: - NET WORK
@@ -916,6 +947,7 @@ extension EditViewController {
   
   func pageDidEndEdit(page: PageModel) {
     collectionView.scrollEnabled = true
+//    begainUploadPageSnapShotWithModel(page)
   }
 }
 

@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458479496.493683"
+            timestampString = "458481840.385281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1078"
-            endingLineNumber = "1078"
+            startingLineNumber = "1110"
+            endingLineNumber = "1110"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458479496.493683"
+            timestampString = "458481840.385281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1073"
-            endingLineNumber = "1073"
+            startingLineNumber = "1105"
+            endingLineNumber = "1105"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -75,22 +75,6 @@
             endingLineNumber = "776"
             landmarkName = "EndEdit()"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/PageCollectionViewCell.swift"
-            timestampString = "458480179.507055"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "pointInContainerNode(_:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
