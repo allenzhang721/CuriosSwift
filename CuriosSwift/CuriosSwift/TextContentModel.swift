@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 class TextContentModel: ComponentModel {
   
@@ -14,6 +15,18 @@ class TextContentModel: ComponentModel {
   typealias GenerateAttributeStringHandler = (NSAttributedString) -> ()
   
   private var updateAttributeStringHandler: UpdateAttributeStringHandler?
+  
+  var key: String? {
+    
+    get {
+      return attributes["ImagePath"] as? String
+    }
+    
+    set {
+      attributes["ImagePath"] = newValue
+    }
+  }
+  
   
   func updateAttributeStringBlock(handler: UpdateAttributeStringHandler) {
     
@@ -160,11 +173,42 @@ class TextContentModel: ComponentModel {
     let fontSize = attributes["FontSize"] as! CGFloat
     return fontSize
   }
-
-  override func getResourseData() -> NSData? {
+  
+  func cacheSnapshotImage(image: UIImage, userID: String, PublishID: String) {
     
-    println(" Text Image Data")
-    return nil
+    removeCacheImage()
+    let imageID = UniqueIDStringWithCount(count: 8)
+    key = pathByComponents([userID, PublishID, "\(imageID).jpg"])
+    KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
+  }
+  
+  func removeCacheImage() {
+    if let aKey = key {
+      KingfisherManager.sharedManager.cache.removeImageForKey(aKey)
+    }
+  }
+
+  override func getResourseData(handler: (NSData?, String?) -> ()) {
+    
+//    let aKey = attributes["ImagePath"] as! String
+    if let aKey = key {
+      KingfisherManager.sharedManager.cache.retrieveImageForKey(aKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
+        if let aImage = image {
+          let data = UIImageJPEGRepresentation(image, 1)
+          handler(data, aKey)
+        } else {
+          handler(nil, nil)
+        }
+      }
+    } else {
+      handler(nil, nil)
+    }
+    
+    
+  }
+  
+  override func getResourseDataKey() -> String {
+    return ""
   }
   
   override func uploadInfo(userID: String, publishID: String, pageID: String) {

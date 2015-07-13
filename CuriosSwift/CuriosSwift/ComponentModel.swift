@@ -35,8 +35,11 @@ class ComponentModel: Model, IFile  {
         }
     }
   
-  func getResourseData() -> NSData? {
-    return nil
+  func getResourseData(handler: (NSData?, String?) -> ()) {
+  }
+  
+  func getResourseDataKey() -> String {
+    return ""
   }
     
     func removed() {

@@ -35,28 +35,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/ImageContentModel.swift"
-            timestampString = "458208353.729557"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "updateImage(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458469063.314829"
+            timestampString = "458479496.493683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1038"
-            endingLineNumber = "1038"
+            startingLineNumber = "1078"
+            endingLineNumber = "1078"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -68,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458469063.314829"
+            timestampString = "458479496.493683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1033"
-            endingLineNumber = "1033"
+            startingLineNumber = "1073"
+            endingLineNumber = "1073"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -84,13 +68,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458469063.314829"
+            timestampString = "458479496.493683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
             landmarkName = "EndEdit()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/PageCollectionViewCell.swift"
+            timestampString = "458480179.507055"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "pointInContainerNode(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

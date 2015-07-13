@@ -742,10 +742,10 @@
 				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				66C7839F1B281956002139F1 /* UserRequest.swift */,
 				2CA8F08C1B391D050063E964 /* TokenRequest.swift */,
+				2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */,
 				2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */,
 				2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */,
 				2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */,
-				2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */,
 				2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */,
 				2C5526E71B4CC533000F2C7D /* PublishRequest.swift */,
 			);

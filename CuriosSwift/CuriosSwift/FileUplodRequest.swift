@@ -21,36 +21,36 @@ class FileUplodRequest: BaseRequst {
         
         let json = NSJSONSerialization.dataWithJSONObject(keyListDic, options: NSJSONWritingOptions(0), error: nil)
         let string = NSString(data: json!, encoding: NSUTF8StringEncoding) as! String
-       let base = ImageTokenRequest.requestWith(string) { (result) -> Void in
-            
-            if let keyFileAndTokenDic = result["list"] as? [[String:String]] {
-                
-                for dic in keyFileAndTokenDic {
-                    
-//                    let fileKey = dic.keys.array.filter{ $0 != "upToken"}
-                    let key = dic["key"]!
-                    let filePath = keyfiles[key]
-                    let token = dic["upToken"]
-                    
-                    println("dic = \(dic)")
-                    
-                    QNUploadManager.sharedInstanceWithConfiguration(nil).putFile(filePath, key: key, token: token, complete: { (responseInfo, key, response) -> Void in
-                        
-                        if response != nil {
-                            
-                            println(responseInfo)
-                          
-                        } else {
-                            
-                            println("image uopload response == nil")
-                        }
-                        
-                    }, option: nil)
-                
-                }
-            }
-        }
+//       let base = ImageTokenRequest.requestWith(string) { (result) -> Void in
+//
+//            if let keyFileAndTokenDic = result["list"] as? [[String:String]] {
+//                
+//                for dic in keyFileAndTokenDic {
+//                    
+////                    let fileKey = dic.keys.array.filter{ $0 != "upToken"}
+//                    let key = dic["key"]!
+//                    let filePath = keyfiles[key]
+//                    let token = dic["upToken"]
+//                    
+//                    println("dic = \(dic)")
+//                    
+//                    QNUploadManager.sharedInstanceWithConfiguration(nil).putFile(filePath, key: key, token: token, complete: { (responseInfo, key, response) -> Void in
+//                        
+//                        if response != nil {
+//                            
+//                            println(responseInfo)
+//                          
+//                        } else {
+//                            
+//                            println("image uopload response == nil")
+//                        }
+//                        
+//                    }, option: nil)
+//                
+//                }
+//            }
+//        }
       
-        base.sendRequest()
+//        base.sendRequest()
     }
 }

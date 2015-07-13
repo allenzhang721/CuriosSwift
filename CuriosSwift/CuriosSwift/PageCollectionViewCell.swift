@@ -13,9 +13,15 @@ protocol IcellTransition {
   func transitionWithProgress(progress: CGFloat, isSmallSize: Bool, minScale: CGFloat)
 }
 
+protocol PageCollectionViewCellDelegate: NSObjectProtocol {
+  
+  func pageCollectionViewCellGetUserIDandPublishID(cell: PageCollectionViewCell) -> (String, String)
+}
+
 class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, IcellTransition {
   
   internal weak var delegate: IPageProtocol?      //Mr.chen, 05/16/2015, 16:01, Note: will become retain cycle
+  weak var pageCellDelegate: PageCollectionViewCellDelegate?
   private var contentNode: ASDisplayNode?
   private var contentNodeView : UIView?
   private var nodeRenderOperation: NSOperation?
@@ -179,14 +185,20 @@ extension PageCollectionViewCell {
             let aContainerModel = containerNode.containerModel
             needEndEdit = true
             aContainerModel.setSelectedState(false)
-            delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
             
-            // should get text/ image snapshot
-            let abounds = containerNode.bounds
-            UIGraphicsBeginImageContext(abounds.size)
-            containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
-            let image = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
+            if let aComponent = aContainerModel.component as? TextContentModel {
+              let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
+              // should get text/ image snapshot
+              let abounds = containerNode.bounds
+              UIGraphicsBeginImageContext(abounds.size)
+              containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
+              let image = UIGraphicsGetImageFromCurrentImageContext()!
+              UIGraphicsEndImageContext()
+              
+              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1)
+            }
+            
+            delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
           }
         }
         if needEndEdit {

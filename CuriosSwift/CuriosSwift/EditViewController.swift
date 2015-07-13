@@ -18,7 +18,14 @@ import SnapKit
     data[j] = temp
 }
 
-class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, MaskViewDelegate,IPageProtocol, preViewControllerProtocol {
+func pathByComponents(components: [String]) -> String {
+  let begain = ""
+  let path = components.reduce(begain) {$0.stringByAppendingString("/" + $1)}
+  return path
+}
+
+
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, MaskViewDelegate, PageCollectionViewCellDelegate, IPageProtocol, preViewControllerProtocol {
     
     enum ToolState {
         case willSelect
@@ -698,7 +705,7 @@ extension EditViewController {
   }
   
   
-  func addImage(image: UIImage) {
+  func addImage(image: UIImage, userID: String, publishID: String) {
     
     EndEdit()
     
@@ -716,7 +723,7 @@ extension EditViewController {
       
       let imageComponent = ImageContentModel()
       imageComponent.type = .Image
-      imageComponent.updateImage(image)
+      imageComponent.updateImage(image, userID: userID, PublishID: publishID)
       let container = ContainerModel()
       container.component = imageComponent
       
@@ -725,11 +732,11 @@ extension EditViewController {
     }
   }
   
-  func replaceImage(image: UIImage) {
+  func replaceImage(image: UIImage, userID: String, publishID: String) {
     
     if let aMaskView = maskView,
       let imagecomponent = aMaskView.containerMomdel.component as? ImageContentModel {
-        imagecomponent.updateImage(image)
+        imagecomponent.updateImage(image, userID: userID, PublishID: publishID)
     }
   }
   
@@ -780,11 +787,46 @@ extension EditViewController {
   func begainUploadResourseWithModel(containerModel: ContainerModel) {
     
     let compoent = containerModel.component
-    let data = containerModel.component.getResourseData()
-    
-    // upload data
-
+    containerModel.component.getResourseData {[unowned self] (data, key) -> () in
+      // upload data
+      if let aKey = key {
+        
+        self.prepareUploadImageData(data!, key: aKey, compeletedBlock: { (theData, theKey, theToken) -> () in
+          
+          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+        })
+      }
+    }
   }
+}
+
+// MARK: - NET WORK
+extension EditViewController {
+  
+  func prepareUploadImageData(data: NSData, key: String, compeletedBlock:(NSData, String, String) -> ()) {
+    
+    let imageTokenDic: String = {
+      let dic = ["list":[
+        ["key": key]
+        ]
+      ]
+      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
+      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+      return string
+      }()
+    
+    ImageTokenRequest.requestWithComponents(getImageToken, aJsonParameter: imageTokenDic) { (json) -> Void in
+      
+      if let keyTokens = json["list"] as? [[String:String]] {
+
+        let keyToken = keyTokens[0]
+        let token = keyToken["upToken"]!
+        
+        compeletedBlock(data, key, token)
+      }
+    }.sendRequest()
+  }
+
 }
 
 
@@ -937,13 +979,15 @@ extension EditViewController {
   // ImagePicker
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     
+    let userID = UsersManager.shareInstance.getUserID()
+    let publishID = bookModel.Id
     
     // Selected Image
     let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
     let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
     let image = UIImage(data: imageData)!
     
-    isReplacedImage ? replaceImage(image) : addImage(image)
+    isReplacedImage ? replaceImage(image, userID: userID, publishID: publishID) : addImage(image, userID: userID, publishID: publishID)
     isReplacedImage = false
     
     picker.dismissViewControllerAnimated(true, completion: nil)
@@ -970,11 +1014,7 @@ extension EditViewController {
 // MARK: - PreviewEditor
 extension EditViewController {
   
-  func pathByComponents(components: [String]) -> String {
-    let begain = ""
-    let path = components.reduce(begain) {$0.stringByAppendingString("/" + $1)}
-    return path
-  }
+
   
   //Upload main json and html file
   func prepareForPreivew(completedBlock:(Bool) -> ()) {
@@ -1080,6 +1120,20 @@ extension EditViewController {
     return TextEditorTransitionAnimation(dismissed: true)
   }
 }
+
+
+// MARK: - PageCellDelegate
+extension EditViewController {
+  
+  func pageCollectionViewCellGetUserIDandPublishID(cell: PageCollectionViewCell) -> (String, String) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let publishID = bookModel.Id
+    
+    return (userID, publishID)
+  }
+}
+
 
 // MARK: - ☄
 // MARK: - ☄ Deprecated
@@ -1193,6 +1247,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
         cell.backgroundColor = UIColor.darkGrayColor()
+      cell.pageCellDelegate = self
         cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
         
         return cell

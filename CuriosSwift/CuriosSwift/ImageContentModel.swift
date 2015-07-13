@@ -13,88 +13,61 @@ let Host = ""
 
 class ImageContentModel: ComponentModel, IFile {
   
-  typealias UpdateImageHandler = (UIImage?) -> ()
-  typealias GenerateImageHandler = (UIImage?) -> ()
+  private var updateImageHandler: ((UIImage?) -> ())?
+  private var generateImageHandler: ((UIImage?) -> ())?
   
-  private var updateImageHandler: UpdateImageHandler?
-  private var generateImageHandler: UpdateImageHandler?
   
-  func updateImageHandler(updateHandler:UpdateImageHandler) {
+  var key: String {
+    
+    get {
+      let string = attributes["ImagePath"] as! String
+      return Host.stringByAppendingPathComponent(string)
+    }
+    
+    set {
+      attributes["ImagePath"] = newValue
+    }
+  }
+  
+  func updateImageHandler(updateHandler:((UIImage?) -> ())?) {
     updateImageHandler = updateHandler
   }
   
-  func generateImage(imageBlock: GenerateImageHandler) {
+  func generateImage(imageBlock: ((UIImage?) -> ())?) {
     
-    let imageSourceType: String = attributes["ImageSourceType"] as! String  // Relative or Absulte
-    let imagePath: String = attributes["ImagePath"] as! String // /image/aa.jpg || http://.../bb.jpg
+    let url = NSURL(string: key)!
     
-    let imageURL: NSURL = {
-      if imageSourceType == "Relative" {
-        let absolutePath = Host.stringByAppendingPathComponent(imagePath)
-        return NSURL(string: absolutePath)!
-      } else {
-        return NSURL(string: imagePath)!
-      }
-    }()
-    
-    KingfisherManager.sharedManager.retrieveImageWithURL(imageURL, optionsInfo: .None, progressBlock: nil) {[unowned self] (image, error, cacheType, imageURL) -> () in
-      
+    KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: .None, progressBlock: nil) {[unowned self] (image, error, cacheType, imageURL) -> () in
       if error != nil {
         println(error)
       } else {
-        imageBlock(image)
+        imageBlock?(image)
       }
     }
   }
   
-  func updateImage(image: UIImage) {
+  func updateImage(image: UIImage, userID: String, PublishID: String) {
     
+    KingfisherManager.sharedManager.cache.removeImageForKey(key)
     let imageID = UniqueIDStringWithCount(count: 8)
-    let imagePath = "/images/\(imageID).jpg"
-    
-    attributes["ImageSourceType"] = "Relative" // relative or absulte
-    attributes["ImagePath"] = imagePath // /image/aa.jpg || http://.../bb.jpg
-    
-    let absolutePath = Host.stringByAppendingPathComponent(imagePath)
+    key = pathByComponents([userID, PublishID, "\(imageID).jpg"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     
     updateImageHandler?(image)
   }
-
-  var imageURL: String {
-    get {
-      if let relativeImagePath = attributes["ImagePath"] as? String,  // "/image/name.jpg"
-         let string = delegate?.fileGetSuperPath(self).stringByAppendingPathComponent(relativeImagePath) {
-        return string
+  
+  override func getResourseData(handler: (NSData?, String?) -> ()) {
+    
+    let aKey = attributes["ImagePath"] as! String
+    KingfisherManager.sharedManager.cache.retrieveImageForKey(key, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
+      if let aImage = image {
+        let data = UIImageJPEGRepresentation(image, 1)
+        
+        handler(data, aKey)
       } else {
-        assert(false, "ImageCOntentModel not set Delegate ")
-        return ""
+        handler(nil, nil)
       }
     }
-  }
-  
-  var key: String {
-    
-    let imageSourceType: String = attributes["ImageSourceType"] as! String  // relative or Absolute
-    let imagePath: String = attributes["ImagePath"] as! String // /image/aa.jpg || http://.../bb.jpg
-    
-    let imageURL: NSURL = {
-      if imageSourceType == "Relative" {
-        let absolutePath = Host.stringByAppendingPathComponent(imagePath)
-        return NSURL(string: absolutePath)!
-      } else {
-        return NSURL(string: imagePath)!
-      }
-      }()
-    
-    return imageURL.path!
-    
-  }
-  
-  override func getResourseData() -> NSData? {
-    
-    println(" Image Data")
-    return nil
   }
   
   override func uploadInfo(userID: String, publishID: String, pageID: String) {
