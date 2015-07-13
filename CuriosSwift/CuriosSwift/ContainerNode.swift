@@ -198,6 +198,8 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
   
   
   
+  
+  // MARK: - containerModel delegate
   func containerModel(model: ContainerModel, selectedDidChanged selected: Bool) {
     
     if selected {

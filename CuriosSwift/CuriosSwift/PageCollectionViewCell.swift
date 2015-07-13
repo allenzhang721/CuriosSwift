@@ -67,7 +67,6 @@ extension PageCollectionViewCell {
   func targetPageModel(model: PageModel, DidAddContainer container: ContainerModel) {
     
     addContainerByModel(container)
-    begainResponseToTap(center, tapCount: 1)
   }
   
   func targetpageModel(model: PageModel, DidRemoveContainer container: ContainerModel) {
@@ -163,7 +162,6 @@ extension PageCollectionViewCell {
           for aContainerModel in pageModel.containers {
             
             if aContainerModel.selected {
-              
               aContainerModel.setSelectedState(false)
               delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
             }
@@ -198,19 +196,19 @@ extension PageCollectionViewCell {
     }
     
     var find = false
+    var findNode: ContainerNode? = nil
+    
     for subNode in reverseSubNodes {
       let point = convertPoint(onScreenPoint, toView: subNode.view)
       if CGRectContainsPoint(subNode.view.bounds, point) {
-        
-        pointInContainerNode(subNode)
-        find = true
+        println("on container")
+        findNode = subNode
         break
       }
+      
     }
     
-    if !find {
-      pointInContainerNode(nil)
-    }
+    pointInContainerNode(findNode)
   }
   
   // double selected

@@ -91,6 +91,12 @@ class ImageContentModel: ComponentModel, IFile {
     
   }
   
+  override func getResourseData() -> NSData? {
+    
+    println(" Image Data")
+    return nil
+  }
+  
   override func uploadInfo(userID: String, publishID: String, pageID: String) {
     //        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
     

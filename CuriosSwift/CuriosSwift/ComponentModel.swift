@@ -34,6 +34,10 @@ class ComponentModel: Model, IFile  {
             return ComponentNoneNode(aComponentModel: self)
         }
     }
+  
+  func getResourseData() -> NSData? {
+    return nil
+  }
     
     func removed() {
         

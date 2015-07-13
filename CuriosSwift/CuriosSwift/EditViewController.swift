@@ -733,19 +733,6 @@ extension EditViewController {
     }
   }
   
-//  func removeContainer(aContainer: ContainerModel) {
-//    
-//    if let indexPath = getCurrentIndexPath() {
-//      
-//      if bookModel.pageModels.count <= 0 {
-//        return
-//      }
-//      
-//      let pageModel = bookModel.pageModels[indexPath.item]
-//      pageModel.removeContainerModel(aContainer)
-//    }
-//  }
-  
   func addMask(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel containerModel: ContainerModel) {
     
     if let aMaskView = maskView {
@@ -789,6 +776,15 @@ extension EditViewController {
       }
     }
   }
+  
+  func begainUploadResourseWithModel(containerModel: ContainerModel) {
+    
+    let compoent = containerModel.component
+    let data = containerModel.component.getResourseData()
+    
+    // upload data
+
+  }
 }
 
 
@@ -822,17 +818,11 @@ extension EditViewController {
       showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-          
-          let size = component.updateFromDemoAttributeString(attri)
           containerModel.needUpdateOnScreenSize(true)
         })
       }
     }
-    
-    
-    
   }
-  
 }
 
 
@@ -861,6 +851,8 @@ extension EditViewController {
     
     container.setSelectedState(false)
     removeMaskByModel(targetContainerModel: container)
+    
+    begainUploadResourseWithModel(container)
   }
   
   func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel) {
@@ -874,20 +866,15 @@ extension EditViewController {
       showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
         
        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        
-        let size = textComponent.updateFromDemoAttributeString(attri)
         container.needUpdateOnScreenSize(true)
        })
-//        container.updateOnScreenSize(CGSize(width: 300, height: 300))
       }
     }
   }
   
   func pageDidEndEdit(page: PageModel) {
-    
     collectionView.scrollEnabled = true
   }
-  
 }
 
 

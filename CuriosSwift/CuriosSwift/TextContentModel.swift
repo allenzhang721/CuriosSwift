@@ -160,6 +160,12 @@ class TextContentModel: ComponentModel {
     let fontSize = attributes["FontSize"] as! CGFloat
     return fontSize
   }
+
+  override func getResourseData() -> NSData? {
+    
+    println(" Text Image Data")
+    return nil
+  }
   
   override func uploadInfo(userID: String, publishID: String, pageID: String) {
     //        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
