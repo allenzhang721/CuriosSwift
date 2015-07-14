@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458481840.385281"
+            timestampString = "458532069.575827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1110"
-            endingLineNumber = "1110"
+            startingLineNumber = "1133"
+            endingLineNumber = "1133"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458481840.385281"
+            timestampString = "458532069.575827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1105"
-            endingLineNumber = "1105"
+            startingLineNumber = "1128"
+            endingLineNumber = "1128"
             landmarkName = "uploadPublishFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "458479496.493683"
+            filePath = "CuriosSwift/MaskView.swift"
+            timestampString = "458532883.346443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "776"
-            endingLineNumber = "776"
-            landmarkName = "EndEdit()"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "tapAction(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

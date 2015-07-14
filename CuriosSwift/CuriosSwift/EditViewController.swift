@@ -20,8 +20,9 @@ import SnapKit
 
 func pathByComponents(components: [String]) -> String {
   let begain = ""
-  let path = components.reduce(begain) {$0.stringByAppendingString($1 + "/")}
-  return path
+  let path = components.reduce(begain) {$0.stringByAppendingString($1 + "/")} as NSString
+  let subPath = path.substringToIndex(path.length - 1) as String
+  return subPath
 }
 
 
@@ -133,11 +134,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-      prepareForPreivew { (finished) -> () in
-        
-        
-      }
         
         SmallLayout.delegate = self
         collectionView.dataSource = self
@@ -359,6 +355,18 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
     
     @IBAction func previewAction(sender: UIBarButtonItem) {
+      
+      
+      prepareForPreivew {[unowned self] (finished) -> () in
+        
+        if finished {
+          println(self.bookModel.Id)
+          
+          self.uploadComplete()
+        }
+      }
+      
+      return
         
         let userID = UsersManager.shareInstance.getUserID()
         let bookID = bookModel.Id
@@ -823,11 +831,38 @@ extension EditViewController {
           
           UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
         })
-        
-        
       }
-      
     }
+  }
+  
+  
+  func uploadComplete() {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let publishID = bookModel.Id
+    let publishURL = pathByComponents([userID, publishID])
+    let data = ["publishURL":"\(publishURL)" + "/",
+      "publishTitle":"美丽的日子",
+      "publishDesc":"在那最美的日子我和你在一起，手牵手一直到永远"]
+    let jsondata = NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions(0), error: nil)
+    let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+    
+    UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { (json) -> Void in
+      
+      if let aData = json["data"] as? String {
+
+        println(aData)
+      }
+    }.sendRequest()
+    
+//    UploadCompleteReqest.requestWithComponents(uploadComplete, aJsonParameter: string) { (json) -> Void in
+//      
+//      if let aData = json["data"] as? String {
+//        
+//        println(aData)
+//      }
+//    }
+    
   }
 }
 
@@ -857,7 +892,6 @@ extension EditViewController {
       }
     }.sendRequest()
   }
-
 }
 
 
@@ -891,6 +925,7 @@ extension EditViewController {
       showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          component.updateFromDemoAttributeString(attri)
           containerModel.needUpdateOnScreenSize(true)
         })
       }
@@ -939,6 +974,7 @@ extension EditViewController {
       showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
         
        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        textComponent.updateFromDemoAttributeString(attri)
         container.needUpdateOnScreenSize(true)
        })
       }
@@ -1046,16 +1082,18 @@ extension EditViewController {
 // MARK: - PreviewEditor
 extension EditViewController {
   
-
-  
   //Upload main json and html file
   func prepareForPreivew(completedBlock:(Bool) -> ()) {
+    
     
 //    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
 //    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     
-    UploadsManager.shareInstance.setCompeletedHandler { (finished) -> () in
+    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
       
+      completedBlock(finished)
+       UploadsManager.shareInstance.setCompeletedHandler(nil)
+      println("bookID: \(self.bookModel.Id)")
       println(" upload finished")
     }
     
@@ -1099,7 +1137,10 @@ extension EditViewController {
     }()
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
+    let appString = "curiosMainJson=" + string
+    let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
     
     PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
       if let keyLokens = json["list"] as? [[String:String]] {
@@ -1396,7 +1437,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         let pageModels = fakePageView!.getPageArray()
         for aPage in pageModels {
             
-            let newPageId = UniqueIDString()
+            let newPageId = UniqueIDStringWithCount(count: 10)
             let originBookPath = aPage.delegate?.fileGetSuperPath(aPage)
             let orginPageURL = URL(originBookPath!)(isDirectory: true)(pages, aPage.Id)
             let newPageURL = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId)

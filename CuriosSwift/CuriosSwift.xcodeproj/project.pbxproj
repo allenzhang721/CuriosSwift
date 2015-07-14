@@ -39,6 +39,7 @@
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
 		2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81041B5349A200A93383 /* RequestURL.swift */; };
 		2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81061B535FFC00A93383 /* UploadsManager.swift */; };
+		2C4D81091B53F10900A93383 /* UploadCompleteReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81081B53F10900A93383 /* UploadCompleteReqest.swift */; };
 		2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51005D1AFDF258006AD682 /* SnapKit.framework */; };
 		2C5100601AFDF654006AD682 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51005F1AFDF654006AD682 /* TemplateViewController.swift */; };
 		2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */; };
@@ -209,6 +210,7 @@
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
 		2C4D81041B5349A200A93383 /* RequestURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestURL.swift; sourceTree = "<group>"; };
 		2C4D81061B535FFC00A93383 /* UploadsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadsManager.swift; sourceTree = "<group>"; };
+		2C4D81081B53F10900A93383 /* UploadCompleteReqest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadCompleteReqest.swift; sourceTree = "<group>"; };
 		2C51005D1AFDF258006AD682 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/SnapKit.framework"; sourceTree = "<group>"; };
 		2C51005F1AFDF654006AD682 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		2C5426FD1B2A982B007FF1DE /* PannelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelFactory.swift; sourceTree = "<group>"; };
@@ -748,6 +750,7 @@
 				2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */,
 				2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */,
 				2C5526E71B4CC533000F2C7D /* PublishRequest.swift */,
+				2C4D81081B53F10900A93383 /* UploadCompleteReqest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -1026,6 +1029,7 @@
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
+				2C4D81091B53F10900A93383 /* UploadCompleteReqest.swift in Sources */,
 				2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */,
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,

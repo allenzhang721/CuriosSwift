@@ -12,5 +12,6 @@ let addEditedFile = ["publish", "addEditFile"] // save the edited book to server
 let getPublishID = ["publish", "getPublishID"] // get a new ID when create a new book
 let addPublishFile = ["publish", "publishFile"] // finish published use this API to record the pubish info and get
 
+let uploadCompleteURL = ["upload", "uploadComplete"]
 let getPublishToken = ["upload", "publishUptoken"] // upload non-resourse(image) file / data's token
 let getImageToken = ["upload", "imageUptoken"] // upload resourse(image) file / data's token

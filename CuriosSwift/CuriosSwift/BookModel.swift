@@ -19,7 +19,7 @@ class BookModel: Model, IFile {
         case translate3d, bb
     }
     var filePath: String = ""
-    var Id = UniqueIDString()
+    var Id = UniqueIDStringWithCount(count: 10)
     var width = 640
     var height = 1008
     var title = "New Book"

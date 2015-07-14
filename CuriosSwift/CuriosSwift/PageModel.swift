@@ -19,7 +19,7 @@ protocol PageModelDelegate: NSObjectProtocol {
 class PageModel: Model, IFile {
   
   weak var delegate: IFile?
-  var Id = UniqueIDString()
+  var Id = UniqueIDStringWithCount(count: 10)
   var width: CGFloat = 640.0
   var height: CGFloat = 1008.0
   var containers: [ContainerModel] = []

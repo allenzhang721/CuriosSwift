@@ -89,7 +89,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
   
   func updateSize() {
     let newSize = calculateSizeThatFits(CGSize(width: CGFloat.max, height: CGFloat.max))
-//    println("newSize = \(newSize)")
+    println("newSize = \(newSize)")
     containerModel.updateOnScreenSize(newSize)
   }
   

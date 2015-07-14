@@ -22,7 +22,7 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   }
   
   var containerMomdel: ContainerModel!
-  
+  var tap: UITapGestureRecognizer!
   weak var delegate: MaskViewDelegate?
   
   var settingPannel: UIImageView!
@@ -94,6 +94,31 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
 // MARK: - Gesture Delegate
 extension MaskView {
   
+  override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    if gestureRecognizer == tap {
+      
+      let deleteRegion = retangle(CGSizeMake(40, 40), CGPoint(x: 0, y: bounds.height))
+      let editRegion = retangle(CGSize(width: 40, height: 40), CGPointZero)
+      
+      let location = gestureRecognizer.locationInView(self)
+      switch location {
+      case let point where deleteRegion(point):
+        return true
+        
+      case let point where editRegion(point):
+        return true
+        
+      default:
+        return false
+      }
+    } else {
+      return true
+    }
+
+    
+  }
+  
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     
     if otherGestureRecognizer is UITapGestureRecognizer {
@@ -157,11 +182,12 @@ extension MaskView {
   
   func addGestures() {
     
-    let tap = UITapGestureRecognizer(target: self, action: "tapAction:")
+    tap = UITapGestureRecognizer(target: self, action: "tapAction:")
     let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
     let rot = UIRotationGestureRecognizer(target: self, action: "rotationAction:")
     let pin = UIPinchGestureRecognizer(target: self, action: "pinchAction:")
     
+    tap.delegate = self
     pan.delegate = self
     rot.delegate = self
     pin.delegate = self
