@@ -43,7 +43,7 @@ class TextContentModel: ComponentModel {
     
     let text: String =  attributes["Text"] as! String
     let alignment: String = attributes["TextAligment"] as! String
-    let color: String =  attributes["TextColor"] as! String
+    let color: String =  "#282A35"
     let name: String = attributes["FontName"] as! String
     let size: CGFloat = 28
     
@@ -77,7 +77,19 @@ class TextContentModel: ComponentModel {
   
   func getAttributeString() -> NSAttributedString {
     
-    let text: String =  attributes["Text"] as! String
+    let originText = attributes["Text"] as! String
+    
+    
+    
+    let text: String = {
+      
+      if originText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
+        return "Double\nClick"
+      } else {
+        return originText
+      }
+      
+    }()
     let alignment: String = attributes["TextAligment"] as! String
     let color: String =  attributes["TextColor"] as! String
     let name: String = attributes["FontName"] as! String
