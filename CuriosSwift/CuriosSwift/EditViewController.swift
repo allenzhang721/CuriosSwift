@@ -161,7 +161,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
         
         if templateViewController == nil {
             
-            setupTemplateController()
+//            setupTemplateController()
 
         }
     }

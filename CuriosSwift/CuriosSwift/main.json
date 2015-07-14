@@ -1,0 +1,157 @@
+{
+  "ID": "QWERTASDFGZXCVB",
+  "MainWidth": 320,
+  "MainHeight": 504,
+  "MainTitle": "Good Day",
+  "MainDesc": "Good Day have good idea!",
+  "FlipDirection": "ver",
+  "FlipType": "translate3d",
+  "FlipLoop": "true",
+  "FileIcon": "/images/background.jpg",
+  "MainBackground": "/images/background.jpg",
+  "MainMusic": "http//www.ndfjj.com/dsadsa/dsada/mdsads.mp3",
+  "PagesPath": "/Pages",
+  "AuthorID": "1fdklaafdllfda",
+  "PublishDate": "2015-04-23",
+  "Pages": [
+            {
+            "PageID": "ASDFG",
+            "Path": "/ASDFG",
+            "Index": "/ASDFG.json",
+            "PageWidth": 320,
+            "PageHeight": 504,
+            "Containers": [
+                           {
+                           "ID": "qwert",
+                           "ContainerX": 50,
+                           "ContainerY": 200,
+                           "ContaienrWidth": 100,
+                           "ContainerHeight": 100,
+                           "ContainerRotation": 45,
+                           "ContainerAplha": 0.5,
+                           "Editable": true,
+                           "Component": {
+                           "ComponentType": "Image",
+                           "ComponentData": {
+                           "ImagePath": "/images/aaaa.jpeg",
+                           "ImageFilter": {
+                           "FilterType": "black",
+                           "FilterData": {}
+                           }
+                           }
+                           },
+                           "Animations": [
+                                          {
+                                          "AnimationType": "FloatIn",
+                                          "AnimationDelay": 1000,
+                                          "AnimationDuration": 2000,
+                                          "AnimationRepeat": 2,
+                                          "AnimationEaseType": "Linear",
+                                          "AnimationData": {}
+                                          },
+                                          {
+                                          "AnimationType": "FloatOut",
+                                          "AnimationDelay": 1000,
+                                          "AnimationDuration": 2000,
+                                          "AnimationRepeat": 2,
+                                          "AnimationEaseType": "Linear",
+                                          "AnimationData": {}
+                                          }
+                                          ],
+                           "Behaviors": [
+                                         {
+                                         "EventName": "Click",
+                                         "EventValue": "1",
+                                         "ObjectID": "dsadsadsa",
+                                         "FunctionName": "PlayMusic",
+                                         "FunctionValue": "2"
+                                         },
+                                         {
+                                         "EventName": "Click",
+                                         "EventValue": "2",
+                                         "ObjectID": "dsadsadsa",
+                                         "FunctionName": "PlayAnimation",
+                                         "FunctionValue": "1"
+                                         }
+                                         ],
+                           "Effects": [
+                                       {
+                                       "EffectType": "Shadow",
+                                       "EffectData": {}
+                                       }
+                                       ]
+                           }
+                           ]
+            },
+            {
+            "PageID": "IUNCF",
+            "Path": "/IUNCF",
+            "Index": "/IUNCF.json",
+            "PageWidth": 320,
+            "PageHeight": 504,
+            "Containers": [
+                           {
+                           "ID": "zxcvb",
+                           "ContainerX": 50,
+                           "ContainerY": 200,
+                           "ContaienrWidth": 100,
+                           "ContainerHeight": 100,
+                           "ContainerRotation": 45,
+                           "ContainerAplha": 0.5,
+                           "Editable": true,
+                           "Component": {
+                           "ComponentType": "Text",
+                           "ComponentData": {
+                           "ImagePath": "/images/aaaa.jpeg",
+                           "Text": "Double Click\nto Change",
+                           "TextAligment": "center",
+                           "TextColor": "#ffffff",
+                           "FontName": "RTWSYueRoudGoG0v1-Regular",
+                           "FontSize": 30
+                           }
+                           },
+                           "Animations": [
+                                          {
+                                          "AnimationType": "FloatIn",
+                                          "AnimationDelay": 1000,
+                                          "AnimationDuration": 2000,
+                                          "AnimationRepeat": 2,
+                                          "AnimationEaseType": "Linear",
+                                          "AnimationData": {}
+                                          },
+                                          {
+                                          "AnimationType": "FloatOut",
+                                          "AnimationDelay": 1000,
+                                          "AnimationDuration": 2000,
+                                          "AnimationRepeat": 2,
+                                          "AnimationEaseType": "Linear",
+                                          "AnimationData": {}
+                                          }
+                                          ],
+                           "Behaviors": [
+                                         {
+                                         "EventName": "Click",
+                                         "EventValue": "1",
+                                         "ObjectID": "dsadsadsa",
+                                         "FunctionName": "PlayMusic",
+                                         "FunctionValue": "2"
+                                         },
+                                         {
+                                         "EventName": "Click",
+                                         "EventValue": "2",
+                                         "ObjectID": "dsadsadsa",
+                                         "FunctionName": "PlayAnimation",
+                                         "FunctionValue": "1"
+                                         }
+                                         ],
+                           "Effects": [
+                                       {
+                                       "EffectType": "Shadow",
+                                       "EffectData": {}
+                                       }
+                                       ]
+                           }
+                           ]
+            }
+            ]
+}

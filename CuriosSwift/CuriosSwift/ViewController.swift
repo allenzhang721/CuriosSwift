@@ -25,6 +25,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         didload();
         loadViewController()
         FontsManager.share.registerLocalFonts()
