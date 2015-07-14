@@ -9,7 +9,7 @@
 import Foundation
 import Kingfisher
 
-let Host = ""
+let Host = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
 
 class ImageContentModel: ComponentModel, IFile {
   

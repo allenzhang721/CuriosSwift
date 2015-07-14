@@ -18,7 +18,6 @@ extension UIViewController {
     book.Id = bookID
     
     getBookHandler(book)
-    
   }
   
   private func demoBook() -> BookModel {

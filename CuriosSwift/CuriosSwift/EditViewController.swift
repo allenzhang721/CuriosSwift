@@ -534,10 +534,18 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     @IBAction func saveAction(sender: UIBarButtonItem) {
         
-        let userid = UsersManager.shareInstance.getUserID()
-        saveBook()
-        deleteTemporaryBookWithUserId(userid)
-        dismissViewControllerAnimated(true, completion: nil)
+//        let userid = UsersManager.shareInstance.getUserID()
+//        saveBook()
+//        deleteTemporaryBookWithUserId(userid)
+      
+      prepareUploadBookModelToServer {[unowned self] (finished) -> () in
+        
+        if finished {
+          
+          println("save book model to server")
+          self.dismissViewControllerAnimated(true, completion: nil)
+        }
+      }
     }
     
     // book detail Action
@@ -705,6 +713,7 @@ extension EditViewController {
       textComponent.type = .Text
       textComponent.attributes = defaultTextAttribute
       let container = ContainerModel()
+      container.Id = UniqueIDStringWithCount(count: 5)
       container.component = textComponent
       
       pageModel.addContainerModel(container, OnScreenSize: CGSize(width: 100, height: 50))
@@ -733,6 +742,7 @@ extension EditViewController {
       imageComponent.type = .Image
       imageComponent.updateImage(image, userID: userID, PublishID: publishID)
       let container = ContainerModel()
+      container.Id = UniqueIDStringWithCount(count: 5)
       container.component = imageComponent
       
       pageModel.addContainerModel(container, OnScreenSize: image.size)
@@ -854,15 +864,6 @@ extension EditViewController {
         println(aData)
       }
     }.sendRequest()
-    
-//    UploadCompleteReqest.requestWithComponents(uploadComplete, aJsonParameter: string) { (json) -> Void in
-//      
-//      if let aData = json["data"] as? String {
-//        
-//        println(aData)
-//      }
-//    }
-    
   }
 }
 
@@ -1085,10 +1086,6 @@ extension EditViewController {
   //Upload main json and html file
   func prepareForPreivew(completedBlock:(Bool) -> ()) {
     
-    
-//    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-//    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
-    
     UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
       
       completedBlock(finished)
@@ -1116,11 +1113,11 @@ extension EditViewController {
     let index = "index.html"
     let main = "main.json"
     
-    let indexKey = pathByComponents([userID, bookID, index])
-    let aniKey = pathByComponents([userID, bookID, js, ani])
+//    let indexKey = pathByComponents([userID, bookID, index])
+//    let aniKey = pathByComponents([userID, bookID, js, ani])
     let curKey = pathByComponents([userID, bookID, js, cur])
-    let jquKey = pathByComponents([userID, bookID, js, jqu])
-    let maiKey = pathByComponents([userID, bookID, js, mai])
+//    let jquKey = pathByComponents([userID, bookID, js, jqu])
+//    let maiKey = pathByComponents([userID, bookID, js, mai])
     
     let publishTokenDic: String = {
       let dic = ["list":[
@@ -1169,6 +1166,98 @@ extension EditViewController {
 
 
 
+// MARK: - Add Edit File
+extension EditViewController {
+  
+  func addEditFile(completedBlock: (Bool) -> ()) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let bookID = bookModel.Id
+    let addEditFilePath = pathByComponents([userID, bookID, "res", "main.json"])
+    
+    let string = ADD_EDITED_FILE_paras(userID, bookID, addEditFilePath)
+    
+    println("add edit file paramer: \(string)")
+    
+    AddEditFileRequest.requestWithComponents(ADD_EDITED_FILE, aJsonParameter: string) { (json) -> Void in
+      println(" add edit file = \(json)")
+      completedBlock(true)
+    }.sendRequest()
+  }
+  
+  func prepareUploadBookModelToServer(completedBlock: (Bool) -> ()) {
+    
+    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+      
+//      completedBlock(finished)
+      
+      if finished {
+        self.addEditFile({ (finished) -> () in
+          
+          if finished {
+            UploadsManager.shareInstance.setCompeletedHandler(nil)
+            completedBlock(true)
+          }
+        })
+      }
+    }
+    
+    uploadBookModelToserver { (datas, keys, tokens) -> () in
+      
+      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+    }
+    
+  }
+  
+  func uploadBookModelToserver(compeletedBlock:([NSData], [String], [String]) -> ()) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let bookID = bookModel.Id
+    let main = "main.json"
+    let res = "res"
+
+    let curKey = pathByComponents([userID, bookID, res, main])
+    
+    let publishTokenDic: String = {
+      let dic = ["list":[
+        ["key": curKey]
+        ]
+      ]
+      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
+      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+      return string
+      }()
+    
+    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+    let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
+    let appString = string
+    let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+    
+    PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
+      if let keyLokens = json["list"] as? [[String:String]] {
+        
+        var datas = [NSData]()
+        var keys = [String]()
+        var tokens = [String]()
+        
+        for keyToken in keyLokens {
+          if let key = keyToken["key"],
+            let token = keyToken["upToken"] {
+              if key == curKey {
+                datas.append(data!)
+                keys.append(key)
+                tokens.append(token)
+              }
+          }
+        }
+        
+        compeletedBlock(datas, keys, tokens)
+      }
+      
+      }.sendRequest()
+  }
+}
 
 
 
@@ -1862,7 +1951,7 @@ extension EditViewController {
         if fileManager.replaceItemAtURL(originBookUrl, withItemAtURL: tempBookUlr, backupItemName: bookId + "backup", options: NSFileManagerItemReplacementOptions(0), resultingItemURL: nil, error: nil) {
             
             let saveDate = NSDate();
-            UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
+//            UsersManager.shareInstance.updateBookWith(bookId, aBookName: bookModel.title, aDescription: bookModel.desc, aDate: saveDate, aIconUrl: NSURL(string: "")!)
 
         }
     }

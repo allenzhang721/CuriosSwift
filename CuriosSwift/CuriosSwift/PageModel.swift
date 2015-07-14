@@ -22,6 +22,8 @@ class PageModel: Model, IFile {
   var Id = UniqueIDStringWithCount(count: 10)
   var width: CGFloat = 640.0
   var height: CGFloat = 1008.0
+  var PageBackgroundColor = ""
+  var PageBackgroundAlpha: CGFloat = 1.0
   var containers: [ContainerModel] = []
   weak var modelDelegate: PageModelDelegate?
   var needUpload = false
@@ -30,6 +32,8 @@ class PageModel: Model, IFile {
     
     return [
       "Id" : "ID",
+      "PageBackgroundColor" : "PageBackgroundColor",
+      "PageBackgroundAlpha" : "PageBackgroundAlpha",
       "width" : "PageWidth",
       "height" : "PageHeight",
       "containers" : "Containers"

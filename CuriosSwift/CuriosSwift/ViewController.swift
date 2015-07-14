@@ -26,6 +26,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
+      let a = ADD_EDITED_FILE_paras("EMiasteoin", "hahahah", "GGGGGG")
+      
+      println(a)
+      
         didload();
         loadViewController()
         FontsManager.share.registerLocalFonts()
@@ -49,12 +53,12 @@ class ViewController: UIViewController {
 extension ViewController {
     
     func didload(){
-        TemplatesManager.instanShare.loadTemplates();
+//        TemplatesManager.instanShare.loadTemplates();
         LoginModel.shareInstance.viewController = self;
     }
     
     func loadViewController() {
-        adminLogin()
+//        adminLogin()
         LoginModel.shareInstance.loadInfo()
         
         println(LoginModel.shareInstance.isLogin)

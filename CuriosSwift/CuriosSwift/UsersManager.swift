@@ -81,60 +81,60 @@ class UsersManager: IUser, IBook {
     
     */
     
-    func updateBookWith(aBookID: String, aBookName: String, aDescription: String, aDate: NSDate, aIconUrl: NSURL) {
-        
-        var index = 0
-        var find = false
-        for bookListModel in bookList {
-            
-            if bookListModel.bookID == aBookID {
-                bookList.removeAtIndex(index)
-                let aBookListModel = BookListModel()
-                aBookListModel.bookID = aBookID
-                aBookListModel.bookName = aBookName
-                aBookListModel.descri = aDescription
-                aBookListModel.date = aDate
-                aBookListModel.iconUrl = aIconUrl
-                bookList.insert(aBookListModel, atIndex: index)
-                find = true
-                break
-            }
-            index++
-        }
-        
-        if !find {
-            let aBookListModel = BookListModel()
-            aBookListModel.bookID = aBookID
-            aBookListModel.bookName = aBookName
-            aBookListModel.descri = aDescription
-            aBookListModel.date = aDate
-            aBookListModel.iconUrl = aIconUrl
-            bookList.insert(aBookListModel, atIndex: 0)
-        }
-        
-        saveBookList();
-    }
-    
-    
-    
-    func duplicateBookTo(templateId: String, toUrl: NSURL) -> Bool {
-        
-        let existTemplate = bookList.filter { (templateListModel: BookListModel) -> Bool in
-            return templateListModel.bookID == templateId
-        }
-        
-        assert(existTemplate.count > 0, "template not exist")
-        
-        let userID = getUserID()
-        let bookId = templateId
-        let originBookURL = documentDirectory(users,userID,books,bookId)
-        if NSFileManager.defaultManager().copyItemAtURL(originBookURL, toURL: toUrl, error: nil) {
-            // change the new book id
-            return true
-        } else {
-            return false
-        }
-    }
+//    func updateBookWith(aBookID: String, aBookName: String, aDescription: String, aDate: NSDate, aIconUrl: NSURL) {
+//        
+//        var index = 0
+//        var find = false
+//        for bookListModel in bookList {
+//            
+//            if bookListModel.bookID == aBookID {
+//                bookList.removeAtIndex(index)
+//                let aBookListModel = BookListModel()
+//                aBookListModel.bookID = aBookID
+//                aBookListModel.bookName = aBookName
+//                aBookListModel.descri = aDescription
+//                aBookListModel.date = aDate
+//                aBookListModel.iconUrl = aIconUrl
+//                bookList.insert(aBookListModel, atIndex: index)
+//                find = true
+//                break
+//            }
+//            index++
+//        }
+//        
+//        if !find {
+//            let aBookListModel = BookListModel()
+//            aBookListModel.bookID = aBookID
+//            aBookListModel.bookName = aBookName
+//            aBookListModel.descri = aDescription
+//            aBookListModel.date = aDate
+//            aBookListModel.iconUrl = aIconUrl
+//            bookList.insert(aBookListModel, atIndex: 0)
+//        }
+//        
+//        saveBookList();
+//    }
+//    
+//    
+//    
+//    func duplicateBookTo(templateId: String, toUrl: NSURL) -> Bool {
+//        
+//        let existTemplate = bookList.filter { (templateListModel: BookListModel) -> Bool in
+//            return templateListModel.bookID == templateId
+//        }
+//        
+//        assert(existTemplate.count > 0, "template not exist")
+//        
+//        let userID = getUserID()
+//        let bookId = templateId
+//        let originBookURL = documentDirectory(users,userID,books,bookId)
+//        if NSFileManager.defaultManager().copyItemAtURL(originBookURL, toURL: toUrl, error: nil) {
+//            // change the new book id
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
 }
 
 // MARK: - Iuser
@@ -160,35 +160,35 @@ extension UsersManager {
         return false;
     }
     
-    func deleteBook(aBookID: String) -> Bool {
-        var result = false;
-        var index = 0;
-        for bookListModel in bookList {
-            if bookListModel.bookID == aBookID {
-                bookList.removeAtIndex(index);
-                result = true;
-                break
-            }
-            index++ ;
-        }
-        if(result){
-            saveBookList();
-        }
-
-        return result;
-    }
-    
-    func deleteBook(index: Int) -> Bool{
-        var result = false;
-        if index > -1 && index < bookList.count {
-            bookList.removeAtIndex(index);
-            result = true;
-        }
-        if(result){
-            saveBookList();
-        }
-        return result;
-    }
+//    func deleteBook(aBookID: String) -> Bool {
+//        var result = false;
+//        var index = 0;
+//        for bookListModel in bookList {
+//            if bookListModel.bookID == aBookID {
+//                bookList.removeAtIndex(index);
+//                result = true;
+//                break
+//            }
+//            index++ ;
+//        }
+//        if(result){
+//            saveBookList();
+//        }
+//
+//        return result;
+//    }
+  
+//    func deleteBook(index: Int) -> Bool{
+//        var result = false;
+//        if index > -1 && index < bookList.count {
+//            bookList.removeAtIndex(index);
+//            result = true;
+//        }
+//        if(result){
+//            saveBookList();
+//        }
+//        return result;
+//    }
 }
 
 // MARK: - Private Methods

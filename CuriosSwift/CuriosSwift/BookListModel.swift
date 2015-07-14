@@ -11,25 +11,29 @@ import Mantle
 
 class BookListModel: Model {
     
-    var bookID = ""
-    var bookName = ""
-    var descri = ""
-    var date: NSDate! = NSDate(timeIntervalSinceNow: 0)
-    var iconUrl: NSURL! = NSURL(fileURLWithPath: "")
+    var publishDesc = ""
+    var publishID = ""
+    var publishIconURL = ""
+    var publishDate: NSDate! = NSDate(timeIntervalSinceNow: 0)
+    var publishResURL = ""
+    var publishTitle = ""
+    var publishURL = ""
    
     override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         
         return [
-            "bookID" : "bookID",
-            "bookName" : "bookName",
-            "descri" : "descri",
-            "date" : "date",
-            "iconUrl" : "iconUrl"
+            "publishDesc" : "publishDesc",
+            "publishID" : "publishID",
+            "publishIconURL" : "publishIconURL",
+            "publishDate" : "publishDate",
+            "publishResURL" : "publishResURL",
+          "publishTitle" : "publishTitle",
+          "publishURL" : "publishURL"
         ]
     }
     
     // publishDate
-    class func dateJSONTransformer() -> NSValueTransformer {
+    class func publishDateJSONTransformer() -> NSValueTransformer {
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

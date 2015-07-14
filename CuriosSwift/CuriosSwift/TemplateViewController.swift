@@ -24,10 +24,10 @@ class TemplateViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let s = collectionView.indexPathsForSelectedItems()[0] as! NSIndexPath
-        let bookId = TemplatesManager.instanShare.templateList[s.item].bookID
-        let toVC = segue.destinationViewController as! TemplatePagesViewController
-        toVC.templateBookId = bookId
+//        let s = collectionView.indexPathsForSelectedItems()[0] as! NSIndexPath
+//        let bookId = TemplatesManager.instanShare.templateList[s.item].bookID
+//        let toVC = segue.destinationViewController as! TemplatePagesViewController
+//        toVC.templateBookId = bookId
 //        println(s)
     }
 
@@ -69,7 +69,7 @@ extension TemplateViewController: UICollectionViewDataSource, UICollectionViewDe
     // MARK: - CollectionView DataSource and Delegate
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return TemplatesManager.instanShare.templateList.count
+        return 0
     }
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:

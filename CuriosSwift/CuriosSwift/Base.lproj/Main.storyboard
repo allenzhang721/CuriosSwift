@@ -212,7 +212,7 @@
         <!--选取模版-->
         <scene sceneID="i7T-OP-61n">
             <objects>
-                <viewController id="9wI-9n-chE" customClass="LocalTemplateViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9wI-9n-chE" customClass="ThemeViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f8z-Bl-kSy"/>
                         <viewControllerLayoutGuide type="bottom" id="8Vh-bJ-y0E"/>
@@ -262,8 +262,8 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="9wI-9n-chE" id="7V5-4j-Q5b"/>
-                                    <outlet property="delegate" destination="9wI-9n-chE" id="fIZ-pI-63D"/>
+                                    <outlet property="dataSource" destination="9wI-9n-chE" id="E5K-gD-HFn"/>
+                                    <outlet property="delegate" destination="9wI-9n-chE" id="Hu6-Rc-Ehp"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -279,7 +279,7 @@
                     <navigationItem key="navigationItem" title="选取模版" id="Q0Q-k9-o7P">
                         <barButtonItem key="leftBarButtonItem" image="Template_Back" id="Epd-0y-Swa">
                             <connections>
-                                <action selector="cancelAction:" destination="9wI-9n-chE" id="ceP-qo-9Wb"/>
+                                <action selector="cancelAction:" destination="9wI-9n-chE" id="2Ts-eb-iO5"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" id="1xo-vB-87M">
@@ -289,7 +289,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionView" destination="iZq-bP-c7n" id="JnX-Ej-OCM"/>
+                        <outlet property="collectionView" destination="iZq-bP-c7n" id="Zrm-rr-S3R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYh-UJ-3jC" userLabel="First Responder" sceneMemberID="firstResponder"/>

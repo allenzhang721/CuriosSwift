@@ -190,7 +190,7 @@ class TextContentModel: ComponentModel {
     
     removeCacheImage()
     let imageID = UniqueIDStringWithCount(count: 8)
-    key = pathByComponents([userID, PublishID, "\(imageID).jpg"])
+    key = pathByComponents([userID, PublishID, "\(imageID).png"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
   }
   
@@ -206,7 +206,7 @@ class TextContentModel: ComponentModel {
     if let aKey = key {
       KingfisherManager.sharedManager.cache.retrieveImageForKey(aKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
         if let aImage = image {
-          let data = UIImageJPEGRepresentation(image, 1)
+          let data = UIImagePNGRepresentation(aImage)
           handler(data, aKey)
         } else {
           handler(nil, nil)

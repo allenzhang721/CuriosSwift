@@ -31,18 +31,18 @@ class BookListTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews();
         if self.bookModel != nil {
-            let bookIconURL = self.bookModel!.iconUrl.path;
-            if bookIconURL != nil && bookIconURL != "" {
-                bookListCellImg.image = UIImage(contentsOfFile: bookIconURL!);
-            }else{
-                
-            }
-            bookListCellTitle.text = self.bookModel!.bookName;
-            bookListCellDesc.text = self.bookModel!.descri;
+            let bookIconURL = self.bookModel!.publishIconURL;
+//            if bookIconURL != nil && bookIconURL != "" {
+                bookListCellImg.image = UIImage(contentsOfFile: bookIconURL);
+//            }else{
+//                
+//            }
+            bookListCellTitle.text = self.bookModel!.publishTitle;
+            bookListCellDesc.text = self.bookModel!.publishDesc;
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:MM"
-            let dateStr = dateFormatter.stringFromDate(self.bookModel!.date)
+            let dateStr = dateFormatter.stringFromDate(self.bookModel!.publishDate)
             bookListCellDate.text = dateStr;
         }
     }
