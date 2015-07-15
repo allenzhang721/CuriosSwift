@@ -16,9 +16,6 @@ protocol IComponent: NSObjectProtocol {
     func iIsFirstResponder() -> Bool
     func resizeScale(scale: CGFloat)
     
-    func getNeedUpload() -> Bool
-    func setNeedUpload(needUpload: Bool)
-    
 //    var componentModel: ComponentModel{get set}
 }
 

@@ -101,10 +101,6 @@ extension PageCollectionViewCell {
 
 
 
-
-
-
-
 // MARK: - PageView Interface
 extension PageCollectionViewCell {
   
@@ -186,11 +182,12 @@ extension PageCollectionViewCell {
             needEndEdit = true
             aContainerModel.setSelectedState(false)
             
-            if let aComponent = aContainerModel.component as? TextContentModel {
+            // create text snapshot when deseleted
+            if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
               let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
               // should get text/ image snapshot
               let abounds = containerNode.bounds
-              UIGraphicsBeginImageContext(abounds.size)
+              UIGraphicsBeginImageContextWithOptions(abounds.size, false, 1 / aspectRatio)
               containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
               let image = UIGraphicsGetImageFromCurrentImageContext()!
               UIGraphicsEndImageContext()
@@ -288,12 +285,7 @@ extension PageCollectionViewCell {
   func cancelDelegate() {
     delegate = nil
   }
-  
-  func setNeedUpload(needUpload: Bool) {
-    
-    pageModel.needUpload = needUpload
-  }
-  
+
   func saveInfo() {
     //
     //        for container in containers {
@@ -337,10 +329,6 @@ extension PageCollectionViewCell {
     //        }
     //
     //        pageModel.saveInfo()
-  }
-  
-  func uploadInfo(userID: String, publishID: String) {
-    pageModel.uploadInfo(userID, publishID: publishID)
   }
   
   

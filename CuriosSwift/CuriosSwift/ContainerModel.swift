@@ -28,7 +28,6 @@ class ContainerModel: Model {
   //    var behaviors: [Behavior] = []
   var effects: [Effect] = []
   var component: ComponentModel! = NoneContentModel()
-  var needUpload = false
   var selected: Bool = false
   weak var delegate: ContainerModelDelegate?
   

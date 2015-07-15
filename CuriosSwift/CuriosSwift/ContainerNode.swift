@@ -356,26 +356,18 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
     func setTransation(translation: CGPoint) {
         
-        containerModel.needUpload = true
-        
         self.position.x += translation.x
         self.position.y += translation.y
         containerModel.x += translation.x / aspectRatio
         containerModel.y += translation.y / aspectRatio
-        
-        
     }
   
     
     func sendForwoard() -> Bool {
         
-        containerModel.needUpload = true
-        
         return sendToForwardOrBack(true)
     }
     func sendBack() -> Bool {
-        
-        containerModel.needUpload = true
         
         return sendToForwardOrBack(false)
     }

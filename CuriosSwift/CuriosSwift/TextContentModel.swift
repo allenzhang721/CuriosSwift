@@ -9,6 +9,55 @@
 import Foundation
 import Kingfisher
 
+func ==(lhs: textAttribute, rhs: textAttribute) -> Bool {
+  return lhs.attributeTag == rhs.attributeTag
+}
+
+struct textAttribute: Hashable {
+  var text: String
+  let color: String
+  let alignment: String
+  let fontName: String
+  let fontSize: CGFloat = 25.0
+  
+  var hashValue: Int {
+    return text.hashValue + color.hashValue + alignment.hashValue + fontName.hashValue
+  }
+  
+  var attributeTag: String {
+    return text + color + alignment + fontName
+  }
+  
+  func attributeString() -> NSAttributedString {
+    
+    let style = NSMutableParagraphStyle()
+    
+    switch alignment {
+    case "center":
+      style.alignment = .Center
+    case "left":
+      style.alignment = .Left
+    case "rigth":
+      style.alignment = .Right
+    default:
+      style.alignment = .Left
+    }
+    
+    let textColor = UIColor(hexString: color)!
+    let font = UIFont(name: fontName , size: fontSize)!
+    
+    let attribute = [
+      NSFontAttributeName: font,
+      NSParagraphStyleAttributeName: style,
+      NSForegroundColorAttributeName: textColor
+    ]
+    
+    let string = NSAttributedString(string: text, attributes: attribute)
+    
+    return string
+  }
+}
+
 class TextContentModel: ComponentModel {
   
   typealias UpdateAttributeStringHandler = (NSAttributedString) -> ()
@@ -33,54 +82,30 @@ class TextContentModel: ComponentModel {
     updateAttributeStringHandler = handler
   }
   
-  func updateFromDemoAttributeString(attributeString: NSAttributedString) -> CGSize {
-    attributes["Text"] = attributeString.string
+  func updateFromDemoAttributeString(textAttributes: textAttribute) -> CGSize {
+    needUpload = true
+    attributes["Text"] = textAttributes.text
+    attributes["TextAligment"] = textAttributes.alignment
+    attributes["TextColor"] = textAttributes.color
+    attributes["FontName"] = textAttributes.fontName
     let str = generateAttributeString()
      return str.boundingRectWithSize(CGSize(width: CGFloat.max, height: CGFloat.max), options: NSStringDrawingOptions(0), context: nil).size
   }
   
-  func getDemoAttributeString() -> NSAttributedString {
+  func getDemoStringAttributes() -> textAttribute {
     
-    let text: String =  attributes["Text"] as! String
+    let text = attributes["Text"] as! String
     let alignment: String = attributes["TextAligment"] as! String
-    let color: String =  "#282A35"
+    let color: String =  attributes["TextColor"] as! String
     let name: String = attributes["FontName"] as! String
-    let size: CGFloat = 28
     
-    let style = NSMutableParagraphStyle()
-    
-    switch alignment {
-    case "center":
-      style.alignment = .Center
-    case "left":
-      style.alignment = .Left
-    case "rigth":
-      style.alignment = .Right
-    default:
-      style.alignment = .Left
-    }
-    
-    let textColor = UIColor(hexString: color)!
-    let font = UIFont(name: name, size: size)!
-    
-    let attribute = [
-      NSFontAttributeName: font,
-      NSParagraphStyleAttributeName: style,
-      NSForegroundColorAttributeName: textColor
-    ]
-    
-    let string = NSAttributedString(string: text, attributes: attribute)
-    
-    return string
-    
+    return textAttribute(text: text, color: color, alignment: alignment, fontName: name)
   }
   
   func getAttributeString() -> NSAttributedString {
     
     let originText = attributes["Text"] as! String
-    
-    
-    
+
     let text: String = {
       
       if originText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
@@ -171,7 +196,7 @@ class TextContentModel: ComponentModel {
   }
   
   func setFontSize(size: CGFloat) -> NSAttributedString {
-    
+    needUpload = true
     attributes["FontSize"] = size
     
     let attributeString = generateAttributeString()

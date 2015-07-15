@@ -47,6 +47,7 @@ class ImageContentModel: ComponentModel, IFile {
   }
   
   func updateImage(image: UIImage, userID: String, PublishID: String) {
+    needUpload = true
     
     KingfisherManager.sharedManager.cache.removeImageForKey(key)
     let imageID = UniqueIDStringWithCount(count: 8)

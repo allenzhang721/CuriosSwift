@@ -26,7 +26,6 @@ class PageModel: Model, IFile {
   var PageBackgroundAlpha: CGFloat = 1.0
   var containers: [ContainerModel] = []
   weak var modelDelegate: PageModelDelegate?
-  var needUpload = false
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
     
@@ -141,12 +140,10 @@ extension PageModel {
     containers.append(aContainer)
     aContainer.component.delegate = self
     modelDelegate?.targetPageModel(self, DidAddContainer: aContainer)
-    needUpload = true
   }
   
   func removeContainer(aContainer: ContainerModel) {
-    
-    
+
     modelDelegate?.targetpageModel(self, DidRemoveContainer: aContainer)
     
     var index = 0
@@ -157,7 +154,6 @@ extension PageModel {
       }
       index++
     }
-    needUpload = true
   }
   
   func saveInfo() {
@@ -169,30 +165,30 @@ extension PageModel {
     //        data?.writeToFile(JsonPath, atomically: true)
   }
   
-  func uploadInfo(userID: String, publishID: String) {
-    
-    for container in containers {
-      if !needUpload && container.needUpload {
-        needUpload = true
-      }
-      container.needUpload = false
-      let component = container.component
-      component.uploadInfo(userID, publishID: publishID, pageID: Id)
-    }
-    
-    if needUpload {
-      needUpload = false
-    } else {
-      return
-    }
-    
-    let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("res").stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(Id + ".json")
-    let path = fileGetSuperPath(self)
-    let value = path.stringByAppendingPathComponent(Id + ".json")
-    
-    FileUplodRequest.uploadFileWithKeyFile([key:value])
-    println("PageModel:Key:\(key)")
-  }
+//  func uploadInfo(userID: String, publishID: String) {
+//    
+//    for container in containers {
+//      if !needUpload && container.needUpload {
+//        needUpload = true
+//      }
+//      container.needUpload = false
+//      let component = container.component
+//      component.uploadInfo(userID, publishID: publishID, pageID: Id)
+//    }
+//    
+//    if needUpload {
+//      needUpload = false
+//    } else {
+//      return
+//    }
+//    
+//    let key = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("res").stringByAppendingPathComponent("Pages").stringByAppendingPathComponent(Id + ".json")
+//    let path = fileGetSuperPath(self)
+//    let value = path.stringByAppendingPathComponent(Id + ".json")
+//    
+//    FileUplodRequest.uploadFileWithKeyFile([key:value])
+//    println("PageModel:Key:\(key)")
+//  }
   
   // congtainers
   class func containersJSONTransformer() -> NSValueTransformer {

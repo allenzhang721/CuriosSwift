@@ -21,16 +21,6 @@ class ComponentNoneNode: ASDisplayNode, IComponent {
         
     }
     
-    func getNeedUpload() -> Bool {
-        
-        return componentModel.needUpload
-    }
-    
-    func setNeedUpload(needUpload: Bool) {
-        
-        componentModel.needUpload = needUpload
-    }
-    
     // MARK: - IComponent 
     func iBecomeFirstResponder(){}
     func iResignFirstResponder(){}

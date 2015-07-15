@@ -701,16 +701,17 @@ extension EditViewController {
       
       let pageModel = bookModel.pageModels[indexPath.item]
       
-      let defaultTextAttribute = [ "Text": "Double Click\nto Change",
+      let defaultTextAttribute = [ "Text": "",
         "FontName": "RTWSYueRoudGoG0v1-Regular",
         "FontSize": 30,
         "TextColor": "#282A35",
-        "TextAligment": "Center",
+        "TextAligment": "center",
         "ImagePath": " "
       ]
       
       let textComponent = TextContentModel()
       textComponent.type = .Text
+      textComponent.needUpload = true
       textComponent.attributes = defaultTextAttribute
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
@@ -740,6 +741,7 @@ extension EditViewController {
       
       let imageComponent = ImageContentModel()
       imageComponent.type = .Image
+      imageComponent.needUpload = true
       imageComponent.updateImage(image, userID: userID, PublishID: publishID)
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
@@ -802,17 +804,22 @@ extension EditViewController {
     }
   }
   
-  func begainUploadResourseWithModel(containerModel: ContainerModel) {
+  // deselected container will check wheather need upload new resourse, and set needUpload false
+  func checkUploadResourseWithModel(containerModel: ContainerModel) {
     
-    let compoent = containerModel.component
-    containerModel.component.getResourseData {[unowned self] (data, key) -> () in
-      // upload data
-      if let aKey = key {
-        
-        self.prepareUploadImageData(data!, key: aKey, compeletedBlock: { (theData, theKey, theToken) -> () in
+    let component = containerModel.component
+    
+    if component.needUpload {
+      component.needUpload = false
+      containerModel.component.getResourseData {[unowned self] (data, key) -> () in
+        // upload data
+        if let aKey = key {
           
-          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
-        })
+          self.prepareUploadImageData(data!, key: aKey, compeletedBlock: { (theData, theKey, theToken) -> () in
+            
+            UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+          })
+        }
       }
     }
   }
@@ -922,13 +929,14 @@ extension EditViewController {
       showsheet()
     } else if let component = containerModel.component as? TextContentModel {
       // Edit Text
-      let attriString = component.getDemoAttributeString()
-      showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-          component.updateFromDemoAttributeString(attri)
-          containerModel.needUpdateOnScreenSize(true)
-        })
+      let attriString = component.getDemoStringAttributes()
+      showTextInputControllerWithAttributeString(attriString) { [unowned self](attri, needUpdate) -> () in
+        if needUpdate {
+          dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            component.updateFromDemoAttributeString(attri)
+            containerModel.needUpdateOnScreenSize(true)
+          })
+        }
       }
     }
   }
@@ -961,7 +969,8 @@ extension EditViewController {
     container.setSelectedState(false)
     removeMaskByModel(targetContainerModel: container)
     
-    begainUploadResourseWithModel(container)
+    // wheather need upload resourse when deselected a container and set needUpload false
+    checkUploadResourseWithModel(container)
   }
   
   func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel) {
@@ -971,13 +980,15 @@ extension EditViewController {
       showsheet()
     } else if let textComponent = container.component as? TextContentModel {
       
-      let attriString = textComponent.getDemoAttributeString()
-      showTextInputControllerWithAttributeString(attriString) { [unowned self](attri) -> () in
+      let attri = textComponent.getDemoStringAttributes()
+      showTextInputControllerWithAttributeString(attri) { [unowned self](aAttribute, needUpdate) -> () in
         
-       dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        textComponent.updateFromDemoAttributeString(attri)
-        container.needUpdateOnScreenSize(true)
-       })
+        if needUpdate {
+          dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            textComponent.updateFromDemoAttributeString(aAttribute)
+            container.needUpdateOnScreenSize(true)
+          })
+        }
       }
     }
   }
@@ -1069,10 +1080,10 @@ extension EditViewController {
  // MARK: - TextEditor
 extension EditViewController {
   
-  private func showTextInputControllerWithAttributeString(attributeString: NSAttributedString, compelectedBlock: (NSAttributedString) -> ()) {
+  private func showTextInputControllerWithAttributeString(textAttributes: textAttribute, compelectedBlock: (textAttribute, Bool) -> ()) {
     
     if let textEditorViewController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextEditorViewController") as? TextEditorViewController {
-      textEditorViewController.setAttributeString(attributeString)
+      textEditorViewController.setAttributeString(textAttributes)
       textEditorViewController.transitioningDelegate = self
       textEditorViewController.completeBlock = compelectedBlock
       presentViewController(textEditorViewController, animated: true, completion: nil)
@@ -1362,8 +1373,6 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
-    
-    page.uploadInfo(userID, publishID: bookID)
     
     page.cancelDelegate()
     

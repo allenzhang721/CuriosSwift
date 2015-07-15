@@ -41,15 +41,6 @@ class ComponentImageNode: ASImageNode, IImageComponent {
     
   }
   
-  func getNeedUpload() -> Bool {
-    
-    return componentModel.needUpload
-  }
-  
-  func setNeedUpload(needUpload: Bool) {
-    componentModel.needUpload = true
-  }
-  
   // MARK: - IComponent
   func iBecomeFirstResponder(){}
   func iResignFirstResponder(){}

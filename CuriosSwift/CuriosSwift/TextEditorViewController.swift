@@ -11,11 +11,13 @@ import UIKit
 class TextEditorViewController: UIViewController {
   
   @IBOutlet weak var textView: UITextView!
-  typealias CompletedBlock = (NSAttributedString) -> ()
+  typealias CompletedBlock = (textAttribute, Bool) -> ()
   typealias CancelBlock = () -> ()
   
   var completeBlock: CompletedBlock!
   var cancelBlock: CancelBlock!
+  var textAttri: textAttribute!
+  var originAttri: textAttribute!
   
   var begainAttriString: NSAttributedString!
 
@@ -46,13 +48,16 @@ class TextEditorViewController: UIViewController {
   
   func tap(sender: UITapGestureRecognizer) {
     
-    completeBlock(textView.attributedText)
+    textAttri.text = textView.text
+    completeBlock(textAttri, !(textAttri == originAttri))
     
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func setAttributeString(attributeString: NSAttributedString) {
-    begainAttriString = attributeString
+  func setAttributeString(textAttrutes: textAttribute) {
+    originAttri = textAttrutes
+    textAttri = textAttrutes
+    begainAttriString = textAttri.attributeString()
   }
 
 }

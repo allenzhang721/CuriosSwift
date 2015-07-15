@@ -20,6 +20,7 @@ class ComponentModel: Model, IFile  {
     weak var delegate: IFile?
     var type: Type = .None
     var attributes: [String : AnyObject] = [:]
+  
     var needUpload = false
     
     func createComponent() -> IComponent {

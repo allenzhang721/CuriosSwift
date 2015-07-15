@@ -36,16 +36,6 @@ class ComponentTextNode: ASTextNode, ITextComponent {
   
 // MARK: - ITextComponent
     
-    func getNeedUpload() -> Bool {
-        
-        return componentModel.needUpload
-    }
-  
-  func setNeedUpload(needUpload: Bool) {
-    
-     componentModel.needUpload = needUpload
-  }
-    
     func iBecomeFirstResponder() {
         userInteractionEnabled = true
     }
