@@ -64,7 +64,6 @@ extension ThemeViewController {
           if (error == nil)
           {
             
-            println("JSON = \(JSON)")
             if let jsondic = JSON as? [NSObject : AnyObject] {
               
               let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel

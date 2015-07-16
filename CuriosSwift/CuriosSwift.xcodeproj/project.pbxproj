@@ -85,6 +85,17 @@
 		2C92EA7C1B413F3500ABFABB /* FontsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C92EA7B1B413F3500ABFABB /* FontsManager.swift */; };
 		2C92EA7E1B413F5200ABFABB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C92EA7D1B413F5200ABFABB /* CoreText.framework */; };
 		2C92EA801B413F6A00ABFABB /* Font in Resources */ = {isa = PBXBuildFile; fileRef = 2C92EA7F1B413F6A00ABFABB /* Font */; };
+		2C9495A91B5681DA00D77EE2 /* EditToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495A81B5681DA00D77EE2 /* EditToolBar.swift */; };
+		2C9495AB1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495AA1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift */; };
+		2C9495AD1B57395100D77EE2 /* EditToolPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495AC1B57395100D77EE2 /* EditToolPannel.swift */; };
+		2C9495AF1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495AE1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift */; };
+		2C9495B11B57409C00D77EE2 /* EditToolSettingPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B01B57409C00D77EE2 /* EditToolSettingPannel.swift */; };
+		2C9495B31B57413600D77EE2 /* EditToolTextFontPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B21B57413600D77EE2 /* EditToolTextFontPannel.swift */; };
+		2C9495B51B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B41B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift */; };
+		2C9495B71B57C01100D77EE2 /* EditToolTextColorPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B61B57C01100D77EE2 /* EditToolTextColorPannel.swift */; };
+		2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */; };
+		2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */; };
+		2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
 		2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0343F1B4572C000EFA603 /* ColorPickView.swift */; };
 		2CA034421B45734F00EFA603 /* ColorPickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CA034411B45734F00EFA603 /* ColorPickView.xib */; };
@@ -259,6 +270,17 @@
 		2C92EA7B1B413F3500ABFABB /* FontsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontsManager.swift; sourceTree = "<group>"; };
 		2C92EA7D1B413F5200ABFABB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2C92EA7F1B413F6A00ABFABB /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
+		2C9495A81B5681DA00D77EE2 /* EditToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolBar.swift; sourceTree = "<group>"; };
+		2C9495AA1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolBarSettingDelegate.swift; sourceTree = "<group>"; };
+		2C9495AC1B57395100D77EE2 /* EditToolPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolPannel.swift; sourceTree = "<group>"; };
+		2C9495AE1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolSettingPannelDelegate.swift; sourceTree = "<group>"; };
+		2C9495B01B57409C00D77EE2 /* EditToolSettingPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolSettingPannel.swift; sourceTree = "<group>"; };
+		2C9495B21B57413600D77EE2 /* EditToolTextFontPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolTextFontPannel.swift; sourceTree = "<group>"; };
+		2C9495B41B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolSettingPannelFactory.swift; sourceTree = "<group>"; };
+		2C9495B61B57C01100D77EE2 /* EditToolTextColorPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolTextColorPannel.swift; sourceTree = "<group>"; };
+		2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolTextAlingmentPannel.swift; sourceTree = "<group>"; };
+		2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolLevelPannel.swift; sourceTree = "<group>"; };
+		2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolAnimationPannel.swift; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CA0343F1B4572C000EFA603 /* ColorPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickView.swift; sourceTree = "<group>"; };
 		2CA034411B45734F00EFA603 /* ColorPickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickView.xib; sourceTree = "<group>"; };
@@ -446,6 +468,31 @@
 			name = Node;
 			sourceTree = "<group>";
 		};
+		2C9495A61B56640600D77EE2 /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				2C9495A81B5681DA00D77EE2 /* EditToolBar.swift */,
+				2C9495AA1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift */,
+			);
+			name = ToolBar;
+			sourceTree = "<group>";
+		};
+		2C9495A71B56640F00D77EE2 /* ToolPannel */ = {
+			isa = PBXGroup;
+			children = (
+				2C9495AC1B57395100D77EE2 /* EditToolPannel.swift */,
+				2C9495B01B57409C00D77EE2 /* EditToolSettingPannel.swift */,
+				2C9495B41B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift */,
+				2C9495B21B57413600D77EE2 /* EditToolTextFontPannel.swift */,
+				2C9495B61B57C01100D77EE2 /* EditToolTextColorPannel.swift */,
+				2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */,
+				2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */,
+				2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */,
+				2C9495AE1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift */,
+			);
+			name = ToolPannel;
+			sourceTree = "<group>";
+		};
 		2CAC964C1B54B73D00BA5291 /* useless */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,6 +620,8 @@
 		2CB4BD831AE476A900DF6019 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C9495A71B56640F00D77EE2 /* ToolPannel */,
+				2C9495A61B56640600D77EE2 /* ToolBar */,
 				2C03598E1B50FE1A00B66574 /* Unused */,
 				2C6924311B46914800CC327D /* ColorPickCollectionViewCell.swift */,
 				2CF2939D1B33B43400539F76 /* BookDetailImageCell.swift */,
@@ -961,18 +1010,22 @@
 				2CAC966A1B550AE500BA5291 /* List&Edit&Save&Publish.swift in Sources */,
 				2CAC96631B54F54400BA5291 /* TemplateRequest.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
+				2C9495A91B5681DA00D77EE2 /* EditToolBar.swift in Sources */,
+				2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
+				2C9495AF1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
 				2C6924301B46894900CC327D /* ColorManager.swift in Sources */,
 				2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */,
 				2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */,
 				2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */,
+				2C9495B51B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift in Sources */,
 				2C6924341B46A73E00CC327D /* FontCollectionViewCell.swift in Sources */,
 				2CA8F08D1B391D050063E964 /* TokenRequest.swift in Sources */,
 				2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */,
@@ -989,6 +1042,7 @@
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
+				2C9495AB1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift in Sources */,
 				2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */,
 				2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */,
 				2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */,
@@ -1011,6 +1065,7 @@
 				2CAC96591B54E3E500BA5291 /* ThemeModel.swift in Sources */,
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
+				2C9495B11B57409C00D77EE2 /* EditToolSettingPannel.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2CAC965B1B54E49500BA5291 /* TemplateModel.swift in Sources */,
 				2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */,
@@ -1021,6 +1076,8 @@
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C5526E81B4CC533000F2C7D /* PublishRequest.swift in Sources */,
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
+				2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */,
+				2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */,
 				2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */,
 				2C2FB2451B4FE48B000F0FFA /* Effect.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
@@ -1051,6 +1108,7 @@
 				2C6924321B46914800CC327D /* ColorPickCollectionViewCell.swift in Sources */,
 				2CAC965D1B54E58E00BA5291 /* ThemeViewController.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
+				2C9495AD1B57395100D77EE2 /* EditToolPannel.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
 				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
@@ -1064,6 +1122,7 @@
 				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,
+				2C9495B71B57C01100D77EE2 /* EditToolTextColorPannel.swift in Sources */,
 				2CE121E31B45434200FB10C5 /* TextInputView.swift in Sources */,
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
@@ -1071,6 +1130,7 @@
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,
 				2CF293501B32633800539F76 /* AnimationFunction.swift in Sources */,
+				2C9495B31B57413600D77EE2 /* EditToolTextFontPannel.swift in Sources */,
 				2C2BDE681B41363F0091A2F4 /* FontPannel.swift in Sources */,
 				2C9147B21B08452A00579E4A /* BookModel.swift in Sources */,
 				2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */,
