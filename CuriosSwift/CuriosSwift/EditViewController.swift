@@ -1023,6 +1023,8 @@ extension EditViewController {
     
     container.setSelectedState(true)
     
+    println("DidSelected")
+    
     editToolBar.updateWithModel(container)
   }
   
@@ -1588,7 +1590,7 @@ extension EditViewController {
       let yTran = min(max(y, 0), CGFloat(maxY))
       collectionView.transform = CGAffineTransformMakeTranslation(0, yTran)
       topToolBar.alpha = toolBarAlpha
-      bottomToolBar.alpha = toolBarAlpha
+      editToolBar.alpha = toolBarAlpha
     }
     
     // layout Transition  0 ~ 1

@@ -86,6 +86,7 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     }
   
   deinit {
+    println("maskView deinit")
 //    containerMomdel.selectedListener.removeActionWithID("Mask_View")
     unBindingContainerModel()
   }
@@ -139,6 +140,17 @@ extension MaskView {
     
     binding = true
     
+    
+    CUAnimationFactory.shareInstance.animationStateListener.bind ("Mask_View"){[unowned self] finished -> Void in
+      
+      if finished {
+        self.hidden = false
+      } else {
+        self.hidden = true
+      }
+    }
+    
+    
 //    println("Mask begain binding")
     
     containerMomdel.updateSizeListener.bind("Mask_View") {[unowned self] size -> Void in
@@ -174,6 +186,7 @@ extension MaskView {
     binding = false
     
 //    println("Mask End binding")
+    CUAnimationFactory.shareInstance.animationStateListener.removeActionWithID("Mask_View")
     containerMomdel.updateSizeListener.removeActionWithID("Mask_View")
     containerMomdel.centerChangeListener.removeActionWithID("Mask_View")
     containerMomdel.sizeChangeListener.removeActionWithID("Mask_View")

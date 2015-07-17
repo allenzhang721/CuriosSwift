@@ -210,7 +210,7 @@ extension PageCollectionViewCell {
     for subNode in reverseSubNodes {
       let point = convertPoint(onScreenPoint, toView: subNode.view)
       if CGRectContainsPoint(subNode.view.bounds, point) {
-        println("on container")
+//        println("on container")
         findNode = subNode
         break
       }

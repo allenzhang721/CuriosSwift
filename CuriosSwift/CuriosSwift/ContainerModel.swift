@@ -42,6 +42,7 @@ class ContainerModel: Model {
   var updateSizeListener = Dynamic(CGSizeZero)
   var needUpdateSizeListener = Dynamic(false)
   var selectedListener = Dynamic(false)
+  var animationNameListener = Dynamic("None")
   
   func setSelectedState(select: Bool) {
     
@@ -158,6 +159,8 @@ class ContainerModel: Model {
     }
     
     animations = [animation]
+    
+    animationNameListener.value = name
   }
   
   class func animationsJSONTransformer() -> NSValueTransformer {

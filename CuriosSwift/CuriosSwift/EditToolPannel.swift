@@ -26,6 +26,7 @@ extension EditToolPannel {
   
   func editToolBar(toolBar: EditToolBar, didSelectedAnimation containerModel: ContainerModel) {
     println("Animation")
+    updateSettingPannelByKey("Animation", aContainerModel: containerModel)
   }
   
   // text - FontName / Color / Alignment

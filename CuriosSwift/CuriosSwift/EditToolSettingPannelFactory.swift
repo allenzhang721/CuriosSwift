@@ -14,6 +14,9 @@ class EditToolSettingPannelFactory {
     
     switch key {
       
+      case "Animation":
+      return EditToolAnimationPannel(aContainerModel: containerModel)
+      
       case "Level":
       return EditToolLevelPannel(aContainerModel: containerModel)
       

@@ -120,6 +120,12 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
 //    println("Node begain binding: \(randID)")
     
+    containerModel.animationNameListener.bind("ContainerNode_\(randID)") {[weak self] animationName -> Void in
+      
+        self?.setAnimationWithName(animationName)
+      
+    }
+    
     containerModel.needUpdateSizeListener.bind("ContainerNode_\(randID)") {[weak self] need -> Void in
       
       if need {
@@ -161,6 +167,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
 //    println("Node End binding: \(randID)")
 //    println("ContainerNode_\(randID) unbindingContainerModel")
+    containerModel.animationNameListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.needUpdateSizeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.updateSizeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.centerChangeListener.removeActionWithID("ContainerNode_\(randID)")
@@ -269,7 +276,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
             easeType = EasingFunctionType.EasingOutBack
         case "TeetertotterIn":
             alphaB = 0.0
-            angleE = angleB + 270.0 * M_PI / 180.0
+            angleE = angleB + 720.0 * M_PI / 180.0
             easeType = EasingFunctionType.EasingOutBack
         case "FadeOut":
             alphaE = 0.0
@@ -294,7 +301,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
             easeType = EasingFunctionType.EasingInBack
         case "TeetertotterOut":
             alphaE = 0.0
-            angleE = angleB + 270.0 * M_PI / 180.0
+            angleE = angleB + 720.0 * M_PI / 180.0
             easeType = EasingFunctionType.EasingInBounce
         default:
             return
@@ -328,13 +335,15 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         }
         
         CUAnimationFactory.shareInstance.completeBlock = { finished in
-            
+          
+          if finished {
             self.layer.opacity = 1.0
             self.layer.transform = CATransform3DConcat(CATransform3DConcat(CATransform3DMakeRotation(CGFloat(angleo), 0, 0, 1), CATransform3DMakeScale(1, 1, 1)), CATransform3DMakeTranslation(0, 0, 0))
+          }
         }
         
-        containerModel.setAnimationWithName(name)
-        page?.saveInfo()
+//        containerModel.setAnimationWithName(name)
+//        page?.saveInfo()
     }
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool {

@@ -16,7 +16,7 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   var collectionView: UICollectionView!
   var dataNumber = 4
   var barItems = [String]()
-  
+  var currentKey: String!
   weak var delegate: EditToolBarDelegate?
   weak var settingDelegate: EditToolBarSettingDelegate?
   
@@ -112,7 +112,6 @@ extension EditToolBar {
       }
       
     } else {
-      
       if containerModel == nil && actived == false {
         containerModel = aContainerModel
         changedToModel(aContainerModel!)
@@ -131,8 +130,15 @@ extension EditToolBar {
       
       if containerModel != nil && actived == true {
         if containerModel != aContainerModel {
+          println("actived change to other container")
           containerModel = aContainerModel
           changedToModel(aContainerModel!)
+          
+          if !(currentKey == "level" || currentKey == "animation") {
+            currentKey = barItems[0]
+          }
+          performSelectorWithKey(currentKey)
+          
           delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
         }
         return
@@ -324,6 +330,7 @@ extension EditToolBar {
     }
     
     let key = barItems[indexPath.item]
+    currentKey = key
     performSelectorWithKey(key)
   }
   

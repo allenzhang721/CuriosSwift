@@ -30,6 +30,7 @@
 		2C2FB2451B4FE48B000F0FFA /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FB2441B4FE48B000F0FFA /* Effect.swift */; };
 		2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FB2461B4FE4BC000F0FFA /* Behavior.swift */; };
 		2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FB2481B4FE4DA000F0FFA /* Animation.swift */; };
+		2C3361271B58ED4400E1B276 /* AnimationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3361261B58ED4400E1B276 /* AnimationsManager.swift */; };
 		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C4777D51B4E055E00B47F9A /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C4777D41B4E055E00B47F9A /* page.json */; };
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
@@ -215,6 +216,7 @@
 		2C2FB2441B4FE48B000F0FFA /* Effect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 		2C2FB2461B4FE4BC000F0FFA /* Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		2C2FB2481B4FE4DA000F0FFA /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		2C3361261B58ED4400E1B276 /* AnimationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsManager.swift; sourceTree = "<group>"; };
 		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C4777D41B4E055E00B47F9A /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 				2CAC966D1B55249100BA5291 /* UserListManager.swift */,
 				2CAC965E1B54E7A600BA5291 /* ThemesManager.swift */,
 				2CAC96651B54F6CD00BA5291 /* TemplatesManager.swift */,
+				2C3361261B58ED4400E1B276 /* AnimationsManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 				2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */,
 				2CAC966E1B55249100BA5291 /* UserListManager.swift in Sources */,
 				2CAC96591B54E3E500BA5291 /* ThemeModel.swift in Sources */,
+				2C3361271B58ED4400E1B276 /* AnimationsManager.swift in Sources */,
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9495B11B57409C00D77EE2 /* EditToolSettingPannel.swift in Sources */,
