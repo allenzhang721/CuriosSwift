@@ -40,6 +40,16 @@ final class FontsManager {
     func getFontsList() -> [FontInfo] {
         return fontsList
     }
+  
+  func getFontNameList() -> [String] {
+    
+    let names = fontsList.map { (fontInfo) -> String in
+      
+      return fontInfo.fontName
+    }
+    
+    return names
+  }
     
     func registerLocalFonts() {
         

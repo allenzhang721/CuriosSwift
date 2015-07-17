@@ -37,7 +37,7 @@ struct textAttribute: Hashable {
       style.alignment = .Center
     case "left":
       style.alignment = .Left
-    case "rigth":
+    case "right":
       style.alignment = .Right
     default:
       style.alignment = .Left
@@ -127,7 +127,7 @@ class TextContentModel: ComponentModel {
       style.alignment = .Center
     case "left":
       style.alignment = .Left
-    case "rigth":
+    case "right":
       style.alignment = .Right
     default:
       style.alignment = .Left

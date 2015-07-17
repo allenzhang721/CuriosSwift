@@ -14,8 +14,20 @@ class EditToolSettingPannelFactory {
     
     switch key {
       
-    default:
+      case "Level":
+      return EditToolLevelPannel(aContainerModel: containerModel)
+      
+    case "TextFont":
+      return EditToolTextFontPannel(aContainerModel: containerModel)
+      
+      case "TextAlignment":
+      return EditToolTextAlignmentPannel(aContainerModel: containerModel)
+      
+      case "TextColor":
       return EditToolTextColorPannel(aContainerModel: containerModel)
+      
+    default:
+      return EditToolSettingPannel(aContainerModel: containerModel)
     }
   }
   

@@ -9,11 +9,6 @@
 import Foundation
 import SnapKit
 
-//class EditTextColorPannelCell: UICollectionViewCell {
-//  
-//  
-//}
-
 class EditToolTextColorPannel: EditToolSettingPannel, UICollectionViewDelegate, UICollectionViewDataSource {
   
   var collectionView: UICollectionView!

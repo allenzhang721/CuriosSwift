@@ -24,6 +24,7 @@ class ContainerModel: Model {
   var rotation: CGFloat = 0.0
   var alpha: CGFloat = 1.0
   var editable = true //
+  var locked = false
   var animations:[Animation] = []
   //    var behaviors: [Behavior] = []
   var effects: [Effect] = []
