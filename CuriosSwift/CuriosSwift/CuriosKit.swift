@@ -13,35 +13,87 @@
 import UIKit
 
 public class CuriosKit : NSObject {
-
-    //// Drawing Methods
-
-    public class func drawControlPannel(#frame: CGRect) {
-        //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
-
-        //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(rect: CGRectMake(frame.minX + 0.5, frame.minY + 0.5, frame.width - 1, frame.height - 1))
-        UIColor.redColor().setStroke()
-        rectanglePath.lineWidth = 1
-        CGContextSaveGState(context)
-        CGContextSetLineDash(context, 0, [5, 2], 2)
-        rectanglePath.stroke()
-        CGContextRestoreGState(context)
-
-
-        //// Oval Drawing
-//        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + frame.width - 23, frame.minY + frame.height - 24, 44, 44))
-//        UIColor.grayColor().setFill()
-//        ovalPath.fill()
-    }
-
+  
+  //// Drawing Methods
+  
+  public class func drawControlPannel(#frame: CGRect) {
+    //// General Declarations
+    let context = UIGraphicsGetCurrentContext()
+    
+    //// Rectangle Drawing
+    let rectanglePath = UIBezierPath(rect: CGRectMake(frame.minX + 0.5, frame.minY + 0.5, frame.width - 1, frame.height - 1))
+    UIColor.redColor().setStroke()
+    rectanglePath.lineWidth = 1
+    CGContextSaveGState(context)
+    CGContextSetLineDash(context, 0, [5, 2], 2)
+    rectanglePath.stroke()
+    CGContextRestoreGState(context)
+    
+    
+    //// Oval Drawing
+    //        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + frame.width - 23, frame.minY + frame.height - 24, 44, 44))
+    //        UIColor.grayColor().setFill()
+    //        ovalPath.fill()
+  }
+  
+  //// Drawing Methods
+  
+  public class func drawSelectedTick(#frame: CGRect) {
+    //// General Declarations
+    let context = UIGraphicsGetCurrentContext()
+    
+    //// Color Declarations
+    let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    
+    //// Shadow Declarations
+    let shadow = UIColor.blackColor().colorWithAlphaComponent(0.55)
+    let shadowOffset = CGSizeMake(1.1, 2.1)
+    let shadowBlurRadius: CGFloat = 3
+    
+    
+    //// Subframes
+    let frame2 = CGRectMake(frame.minX + floor(frame.width * 0.26667 + 0.5), frame.minY + floor(frame.height * 0.26667 + 0.5), floor(frame.width * 0.73333 + 0.5) - floor(frame.width * 0.26667 + 0.5), floor(frame.height * 0.73333 + 0.5) - floor(frame.height * 0.26667 + 0.5))
+    
+    
+    //// Bezier Drawing
+    var bezierPath = UIBezierPath()
+    bezierPath.moveToPoint(CGPointMake(frame2.minX + 0.16968 * frame2.width, frame2.minY + 0.47154 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.42682 * frame2.width, frame2.minY + 0.84297 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.42682 * frame2.width, frame2.minY + 0.84297 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.42682 * frame2.width, frame2.minY + 0.84297 * frame2.height))
+    bezierPath.addLineToPoint(CGPointMake(frame2.minX + 0.34360 * frame2.width, frame2.minY + 0.84448 * frame2.height))
+    bezierPath.addLineToPoint(CGPointMake(frame2.minX + 0.80074 * frame2.width, frame2.minY + 0.13019 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.86981 * frame2.width, frame2.minY + 0.11503 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.81563 * frame2.width, frame2.minY + 0.10693 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.84655 * frame2.width, frame2.minY + 0.10014 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.88497 * frame2.width, frame2.minY + 0.18410 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.89307 * frame2.width, frame2.minY + 0.12991 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.89986 * frame2.width, frame2.minY + 0.16084 * frame2.height))
+    bezierPath.addLineToPoint(CGPointMake(frame2.minX + 0.42783 * frame2.width, frame2.minY + 0.89838 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.34460 * frame2.width, frame2.minY + 0.89989 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.40858 * frame2.width, frame2.minY + 0.92845 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.36493 * frame2.width, frame2.minY + 0.92924 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.08746 * frame2.width, frame2.minY + 0.52846 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.34460 * frame2.width, frame2.minY + 0.89989 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.34460 * frame2.width, frame2.minY + 0.89989 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.10011 * frame2.width, frame2.minY + 0.45889 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.07174 * frame2.width, frame2.minY + 0.50576 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.07741 * frame2.width, frame2.minY + 0.47461 * frame2.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame2.minX + 0.16968 * frame2.width, frame2.minY + 0.47154 * frame2.height), controlPoint1: CGPointMake(frame2.minX + 0.12282 * frame2.width, frame2.minY + 0.44317 * frame2.height), controlPoint2: CGPointMake(frame2.minX + 0.15396 * frame2.width, frame2.minY + 0.44884 * frame2.height))
+    bezierPath.closePath()
+    CGContextSaveGState(context)
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, (shadow as UIColor).CGColor)
+    color2.setFill()
+    bezierPath.fill()
+    CGContextRestoreGState(context)
+  }
+  
+  //// Generated Images
+  
+  public class func imageOfSelectedTick(#frame: CGRect) -> UIImage {
+    UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+    CuriosKit.drawSelectedTick(frame: frame)
+    
+    let imageOfSelectedTick = UIGraphicsGetImageFromCurrentImageContext()!
+    UIGraphicsEndImageContext()
+    
+    return imageOfSelectedTick
+  }
+  
 }
 
 @objc protocol StyleKitSettableImage {
-    func setImage(image: UIImage!)
+  func setImage(image: UIImage!)
 }
 
 @objc protocol StyleKitSettableSelectedImage {
-    func setSelectedImage(image: UIImage!)
+  func setSelectedImage(image: UIImage!)
 }

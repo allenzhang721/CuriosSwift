@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class EditToolPannel: UIView, EditToolBarSettingDelegate {
 
@@ -32,10 +33,38 @@ extension EditToolPannel {
   }
   func editToolBar(toolBar: EditToolBar, didSelectedTextColor containerModel: ContainerModel) {
     println("TextColor")
+    
+    if let apannel = settingPannel {
+      apannel.removeConstraints(apannel.constraints())
+      apannel.removeFromSuperview()
+    }
+    
+    println(bounds)
+    
+    settingPannel = EditToolSettingPannelFactory.createSettingPannelwithKey("TextColor", containerModel: containerModel)
+    settingPannel.bounds = bounds
+    
+    addSubview(settingPannel)
+    
   }
   func editToolBar(toolBar: EditToolBar, didSelectedTextAlignment containerModel: ContainerModel) {
     println("TextAlignment")
   }
   
   // image - none
+}
+
+
+//MARK: - Constraints
+extension EditToolPannel {
+  
+  override func updateConstraints() {
+    
+    if let aPannel = settingPannel {
+      aPannel.snp_makeConstraints({ (make) -> Void in
+        make.edges.equalTo(self)
+      })
+    }
+    super.updateConstraints()
+  }
 }

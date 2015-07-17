@@ -763,7 +763,7 @@ extension EditViewController {
       let defaultTextAttribute = [ "Text": "",
         "FontName": "RTWSYueRoudGoG0v1-Regular",
         "FontSize": 30,
-        "TextColor": "#282A35",
+        "TextColor": "#FFFFFF",
         "TextAligment": "center",
         "ImagePath": " "
       ]
@@ -2112,7 +2112,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     case let gesture as UITapGestureRecognizer where gesture == singleTapGesture :
       
       let location = gesture.locationInView(editToolBar)
-      let locationinPannel = gesture.locationInView(editToolBar)
+      let locationinPannel = gesture.locationInView(editToolPannel)
       
       if CGRectContainsPoint(editToolBar.bounds, location) || CGRectContainsPoint(editToolPannel.bounds, locationinPannel) {
         return false

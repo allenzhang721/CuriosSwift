@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class EditToolSettingPannelFactory {
+  
+  class func createSettingPannelwithKey(key: String, containerModel: ContainerModel) -> EditToolSettingPannel {
+    
+    switch key {
+      
+    default:
+      return EditToolTextColorPannel(aContainerModel: containerModel)
+    }
+  }
+  
+}
