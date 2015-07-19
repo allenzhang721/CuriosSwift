@@ -26,7 +26,7 @@ func pathByComponents(components: [String]) -> String {
 }
 
 
-class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, IPageProtocol, preViewControllerProtocol {
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, preViewControllerProtocol {
   
   //deprecated
   enum ToolState {
@@ -48,7 +48,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   var editToolBar: EditToolBar!
   var editToolPannel: EditToolPannel!
-  
+  var editNavigationViewController: EditNavigationViewController!
   
   var maskView: MaskView?
   var toolState: ToolState = .endEdit
@@ -73,7 +73,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   var multiSection = false
   
   var isReplacedImage: Bool = false
-  
   
   var maskAttributes = [IMaskAttributeSetter]()
   var currentEditContainer: IContainer?
@@ -103,65 +102,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     }
   }
   
-  let barName: [String : String] = [
-    "setting": "Editor_Setting",
-    "addImage": "Editor_ImagePicker",
-    "addText": "Editor_Text",
-    "preview": "Editor_Preview",
-    "effects": "Editor_Effects",
-    "fontName": "Editor_FontName",
-    "fontAttribute" : "Editor_Text",
-    "typography": "Editor_Typography",
-    "animation": "Editor_Animation",
-    "interact": "Editor_Interact"
-  ]
-  
-  let barActionName: [String : String] = [
-    
-    "setting": "settingAction:",
-    "addImage": "addImageAction:",
-    "addText": "addTextAction:",
-    "preview": "previewAction:",
-    "effects": "effectsAction:",
-    "fontName": "fontNameAction:",
-    "fontAttribute" : "fontAction:",
-    "typography": "typographyAction:",
-    "animation": "animationAction:",
-    "interact": "interactActtion:"
-  ]
-  
-  var defaultBarItems: [UIBarButtonItem] {
-    
-    let itemsKey = ["setting", "addImage", "addText", "preview"]
-    return getBarButtonItem(itemsKey)
-  }
-  
-  var imageBarItems: [UIBarButtonItem] {
-    
-    let itemsKey = ["effects", "typography", "animation", "interact"]
-    return getBarButtonItem(itemsKey)
-  }
-  
-  var textBarItems: [UIBarButtonItem] {
-    
-    let itemsKey = ["effects", "fontName", "fontAttribute", "typography", "animation", "interact"]
-    return getBarButtonItem(itemsKey)
-  }
-  
-  var textInputView: TextInputView?
-  var colorPickView: ColorPickView?
-  
-  func getBarButtonItem(itemsKey: [String]) -> [UIBarButtonItem] {
-    var items = [UIBarButtonItem]()
-    for akey in itemsKey {
-      let imageName = barName[akey]!
-      let action = barActionName[akey]!
-      let barItem = UIBarButtonItem(title: imageName, style: .Plain, target: self, action: Selector(action))
-      items.append(barItem)
-    }
-    return items
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -173,19 +113,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     collectionView.decelerationRate = 0.1
     
     setupSubView()
-    
-//    bottomToolBar = ToolsBar(aframe:CGRect(x: 0, y: 568 - 64, width: 320, height: 64) , aItems: defaultBarItems, aDelegate: self)
-//    pannel = ToolsPannel()
-//    pannel.delegate = self
-//    pannel.backgroundColor = UIColor.lightGrayColor()
-    
-    
-//    view.addSubview(bottomToolBar)
-//    view.addSubview(pannel)
-    
-//    setupConstraints()
-    
-//    addKeyboardNotification()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -200,11 +127,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   override func prefersStatusBarHidden() -> Bool {
     return true
-  }
-  
-  deinit {
-    
-    removeKeyboardNotification()
   }
 
 }
@@ -222,11 +144,16 @@ extension EditViewController {
     editToolBar.backgroundColor = UIColor.redColor()
     editToolPannel.backgroundColor = UIColor.blackColor()
     
+    // navigationController
+    editNavigationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EditNavigationController") as! EditNavigationViewController
+    addChildViewController(editNavigationViewController)
+    
     editToolBar.delegate = self
     editToolBar.settingDelegate = editToolPannel
     
     view.addSubview(editToolBar)
     view.addSubview(editToolPannel)
+    view.insertSubview(editNavigationViewController.view, atIndex: 0)
 
   }
   
@@ -286,101 +213,180 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
   @IBAction func longPressAction(sender: UILongPressGestureRecognizer) {
     
     let location = sender.locationInView(view)
-    switch sender.state {
-    case .Began:
-      
-      if collectionView.collectionViewLayout is smallLayout {
+    if collectionView.collectionViewLayout is smallLayout {
+      switch sender.state {
+      case .Began:
         // collectionView
         if CGRectContainsPoint(collectionView.frame, location) {
-          let pageLocation = sender.locationInView(collectionView)
-          if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
-            where aSmallLayout.selectedItemBeganAtLocation(pageLocation) {
-              if let snapShot = aSmallLayout.getSelectedItemSnapShot() {
-                fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[aSmallLayout.placeholderIndexPath!.item]])
-                fakePageView?.fromTemplate = false
-                fakePageView?.center = location
-                view.addSubview(fakePageView!)
-              }
-          }
-          // template
-        } else if CGRectContainsPoint(templateViewController.view.bounds, sender.locationInView(templateViewController.view)) {
+          println("CollectionView region")
+        } else if CGRectContainsPoint(editNavigationViewController.view.frame, location) {
           
-          let loction = sender.locationInView(templateViewController.view)
-          if let snapShot = templateViewController.getSnapShotInPoint(location) {
-            
-            if let aPageModels = templateViewController.getPageModels(location) {
-              fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
-              fakePageView?.fromTemplate = true
-              fakePageView?.center = location
-              view.addSubview(fakePageView!)
-            } else {
-              fallthrough
-            }
-          }
+          println("editNavigation Region")
         }
         
-        // LongPress In NormalLayout
-      } else if collectionView.collectionViewLayout is NormalLayout {
         
-        // TODO: Mask
-        if let currentIndexPath = getCurrentIndexPath() {
-          if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-            let location = sender.locationInView(view)
-            page.setDelegate(self)
-          }
-        }
+        // editNavigationController
+        
+        
+      case .Changed:
+        return
+        // collectionView
+          // reorder
+        
+          // deleted
+        
+        // editNavigationController
+          // reorder
+        
+          // insert
+        
+        
+      case .Cancelled, .Ended:
+        return
+        
+        // remove fakeView
+        
+        
+        // did action(insert / deleted)
+        
+      default:
+        return
+        
       }
       
-    case .Changed:
       
-      if collectionView.collectionViewLayout is smallLayout {
-        if let fake = fakePageView {
-          fake.center = location
-          
-          if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-            let inEditBoundsLocation = sender.locationInView(collectionView)
-            aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
-          }
-        }
-        
-      } else if collectionView.collectionViewLayout is NormalLayout {
-        
-        // TODO: Mask
-      }
       
-    case .Cancelled, .Ended:
       
-      if collectionView.collectionViewLayout is smallLayout {
-        if fakePageView != nil {
-          if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
-            //                    if CGRectContainsPoint(collectionView.frame, location) {
-            aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
-            //                    }
-          }
-          
-          fakePageView?.removeFromSuperview()
-          fakePageView?.clearnPageArray()
-          fakePageView = nil
-        }
-        
-        
-      } else if collectionView.collectionViewLayout is NormalLayout {
-        
-        // TODO: Mask
-        
-        multiSection = false
-        if !pageEditing {
-          if let currnetIndexPath = getCurrentIndexPath() {
-            if let page = collectionView.cellForItemAtIndexPath(currnetIndexPath) as? IPage {
-              page.cancelDelegate()
-            }
-          }
-        }
-      }
-      
-    default:
-      return
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    switch sender.state {
+//    case .Began:
+//      
+//      if collectionView.collectionViewLayout is smallLayout {
+//        // collectionView
+//        if CGRectContainsPoint(collectionView.frame, location) {
+//          let pageLocation = sender.locationInView(collectionView)
+//          if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
+//            where aSmallLayout.selectedItemBeganAtLocation(pageLocation) {
+//              if let snapShot = aSmallLayout.getSelectedItemSnapShot() {
+//                fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[aSmallLayout.placeholderIndexPath!.item]])
+//                fakePageView?.fromTemplate = false
+//                fakePageView?.center = location
+//                view.addSubview(fakePageView!)
+//              }
+//          }
+//          // template
+//        } else if CGRectContainsPoint(templateViewController.view.bounds, sender.locationInView(templateViewController.view)) {
+//          
+//          let loction = sender.locationInView(templateViewController.view)
+//          if let snapShot = templateViewController.getSnapShotInPoint(location) {
+//            
+//            if let aPageModels = templateViewController.getPageModels(location) {
+//              fakePageView = FakePageView.fakePageViewWith(snapShot, array: aPageModels)
+//              fakePageView?.fromTemplate = true
+//              fakePageView?.center = location
+//              view.addSubview(fakePageView!)
+//            } else {
+//              fallthrough
+//            }
+//          }
+//        }
+//        
+//        // LongPress In NormalLayout
+//      } else if collectionView.collectionViewLayout is NormalLayout {
+//        
+//        // TODO: Mask
+//        if let currentIndexPath = getCurrentIndexPath() {
+//          if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+//            let location = sender.locationInView(view)
+////            page.setDelegate(self)
+//          }
+//        }
+//      }
+//      
+//    case .Changed:
+//      
+//      if collectionView.collectionViewLayout is smallLayout {
+//        if let fake = fakePageView {
+//          fake.center = location
+//          
+//          if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+//            let inEditBoundsLocation = sender.locationInView(collectionView)
+//            aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
+//          }
+//        }
+//        
+//      } else if collectionView.collectionViewLayout is NormalLayout {
+//        
+//        // TODO: Mask
+//      }
+//      
+//    case .Cancelled, .Ended:
+//      
+//      if collectionView.collectionViewLayout is smallLayout {
+//        if fakePageView != nil {
+//          if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+//            //                    if CGRectContainsPoint(collectionView.frame, location) {
+//            aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
+//            //                    }
+//          }
+//          
+//          fakePageView?.removeFromSuperview()
+//          fakePageView?.clearnPageArray()
+//          fakePageView = nil
+//        }
+//        
+//        
+//      } else if collectionView.collectionViewLayout is NormalLayout {
+//        
+//        // TODO: Mask
+//        
+//        multiSection = false
+//        if !pageEditing {
+//          if let currnetIndexPath = getCurrentIndexPath() {
+//            if let page = collectionView.cellForItemAtIndexPath(currnetIndexPath) as? IPage {
+//              page.cancelDelegate()
+//            }
+//          }
+//        }
+//      }
+//      
+//    default:
+//      return
+//    }
   }
   
   
@@ -676,7 +682,16 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 
-
+// MARK: - Init
+extension EditViewController {
+  
+  func setupThemeNavigationController() {
+    
+    
+    
+  }
+  
+}
 
 
 
@@ -1467,6 +1482,11 @@ extension EditViewController {
       make.right.left.equalTo(view)
       make.top.equalTo(editToolBar.snp_bottom)
     }
+    
+    editNavigationViewController.view.snp_makeConstraints { (make) -> Void in
+      make.left.right.top.equalTo(view)
+      make.height.equalTo(maxY)
+    }
   }
   
   
@@ -1602,158 +1622,14 @@ extension EditViewController {
   }
   
   // deprecated
-  private func changeToContainer(container: IContainer) {
-    
-    if let aContainer = currentEditContainer {
-      
-      if !aContainer.component.isEqual(container.component) {
-        
-        currentEditContainer = container
-        if container.component is IImageComponent {
-          bottomToolBar.changeToItems(imageBarItems, animationed: false, allowShowAccessView: true)
-        } else if container.component is ITextComponent {
-          bottomToolBar.changeToItems(textBarItems, animationed: false, allowShowAccessView: true)
-        }
-      }
-      
-    } else {
-      currentEditContainer = container
-      if container.component is IImageComponent {
-        bottomToolBar.changeToItems(imageBarItems, animationed: true, allowShowAccessView: true)
-      } else if container.component is ITextComponent {
-        bottomToolBar.changeToItems(textBarItems, animationed: true, allowShowAccessView: true)
-      }
-    }
-    toolState = ToolState.willSelect
-  }
   
   
   // deprecated
-  private func endContainer() {
-    
-    if let aContainer = currentEditContainer {
-      currentEditContainer = nil
-      bottomToolBar.changeToItems(defaultBarItems, animationed: true, allowShowAccessView: false, needHiddenAccessView: true)
-      
-    }
-  }
   
   
   // deprecated
-  private func setupTemplateController() {
-    
-    templateViewController = storyboard?.instantiateViewControllerWithIdentifier("EditorTemplateNavigationController") as! EditorTemplateNavigationController
-    
-    addChildViewController(templateViewController)
-    view.addSubview(templateViewController.view)
-    view.sendSubviewToBack(templateViewController.view)
-    
-    templateViewController.view.snp_makeConstraints { (make) -> Void in
-      make.edges.equalTo(view).insets(UIEdgeInsets(top: 0, left: 0, bottom: CGRectGetHeight(view.bounds) * (1 - LayoutSpec.layoutConstants.goldRatio), right: 0))
-    }
-  }
 
   // deprecated
-  func updateWithState(state: ToolState) {
-    
-    switch state {
-      
-      
-    case .didSelect:
-      bottomToolBar.snp_updateConstraints({ (make) -> Void in
-        make.bottom.equalTo(view.snp_bottom).offset(-80)
-      })
-      
-      topToolBar.snp_updateConstraints({ (make) -> Void in
-        
-        make.top.equalTo(view.snp_top).offset(-44)
-      })
-      
-      if let currentIndexPath = getCurrentIndexPath() {
-        
-        let cell = collectionView.cellForItemAtIndexPath(currentIndexPath)
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-          
-          cell?.center.y = self.collectionView.bounds.height / 2.0 - 80
-          
-          for mask in self.maskAttributes {
-            let currentCeter = mask.currentCenter
-            if let aMask = mask as? UIView {
-              aMask.center.y = currentCeter.y - 80
-              aMask.userInteractionEnabled = false
-            }
-          }
-        })
-        
-        for indexPath in collectionView.indexPathsForVisibleItems() as! [NSIndexPath] {
-          
-          if indexPath != currentIndexPath {
-            let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-              
-              cell?.alpha = 0
-            })
-          }
-        }
-      }
-      
-    case .willSelect, .endEdit:
-      bottomToolBar.snp_updateConstraints({ (make) -> Void in
-        make.bottom.equalTo(view)
-      })
-      
-      if let currentIndexPath = getCurrentIndexPath() {
-        
-        let cell = collectionView.cellForItemAtIndexPath(currentIndexPath)
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-          
-          cell?.center.y = self.collectionView.bounds.height / 2.0
-          
-          for mask in self.maskAttributes {
-            let currentCeter = mask.currentCenter
-            if let aMask = mask as? UIView {
-              aMask.center.y = currentCeter.y
-              aMask.userInteractionEnabled = true
-            }
-          }
-        })
-        
-        for indexPath in collectionView.indexPathsForVisibleItems() as! [NSIndexPath] {
-          
-          if indexPath != currentIndexPath {
-            let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-              
-              cell?.alpha = 1
-            })
-          }
-        }
-      }
-      
-      topToolBar.snp_updateConstraints({ (make) -> Void in
-        
-        make.top.equalTo(view.snp_top)
-      })
-      
-      bottomToolBar.deselected()
-      
-      if let acolorPick = colorPickView {
-        
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-          
-          acolorPick.alpha = 0.0
-          
-          }, completion: { (finished) -> Void in
-            
-            acolorPick.removeFromSuperview()
-            self.colorPickView = nil
-        })
-      }
-      
-    default:
-      return
-    }
-  }
 }
 
 
@@ -1762,99 +1638,9 @@ extension EditViewController {
 
 
 
-
-
-
-
-
-
-// MARK: - Ipage Protocol - Old
-extension EditViewController {
-  // selected
-  func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView) {
-    
-    let mask: IMaskAttributeSetter = ContainerMaskView.createMask(position, size: size, rotation: rotation, aRatio: ratio)
-    mask.setTarget(selectedContainer)
-    mask.setDelegate(self)
-    if let aMask = mask as? UIView {
-      view.addSubview(aMask)
-    }
-    
-    changeToContainer(selectedContainer)
-    
-    
-    maskAttributes.append(mask)
-  }
-  
-  // deseleted
-  func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer]) {
-    
-    if deSelectedContainers.count > 0 {
-      for container in deSelectedContainers {
-        var index = 0
-        
-        for maskAttribute in maskAttributes {
-          
-          if let aTarget = maskAttribute.getTarget() {
-            if aTarget.isEqual(container) {
-              
-              maskAttribute.remove()
-              maskAttributes.removeAtIndex(index)
-              break
-            }
-          }
-          index++
-        }
-      }
-    }
-  }
-  
-  // wheather multiSelection
-  func shouldMultiSelection() -> Bool {
-    
-    return multiSection
-  }
-  
-  // end edit
-  func didEndEdit(page: IPage) {
-    
-    page.saveInfo()
-    
-    let userID = UsersManager.shareInstance.getUserID()
-    let bookID = bookModel.Id
-    
-    page.cancelDelegate()
-    
-    endContainer()
-    toolState = .endEdit
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // MARK: - DataSource And Delegate
 // MARK: -
-extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol, PannelProtocol, IMaskAttributeSetterProtocol {
+extension EditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate ,SmallLayoutDelegate, IPageProtocol, EditToolsBarProtocol {
   
   // MARK: - UICollectionViewDataSource and CollectionView Delegate
   
@@ -1878,74 +1664,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     return TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
   }
   
-  // MARK: - Pannel Delegate
-  func pannelGetContainer() -> IContainer? {
-    
-    return currentEditContainer
-  }
-  
-  func pannelDidSendEvent(event: PannelEvent, object: AnyObject?) -> Void {
-    
-    switch event {
-      
-    case .FontNameChanged:
-      if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent, let name = object as? String {
-        //                let size = atextComponent.settFontsName(name)
-        //                    aCurrentContainer.setResize(size, center: CGPointZero, resizeComponent: false, scale: false)
-        
-        if !maskAttributes.isEmpty {
-          
-          let mask = maskAttributes[0]
-          //                    mask.setMaskSize(size)
-        }
-      }
-      
-    case .FontColorSetting:
-      if let aCurrentContainer = currentEditContainer, atextComponent = aCurrentContainer.component as? ITextComponent {
-        
-        colorPickView = UINib(nibName: "ColorPickView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? ColorPickView
-        
-        colorPickView?.setDidSelectedBlock({ (colorDic) -> Void in
-          
-          //                    atextComponent.setTextColor(colorDic)
-        })
-        
-        colorPickView?.setdissmissBlock({[unowned self] () -> () in
-          
-          UIView.animateWithDuration(0.3, animations: { () -> Void in
-            
-            self.colorPickView?.alpha = 0.0
-            
-            }, completion: { (finished) -> Void in
-              
-              self.colorPickView?.removeFromSuperview()
-              self.colorPickView = nil
-          })
-          })
-        
-        //                colorPickView?.setSelectedColorString(atextComponent.getTextColor())
-        
-        view.addSubview(colorPickView!)
-        colorPickView?.alpha = 0.0
-        
-        colorPickView!.snp_makeConstraints({[unowned self] (make) -> Void in
-          
-          make.height.equalTo(149)
-          make.left.right.bottom.equalTo(self.view)
-          })
-        
-        
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-          
-          self.colorPickView?.alpha = 1.0
-        })
-        
-      }
-      
-    default:
-      return
-    }
-  }
   
   // MARK: - SmallLayout Delegate
   
@@ -2034,68 +1752,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     bookModel.savePagesInfo()
   }
   
-  // MARK: - EditToolsBarProtocol
-  func editToolsBarDidSelectedAccessoryView(editToolsBar: ToolsBar) {
-    
-    //        if let currentIndexPath = getCurrentIndexPath() {
-    //
-    //            if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-    //                let location = CGPointZero
-    //                self.collectionView.scrollEnabled = false
-    //                page.setDelegate(self)
-    //                page.respondToLocation(location, onTargetView: view, sender: singleTapGesture)
-    //            }
-    //        }
-    toolState = .willSelect
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  
-  
-  
-  
-  // MARK: - IMaskAttributer Protocol
-  func maskAttributeWillDeleted(sender: IMaskAttributeSetter) {
-    
-    if let currentIndexPath = getCurrentIndexPath() {
-      if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-        let location = CGPointZero
-        page.setDelegate(self)
-      }
-    }
-  }
-  
-  func maskAttributeWillSetting(sender: IMaskAttributeSetter) {
-    
-    if let aContainer = currentEditContainer {
-      
-      if let aTextCom = aContainer.component as? ITextComponent {
-        
-        if textInputView == nil {
-          
-          textInputView = UINib(nibName: "TextInputView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TextInputView
-          
-          view.addSubview(textInputView!)
-          textInputView?.alpha = 0
-          
-          //                    let attribute = aTextCom.getAttributeText()
-          //                    textInputView?.setAttributeText(attribute, confirmHander: { [unowned self] (string) -> () in
-          //
-          //                        self.editTextContent(string, container: aContainer, textCompoent: aTextCom)
-          //                        })
-        }
-        
-        //            println("pageDidDoubleSelected ITextComponent")
-        //            editTextContent(doubleSelectedContainer, textCompoent: aTextComponent)
-      } else if let aImageCom = aContainer.component as? IImageComponent {
-        
-        showsheet()
-      }
-    }
-  }
-  
   // MARK: - imagePicker Delegate
   
   
@@ -2120,14 +1776,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
         return false
       }
       
-      if let aColorPickView = colorPickView {
-        
-        let locationInColorPick = gesture.locationInView(aColorPickView)
-        if CGRectContainsPoint(aColorPickView.bounds, locationInColorPick) {
-          return false
-        }
-      }
-      
       return self.collectionView.collectionViewLayout is NormalLayout ? true : false
       
     case let gesture where gesture is UIPanGestureRecognizer:
@@ -2138,7 +1786,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
       
       return transitionLayout == nil ? true : false
     case let gesture where gesture is UILongPressGestureRecognizer:
-      return true
+      return collectionView.collectionViewLayout is smallLayout
       
     default:
       return true
@@ -2146,82 +1794,3 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   }
 }
 
-// MARK: - TextEdit
-extension EditViewController {
-  
-  func editTextContent(string: String, container: IContainer, textCompoent: ITextComponent) {
-    
-    //       let size = textCompoent.setTextContent(string)
-    //        container.setResize(CGSize(width: size.width , height: size.height + 10 ), center: CGPointZero, resizeComponent: false, scale: false)
-    //
-    //        if !maskAttributes.isEmpty {
-    //
-    //            let mask = maskAttributes[0]
-    //            mask.setMaskSize(size)
-    //        }
-  }
-}
-
-// MARK: - UIKeyBoard
-
-extension EditViewController {
-  
-  func addKeyboardNotification() {
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHidden:", name: UIKeyboardWillHideNotification, object: nil)
-  }
-  
-  func removeKeyboardNotification() {
-    
-    NSNotificationCenter.defaultCenter().removeObserver(self)
-  }
-  
-  func keyboardWillShow(notification: NSNotification) {
-    
-    //        println(notification)
-    let point = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-    let bottom = point.CGRectValue().size.height
-    //        println("bottom = \(bottom)")
-    let edges = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
-    textInputView?.snp_makeConstraints({ [unowned self] (make) -> Void in
-      make.edges.equalTo(self.view).insets(edges)
-      })
-    textInputView?.alpha = 0
-    
-    UIView.animateWithDuration(0.25, animations: { () -> Void in
-      
-      self.textInputView?.alpha = 1
-    })
-  }
-  
-  func keyboardWillHidden(notification: NSNotification) {
-    
-    if textInputView != nil {
-      
-      textInputView?.alpha = 1
-      UIView.animateWithDuration(0.25, animations: { () -> Void in
-        
-        self.textInputView?.alpha = 0
-        
-        }, completion: { (finished) -> Void in
-          
-          if finished {
-            self.textInputView?.removeFromSuperview()
-            self.textInputView = nil
-          }
-      })
-      //            UIView.animateWithDuration(0.25, animations: { () -> Void in
-      //
-      //                self.textInputView.apha = 0
-      //            }, completion: { (finished) -> Void in
-      //
-      //                if finished {
-      //                    self.textInputView?.removeFromSuperview()
-      //                    textInputView = nil
-      //                }
-      //            })
-    }
-  }
-  
-}

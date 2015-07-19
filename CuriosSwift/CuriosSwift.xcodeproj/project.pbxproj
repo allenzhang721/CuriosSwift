@@ -15,6 +15,8 @@
 		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359901B50FEB100B66574 /* TextEditorViewController.swift */; };
 		2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */; };
+		2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */; };
+		2C0A69C61B5B44F200A6CF1A /* EditNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A69C51B5B44F200A6CF1A /* EditNavigationViewController.swift */; };
 		2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BB4881B2AD4B1007C18AC /* Localizable.strings */; };
 		2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */; };
 		2C1825D61B2802DB00F3B59E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1825D51B2802DB00F3B59E /* Request.swift */; };
@@ -31,6 +33,9 @@
 		2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FB2461B4FE4BC000F0FFA /* Behavior.swift */; };
 		2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FB2481B4FE4DA000F0FFA /* Animation.swift */; };
 		2C3361271B58ED4400E1B276 /* AnimationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3361261B58ED4400E1B276 /* AnimationsManager.swift */; };
+		2C362A9B1B5B57AA00F80012 /* EditTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362A9A1B5B57AA00F80012 /* EditTemplateViewController.swift */; };
+		2C362A9D1B5B5C5600F80012 /* EditNaviAimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362A9C1B5B5C5600F80012 /* EditNaviAimation.swift */; };
+		2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */; };
 		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C4777D51B4E055E00B47F9A /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C4777D41B4E055E00B47F9A /* page.json */; };
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
@@ -197,6 +202,8 @@
 		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C0359901B50FEB100B66574 /* TextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorViewController.swift; sourceTree = "<group>"; };
 		2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorTransitionAnimation.swift; sourceTree = "<group>"; };
+		2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditThemeViewController.swift; sourceTree = "<group>"; };
+		2C0A69C51B5B44F200A6CF1A /* EditNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNavigationViewController.swift; sourceTree = "<group>"; };
 		2C0BB4871B2AD4B1007C18AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C0BB4891B2AD4B3007C18AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C0BB48A1B2AD4B4007C18AC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -217,6 +224,9 @@
 		2C2FB2461B4FE4BC000F0FFA /* Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		2C2FB2481B4FE4DA000F0FFA /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		2C3361261B58ED4400E1B276 /* AnimationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsManager.swift; sourceTree = "<group>"; };
+		2C362A9A1B5B57AA00F80012 /* EditTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTemplateViewController.swift; sourceTree = "<group>"; };
+		2C362A9C1B5B5C5600F80012 /* EditNaviAimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNaviAimation.swift; sourceTree = "<group>"; };
+		2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLayout.swift; sourceTree = "<group>"; };
 		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C4777D41B4E055E00B47F9A /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
@@ -451,12 +461,17 @@
 		2C03598F1B50FE4B00B66574 /* EditViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */,
+				2C362A9C1B5B5C5600F80012 /* EditNaviAimation.swift */,
+				2C0A69C51B5B44F200A6CF1A /* EditNavigationViewController.swift */,
+				2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */,
+				2C362A9A1B5B57AA00F80012 /* EditTemplateViewController.swift */,
+				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */,
 				2C0359901B50FEB100B66574 /* TextEditorViewController.swift */,
-				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2CAC965C1B54E58E00BA5291 /* ThemeViewController.swift */,
-				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
+				2CFD5AD21B4F5BD200473C44 /* ViewController+Extension.swift */,
 			);
 			name = EditViewController;
 			sourceTree = "<group>";
@@ -571,7 +586,6 @@
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
-				2CFD5AD21B4F5BD200473C44 /* ViewController+Extension.swift */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
 				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */,
@@ -583,6 +597,7 @@
 				2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */,
 				2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */,
 				2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */,
+				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CF293531B32C03D00539F76 /* Independent.storyboard */,
@@ -1082,6 +1097,7 @@
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
 				2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */,
 				2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */,
+				2C362A9D1B5B5C5600F80012 /* EditNaviAimation.swift in Sources */,
 				2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */,
 				2C2FB2451B4FE48B000F0FFA /* Effect.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
@@ -1092,6 +1108,7 @@
 				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
 				2C2FB2431B4FD50E000F0FFA /* MaskView.swift in Sources */,
 				2CAC96501B54BD4500BA5291 /* Theme&Template.swift in Sources */,
+				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
@@ -1111,6 +1128,7 @@
 				66C783A01B281956002139F1 /* UserRequest.swift in Sources */,
 				2C6924321B46914800CC327D /* ColorPickCollectionViewCell.swift in Sources */,
 				2CAC965D1B54E58E00BA5291 /* ThemeViewController.swift in Sources */,
+				2C362A9B1B5B57AA00F80012 /* EditTemplateViewController.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9495AD1B57395100D77EE2 /* EditToolPannel.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
@@ -1125,10 +1143,12 @@
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
+				2C0A69C61B5B44F200A6CF1A /* EditNavigationViewController.swift in Sources */,
 				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,
 				2C9495B71B57C01100D77EE2 /* EditToolTextColorPannel.swift in Sources */,
 				2CE121E31B45434200FB10C5 /* TextInputView.swift in Sources */,
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
+				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,

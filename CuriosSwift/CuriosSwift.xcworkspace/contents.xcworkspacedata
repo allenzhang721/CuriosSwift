@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CuriosSwift/EditNaviAimation.swift">
+   </FileRef>
+   <FileRef
+      location = "group:CuriosSwift/EditTemplateViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:CuriosSwift/ImageTokenRequest.swift">
    </FileRef>
    <FileRef

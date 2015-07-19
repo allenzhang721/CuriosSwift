@@ -10,7 +10,6 @@ import UIKit
 
 protocol EditToolsBarProtocol: NSObjectProtocol {
     
-    func editToolsBarDidSelectedAccessoryView(editToolsBar: ToolsBar)
 }
 
 private class EditToolsBarLayout: UICollectionViewFlowLayout {
@@ -124,7 +123,6 @@ class ToolsBar: UIControl {
         accessoryView = AccessoryView(frame: CGRect(x: bounds.width + aframe.height, y: 0, width: aframe.height, height: aframe.height), aAction: { [unowned self] () -> () in
             
             if let aDelegate = self.delegate {
-                aDelegate.editToolsBarDidSelectedAccessoryView(self)
             }
             })
         items = aItems

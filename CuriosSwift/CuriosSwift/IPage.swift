@@ -15,13 +15,6 @@ protocol IPageProtocol: NSObjectProtocol {
   func pageDidDeSelected(page: PageModel, deselectedContainer container: ContainerModel)
   func pageDidDoubleSelected(page: PageModel, doubleSelectedContainer container: ContainerModel)
   func pageDidEndEdit(page: PageModel)
-  
-  
-    
-    func pageDidSelected(page: IPage, selectedContainer: IContainer, position: CGPoint, size: CGSize, rotation: CGFloat, ratio: CGFloat, inTargetView: UIView)
-    func pageDidDeSelected(page: IPage, deSelectedContainers: [IContainer])
-    func shouldMultiSelection() -> Bool
-    func didEndEdit(page: IPage)
 }
 
 protocol IPage: NSObjectProtocol {

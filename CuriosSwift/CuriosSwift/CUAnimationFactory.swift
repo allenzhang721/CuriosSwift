@@ -61,7 +61,7 @@ class CUAnimationFactory: NSObject {
         
         self.pop_removeAnimationForKey("Preview")
         
-        let function = easingFuntionWithType(easingFunctionType)
+//        let function = easingFuntionWithType(easingFunctionType)
       
         let aAnimation = POPCustomAnimation {(target, animation: POPCustomAnimation!) -> Bool in
             
@@ -76,8 +76,8 @@ class CUAnimationFactory: NSObject {
                     let to = aToValue[index]
                     let b = from
                     let c = to - from
-                    let easFuncValue = function(t: t, b: b, c: c, d: d)
-                    values.append(easFuncValue)
+//                    let easFuncValue = function(t: t, b: b, c: c, d: d)
+//                    values.append(easFuncValue)
                 }
                 
                 aBlock(currentTime: t, duration: d, currentValues: values, animationTarget: target)
