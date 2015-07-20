@@ -58,24 +58,41 @@ class EditTemplateViewController: UIViewController {
     }
     
     for template in aTemplates {
+      println(template.templateURL)
       templateList.append(template)
     }
   }
-  
-  
-  
+
   @IBAction func tapAction(sender: UITapGestureRecognizer) {
-    
     navigationController?.popToRootViewControllerAnimated(true)
   }
   
+  
+  
+  func begainResponseToLongPress(onScreenPoint: CGPoint) {
+    
+    if let indexPath = collectionView.indexPathForItemAtPoint(onScreenPoint) {
+      
+      let template = templateList[indexPath.item].templateURL
+      let URL = NSURL(string: template)!
+      EMJsonManager.sharedManager.retrieveJsonWithURL(URL, progressBlock: nil, completionHandler: {[unowned self] (Json, error, cacheType, jsonURL) -> () in
+        
+        if let Json: AnyObject = Json {
+          if let navigationVC = self.navigationController as? EditNavigationViewController {
+            
+            navigationVC.editDelegate?.navigationViewController(navigationVC, didGetTemplateJson: Json)
+          }
+        }
+      })
+    }
+  }
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 extension EditTemplateViewController {
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    return 3
+    return templateList.count
   }
   
   // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -96,25 +113,18 @@ extension EditTemplateViewController {
     cell.backgroundColor = UIColor.darkGrayColor()
     
     if let imageView = cell.backgroundView as? UIImageView {
+
       imageView.alpha = 0
-//      let template = templateList[indexPath.item]
-      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
       
+      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
       imageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
         
         imageView.image = image
-        
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-          
-          imageView.alpha = 1
+        imageView.alpha = 1
         })
-        
       })
-      
     }
-    
-    
-    
     return cell
   }
   
@@ -123,6 +133,4 @@ extension EditTemplateViewController {
     navigationController?.popToRootViewControllerAnimated(true)
     
   }
-  
-  
 }

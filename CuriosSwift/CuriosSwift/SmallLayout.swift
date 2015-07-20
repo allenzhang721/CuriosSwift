@@ -54,7 +54,7 @@ class smallLayout: UICollectionViewFlowLayout {
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
         return true
     }
-    
+  
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         
         let att = super.layoutAttributesForElementsInRect(rect)

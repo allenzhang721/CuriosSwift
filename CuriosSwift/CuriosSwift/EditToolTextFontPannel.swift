@@ -67,6 +67,7 @@ extension EditToolTextFontPannel {
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolTextFontCell")
     collectionView.allowsSelection = true
+    collectionView.backgroundColor = UIColor.clearColor()
     
     addSubview(collectionView)
   }

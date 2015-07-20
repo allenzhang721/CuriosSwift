@@ -12,6 +12,10 @@ import SnapKit
 
 class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
   
+  enum EditToolBarType {
+    case Default, Image, Text
+  }
+  
   var contentView: UIView!
   var collectionView: UICollectionView!
   var dataNumber = 4
@@ -19,6 +23,8 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   var currentKey: String!
   weak var delegate: EditToolBarDelegate?
   weak var settingDelegate: EditToolBarSettingDelegate?
+  
+  var type: EditToolBarType = .Default
   
   var begain: Bool {
     
@@ -32,8 +38,8 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   
     let trail: CGFloat = 10.0
     let leading: CGFloat = 10.0
-    let inset = UIEdgeInsets(top: 0, left: leading, bottom: 0, right: trail)
-    let itemSideLength = bounds.height
+    let inset = UIEdgeInsets(top: bounds.height * 0.25, left: leading, bottom:  bounds.height * 0.25, right: trail)
+    let itemSideLength = bounds.height * 0.5
     let width = bounds.width
     
     let number = barItems.count
@@ -72,11 +78,12 @@ extension EditToolBar {
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolBarCell")
-    
-    
-    
+    collectionView.backgroundColor = UIColor.clearColor()
     addSubview(contentView)
     contentView.addSubview(collectionView)
+    
+    layer.borderWidth = 0.5
+    layer.borderColor = UIColor.lightGrayColor().CGColor
     
     changeToDefault()
   }
@@ -148,6 +155,7 @@ extension EditToolBar {
   
   private func changeToDefault() {
     
+    type = .Default
     barItems = ["setting", "addImage", "addText", "preView"]
     collectionView.reloadData()
     updateItemLayout()
@@ -158,10 +166,12 @@ extension EditToolBar {
     switch aContainerModel.component {
       
     case let component as TextContentModel:
+      type = .Text
       barItems = ["textFont", "textAlignment", "textColor", "level", "animation"]
       
       
     case let component as ImageContentModel:
+      type = .Image
       barItems = ["level", "animation"]
       
       
@@ -310,12 +320,28 @@ extension EditToolBar {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EditToolBarCell", forIndexPath: indexPath) as! UICollectionViewCell
     
-    if actived == false && containerModel == nil {
-      cell.backgroundColor = UIColor.blueColor()
-    } else if actived == false && containerModel != nil {
-      cell.backgroundColor = UIColor.redColor()
-    } else if actived == true && containerModel != nil {
-      cell.backgroundColor = UIColor.whiteColor()
+    if cell.backgroundView == nil {
+      let imageView = UIImageView(frame: cell.bounds)
+      imageView.contentMode = .ScaleAspectFit
+       cell.backgroundView = imageView
+    }
+    
+    if !(cell.selectedBackgroundView is UIImageView) {
+      let imageView = UIImageView(frame: cell.bounds)
+      imageView.contentMode = .ScaleAspectFit
+      cell.selectedBackgroundView = imageView
+    }
+    
+    if let imageView = cell.backgroundView as? UIImageView {
+      let key = barItems[indexPath.item]
+      let image = UIImage(named: "Editor_\(key)_Normal")
+      imageView.image = image
+    }
+    
+    if let selectedImageView = cell.selectedBackgroundView as? UIImageView {
+      let key = barItems[indexPath.item]
+      let image = UIImage(named: "Editor_\(key)_Selected")
+      selectedImageView.image = image
     }
     
     return cell
@@ -325,7 +351,7 @@ extension EditToolBar {
     
     if actived == false && containerModel != nil {
       actived = true
-      collectionView.reloadData()
+//      collectionView.reloadData()
       delegate?.editToolBar(self, activedWithContainerModel: containerModel!)
     }
     

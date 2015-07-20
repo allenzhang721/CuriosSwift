@@ -44,10 +44,10 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
       collectionView.decelerationRate = 0.1
       collectionView.setCollectionViewLayout(defaultLayout, animated: false)
 
-      ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
+      ThemesManager.shareInstance.getThemes(0, size: 20) { [weak self](themes) -> () in
         
-        self.appThemes(themes)
-        self.collectionView.reloadData()
+        self?.appThemes(themes)
+        self?.collectionView.reloadData()
 //        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.None, animated: false)
       }
     }

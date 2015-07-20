@@ -26,7 +26,7 @@ func pathByComponents(components: [String]) -> String {
 }
 
 
-class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, preViewControllerProtocol {
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditNavigationViewControllerDelegate,EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, preViewControllerProtocol {
   
   //deprecated
   enum ToolState {
@@ -141,12 +141,13 @@ extension EditViewController {
     editToolBar = EditToolBar(frame: CGRectZero)
     editToolPannel = EditToolPannel(frame: CGRectZero)
     
-    editToolBar.backgroundColor = UIColor.redColor()
-    editToolPannel.backgroundColor = UIColor.blackColor()
+    editToolBar.backgroundColor = UIColor.whiteColor()
+    editToolPannel.backgroundColor = UIColor.whiteColor()
     
     // navigationController
     editNavigationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EditNavigationController") as! EditNavigationViewController
     addChildViewController(editNavigationViewController)
+    editNavigationViewController.editDelegate = self
     
     editToolBar.delegate = self
     editToolBar.settingDelegate = editToolPannel
@@ -219,18 +220,38 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         // collectionView
         if CGRectContainsPoint(collectionView.frame, location) {
           println("CollectionView region")
+          let pageLocation = sender.locationInView(collectionView)
+          if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
+            where aSmallLayout.selectedItemBeganAtLocation(pageLocation) {
+              if let snapShot = aSmallLayout.getSelectedItemSnapShot() {
+                fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[aSmallLayout.placeholderIndexPath!.item]])
+                fakePageView?.fromTemplate = false
+                fakePageView?.center = location
+                view.addSubview(fakePageView!)
+              }
+          }
+
+        // editNavigationController
         } else if CGRectContainsPoint(editNavigationViewController.view.frame, location) {
           
-          println("editNavigation Region")
+          let location = sender.locationInView(editNavigationViewController.view)
+          editNavigationViewController.begainResponseToLongPress(location)
         }
         
-        
-        // editNavigationController
-        
-        
       case .Changed:
-        return
+//        return
         // collectionView
+        if collectionView.collectionViewLayout is smallLayout {
+          if let fake = fakePageView {
+            fake.center = location
+            
+            if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+              let inEditBoundsLocation = sender.locationInView(collectionView)
+              aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
+            }
+          }
+          
+        }
           // reorder
         
           // deleted
@@ -242,9 +263,24 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         
       case .Cancelled, .Ended:
-        return
+//        return
         
         // remove fakeView
+      if collectionView.collectionViewLayout is smallLayout {
+        if fakePageView != nil {
+          if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
+            //                    if CGRectContainsPoint(collectionView.frame, location) {
+            aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
+            //                    }
+          }
+
+          fakePageView?.removeFromSuperview()
+          fakePageView?.clearnPageArray()
+          fakePageView = nil
+        }
+        
+        
+      }
         
         
         // did action(insert / deleted)
@@ -350,7 +386,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //        }
 //        
 //      } else if collectionView.collectionViewLayout is NormalLayout {
-//        
+//
 //        // TODO: Mask
 //      }
 //      
@@ -1374,6 +1410,22 @@ extension EditViewController {
   }
 }
 
+// MARK: - EditNavigationControllerDelegate
+extension EditViewController {
+  
+  
+  func navigationViewController(navigationController: EditNavigationViewController, didGetTemplateJson json: AnyObject) {
+    
+    
+    let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+    bookModel.pageModels.insert(page, atIndex: 0)
+    self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])
+    self.collectionView.collectionViewLayout.layoutAttributesForElementsInRect(self.collectionView.bounds)
+    
+    println(page)
+  }
+}
+
 
 // MARK: - PageCellDelegate
 extension EditViewController {
@@ -1460,8 +1512,10 @@ extension EditViewController {
       switch constraintsState {
       case .Default:
         updateConstraintsToDefault()
+        cellDown()
       case .ShowPannel:
         updateConstraintsToShowPannel()
+        cellUp()
       default:
         return
       }
@@ -1510,6 +1564,67 @@ extension EditViewController {
     
     topToolBar.snp_updateConstraints { (make) -> Void in
       make.top.equalTo(view).offset(-44)
+    }
+  }
+  
+  
+  func cellUp() {
+    
+    if let indexpath = getCurrentIndexPath() {
+      
+      let cell = collectionView.cellForItemAtIndexPath(indexpath)
+      let y = cell!.frame.origin.y
+      self.maskView?.hidden = true
+      self.maskView?.alpha = 0
+      self.maskView?.transform = CGAffineTransformConcat(self.maskView!.transform, CGAffineTransformMakeTranslation(0, -y))
+      
+      if let visualCells = collectionView.visibleCells() as? [UICollectionViewCell] {
+        
+        for acell in visualCells {
+          if acell != cell {
+            acell.hidden = true
+          }
+          
+        }
+      }
+      
+      UIView.animateWithDuration(0.3, animations: { () -> Void in
+        
+        cell!.transform = CGAffineTransformMakeTranslation(0, -y)
+        
+        
+      }, completion: { (finished) -> Void in
+        
+        if finished {
+          UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.maskView?.hidden = false
+            self.maskView?.alpha = 1
+            })
+          
+        }
+      })
+    }
+  }
+  
+  func cellDown() {
+    
+    if let indexpath = getCurrentIndexPath() {
+      
+      let cell = collectionView.cellForItemAtIndexPath(indexpath)
+      
+      if let visualCells = collectionView.visibleCells() as? [UICollectionViewCell] {
+        
+        for acell in visualCells {
+          if acell != cell {
+            acell.hidden = false
+          }
+        }
+      }
+      
+      UIView.animateWithDuration(0.3, animations: { () -> Void in
+        
+        cell!.transform = CGAffineTransformMakeTranslation(0, 0)
+      })
     }
   }
   
@@ -1694,62 +1809,62 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
       }, completion: { (completed) -> Void in
     })
     
-    let fileManager = NSFileManager.defaultManager()
-    
-    var indexPaths = [NSIndexPath]()
-    var newPages = [PageModel]()
-    var Index = indexPath.item
-    let pageModels = fakePageView!.getPageArray()
-    for aPage in pageModels {
-      
-      let newPageId = UniqueIDStringWithCount(count: 10)
-      let originBookPath = aPage.delegate?.fileGetSuperPath(aPage)
-      let orginPageURL = URL(originBookPath!)(isDirectory: true)(pages, aPage.Id)
-      let newPageURL = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId)
-      
-      if fileManager.copyItemAtURL(orginPageURL, toURL: newPageURL, error: nil) {
-        
-        let copyPageOriginJson = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId ,aPage.Id + ".json")
-        let copyPageNewJson = URL(bookModel.filePath)(isDirectory: true)(pages,newPageId ,newPageId + ".json")
-        let copyPageOriginData = NSData(contentsOfURL: copyPageOriginJson)
-        var newJson = NSJSONSerialization.JSONObjectWithData(copyPageOriginData!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
-        newJson["ID"] = newPageId
-        let newJsonData = NSJSONSerialization.dataWithJSONObject(newJson, options: NSJSONWritingOptions(0), error: nil)
-        newJsonData?.writeToURL(copyPageNewJson, atomically: true)
-        
-        let newPageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: newJson, error: nil) as! PageModel
-        
-        fileManager.removeItemAtURL(copyPageOriginJson, error: nil)
-        
-        newPages.append(newPageModel)
-        let indexPath = NSIndexPath(forItem: Index, inSection: 0)
-        indexPaths.append(indexPath)
-        Index++
-      }
-    }
-    bookModel.insertPageModelsAtIndex(newPages, FromIndex: indexPath.item)
-    collectionView?.performBatchUpdates({ () -> Void in
-      
-      self.collectionView?.insertItemsAtIndexPaths(indexPaths)
-      
-      }, completion: { (completed) -> Void in
-    })
+//    let fileManager = NSFileManager.defaultManager()
+//    
+//    var indexPaths = [NSIndexPath]()
+//    var newPages = [PageModel]()
+//    var Index = indexPath.item
+//    let pageModels = fakePageView!.getPageArray()
+//    for aPage in pageModels {
+//      
+//      let newPageId = UniqueIDStringWithCount(count: 10)
+//      let originBookPath = aPage.delegate?.fileGetSuperPath(aPage)
+//      let orginPageURL = URL(originBookPath!)(isDirectory: true)(pages, aPage.Id)
+//      let newPageURL = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId)
+//      
+//      if fileManager.copyItemAtURL(orginPageURL, toURL: newPageURL, error: nil) {
+//        
+//        let copyPageOriginJson = URL(bookModel.filePath)(isDirectory: true)(pages, newPageId ,aPage.Id + ".json")
+//        let copyPageNewJson = URL(bookModel.filePath)(isDirectory: true)(pages,newPageId ,newPageId + ".json")
+//        let copyPageOriginData = NSData(contentsOfURL: copyPageOriginJson)
+//        var newJson = NSJSONSerialization.JSONObjectWithData(copyPageOriginData!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
+//        newJson["ID"] = newPageId
+//        let newJsonData = NSJSONSerialization.dataWithJSONObject(newJson, options: NSJSONWritingOptions(0), error: nil)
+//        newJsonData?.writeToURL(copyPageNewJson, atomically: true)
+//        
+//        let newPageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: newJson, error: nil) as! PageModel
+//        
+//        fileManager.removeItemAtURL(copyPageOriginJson, error: nil)
+//        
+//        newPages.append(newPageModel)
+//        let indexPath = NSIndexPath(forItem: Index, inSection: 0)
+//        indexPaths.append(indexPath)
+//        Index++
+//      }
+//    }
+//    bookModel.insertPageModelsAtIndex(newPages, FromIndex: indexPath.item)
+//    collectionView?.performBatchUpdates({ () -> Void in
+//      
+//      self.collectionView?.insertItemsAtIndexPaths(indexPaths)
+//      
+//      }, completion: { (completed) -> Void in
+//    })
   }
   
   func layoutDidMoveOut(layout: UICollectionViewLayout) {
     
-    if !fakePageView!.fromTemplate {
-      let aPageModel = fakePageView!.getPlaceholderPage()
-      let bookPath = bookModel.filePath
-      let pagePath = bookPath.stringByAppendingPathComponent("Pages/" + aPageModel.Id)
-      let fileManager = NSFileManager.defaultManager()
-      fileManager.removeItemAtPath(pagePath, error: nil)
-    }
+//    if !fakePageView!.fromTemplate {
+//      let aPageModel = fakePageView!.getPlaceholderPage()
+//      let bookPath = bookModel.filePath
+//      let pagePath = bookPath.stringByAppendingPathComponent("Pages/" + aPageModel.Id)
+//      let fileManager = NSFileManager.defaultManager()
+//      fileManager.removeItemAtPath(pagePath, error: nil)
+//    }
   }
   
   func layout(layout: UICollectionViewLayout, didFinished finished: Bool) {
     
-    bookModel.savePagesInfo()
+//    bookModel.savePagesInfo()
   }
   
   // MARK: - imagePicker Delegate

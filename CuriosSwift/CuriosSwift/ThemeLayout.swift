@@ -49,5 +49,4 @@ class ThemeLayout: UICollectionViewFlowLayout {
     }
     return CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y)
   }
-  
 }

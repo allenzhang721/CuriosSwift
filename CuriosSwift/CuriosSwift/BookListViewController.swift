@@ -30,11 +30,6 @@ class BookListViewController: UIViewController {
         self.tableView.reloadData()
       }
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        
-//        tableView.reloadData()
-    }
 }
 
 

@@ -83,6 +83,10 @@
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
 		2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */; };
 		2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */; };
+		2C8F508E1B5CD85C0093DC63 /* EMJsonCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508A1B5CD85C0093DC63 /* EMJsonCache.swift */; };
+		2C8F508F1B5CD85C0093DC63 /* EMJsonDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508B1B5CD85C0093DC63 /* EMJsonDownloader.swift */; };
+		2C8F50901B5CD85C0093DC63 /* EMJsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508C1B5CD85C0093DC63 /* EMJsonManager.swift */; };
+		2C8F50911B5CD85C0093DC63 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508D1B5CD85C0093DC63 /* String+MD5.swift */; };
 		2C9147B21B08452A00579E4A /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B11B08452A00579E4A /* BookModel.swift */; };
 		2C9147B41B0845C400579E4A /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B31B0845C400579E4A /* PageModel.swift */; };
 		2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9147B51B0845FA00579E4A /* ContainerModel.swift */; };
@@ -274,6 +278,10 @@
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
 		2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingAnimation.swift; sourceTree = "<group>"; };
 		2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
+		2C8F508A1B5CD85C0093DC63 /* EMJsonCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonCache.swift; sourceTree = "<group>"; };
+		2C8F508B1B5CD85C0093DC63 /* EMJsonDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonDownloader.swift; sourceTree = "<group>"; };
+		2C8F508C1B5CD85C0093DC63 /* EMJsonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonManager.swift; sourceTree = "<group>"; };
+		2C8F508D1B5CD85C0093DC63 /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		2C9147B11B08452A00579E4A /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		2C9147B31B0845C400579E4A /* PageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		2C9147B51B0845FA00579E4A /* ContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerModel.swift; sourceTree = "<group>"; };
@@ -485,6 +493,17 @@
 			name = Node;
 			sourceTree = "<group>";
 		};
+		2C8F50891B5CD83F0093DC63 /* EmiaosteinJsonManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C8F508A1B5CD85C0093DC63 /* EMJsonCache.swift */,
+				2C8F508B1B5CD85C0093DC63 /* EMJsonDownloader.swift */,
+				2C8F508C1B5CD85C0093DC63 /* EMJsonManager.swift */,
+				2C8F508D1B5CD85C0093DC63 /* String+MD5.swift */,
+			);
+			name = EmiaosteinJsonManager;
+			sourceTree = "<group>";
+		};
 		2C9495A61B56640600D77EE2 /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +587,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2C8F50891B5CD83F0093DC63 /* EmiaosteinJsonManager */,
 				2CAC96561B54D37900BA5291 /* main.json */,
 				2C4777D41B4E055E00B47F9A /* page.json */,
 				2C92EA7F1B413F6A00ABFABB /* Font */,
@@ -1032,6 +1052,7 @@
 				2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
+				2C8F508E1B5CD85C0093DC63 /* EMJsonCache.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
@@ -1059,6 +1080,7 @@
 				2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */,
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
+				2C8F50901B5CD85C0093DC63 /* EMJsonManager.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2C9495AB1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift in Sources */,
 				2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */,
@@ -1128,10 +1150,12 @@
 				66C783A01B281956002139F1 /* UserRequest.swift in Sources */,
 				2C6924321B46914800CC327D /* ColorPickCollectionViewCell.swift in Sources */,
 				2CAC965D1B54E58E00BA5291 /* ThemeViewController.swift in Sources */,
+				2C8F50911B5CD85C0093DC63 /* String+MD5.swift in Sources */,
 				2C362A9B1B5B57AA00F80012 /* EditTemplateViewController.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9495AD1B57395100D77EE2 /* EditToolPannel.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
+				2C8F508F1B5CD85C0093DC63 /* EMJsonDownloader.swift in Sources */,
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
 				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,

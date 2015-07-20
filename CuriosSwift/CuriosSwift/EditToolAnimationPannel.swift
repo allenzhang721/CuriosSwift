@@ -70,6 +70,7 @@ extension EditToolAnimationPannel {
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolAnimationCell")
     collectionView.allowsSelection = true
+    collectionView.backgroundColor = UIColor.clearColor()
     
     addSubview(collectionView)
   }

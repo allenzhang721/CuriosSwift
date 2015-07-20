@@ -66,6 +66,7 @@ extension EditToolLevelPannel {
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolTextLevelCell")
     collectionView.allowsSelection = true
+    collectionView.backgroundColor = UIColor.clearColor()
     
     addSubview(collectionView)
   }
