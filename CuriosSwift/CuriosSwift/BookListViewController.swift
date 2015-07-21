@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Mantle
+import MJRefresh
 
 let publishHOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
 
@@ -17,7 +18,6 @@ class BookListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
   
   var bookList = [BookListModel]()
-  
   
     override func viewDidLoad() {
         super.viewDidLoad()

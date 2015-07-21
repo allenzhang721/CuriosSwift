@@ -83,6 +83,7 @@
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
 		2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */; };
 		2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */; };
+		2C8BB2261B5D0AB700AB4320 /* MJRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */; };
 		2C8F508E1B5CD85C0093DC63 /* EMJsonCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508A1B5CD85C0093DC63 /* EMJsonCache.swift */; };
 		2C8F508F1B5CD85C0093DC63 /* EMJsonDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508B1B5CD85C0093DC63 /* EMJsonDownloader.swift */; };
 		2C8F50901B5CD85C0093DC63 /* EMJsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F508C1B5CD85C0093DC63 /* EMJsonManager.swift */; };
@@ -278,6 +279,7 @@
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
 		2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingAnimation.swift; sourceTree = "<group>"; };
 		2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
+		2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MJRefresh.framework; path = "Pods/build/Debug-iphoneos/Pods-CuriosSwift/MJRefresh.framework"; sourceTree = "<group>"; };
 		2C8F508A1B5CD85C0093DC63 /* EMJsonCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonCache.swift; sourceTree = "<group>"; };
 		2C8F508B1B5CD85C0093DC63 /* EMJsonDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonDownloader.swift; sourceTree = "<group>"; };
 		2C8F508C1B5CD85C0093DC63 /* EMJsonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMJsonManager.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C8BB2261B5D0AB700AB4320 /* MJRefresh.framework in Frameworks */,
 				2C29E0E51B4F3FA40064C2F1 /* Kingfisher.framework in Frameworks */,
 				2C29E0E31B4F3FA00064C2F1 /* MJExtension.framework in Frameworks */,
 				2CFEF2EB1B43BE900075C6A7 /* SVProgressHUD.framework in Frameworks */,
@@ -437,6 +440,7 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */,
 				2C29E0E41B4F3FA40064C2F1 /* Kingfisher.framework */,
 				2C29E0E21B4F3FA00064C2F1 /* MJExtension.framework */,
 				2CFEF2EA1B43BE900075C6A7 /* SVProgressHUD.framework */,

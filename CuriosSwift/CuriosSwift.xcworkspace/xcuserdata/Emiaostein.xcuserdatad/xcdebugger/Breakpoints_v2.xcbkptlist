@@ -36,13 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "459077855.499723"
+            timestampString = "459136492.08595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1300"
-            endingLineNumber = "1300"
-            landmarkName = "addEditFile(_:)"
-            landmarkType = "5">
+            startingLineNumber = "1306"
+            endingLineNumber = "1306">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
@@ -52,11 +50,11 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
-                  timestampString = "459081365.592372"
+                  timestampString = "459136948.466635"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1301"
-                  endingLineNumber = "1301"
+                  startingLineNumber = "1313"
+                  endingLineNumber = "1313"
                   offsetFromSymbolStart = "33">
                </Location>
                <Location
@@ -67,11 +65,11 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
-                  timestampString = "459081365.592675"
+                  timestampString = "459136948.46685"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1301"
-                  endingLineNumber = "1301"
+                  startingLineNumber = "1313"
+                  endingLineNumber = "1313"
                   offsetFromSymbolStart = "71">
                </Location>
             </Locations>
@@ -84,13 +82,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "459078209.956052"
+            timestampString = "459136492.08595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1311"
-            endingLineNumber = "1311"
+            startingLineNumber = "1317"
+            endingLineNumber = "1317"
             landmarkName = "addEditFile(_:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.EditViewController.addEditFile (CuriosSwift.EditViewController)((Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "459136948.468064"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1317"
+                  endingLineNumber = "1317"
+                  offsetFromSymbolStart = "406">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc CuriosSwift.EditViewController.addEditFile (CuriosSwift.EditViewController)((Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "459136948.468271"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1317"
+                  endingLineNumber = "1317"
+                  offsetFromSymbolStart = "444">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -457,7 +457,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
   
   @IBAction func previewAction(sender: UIBarButtonItem) {
     
-    
+    return
     prepareForPreivew {[unowned self] (finished) -> () in
       
       if finished {
@@ -467,7 +467,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
       }
     }
     
-    return
+    
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
@@ -975,13 +975,25 @@ extension EditViewController {
     let jsondata = NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
     
-    UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { (json) -> Void in
+    UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { [unowned self] (json) -> Void in
       
       if let aData = json["data"] as? String {
         
+        self.showPreviewControllerWithUrl(aData)
         println(aData)
       }
       }.sendRequest()
+  }
+  
+  func showPreviewControllerWithUrl(url: String) {
+    
+    if let previewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
+      
+      previewVC.urlString = url
+      
+      presentViewController(previewVC, animated: true, completion: nil)
+      
+    }
   }
 }
 
@@ -1464,6 +1476,15 @@ extension EditViewController {
   }
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
     println("Preview")
+    
+    prepareForPreivew {[unowned self] (finished) -> () in
+      
+      if finished {
+        println(self.bookModel.Id)
+        
+        self.uploadComplete()
+      }
+    }
   }
 
   func editToolBarDidSelectedAddImage(toolBar: EditToolBar) {

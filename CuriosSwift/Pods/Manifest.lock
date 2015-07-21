@@ -26,6 +26,7 @@ PODS:
     - Mantle/extobjc (= 2.0)
   - Mantle/extobjc (2.0)
   - MJExtension (2.4.4)
+  - MJRefresh (2.2.1)
   - pop (1.0.7)
   - Qiniu (7.0.11):
     - AFNetworking (~> 2.0)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - Kingfisher (~> 1.4.2)
   - Mantle (~> 2.0)
   - MJExtension
+  - MJRefresh (~> 2.2.0)
   - pop (~> 1.0.7)
   - Qiniu (~> 7.0)
   - SnapKit (~> 0.10.0)
@@ -48,6 +50,7 @@ SPEC CHECKSUMS:
   Kingfisher: 4446782a827abbe2e6048a1fa741924a10e6ad7c
   Mantle: d7c75b6fb789b20f7ae30cd0d09435fe545896ff
   MJExtension: fabc9e6084f14363ed6828490a98ee516c9cbbfe
+  MJRefresh: c3fa0387e8e97a11a9666639d2f815607edd1c2f
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Qiniu: 70c3364afbc6993989edaf3da4a784c7d5ad296b
   SnapKit: 53696873f2cf84a15e8d7d0d9729ed4381196b16
