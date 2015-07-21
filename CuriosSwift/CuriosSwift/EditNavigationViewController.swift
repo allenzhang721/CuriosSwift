@@ -15,6 +15,9 @@ protocol EditNavigationViewControllerDelegate: NSObjectProtocol {
 
 class EditNavigationViewController: UINavigationController {
   
+  typealias EditNavigationViewControllerDidSelectedBlock = (UIView, AnyObject) -> ()
+  
+  var didSelectedBlock: EditNavigationViewControllerDidSelectedBlock?
   weak var editDelegate: EditNavigationViewControllerDelegate?
 
     override func viewDidLoad() {

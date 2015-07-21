@@ -212,7 +212,7 @@ extension ThemeViewController {
   
   func createANewBookWithPageModel(pageModel: PageModel) {
     
-    PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: "") {[unowned self] (json) -> Void in
+    PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
       if let newID = json["newID"] as? String {
         

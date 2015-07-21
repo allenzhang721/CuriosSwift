@@ -70,16 +70,19 @@ class EditTemplateViewController: UIViewController {
   
   
   func begainResponseToLongPress(onScreenPoint: CGPoint) {
-    
-    if let indexPath = collectionView.indexPathForItemAtPoint(onScreenPoint) {
-      
+    let offset = collectionView.contentOffset
+    let point = CGPoint(x: offset.x + onScreenPoint.x, y: offset.y + onScreenPoint.y)
+    if let indexPath = collectionView.indexPathForItemAtPoint(point) {
+      let cell = collectionView.cellForItemAtIndexPath(indexPath)
+      println(cell)
+      let snapshot = cell!.snapshotViewAfterScreenUpdates(true)
       let template = templateList[indexPath.item].templateURL
       let URL = NSURL(string: template)!
       EMJsonManager.sharedManager.retrieveJsonWithURL(URL, progressBlock: nil, completionHandler: {[unowned self] (Json, error, cacheType, jsonURL) -> () in
         
         if let Json: AnyObject = Json {
           if let navigationVC = self.navigationController as? EditNavigationViewController {
-            
+            navigationVC.didSelectedBlock?(snapshot, Json)
             navigationVC.editDelegate?.navigationViewController(navigationVC, didGetTemplateJson: Json)
           }
         }

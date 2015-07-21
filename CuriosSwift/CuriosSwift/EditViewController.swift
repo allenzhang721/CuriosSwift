@@ -43,9 +43,9 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   // UI
   var bottomToolBar: ToolsBar!  //deprecated
   var pannel: ToolsPannel!      //deprecated
-  var fakePageView: FakePageView? //deprecated
   var templateViewController: EditorTemplateNavigationController! //deprecated
   
+    var fakePageView: FakePageView?
   var editToolBar: EditToolBar!
   var editToolPannel: EditToolPannel!
   var editNavigationViewController: EditNavigationViewController!
@@ -115,16 +115,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     setupSubView()
   }
   
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    
-    if templateViewController == nil {
-      
-      //            setupTemplateController()
-      
-    }
-  }
-  
   override func prefersStatusBarHidden() -> Bool {
     return true
   }
@@ -177,8 +167,6 @@ extension EditViewController {
 
 // MARK: - IBActions
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  
-  
   
   @IBAction func PanAction(sender: UIPanGestureRecognizer) {
     
@@ -236,6 +224,15 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           
           let location = sender.locationInView(editNavigationViewController.view)
           editNavigationViewController.begainResponseToLongPress(location)
+          editNavigationViewController.didSelectedBlock = {[unowned self](snapshot, json) -> () in
+            
+            let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+            
+            self.fakePageView = FakePageView.fakePageViewWith(snapshot, array: [page])
+            self.fakePageView?.fromTemplate = false
+            self.fakePageView?.center = location
+            self.view.addSubview(self.fakePageView!)
+          }
         }
         
       case .Changed:
@@ -424,178 +421,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 //      return
 //    }
   }
-  
-  
-  
-  
-  
-  func defaultTextSize() -> CGSize {
-    
-    let textTextContent = NSString(string: "双击\n修改")
-    let font = UIFont.systemFontOfSize(40)
-    let size = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
-    
-    let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-    textStyle.alignment = NSTextAlignment.Center
-    
-    let textFontAttributes = [
-      NSFontAttributeName: font,
-      NSForegroundColorAttributeName: UIColor.whiteColor(),
-      NSParagraphStyleAttributeName: textStyle
-    ]
-    
-    let rect = textTextContent.boundingRectWithSize(
-      size,
-      options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-      attributes: textFontAttributes,
-      context: nil
-    )
-    
-    return rect.size
-  }
-  
-  
-  @IBAction func previewAction(sender: UIBarButtonItem) {
-    
-    return
-    prepareForPreivew {[unowned self] (finished) -> () in
-      
-      if finished {
-        println(self.bookModel.Id)
-        
-        self.uploadComplete()
-      }
-    }
-    
-    
-    
-    let userID = UsersManager.shareInstance.getUserID()
-    let bookID = bookModel.Id
-    //        let mainjsonPath = temporaryDirectory(userID,bookID,"main.json").path!
-    //        let key = userID.stringByAppendingPathComponent(bookID).stringByAppendingPathComponent("main.json")
-    //        FileUplodRequest.uploadFileWithKeyFile([key: mainjsonPath])
-    //
-    //       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
-    //        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
-    //            prev.bookId = bookID
-    //            prev.delegate = self
-    //            presentViewController(preeviewNavigationC, animated: true, completion: nil)
-    //        }
-    
-    
-    // cache preview dir
-    let previewName = "CuriosPreview"
-    
-    // bundle preview
-    let bundlePreviewURL = bundle(previewName)
-    // cache preview
-    let cachePreviewURL = temporaryDirectory(previewName)
-    
-    // /res
-    let cachePreviewResURL = temporaryDirectory(previewName, "res")
-    
-    // curiosRes.js
-    let curiosResURL = temporaryDirectory(previewName, "js", "curiosRes.js")
-    
-    // copy cachePreviewURL
-    let fileManager = NSFileManager.defaultManager()
-    fileManager.removeItemAtURL(cachePreviewURL, error: nil)
-    if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
-      
-      assert(false, "preview fail: can not copy bundle preview file to cache")
-      
-    } else {
-      
-      // write mainjson and pagejson to curiosRes.js
-      let bookmodel = bookModel
-      let pagesmodel = bookModel.pageModels
-      bookmodel.previewPageID = pagesmodel[0].Id
-      
-      let bookmodeljsonDic = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-      let bookmodeljsonData = NSJSONSerialization.dataWithJSONObject(bookmodeljsonDic, options: NSJSONWritingOptions(0), error: nil)
-      let pagesjsonDic = MTLJSONAdapter.JSONArrayFromModels(pagesmodel, error: nil)
-      let pagesjsonData = NSJSONSerialization.dataWithJSONObject(pagesjsonDic, options: NSJSONWritingOptions(0), error: nil)
-      let bookmodeljsonString = NSString(data: bookmodeljsonData!, encoding: NSUTF8StringEncoding) as! String
-      let pagesjsonString = NSString(data: pagesjsonData!, encoding: NSUTF8StringEncoding) as! String
-      let curiosResString = "curiosMainJson=" + bookmodeljsonString + ";" + "curiosPagesJson = " + pagesjsonString
-      
-      if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
-        
-      } else {
-        
-        println("curiosRes.js write successful")
-        
-        let fileKeys  = getFileKeys(previewName, rootURL: cachePreviewURL, userID: userID, publishID: bookID)
-        
-        FileUplodRequest.uploadFileWithKeyFile(fileKeys)
-        
-        publish()
-        
-        println(fileKeys)
-      }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ////        if let preeviewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
-    
-    
-    // create cache preview book
-    
-    //            if !fileManager.copyItemAtURL(bundlePreviewURL, toURL: cachePreviewURL, error: nil) {
-    //
-    //                assert(false, "preview fail: can not copy bundle preview file to cache")
-    //
-    //            } else {
-    //
-    //                // copy editing book to res dir
-    //                fileManager.removeItemAtURL(cachePreviewResURL, error: nil)
-    //                if !fileManager.copyItemAtURL(editingBookURL, toURL: cachePreviewResURL, error: nil) {
-    //                    assert(false, "preview fail: can not copy edit book file to res dir")
-    //                } else {
-    
-    //
-    //                    if !curiosResString.writeToURL(curiosResURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil) {
-    //                        assert(false, "preview fail: fail to write curiosRes.js")
-    //                    } else {
-    //
-    //                        let string = NSString(contentsOfURL: curiosResURL, encoding: NSUTF8StringEncoding, error: nil)
-    //
-    //                       if let preeviewNavigationC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController,
-    //                        let prev = preeviewNavigationC.topViewController as? PreviewViewController {
-    //                            prev.bookId = bookid
-    //                            prev.delegate = self
-    //                            presentViewController(preeviewNavigationC, animated: true, completion: nil)
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-  }
-  
-  func publish() {
-    
-    let userID = UsersManager.shareInstance.getUserID()
-    let publishID = bookModel.Id
-    let publishURL = userID.stringByAppendingPathComponent(publishID).stringByAppendingPathComponent("index.html")
-    let snapshot = [["pageNumber":"1","snapshotURL":"73ed8dc9b0794a079d430c8f7fce9d79/91abba1e30f848c7a4fde6c96bd95a0c/snapshot/1.png"]]
-    
-    let requset = PublishRequest.requestWith(userID, publishID: publishID, publishURL: publishURL, publisherIconURL: "", publishTitle: "Emiaostein", publishDesc: "hhaah", publishSnapshots: snapshot) { (result) -> Void in
-      
-      println("publish reslut = \(result)")
-    }
-    
-    requset.sendRequest()
-  }
-  
-  
+
   func getFileKeys(rootDirectoryName: String, rootURL: NSURL, userID: String, publishID: String) -> [String : String] {
     
     
@@ -635,10 +461,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
   
   @IBAction func saveAction(sender: UIBarButtonItem) {
     
-    //        let userid = UsersManager.shareInstance.getUserID()
-    //        saveBook()
-    //        deleteTemporaryBookWithUserId(userid)
-    
     prepareUploadBookModelToServer {[unowned self] (finished) -> () in
       
       if finished {
@@ -659,98 +481,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         presentViewController(bookdetailNavigationController, animated: true, completion: nil)
     }
   }
-  
-  func effectsAction(sender: UIButton) {
-    
-    toolState = .didSelect
-    pannel.setupSubPannelWithType(.Effect)
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  
-  func fontNameAction(sender: UIButton) {
-    toolState = .didSelect
-    pannel.setupSubPannelWithType(.Font)
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  
-  func fontAction(sender: UIButton) {
-    
-    toolState = .didSelect
-    pannel.setupSubPannelWithType(.FontAttribute)
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  
-  func typographyAction(sender: UIButton) {
-    
-    toolState = .didSelect
-    pannel.setupSubPannelWithType(.Typography)
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  func animationAction(sender: UIButton) {
-    
-    toolState = .didSelect
-    pannel.setupSubPannelWithType(.Animation)
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
-  func interactActtion(sender: UIButton) {
-    
-    toolState = .didSelect
-    view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3, animations: { () -> Void in
-      self.view.layoutIfNeeded()
-    })
-  }
 }
-
-
-// MARK: - Init
-extension EditViewController {
-  
-  func setupThemeNavigationController() {
-    
-    
-    
-  }
-  
-}
-
-
-
-
-
-// MARK: - ToolBar Action
-extension EditViewController {
-  
-  @IBAction func addImageAction(sender: UIBarButtonItem) {
-    showsheet()
-  }
-  
-  @IBAction func addTextAction(sender: UIBarButtonItem) {
-    
-    addText("")
-    
-  }
-  
-}
-
-
-
-
 
 
 
@@ -1429,12 +1160,12 @@ extension EditViewController {
   func navigationViewController(navigationController: EditNavigationViewController, didGetTemplateJson json: AnyObject) {
     
     
-    let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-    bookModel.pageModels.insert(page, atIndex: 0)
-    self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])
-    self.collectionView.collectionViewLayout.layoutAttributesForElementsInRect(self.collectionView.bounds)
+//    let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
+//    bookModel.pageModels.insert(page, atIndex: 0)
+//    self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])
+//    self.collectionView.collectionViewLayout.layoutAttributesForElementsInRect(self.collectionView.bounds)
     
-    println(page)
+//    println(page)
   }
 }
 
@@ -1887,8 +1618,6 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     
 //    bookModel.savePagesInfo()
   }
-  
-  // MARK: - imagePicker Delegate
   
   
   // MARK: - PreviewController delegate
