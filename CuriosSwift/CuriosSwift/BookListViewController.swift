@@ -22,28 +22,48 @@ class BookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-      let userID = UsersManager.shareInstance.getUserID()
-      
-      UserListManager.shareInstance.getList(userID, start:0, size: 20) { [unowned self](books) -> () in
-        
-        self.appBooks(books)
-        self.tableView.reloadData()
-      }
+      addRefreshControl()
     }
+  
+  override func viewWillAppear(animated: Bool) {
+     tableView.header.beginRefreshing()
+  }
+  
+  func addRefreshControl() {
+    
+    tableView.header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "refreshBooklist")
+    tableView.footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "appendBooklist")
+  }
+  
+  func refreshBooklist() {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let count = bookList.count <= 0 ? 20 : bookList.count
+    println(count)
+    UserListManager.shareInstance.getList(userID, start:0, size: count) { [unowned self](books) -> () in
+      self.cleanBooks()
+      self.appBooks(books)
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.tableView.reloadData()
+        self.tableView.header.endRefreshing()
+      })
+    }
+  }
+  
+  func appendBooklist() {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let count = bookList.count
+    println(count)
+    UserListManager.shareInstance.getList(userID, start:count, size: 20) { [unowned self](books) -> () in
+      self.appBooks(books)
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.tableView.reloadData()
+        self.tableView.footer.endRefreshing()
+      })
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -84,6 +104,8 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+      
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
       
       // open a book
       let bookitem = bookList[indexPath.row]
@@ -143,10 +165,19 @@ extension BookListViewController {
 // MARK: - Private Method
 // MARK: -
 extension BookListViewController {
+  
+  func cleanBooks() {
+    
+    if bookList.count <= 0 {
+      return
+    }
+    
+    bookList.removeAll(keepCapacity: false)
+  }
 
   
   func appBooks(books: [BookListModel]) {
-    
+    println(books)
     if books.count <= 0 {
       return
     }
