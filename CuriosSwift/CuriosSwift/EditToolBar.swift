@@ -38,8 +38,8 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   
     let trail: CGFloat = 10.0
     let leading: CGFloat = 10.0
-    let inset = UIEdgeInsets(top: bounds.height * 0.25, left: leading, bottom:  bounds.height * 0.25, right: trail)
-    let itemSideLength = bounds.height * 0.5
+    let inset = UIEdgeInsets(top: bounds.height * 0, left: leading, bottom:  bounds.height * 0, right: trail)
+    let itemSideLength = bounds.height * 1
     let width = bounds.width
     
     let number = barItems.count
@@ -138,12 +138,22 @@ extension EditToolBar {
       if containerModel != nil && actived == true {
         if containerModel != aContainerModel {
           println("actived change to other container")
+          
+          let same = containerModel?.component.type == aContainerModel?.component.type
+
           containerModel = aContainerModel
           changedToModel(aContainerModel!)
           
-          if !(currentKey == "level" || currentKey == "animation") {
+          if !same && !(currentKey == "level" || currentKey == "animation") {
             currentKey = barItems[0]
+            
           }
+          
+          let keys = barItems as NSArray
+          let index = keys.indexOfObject(currentKey)
+          
+          collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+          
           performSelectorWithKey(currentKey)
           
           delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
@@ -320,25 +330,30 @@ extension EditToolBar {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EditToolBarCell", forIndexPath: indexPath) as! UICollectionViewCell
     
+    
     if cell.backgroundView == nil {
-      let imageView = UIImageView(frame: cell.bounds)
+      let aView = UIView()
+      let imageView = UIImageView(frame: CGRectInset(cell.bounds, cell.bounds.height * 0.25, cell.bounds.height * 0.25))
       imageView.contentMode = .ScaleAspectFit
-       cell.backgroundView = imageView
+      aView.addSubview(imageView)
+       cell.backgroundView = aView
     }
     
-    if !(cell.selectedBackgroundView is UIImageView) {
-      let imageView = UIImageView(frame: cell.bounds)
+    if cell.selectedBackgroundView == nil {
+      let aView = UIView()
+      let imageView = UIImageView(frame: CGRectInset(cell.bounds, cell.bounds.height * 0.25, cell.bounds.height * 0.25))
       imageView.contentMode = .ScaleAspectFit
-      cell.selectedBackgroundView = imageView
+      cell.selectedBackgroundView = aView
+      cell.selectedBackgroundView.addSubview(imageView)
     }
     
-    if let imageView = cell.backgroundView as? UIImageView {
+    if let imageView = cell.backgroundView?.subviews[0] as? UIImageView {
       let key = barItems[indexPath.item]
       let image = UIImage(named: "Editor_\(key)_Normal")
       imageView.image = image
     }
     
-    if let selectedImageView = cell.selectedBackgroundView as? UIImageView {
+    if let selectedImageView = cell.selectedBackgroundView.subviews[0] as? UIImageView {
       let key = barItems[indexPath.item]
       let image = UIImage(named: "Editor_\(key)_Selected")
       selectedImageView.image = image

@@ -134,7 +134,9 @@ extension EditToolTextFontPannel {
       aLabel.font = UIFont(name: textFont, size: 40)
     }
     
-    cell.layer.cornerRadius = 2
+    cell.layer.cornerRadius = 8
+    cell.layer.borderWidth = 0.5
+    cell.layer.borderColor = UIColor.lightGrayColor().CGColor
     cell.backgroundColor = UIColor.whiteColor()
     
     return cell

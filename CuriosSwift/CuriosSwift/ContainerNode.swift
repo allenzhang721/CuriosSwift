@@ -120,6 +120,15 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
 //    println("Node begain binding: \(randID)")
     
+    containerModel.levelChangedListener.bind("ContainerNode_\(randID)") {[weak self] forward -> Void in
+      
+      if forward {
+        self?.sendForwoard()
+      } else {
+        self?.sendBack()
+      }
+    }
+    
     containerModel.animationNameListener.bind("ContainerNode_\(randID)") {[weak self] animationName -> Void in
       
         self?.setAnimationWithName(animationName)
@@ -167,6 +176,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
 //    println("Node End binding: \(randID)")
 //    println("ContainerNode_\(randID) unbindingContainerModel")
+    containerModel.levelChangedListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.animationNameListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.needUpdateSizeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.updateSizeListener.removeActionWithID("ContainerNode_\(randID)")
@@ -427,11 +437,6 @@ extension ContainerNode {
             if currentIndex == layoutCount - 1 {
                 return false
             } else {
-                if let aPage = page {
-                    
-                    
-                    aPage.exchangeContainerFromIndex(currentIndex, toIndex: currentIndex + 1)
-                }
                 supernode.insertSubnode(self, atIndex: currentIndex + 1)
                 return true
             }
@@ -440,9 +445,6 @@ extension ContainerNode {
             if currentIndex == 0 {
                 return false
             } else {
-                if let aPage = page {
-                    aPage.exchangeContainerFromIndex(currentIndex, toIndex: currentIndex - 1)
-                }
                 supernode.insertSubnode(self, atIndex: currentIndex - 1)
                 return true
             }

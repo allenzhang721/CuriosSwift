@@ -16,7 +16,7 @@ protocol PageModelDelegate: NSObjectProtocol {
   func targetpageModel(model: PageModel, DidRemoveContainer container: ContainerModel)
 }
 
-class PageModel: Model, IFile {
+class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   
   weak var delegate: IFile?
   var Id = UniqueIDStringWithCount(count: 10)
@@ -44,6 +44,7 @@ class PageModel: Model, IFile {
     
     for container in containers {
       container.component.delegate = self
+      container.editDelegate = self
     }
   }
   
@@ -51,6 +52,43 @@ class PageModel: Model, IFile {
     super.init()
   }
 }
+
+
+
+//MARK: - ContainerSuperEditDelegate
+extension PageModel {
+  
+  func containerModel(model: ContainerModel, levelDidChanged sendForward: Bool) -> Bool {
+    
+    if containers.count <= 0 {
+      return false
+    }
+    
+    let count = containers.count
+    let aContainers = containers as NSArray
+    let index = aContainers.indexOfObject(model)
+    
+    if sendForward {
+      if index == count - 1 {
+        return false
+      }
+      
+      exchange(&containers, index, index + 1)
+      return true
+      
+    } else {
+      if index == 0 {
+        return false
+      }
+      exchange(&containers, index, index - 1)
+      return true
+    }
+  }
+  
+}
+
+
+
 
 extension PageModel {
   
@@ -86,6 +124,7 @@ extension PageModel {
       }
       
       aContainer.component.delegate = self
+      aContainer.editDelegate = self
       containers.append(aContainer)
       modelDelegate?.targetPageModel(self, DidAddContainer: aContainer)
   }
@@ -135,10 +174,13 @@ extension PageModel {
   
   
   
+  
+  
   func addContainer(aContainer: ContainerModel) {
     
     containers.append(aContainer)
     aContainer.component.delegate = self
+    aContainer.editDelegate = self
     modelDelegate?.targetPageModel(self, DidAddContainer: aContainer)
   }
   

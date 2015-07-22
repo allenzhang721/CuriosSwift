@@ -11,7 +11,6 @@ import Foundation
 class EditToolLevelPannel: EditToolSettingPannel, UICollectionViewDelegate, UICollectionViewDataSource {
   
   var collectionView: UICollectionView!
-  var textComponent: TextContentModel!
   let levelKey = ["sendForward", "sendBackward", "lock"]
   var currentLock = false
   var defaultLayout: UICollectionViewFlowLayout {
@@ -83,12 +82,6 @@ extension EditToolLevelPannel {
   
   override func begain() {
     
-//    let level = levelKey as NSArray
-//    let index = alignments.indexOfObject(currentAlignment)
-//    collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-//    
-//    println("index = \(index)")
-    
     if currentLock {
       collectionView.selectItemAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
     }
@@ -122,17 +115,15 @@ extension EditToolLevelPannel {
     let key = levelKey[indexPath.item]
     
     if cell.backgroundView == nil {
-      let aKey = (key == "lock") ? "unlock" : key
-      let image = UIImage(named: "Typography_\(aKey)")
+//      let aKey = (key == "lock") ? "unlock" : key
+      let image = UIImage(named: "Level_\(key)_normal")
       let imageView = UIImageView(image: image)
       cell.backgroundView = imageView
     }
     
-    if key == "lock" {
-      if !(cell.selectedBackgroundView is UIImageView) {
-        let image = UIImage(named: "Typography_\(key)")
-        cell.selectedBackgroundView = UIImageView(image: image)
-      }
+    if !(cell.selectedBackgroundView is UIImageView) {
+      let image = UIImage(named: "Level_\(key)_selected")
+      cell.selectedBackgroundView = UIImageView(image: image)
     }
     
     cell.layer.cornerRadius = 2
@@ -149,20 +140,14 @@ extension EditToolLevelPannel {
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
       }
       currentLock = !currentLock
-      containerModel.locked = currentLock
+      containerModel.setLockChanged(currentLock)
+    } else if key == "sendForward" {
+      collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+      containerModel.setLevelChanged(true)
+      
+    } else if key == "sendBackward" {
+      collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+      containerModel.setLevelChanged(false)
     }
-//    let alignment = levelKey[indexPath.item]
-//    currentAlignment = alignment
-//    textComponent.setTextAlignment(alignment)
   }
-  
-//  func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-//    
-//    let key = levelKey[indexPath.item]
-//    if key == "level" {
-//      return true
-//    } else {
-//      return false
-//    }
-//  }
 }

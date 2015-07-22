@@ -275,8 +275,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           fakePageView?.clearnPageArray()
           fakePageView = nil
         }
-        
-        
       }
         
         

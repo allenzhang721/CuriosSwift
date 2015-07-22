@@ -79,6 +79,20 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     override func drawRect(rect: CGRect) {
       super.drawRect(rect)
       CuriosKit.drawControlPannel(frame: rect)
+      
+      if containerMomdel.locked {
+        resizePannel.hidden = true
+        rotationPannel.hidden = true
+        deletePannel.hidden = true
+        settingPannel.hidden = true
+      } else {
+        
+        resizePannel.hidden = false
+        rotationPannel.hidden = false
+        deletePannel.hidden = false
+        settingPannel.hidden = false
+      }
+      
       resizePannel.center = CGPointMake(bounds.width, bounds.height)
       rotationPannel.center = CGPointMake(bounds.width, 0)
       deletePannel.center = CGPointMake(0, bounds.height)
@@ -96,6 +110,13 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
 extension MaskView {
   
   override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    if containerMomdel.locked {
+      
+      let gestures = gestureRecognizers as! [UIGestureRecognizer] as NSArray
+      
+      return !gestures.containsObject(gestureRecognizer)
+    }
     
     if gestureRecognizer == tap {
       
@@ -139,6 +160,11 @@ extension MaskView {
     }
     
     binding = true
+    
+    containerMomdel.lockChangedListener.bind ("Mask_View"){[unowned self] locked -> Void in
+      
+      self.setNeedsDisplay()
+    }
     
     
     CUAnimationFactory.shareInstance.animationStateListener.bind ("Mask_View"){[unowned self] finished -> Void in
@@ -186,6 +212,7 @@ extension MaskView {
     binding = false
     
 //    println("Mask End binding")
+    containerMomdel.lockChangedListener.removeActionWithID("Mask_View")
     CUAnimationFactory.shareInstance.animationStateListener.removeActionWithID("Mask_View")
     containerMomdel.updateSizeListener.removeActionWithID("Mask_View")
     containerMomdel.centerChangeListener.removeActionWithID("Mask_View")
@@ -241,8 +268,6 @@ extension MaskView {
   override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
     
     let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
-    
-    
     let resizePannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
     let rotationPannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
     let deletePannel = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))

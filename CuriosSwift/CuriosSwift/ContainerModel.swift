@@ -14,6 +14,12 @@ protocol ContainerModelDelegate: NSObjectProtocol {
   func containerModel(model: ContainerModel, selectedDidChanged selected: Bool)
 }
 
+protocol ContainerModelSuperEditDelegate: NSObjectProtocol {
+  
+  func containerModel(model: ContainerModel, levelDidChanged sendForward: Bool) -> Bool
+  
+}
+
 class ContainerModel: Model {
   
   var Id = ""
@@ -31,6 +37,7 @@ class ContainerModel: Model {
   var component: ComponentModel! = NoneContentModel()
   var selected: Bool = false
   weak var delegate: ContainerModelDelegate?
+  weak var editDelegate: ContainerModelSuperEditDelegate?
   
   var aspectio: CGFloat = 1.0
   
@@ -43,6 +50,28 @@ class ContainerModel: Model {
   var needUpdateSizeListener = Dynamic(false)
   var selectedListener = Dynamic(false)
   var animationNameListener = Dynamic("None")
+  var levelChangedListener = Dynamic(true)
+  var lockChangedListener = Dynamic(false)
+  
+  func setLockChanged(lock: Bool) {
+    
+    if locked != lock {
+      locked = lock
+      lockChangedListener.value = lock
+    }
+  }
+  
+  func setLevelChanged(sendForward: Bool) {
+    
+    if let aDelegate = editDelegate {
+      if aDelegate.containerModel(self, levelDidChanged: sendForward) {
+        levelChangedListener.value = sendForward
+      }
+    } else {
+      println("ContainerModel not set Editting Delegate")
+    }
+    
+  }
   
   func setSelectedState(select: Bool) {
     

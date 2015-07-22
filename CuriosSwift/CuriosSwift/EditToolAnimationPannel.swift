@@ -11,7 +11,6 @@ import Foundation
 class EditToolAnimationPannel: EditToolSettingPannel, UICollectionViewDelegate, UICollectionViewDataSource {
   
   var collectionView: UICollectionView!
-  var textComponent: TextContentModel!
   var currentAnimation: String!
   var defaultLayout: UICollectionViewFlowLayout {
     

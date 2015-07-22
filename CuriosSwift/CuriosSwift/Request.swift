@@ -18,7 +18,8 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
 
 
 class BaseRequst {
-    
+  
+  let officeDomain = "http://src.curiosapp.com"
     let publicDomain = "http://182.92.150.178/curiosService"
     let testDomain = "http://192.168.1.100:8080/curiosService"
     var baseURL: String {
