@@ -10,62 +10,54 @@ import Foundation
 import Mantle
 
 class BookModel: Model, IFile {
+  
+  @objc enum FlipDirections: Int {
+    case ver, hor
+  }
+  
+  @objc  enum FlipTypes: Int {
+    case translate3d
+  }
+  
+  var Id                              = ""
+  var flipType: FlipTypes             = .translate3d
+  var flipLoop                        = "true"
+  var publishDate: NSDate!            = NSDate(timeIntervalSinceNow: 0)
+  var authorID                        = ""
+  var height                          = 1008
+  var width                           = 640
+  var flipDirection: FlipDirections   = .ver
+  var desc                            = ""
+  var title                           = "New Book"
+  var mainMusic                       = ""
+  var mainbackgroundColor             = "255,255,255"
+  var mainbackgroundAlpha: CGFloat    = 1.0
+  var icon                            = "/publishIcon.png"
+  var pageModels: [PageModel]         = []
+  
+  var pagesInfo: [[String : String]] = [[:]]
+  
+  
+  override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
     
-    @objc enum FlipDirections: Int {
-        case ver, hor
-    }
-    
-    @objc  enum FlipTypes: Int {
-        case translate3d, bb
-    }
-    var filePath: String = ""
-    var Id = UniqueIDStringWithCount(count: 10)
-    var width = 640
-    var height = 1008
-    var title = "New Book"
-    var desc = ""
-    var icon = "images/icon.jpg"
-    var background = "images/background.jpg"
-    var flipDirection: FlipDirections = .ver
-    var flipType: FlipTypes = .bb
-    var backgroundMusic = ""
-    var pagesPath = "/Pages"
-    var autherID = ""
-    var previewPageID = ""
-    var publishDate: NSDate! = NSDate(timeIntervalSinceNow: 0)
-    var pagesInfo: [[String : String]] = [[:]]
-    var pageModels: [PageModel] = []
-    
-    override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
-        
-        return [
-            "Id" : "ID",
-            "width" : "MainWidth",
-            "height" : "MainHeight",
-            "title" : "MainTitle",
-            "desc" : "MainDesc",
-//            "background" : "MainBackground",
-//            "icon": "Icon",
-          "pageModels" : "Pages",
-            "flipDirection" : "FlipDirection",
-            "flipType" : "FlipType",
-            "backgroundMusic" : "MainMusic",
-            "pagesPath" : "PagesPath",
-            "autherID" : "AutherID",
-            "publishDate" : "PublishDate",
-//            "pagesInfo" : "Pages",
-            "previewPageID" : "PreviewPageID"
-        ]
-    }
-    
-    /*
-        
-    {
-    "PageID": "ASDFG",
-    "Path": "/ASDFG",
-    "Index": "/ASDFG.json"
-    }
-    */
+    return [
+      "Id"            : "ID",
+      "flipType"      : "FlipType",
+      "flipLoop"      : "FlipLoop",
+      "publishDate"   : "PublishDate",
+      "authorID"      : "AuthorID",
+      "height"        : "MainHeight",
+      "width"         : "MainWidth",
+      "flipDirection" : "FlipDirection",
+      "desc"          : "MainDesc",
+      "title"         : "MainTitle",
+      "mainMusic"     : "MainMusic",
+      "mainbackgroundColor" : "MainBackgroundColor",
+      "mainbackgroundAlpha" : "MainBackgroundAlpha",
+      "icon"                : "FileIcon",
+      "pageModels"          : "Pages"
+    ]
+  }
   
   required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
     super.init(dictionary: dictionaryValue, error: error)
@@ -78,107 +70,106 @@ class BookModel: Model, IFile {
   override init!() {
     super.init()
   }
-    
-    func saveBookInfo() {
-        
-        let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
-        let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
-        let main = filePath.stringByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
-        data?.writeToFile(main, atomically: true)
-    }
-    
-    func savePagesInfo() {
-        
-        var newPagesInfo = [[String : String]]()
-        for aPageModel in pageModels {
-            
-            let pageId = aPageModel.Id
-            let pageIDKey = "PageID"
-            let pagePathKey = "Path"
-            let PageIndexKey = "Index"
-            let pageIDValue = pageId
-            let pagePathValue = "/" + pageId
-            let PageIndexValue = "/" + pageId + ".json"
-            
-            let aPageInfo = [pageIDKey : pageIDValue, pagePathKey : pagePathValue, PageIndexKey : PageIndexValue]
-            newPagesInfo.append(aPageInfo)
-        }
-        
-        pagesInfo = newPagesInfo
-        
-        let bookpath = filePath
-        let bookJsonPath = bookpath.stringByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
-        let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
-        let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
-        data?.writeToFile(bookJsonPath, atomically: true)
-    }
-    
-    func paraserPageInfo() {
-      
-      for page in pageModels {
-        
-        page.delegate = self
-      }
-    }
   
-    func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
-        
-        var i = index
-        for pageModel in aPageModels {
-            pageModels.insert(pageModel, atIndex: i)
-            pageModel.delegate = self
-            i++
-        }
+//  func saveBookInfo() {
+//    
+//    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
+//    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+//    let main = filePath.stringByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
+//    data?.writeToFile(main, atomically: true)
+//  }
+  
+//  func savePagesInfo() {
+//    
+//    var newPagesInfo = [[String : String]]()
+//    for aPageModel in pageModels {
+//      
+//      let pageId = aPageModel.Id
+//      let pageIDKey = "PageID"
+//      let pagePathKey = "Path"
+//      let PageIndexKey = "Index"
+//      let pageIDValue = pageId
+//      let pagePathValue = "/" + pageId
+//      let PageIndexValue = "/" + pageId + ".json"
+//      
+//      let aPageInfo = [pageIDKey : pageIDValue, pagePathKey : pagePathValue, PageIndexKey : PageIndexValue]
+//      newPagesInfo.append(aPageInfo)
+//    }
+//    
+//    pagesInfo = newPagesInfo
+//    
+//    let bookpath = filePath
+//    let bookJsonPath = bookpath.stringByAppendingPathComponent(Constants.defaultWords.bookJsonName + "." + Constants.defaultWords.bookJsonType)
+//    let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(self, error: nil)
+//    let data = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+//    data?.writeToFile(bookJsonPath, atomically: true)
+//  }
+  
+//  func paraserPageInfo() {
+//    
+//    for page in pageModels {
+//      
+//      page.delegate = self
+//    }
+//  }
+  
+  func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
+    
+    var i = index
+    for pageModel in aPageModels {
+      pageModels.insert(pageModel, atIndex: i)
+      pageModel.delegate = self
+      i++
+    }
+  }
+  
+  func appendPageModel(aPageModel: PageModel) {
+    aPageModel.delegate = self
+    //        pageModels.append(aPageModel)
+    
+  }
+  
+  func removePageModelAtIndex(index: Int) {
+    let aPageModel = pageModels[index]
+    aPageModel.delegate = nil
+    pageModels.removeAtIndex(index)
+  }
+  
+  // flipDirection
+  class func flipDirectionJSONTransformer() -> NSValueTransformer {
+    
+    return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+      "ver":FlipDirections.ver.rawValue,
+      "hor":FlipDirections.hor.rawValue
+      ])
+  }
+  
+  // fliptypes
+  class func flipTypeJSONTransformer() -> NSValueTransformer {
+    
+    return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
+      "translate3d":FlipTypes.translate3d.rawValue
+      ])
+  }
+  
+  // publishDate
+  class func publishDateJSONTransformer() -> NSValueTransformer {
+    
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    let forwardBlock: MTLValueTransformerBlock! = {
+      (dateStr: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+      return dateFormatter.dateFromString(dateStr as! String)
     }
     
-    func appendPageModel(aPageModel: PageModel) {
-        aPageModel.delegate = self
-//        pageModels.append(aPageModel)
-      
+    let reverseBlock: MTLValueTransformerBlock! = {
+      (date: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+      return dateFormatter.stringFromDate(date as! NSDate)
     }
     
-    func removePageModelAtIndex(index: Int) {
-        let aPageModel = pageModels[index]
-        aPageModel.delegate = nil
-        pageModels.removeAtIndex(index)
-    }
-    
-    // flipDirection
-    class func flipDirectionJSONTransformer() -> NSValueTransformer {
-        
-        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
-            "ver":FlipDirections.ver.rawValue,
-            "hor":FlipDirections.hor.rawValue
-            ])
-    }
-    
-    // fliptypes
-    class func flipTypeJSONTransformer() -> NSValueTransformer {
-        
-        return NSValueTransformer.mtl_valueMappingTransformerWithDictionary([
-            "translate3d":FlipTypes.translate3d.rawValue,
-            "bb":FlipTypes.bb.rawValue
-            ])
-    }
-    
-    // publishDate
-    class func publishDateJSONTransformer() -> NSValueTransformer {
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let forwardBlock: MTLValueTransformerBlock! = {
-            (dateStr: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-            return dateFormatter.dateFromString(dateStr as! String)
-        }
-        
-        let reverseBlock: MTLValueTransformerBlock! = {
-            (date: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-            return dateFormatter.stringFromDate(date as! NSDate)
-        }
-        
-        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
-    }
+    return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+  }
   
   // pages
   class func pageModelsJSONTransformer() -> NSValueTransformer {
@@ -202,8 +193,8 @@ class BookModel: Model, IFile {
 }
 
 extension BookModel {
-    
-    func fileGetSuperPath(file: IFile) -> String {
-        return Id
-    }
+  
+  func fileGetSuperPath(file: IFile) -> String {
+    return Id
+  }
 }

@@ -36,18 +36,18 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
         return image
     }
     
-    var background: UIImage? {
-        
-        let userID = UsersManager.shareInstance.getUserID()
-        let bookID = bookModel.Id
-        let background = bookModel.background
-        let url = temporaryDirectory(userID, bookID, background)
-        
-        println(url)
-        let image = UIImage(contentsOfFile: url.path!)
-        return image
-    }
-    
+//    var background: UIImage? {
+//        
+//        let userID = UsersManager.shareInstance.getUserID()
+//        let bookID = bookModel.Id
+//        let background = bookModel.background
+//        let url = temporaryDirectory(userID, bookID, background)
+//      
+//        println(url)
+//        let image = UIImage(contentsOfFile: url.path!)
+//        return image
+//    }
+  
     var bookTitle: String {
         
         let title = bookModel.title
@@ -94,7 +94,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         if section == 0 {
             return 3
         } else {
-            return 1
+            return 0
         }
     }
     
@@ -131,7 +131,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
             
             let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
             cell.titleLabel?.text = NSLocalizedString("BookDetailBackground", comment: "国际化的语言测试")
-            cell.iconImageView?.image = background
+//            cell.iconImageView?.image = background
             return cell
         }
     }
@@ -140,7 +140,9 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         
         let section = indexPath.section
         let row = indexPath.row
-        
+      
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      
         if section == 0 {
             
             if row == 2{
@@ -189,12 +191,12 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
         
         let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
         let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
-        
-        let userID = UsersManager.shareInstance.getUserID()
-        let coverURL = temporaryDirectory(userID, bookModel.Id, "images", "icon.jpg")
-        
-        imageData.writeToURL(coverURL, atomically: true)
-        
+//        
+//        let userID = UsersManager.shareInstance.getUserID()
+//        let coverURL = temporaryDirectory(userID, bookModel.Id, "images", "icon.jpg")
+//        
+//        imageData.writeToURL(coverURL, atomically: true)
+      
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }

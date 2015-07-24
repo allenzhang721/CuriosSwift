@@ -19,23 +19,24 @@ protocol PageModelDelegate: NSObjectProtocol {
 class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   
   weak var delegate: IFile?
-  var Id = UniqueIDStringWithCount(count: 10)
+  var Id = ""
   var width: CGFloat = 640.0
   var height: CGFloat = 1008.0
-  var PageBackgroundColor = ""
-  var PageBackgroundAlpha: CGFloat = 1.0
+  var pageBackgroundColor = "255,255,255"
+  var pageBackgroundAlpha: CGFloat = 1.0
   var containers: [ContainerModel] = []
+  
   weak var modelDelegate: PageModelDelegate?
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
     
     return [
-      "Id" : "ID",
-      "PageBackgroundColor" : "PageBackgroundColor",
-      "PageBackgroundAlpha" : "PageBackgroundAlpha",
-      "width" : "PageWidth",
-      "height" : "PageHeight",
-      "containers" : "Containers"
+      "Id"                  : "ID",
+      "width"               : "PageWidth",
+      "height"              : "PageHeight",
+      "pageBackgroundColor" : "PageBackgroundColor",
+      "pageBackgroundAlpha" : "PageBackgroundAlpha",
+      "containers"          : "Containers"
     ]
   }
   

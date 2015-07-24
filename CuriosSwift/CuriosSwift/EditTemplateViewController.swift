@@ -9,8 +9,10 @@
 import UIKit
 import Kingfisher
 
-class EditTemplateViewController: UIViewController {
+class EditTemplateViewController: UIViewController, UIGestureRecognizerDelegate {
   
+  @IBOutlet weak var toolBar: UIToolbar!
+  @IBOutlet weak var titleText: UIBarButtonItem!
   @IBOutlet weak var collectionView: UICollectionView!
   
   var defaultLayout: UICollectionViewFlowLayout! {
@@ -21,13 +23,16 @@ class EditTemplateViewController: UIViewController {
     let height = view.bounds.height
     let top = height * 0.1
     let bottom = height * 0.1
-    let itemHeight = height * 0.35
-    let itemWidth = width * 0.4
-    let left = width * 0.3
+    let itemHeight = height * 0.45
+    let itemWidth = width * 0.5
+    let left = width * 0.25
     let right = left
+    
+    let lineSpace: CGFloat = 20.0
     
     layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     layout.sectionInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    layout.minimumLineSpacing = lineSpace
     
     return layout
   }
@@ -38,19 +43,29 @@ class EditTemplateViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    titleText.title = title
+    
+    
+    
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "TemplateCell")
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
     view.bringSubviewToFront(collectionView)
-    
-    println(themeID)
-    TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 20) {[unowned self] (aTemplates) -> () in
+    view.bringSubviewToFront(toolBar)
+    TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 20) {[weak self] (aTemplates) -> () in
       
-      self.appendTemplates(aTemplates)
-      self.collectionView.reloadData()
+      self?.appendTemplates(aTemplates)
+      self?.collectionView.reloadData()
     }
     
   }
   
+  @IBAction func backAction(sender: UIBarButtonItem) {
+    
+    
+    
+    navigationController?.popToRootViewControllerAnimated(true)
+    
+  }
   func appendTemplates(aTemplates: [TemplateModel]) {
     
     if aTemplates.count <= 0 {
@@ -62,11 +77,6 @@ class EditTemplateViewController: UIViewController {
       templateList.append(template)
     }
   }
-
-  @IBAction func tapAction(sender: UITapGestureRecognizer) {
-    navigationController?.popToRootViewControllerAnimated(true)
-  }
-  
   
   
   func begainResponseToLongPress(onScreenPoint: CGPoint) {
@@ -76,6 +86,8 @@ class EditTemplateViewController: UIViewController {
       let cell = collectionView.cellForItemAtIndexPath(indexPath)
       println(cell)
       let snapshot = cell!.snapshotViewAfterScreenUpdates(true)
+      snapshot.transform = CGAffineTransformMakeScale(0.7, 0.7)
+      
       let template = templateList[indexPath.item].templateURL
       let URL = NSURL(string: template)!
       EMJsonManager.sharedManager.retrieveJsonWithURL(URL, progressBlock: nil, completionHandler: {[unowned self] (Json, error, cacheType, jsonURL) -> () in
@@ -133,7 +145,6 @@ extension EditTemplateViewController {
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
-    navigationController?.popToRootViewControllerAnimated(true)
-    
+//    navigationController?.popToRootViewControllerAnimated(true)
   }
 }

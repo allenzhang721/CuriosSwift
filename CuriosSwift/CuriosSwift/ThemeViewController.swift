@@ -10,9 +10,12 @@ import UIKit
 import Mantle
 import Alamofire
 
-class ThemeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ThemeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
 
   @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var backgroundImageView: UIImageView!
+  @IBOutlet weak var titleText: UIBarButtonItem!
+  
   
   var defaultLayout: UICollectionViewFlowLayout {
     
@@ -48,9 +51,16 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         self?.appThemes(themes)
         self?.collectionView.reloadData()
-//        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.None, animated: false)
+        self?.setupbackgroundImage()
       }
     }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
+  @IBAction func backAction(sender: UIBarButtonItem) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
 }
 
 // MARK: - DataSource and Delegate
@@ -68,7 +78,10 @@ extension ThemeViewController {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("themeCell", forIndexPath: indexPath) as! UICollectionViewCell
     
     if cell.backgroundView == nil {
-      cell.backgroundView = UIImageView(frame: cell.bounds)
+      let imageView = UIImageView(frame: cell.bounds)
+      imageView.contentMode = .ScaleAspectFill
+      imageView.clipsToBounds = true
+      cell.backgroundView = imageView
     }
     
     if let imageView = cell.backgroundView as? UIImageView {
@@ -81,8 +94,7 @@ extension ThemeViewController {
         imageView.image = image
       })
     }
-    
-    
+
     return cell
   }
   
@@ -110,6 +122,8 @@ extension ThemeViewController {
               
               let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
               
+              // change Page ID
+              pageModel.Id = UniqueIDStringWithCount(count: 8)
               self.createANewBookWithPageModel(pageModel)
             }
           }
@@ -122,8 +136,52 @@ extension ThemeViewController {
           }
       }
     }
-  } 
+  }
+  
+  
+  
+  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    
+    setupbackgroundImage()
+    
+  }
+  
+  func setupbackgroundImage() {
+    
+    if let indexPath = getCurrentIndexPath() {
+      
+      let theme = themeList[indexPath.item]
+      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
+      let string = urls[indexPath.item % 2]
+      let url = NSURL(string: string)!
+      
+      titleText.title = theme.themeName
+      
+      let snapshot = backgroundImageView.snapshotViewAfterScreenUpdates(false)
+      view.insertSubview(snapshot, belowSubview: backgroundImageView)
+      //      backgroundImageView.alpha = 0
+      
+      backgroundImageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
+        
+        self?.backgroundImageView.alpha = 0
+        self?.backgroundImageView.image = image
+        
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+          
+          self?.backgroundImageView.alpha = 1
+          }, completion: { (finished) -> Void in
+            
+            if finished {
+              snapshot.removeFromSuperview()
+            }
+        })
+        
+        })
+    }
+  }
 }
+
+
 
 
 

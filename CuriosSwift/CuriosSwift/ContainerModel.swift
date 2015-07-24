@@ -22,6 +22,7 @@ protocol ContainerModelSuperEditDelegate: NSObjectProtocol {
 
 class ContainerModel: Model {
   
+  // json
   var Id = ""
   var x: CGFloat = 0
   var y: CGFloat = 0
@@ -30,11 +31,12 @@ class ContainerModel: Model {
   var rotation: CGFloat = 0.0
   var alpha: CGFloat = 1.0
   var editable = true //
-  var locked = false
   var animations:[Animation] = []
   //    var behaviors: [Behavior] = []
   var effects: [Effect] = []
   var component: ComponentModel! = NoneContentModel()
+  
+  var locked = false
   var selected: Bool = false
   weak var delegate: ContainerModelDelegate?
   weak var editDelegate: ContainerModelSuperEditDelegate?
@@ -137,7 +139,7 @@ class ContainerModel: Model {
       "alpha" : "ContainerAplha",
       "editable" : "Editable",
       "animations" : "Animations",
-      //            "behaviors" : "Behaviors",
+//      "behaviors" : "Behaviors",
       "effects" : "Effects",
       "component" : "Component"
     ]

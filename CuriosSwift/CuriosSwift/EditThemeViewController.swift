@@ -19,13 +19,16 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
     let height = view.bounds.height
     let top = height * 0.1
     let bottom = height * 0.1
-    let itemHeight = height * 0.35
-    let itemWidth = width * 0.4
-    let left = width * 0.3
+    let itemHeight = height * 0.45
+    let itemWidth = width * 0.5
+    let left = width * 0.25
     let right = left
+    
+    let lineSpace: CGFloat = 20.0
 
     layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     layout.sectionInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    layout.minimumLineSpacing = lineSpace
     
     return layout
   }
@@ -48,6 +51,8 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
       }
       
     }
+  
+  
   
   func appThemes(themes: [ThemeModel]) {
     
@@ -75,15 +80,29 @@ extension EditThemeViewController {
     
     if cell.backgroundView == nil {
       cell.backgroundView = UIImageView(frame: cell.bounds)
+      
+      let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: cell.bounds.height + 0), size: CGSize(width: cell.bounds.width, height: 30)))
+      label.tag = 100
+      label.text = "sdfsdf"
+      label.textAlignment = .Center
+      cell.contentView.addSubview(label)
+      cell.clipsToBounds = false
     }
+    
+    let themeItem = themeList[indexPath.item]
     
     if let imageView = cell.backgroundView as? UIImageView {
       
-      let themeItem = themeList[indexPath.item]
+      
       let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")!
       imageView.kf_setImageWithURL(url)
       
     }
+    
+    if let label = cell.viewWithTag(100) as? UILabel {
+      label.text = themeItem.themeName
+    }
+    
     return cell
   }
   
@@ -94,7 +113,7 @@ extension EditThemeViewController {
     
     let themeID = themeList[indexPath.item].themeID
     template.themeID = themeID
-    
+    template.title = themeList[indexPath.item].themeName
     navigationController?.pushViewController(template, animated: true)
 
   }

@@ -97,7 +97,7 @@ extension TemplatePagesViewController {
         let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
         
         bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json , error: nil) as! BookModel
-        bookModel.filePath = templateURL.path!
-        bookModel.paraserPageInfo()
+//        bookModel.filePath = templateURL.path!
+//        bookModel.paraserPageInfo()
     }
 }

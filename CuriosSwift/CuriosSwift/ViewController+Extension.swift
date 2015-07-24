@@ -25,6 +25,9 @@ extension UIViewController {
     let mainURL = NSBundle.mainBundle().bundleURL.URLByAppendingPathComponent("main.json")
     let data = NSData(contentsOfURL: mainURL)
     let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil)
+    
+    println("demoBookJson = \(json)")
+    
     let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
     
     return book

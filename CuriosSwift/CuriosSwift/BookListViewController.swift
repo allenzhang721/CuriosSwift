@@ -39,7 +39,6 @@ class BookListViewController: UIViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let count = bookList.count <= 0 ? 20 : bookList.count
-    println(count)
     UserListManager.shareInstance.getList(userID, start:0, size: count) { [unowned self](books) -> () in
       self.cleanBooks()
       self.appBooks(books)
@@ -54,7 +53,6 @@ class BookListViewController: UIViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let count = bookList.count
-    println(count)
     UserListManager.shareInstance.getList(userID, start:count, size: 20) { [unowned self](books) -> () in
       self.appBooks(books)
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -86,8 +84,9 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("BookListCell") as! BookListTableViewCell
-//        let bookModel = UsersManager.shareInstance.bookList[indexPath.item]
+        let bookModel = bookList[indexPath.item]
 //        cell.setBookMode(bookModel)
+      cell.configWithModel(bookModel)
         return cell
     }
     
@@ -177,7 +176,6 @@ extension BookListViewController {
 
   
   func appBooks(books: [BookListModel]) {
-    println(books)
     if books.count <= 0 {
       return
     }

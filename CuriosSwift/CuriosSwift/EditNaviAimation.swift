@@ -39,6 +39,7 @@ class EditNaviAimation: NSObject, UIViewControllerAnimatedTransitioning {
       
       let snapshot = firstVC.getSelectedSnapshot()
       snapshot.tag = snapShotTag
+      snapshot.userInteractionEnabled = false
       
       let sub = willShowView?.viewWithTag(10003)
       sub?.alpha = 0.0
@@ -52,7 +53,7 @@ class EditNaviAimation: NSObject, UIViewControllerAnimatedTransitioning {
       containerView.addSubview(willShowView!)
       
       
-      UIView.animateWithDuration(0.2, animations: { () -> Void in
+      UIView.animateWithDuration(0.4, animations: { () -> Void in
         
         blur!.alpha = 1.0
         sub?.alpha = 1.0

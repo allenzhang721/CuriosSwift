@@ -8,11 +8,14 @@
 
 TEST = "这是一个文本国际化的测试";
 
+
+// Universal
+SUCCESS = "成功";
+FAIL    = "失败";
+
+
 //booklist
 ADDBOOKBUTTON_ERROR = "添加";
-
-
-
 
 //alert
 ALERT_TITLE = "Curios奇思";

@@ -1,9 +1,9 @@
 {
   "PageID": "ASDFG",
-  "Path": "/ASDFG",
-  "Index": "/ASDFG.json",
-  "PageWidth": 320,
-  "PageHeight": 504,
+  "PageBackgroundColor": "255,255,255",
+  "PageBackgroundAlpha": 1.0,
+  "PageWidth": 640,
+  "PageHeight": 1008,
   "Containers": [
                  {
                  "ID": "123154564",

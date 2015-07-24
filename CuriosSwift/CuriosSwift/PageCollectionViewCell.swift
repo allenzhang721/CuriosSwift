@@ -155,10 +155,11 @@ extension PageCollectionViewCell {
     let reverseSubNodes = aContentNode.subnodes.reverse() as! [ContainerNode]
     
     func pointInContainerNode(node: ContainerNode?) {
-      // selected
+      // tap on containerModel - begain Edit
       if let containerModel = node?.containerModel {
         if containerModel.selected {
           
+          // will selected
         } else {
           
           for aContainerModel in pageModel.containers {
@@ -172,7 +173,7 @@ extension PageCollectionViewCell {
           delegate?.pageDidSelected(pageModel, selectedContainer: containerModel, onView: aContentNode.view, onViewCenter: node!.view.center, size: node!.view.bounds.size, angle: containerModel.rotation)
         }
         
-      // End Edit
+      // tap on nothing - End Edit
       } else {
         var needEndEdit = false
         for containerNode in reverseSubNodes {
@@ -188,7 +189,7 @@ extension PageCollectionViewCell {
               // should get text/ image snapshot
               let abounds = containerNode.bounds
               UIGraphicsBeginImageContextWithOptions(abounds.size, false, 1 / aspectRatio)
-              containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: false)
+              containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: true)
               let image = UIGraphicsGetImageFromCurrentImageContext()!
               UIGraphicsEndImageContext()
               
@@ -204,15 +205,16 @@ extension PageCollectionViewCell {
       }
     }
     
-    var find = false
     var findNode: ContainerNode? = nil
     
-    for subNode in reverseSubNodes {
-      let point = convertPoint(onScreenPoint, toView: subNode.view)
-      if CGRectContainsPoint(subNode.view.bounds, point) {
-//        println("on container")
-        findNode = subNode
-        break
+    if CGRectContainsPoint(bounds, onScreenPoint) {
+      for subNode in reverseSubNodes {
+        let point = convertPoint(onScreenPoint, toView: subNode.view)
+        if CGRectContainsPoint(subNode.view.bounds, point) {
+          //        println("on container")
+          findNode = subNode
+          break
+        }
       }
     }
     

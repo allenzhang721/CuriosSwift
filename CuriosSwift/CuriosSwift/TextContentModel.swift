@@ -165,7 +165,7 @@ class TextContentModel: ComponentModel {
   }
   
   func setTextAlignment(alignment: String) -> NSAttributedString {
-    
+    needUpload = true
     attributes["TextAligment"] = alignment
     
     let attributeString = generateAttributeString()
@@ -175,7 +175,7 @@ class TextContentModel: ComponentModel {
   }
   
   func setTextColor(color: String) -> NSAttributedString {
-    
+    needUpload = true
     attributes["TextColor"] = color
     
     let attributeString = generateAttributeString()
@@ -185,7 +185,7 @@ class TextContentModel: ComponentModel {
   }
   
   func setFontName(name: String) -> NSAttributedString {
-    
+    needUpload = true
     attributes["FontName"] = name
     
     let attributeString = generateAttributeString()

@@ -55,12 +55,13 @@ class Animation: Model {
     }
   }
   
-  var type: Types = .None
-  var delay: NSTimeInterval = 0
-  var duration: NSTimeInterval = 1000
-  var repeat: Int = 1
+  
   var easeType: EaseTypes = .Linear
+  var delay: NSTimeInterval = 0
+  var type: Types = .None
+  var repeat: Int = 1
   var attributes: [String : String] = [:]
+  var duration: NSTimeInterval = 1000
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
     

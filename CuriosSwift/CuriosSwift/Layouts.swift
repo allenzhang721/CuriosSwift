@@ -116,7 +116,7 @@ class LayoutSpec: NSObject {
     struct layoutConstants {
         static let goldRatio: CGFloat = 0.618
         static let aspectRatio: CGFloat = 320.0 / 504.0
-        static let normalLayoutInsetLeft: CGFloat = 30.0
+        static let normalLayoutInsetLeft: CGFloat = 22.0
         static let smallLayoutInsetTop: CGFloat = 20.0
         static let toolBarheight: CGFloat = 44.0
         static let screenSize:CGSize = UIScreen.mainScreen().bounds.size

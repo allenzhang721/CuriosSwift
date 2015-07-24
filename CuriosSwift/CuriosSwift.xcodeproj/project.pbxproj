@@ -12,7 +12,6 @@
 		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
 		2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */; };
 		2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AABA1B3030E100B718B9 /* MultiObserver.swift */; };
-		2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */; };
 		2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359901B50FEB100B66574 /* TextEditorViewController.swift */; };
 		2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */; };
 		2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */; };
@@ -38,6 +37,7 @@
 		2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */; };
 		2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4388881AF7BCB40084236F /* FakePageView.swift */; };
 		2C4777D51B4E055E00B47F9A /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C4777D41B4E055E00B47F9A /* page.json */; };
+		2C4B85021B5F36EE006B24FD /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B85011B5F36EE006B24FD /* UserViewController.swift */; };
 		2C4C41211B29751100BC1466 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4C41201B29751100BC1466 /* Qiniu.framework */; };
 		2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81041B5349A200A93383 /* RequestURL.swift */; };
 		2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D81061B535FFC00A93383 /* UploadsManager.swift */; };
@@ -127,6 +127,19 @@
 		2CAC966C1B5523AB00BA5291 /* UserEditListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */; };
 		2CAC966E1B55249100BA5291 /* UserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC966D1B55249100BA5291 /* UserListManager.swift */; };
 		2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */; };
+		2CB3621F1B60C4AF007F96FB /* ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3621E1B60C4AF007F96FB /* ShareController.swift */; };
+		2CB3622D1B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB362211B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle */; };
+		2CB3622E1B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362221B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework */; };
+		2CB3622F1B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB362231B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.bundle */; };
+		2CB362301B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362241B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework */; };
+		2CB362311B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB362251B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.bundle */; };
+		2CB362321B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362261B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework */; };
+		2CB362331B60DA14007F96FB /* ShareSDKiPhoneAppRecommendShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362271B60DA14007F96FB /* ShareSDKiPhoneAppRecommendShareViewUI.framework */; };
+		2CB362341B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB362281B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle */; };
+		2CB362351B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362291B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.framework */; };
+		2CB362361B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3622A1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle */; };
+		2CB362371B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB3622B1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.framework */; };
+		2CB362381B60DA14007F96FB /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB3622C1B60DA14007F96FB /* ShareSDKShareActionSheet.framework */; };
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
 		2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD571AE337EA00DF6019 /* Main.storyboard */; };
@@ -204,7 +217,6 @@
 		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUAnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AABA1B3030E100B718B9 /* MultiObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiObserver.swift; sourceTree = "<group>"; };
-		2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoBookViewController.swift; sourceTree = "<group>"; };
 		2C0359901B50FEB100B66574 /* TextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorViewController.swift; sourceTree = "<group>"; };
 		2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorTransitionAnimation.swift; sourceTree = "<group>"; };
 		2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditThemeViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +246,7 @@
 		2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLayout.swift; sourceTree = "<group>"; };
 		2C4388881AF7BCB40084236F /* FakePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePageView.swift; sourceTree = "<group>"; };
 		2C4777D41B4E055E00B47F9A /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
+		2C4B85011B5F36EE006B24FD /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		2C4C41201B29751100BC1466 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Qiniu.framework; path = "Pods/../build/Debug-iphoneos/Pods-CuriosSwift/Qiniu.framework"; sourceTree = "<group>"; };
 		2C4D81041B5349A200A93383 /* RequestURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestURL.swift; sourceTree = "<group>"; };
 		2C4D81061B535FFC00A93383 /* UploadsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadsManager.swift; sourceTree = "<group>"; };
@@ -323,6 +336,19 @@
 		2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEditListRequest.swift; sourceTree = "<group>"; };
 		2CAC966D1B55249100BA5291 /* UserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListManager.swift; sourceTree = "<group>"; };
 		2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelItem.swift; sourceTree = "<group>"; };
+		2CB3621E1B60C4AF007F96FB /* ShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareController.swift; sourceTree = "<group>"; };
+		2CB362211B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKFlatShareViewUI.bundle; sourceTree = "<group>"; };
+		2CB362221B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKFlatShareViewUI.framework; sourceTree = "<group>"; };
+		2CB362231B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKiPadDefaultShareViewUI.bundle; sourceTree = "<group>"; };
+		2CB362241B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPadDefaultShareViewUI.framework; sourceTree = "<group>"; };
+		2CB362251B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKiPadSimpleShareViewUI.bundle; sourceTree = "<group>"; };
+		2CB362261B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPadSimpleShareViewUI.framework; sourceTree = "<group>"; };
+		2CB362271B60DA14007F96FB /* ShareSDKiPhoneAppRecommendShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPhoneAppRecommendShareViewUI.framework; sourceTree = "<group>"; };
+		2CB362281B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKiPhoneDefaultShareViewUI.bundle; sourceTree = "<group>"; };
+		2CB362291B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPhoneDefaultShareViewUI.framework; sourceTree = "<group>"; };
+		2CB3622A1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKiPhoneSimpleShareViewUI.bundle; sourceTree = "<group>"; };
+		2CB3622B1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPhoneSimpleShareViewUI.framework; sourceTree = "<group>"; };
+		2CB3622C1B60DA14007F96FB /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
 		2CB4BD4E1AE337EA00DF6019 /* CuriosSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuriosSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD521AE337EA00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -401,6 +427,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB362321B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework in Frameworks */,
 				2C8BB2261B5D0AB700AB4320 /* MJRefresh.framework in Frameworks */,
 				2C29E0E51B4F3FA40064C2F1 /* Kingfisher.framework in Frameworks */,
 				2C29E0E31B4F3FA00064C2F1 /* MJExtension.framework in Frameworks */,
@@ -414,11 +441,17 @@
 				2CFDFD741B1EE95600246F59 /* CoreTelephony.framework in Frameworks */,
 				2CFDFD721B1EE94F00246F59 /* QuartzCore.framework in Frameworks */,
 				2CFDFD701B1EE94700246F59 /* SystemConfiguration.framework in Frameworks */,
+				2CB362371B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.framework in Frameworks */,
 				2CFDFD6C1B1EE91800246F59 /* ShareSDKCoreService.framework in Frameworks */,
+				2CB362351B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.framework in Frameworks */,
 				2C51005E1AFDF258006AD682 /* SnapKit.framework in Frameworks */,
+				2CB3622E1B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework in Frameworks */,
 				2CFDFD6D1B1EE91800246F59 /* libWeChatSDK.a in Frameworks */,
+				2CB362331B60DA14007F96FB /* ShareSDKiPhoneAppRecommendShareViewUI.framework in Frameworks */,
+				2CB362381B60DA14007F96FB /* ShareSDKShareActionSheet.framework in Frameworks */,
 				2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */,
 				2CFDFD691B1EE91800246F59 /* AGCommon.framework in Frameworks */,
+				2CB362301B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework in Frameworks */,
 				2CFDFD681B1EE91800246F59 /* WeChatConnection.framework in Frameworks */,
 				2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */,
 				2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */,
@@ -475,11 +508,11 @@
 			children = (
 				2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */,
 				2C362A9C1B5B5C5600F80012 /* EditNaviAimation.swift */,
+				2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */,
 				2C0A69C51B5B44F200A6CF1A /* EditNavigationViewController.swift */,
 				2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */,
 				2C362A9A1B5B57AA00F80012 /* EditTemplateViewController.swift */,
 				2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */,
-				2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */,
 				2C0359901B50FEB100B66574 /* TextEditorViewController.swift */,
 				2CD8078A1B0B2908008B286B /* BookListViewController.swift */,
 				2CAC965C1B54E58E00BA5291 /* ThemeViewController.swift */,
@@ -567,6 +600,25 @@
 			name = dataModels;
 			sourceTree = "<group>";
 		};
+		2CB362201B60DA14007F96FB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2CB362211B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle */,
+				2CB362221B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework */,
+				2CB362231B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.bundle */,
+				2CB362241B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework */,
+				2CB362251B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.bundle */,
+				2CB362261B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework */,
+				2CB362271B60DA14007F96FB /* ShareSDKiPhoneAppRecommendShareViewUI.framework */,
+				2CB362281B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle */,
+				2CB362291B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.framework */,
+				2CB3622A1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle */,
+				2CB3622B1B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.framework */,
+				2CB3622C1B60DA14007F96FB /* ShareSDKShareActionSheet.framework */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		2CB4BD451AE337EA00DF6019 = {
 			isa = PBXGroup;
 			children = (
@@ -610,11 +662,12 @@
 				2CB4BD841AE476CF00DF6019 /* Models */,
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
+				2C4B85011B5F36EE006B24FD /* UserViewController.swift */,
+				2CB3621E1B60C4AF007F96FB /* ShareController.swift */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
 				2CE1E9541B1DBCCE00B97180 /* LoginViewController.swift */,
 				2C1532551B3A74C300DC3AB8 /* TextInputViewController.swift */,
 				2CF2938D1B32E4BA00539F76 /* BookDetailViewController.swift */,
-				2C032D201B0ED71C0089DC81 /* DemoBookViewController.swift */,
 				2CFC89DC1B18727700B8BA13 /* EditorTemplateNavigationController.swift */,
 				2C51005F1AFDF654006AD682 /* TemplateViewController.swift */,
 				2CEBE75F1B1C163700C34920 /* TemplatePagesViewController.swift */,
@@ -807,6 +860,7 @@
 		2CFDFD581B1EE91800246F59 /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
+				2CB362201B60DA14007F96FB /* UI */,
 				2CFDFD591B1EE91800246F59 /* Connection */,
 				2CFDFD5B1B1EE91800246F59 /* Core */,
 				2CFDFD621B1EE91800246F59 /* Extend */,
@@ -966,18 +1020,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB362361B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
 				2CE121E51B45436400FB10C5 /* TextInputView.xib in Resources */,
 				2C0BB4861B2AD4B1007C18AC /* Localizable.strings in Resources */,
+				2CB362311B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.bundle in Resources */,
 				2CF293541B32C03D00539F76 /* Independent.storyboard in Resources */,
 				2CFDFD6A1B1EE91800246F59 /* ShareSDKLocalizable.strings in Resources */,
 				2CF293A41B33B46900539F76 /* BookDetailInfoCell.xib in Resources */,
 				2CAC96571B54D37900BA5291 /* main.json in Resources */,
+				2CB362341B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
 				2C92EA801B413F6A00ABFABB /* Font in Resources */,
 				2C4777D51B4E055E00B47F9A /* page.json in Resources */,
+				2CB3622D1B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				2CF293A01B33B43400539F76 /* BookDetailImageCell.xib in Resources */,
+				2CB3622F1B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.bundle in Resources */,
 				2CFDFD6B1B1EE91800246F59 /* Resource.bundle in Resources */,
 				2CD865B91B145B3100DA3646 /* Admin in Resources */,
 				2CA034421B45734F00EFA603 /* ColorPickView.xib in Resources */,
@@ -1053,6 +1112,7 @@
 				2CAC96631B54F54400BA5291 /* TemplateRequest.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2C9495A91B5681DA00D77EE2 /* EditToolBar.swift in Sources */,
+				2CB3621F1B60C4AF007F96FB /* ShareController.swift in Sources */,
 				2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
@@ -1139,7 +1199,6 @@
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
-				2C032D211B0ED71C0089DC81 /* DemoBookViewController.swift in Sources */,
 				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
 				2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */,
 				2CAC96681B550A4100BA5291 /* AddEditFileRequest.swift in Sources */,
@@ -1165,6 +1224,7 @@
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
+				2C4B85021B5F36EE006B24FD /* UserViewController.swift in Sources */,
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
 				2C4D81091B53F10900A93383 /* UploadCompleteReqest.swift in Sources */,
 				2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */,
@@ -1348,6 +1408,7 @@
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -1393,6 +1454,7 @@
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;

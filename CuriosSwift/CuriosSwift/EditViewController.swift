@@ -49,6 +49,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   var editToolBar: EditToolBar!
   var editToolPannel: EditToolPannel!
   var editNavigationViewController: EditNavigationViewController!
+  var editDeletedButton: UIImageView?
   
   var maskView: MaskView?
   var toolState: ToolState = .endEdit
@@ -216,6 +217,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 fakePageView?.fromTemplate = false
                 fakePageView?.center = location
                 view.addSubview(fakePageView!)
+                showDeletedButton(true, animated: true)
               }
           }
 
@@ -228,8 +230,11 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
             
+            // change Page id
+            page.Id = UniqueIDStringWithCount(count: 8)
+            
             self.fakePageView = FakePageView.fakePageViewWith(snapshot, array: [page])
-            self.fakePageView?.fromTemplate = false
+            self.fakePageView?.fromTemplate = true
             self.fakePageView?.center = location
             self.view.addSubview(self.fakePageView!)
           }
@@ -244,7 +249,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
               let inEditBoundsLocation = sender.locationInView(collectionView)
-              aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
+              let mapLocation = CGPoint(x: inEditBoundsLocation.x, y: 150)
+              aSmallLyout.selectedItem(true, AtLocation: mapLocation)
+//              aSmallLyout.selectedItem(CGRectContainsPoint(collectionView.frame, location), AtLocation: inEditBoundsLocation)
             }
           }
           
@@ -267,10 +274,21 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         if fakePageView != nil {
           if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
             //                    if CGRectContainsPoint(collectionView.frame, location) {
-            aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
+            
+//            if !(fakePageView!.fromTemplate) {
+              let location = sender.locationInView(view)
+              if CGRectContainsPoint(CGRect(x: 0, y: 568 - 50, width: 320, height: 50), location) {
+                aSmallLyout.selectedItemMoveFinishAtLocation(CGPoint(x: 0, y: -CGFloat.max), fromeTemplate: true)
+                
+              } else {
+                
+              let location = sender.locationInView(collectionView)
+              aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
+            }
             //                    }
           }
 
+          showDeletedButton(false, animated: true)
           fakePageView?.removeFromSuperview()
           fakePageView?.clearnPageArray()
           fakePageView = nil
@@ -507,19 +525,19 @@ extension EditViewController {
     
     if let currentIndexPath = getCurrentIndexPath() {
       
-      if toolState != .didSelect {
-        
+//      if toolState != .didSelect {
+      
         if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? PageCollectionViewCell  {
           page.setDelegate(self)
           let location = sender.locationInView(page)
           page.begainResponseToTap(location, tapCount: 1)
         }
-      } else {
-        if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
-          let location = CGPointZero
-          page.setDelegate(self)
-        }
-      }
+//      } else {
+//        if let page = collectionView.cellForItemAtIndexPath(currentIndexPath) as? IPage  {
+//          let location = CGPointZero
+//          page.setDelegate(self)
+//        }
+//      }
     }
   }
 }
@@ -706,9 +724,14 @@ extension EditViewController {
     
     UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { [unowned self] (json) -> Void in
       
+//      println("uploadComplete json = \(json)")
       if let aData = json["data"] as? String {
         
-        self.showPreviewControllerWithUrl(aData)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          self.showPreviewControllerWithUrl(aData)
+          
+        })
+        
         println(aData)
       }
       }.sendRequest()
@@ -716,12 +739,80 @@ extension EditViewController {
   
   func showPreviewControllerWithUrl(url: String) {
     
-    if let previewVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewController") as? PreviewViewController {
+    if let previewNavVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController {
       
-      previewVC.urlString = url
+      if let previewVC = previewNavVC.topViewController as? PreviewViewController {
+        previewVC.urlString = url
+        
+        presentViewController(previewNavVC, animated: true, completion: nil)
+      }
       
-      presentViewController(previewVC, animated: true, completion: nil)
+    }
+  }
+  
+  func backToNormalLayout(sender: UITapGestureRecognizer) {
+    if collectionView.collectionViewLayout is smallLayout {
+      let location = sender.locationInView(collectionView)
+      if CGRectContainsPoint(collectionView.bounds, location) {
+        if transitionLayout == nil {
+          progress = 0
+          isToSmallLayout = false
+          transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(normalLayout, completion: { [unowned self] (completed, finish) -> Void in
+            
+            self.transitionLayout = nil
+            self.progress = 0
+            
+            }) as! TransitionLayout
+          
+          togglePopAnimation(true)
+        }
+      }
+      return
+    }
+  }
+  
+  
+  func showDeletedButton(show: Bool, animated: Bool) {
+    
+    if show {
       
+      if editDeletedButton != nil {
+        editDeletedButton?.removeFromSuperview()
+      }
+      let image = UIImage(named: "Edit_deleted")
+      editDeletedButton = UIImageView(image: image)
+      let translation = editDeletedButton!.bounds.midY
+      editDeletedButton!.center = CGPoint(x: view.bounds.midX, y: view.bounds.height + translation)
+      
+      view.addSubview(editDeletedButton!)
+      if animated {
+        UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
+          
+          self.editDeletedButton!.transform = CGAffineTransformMakeTranslation(0, -2 * translation)
+        })
+      } else {
+        self.editDeletedButton!.transform = CGAffineTransformMakeTranslation(0, -2 * translation)
+      }
+      
+      // hidden
+    } else {
+      
+      if let deletedButton = editDeletedButton {
+        let translation = editDeletedButton!.bounds.midY
+        if animated {
+          UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
+            deletedButton.transform = CGAffineTransformMakeTranslation(0, 2 * translation)
+            
+          }, completion: { (finished) -> Void in
+            if finished {
+              deletedButton.removeFromSuperview()
+            }
+            
+          })
+        } else {
+          deletedButton.removeFromSuperview()
+        }
+      }
     }
   }
 }
@@ -1002,6 +1093,9 @@ extension EditViewController {
       }()
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+    
+    println("bookjson = \(bookjson)")
+    
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
     let appString = "curiosMainJson=" + string
@@ -1097,6 +1191,9 @@ extension EditViewController {
       }()
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
+    
+    println(bookModel)
+    
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
     let appString = string
@@ -1202,6 +1299,14 @@ extension EditViewController {
   // Default - Setting / AddText / AddImage / Preview
   func editToolBarDidSelectedSetting(toolBar: EditToolBar) {
     println("setting")
+    
+    if let bookdetailNavigationController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("bookdetailNavigationController") as? UINavigationController,
+      let bookdetailController = bookdetailNavigationController.topViewController as? BookDetailViewController {
+        
+        bookdetailController.bookModel = bookModel
+        presentViewController(bookdetailNavigationController, animated: true, completion: nil)
+    }
+    
   }
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
     println("Preview")
@@ -1324,34 +1429,25 @@ extension EditViewController {
       
       let cell = collectionView.cellForItemAtIndexPath(indexpath)
       let y = cell!.frame.origin.y
-      self.maskView?.hidden = true
-      self.maskView?.alpha = 0
-      self.maskView?.transform = CGAffineTransformConcat(self.maskView!.transform, CGAffineTransformMakeTranslation(0, -y))
-      
+
       if let visualCells = collectionView.visibleCells() as? [UICollectionViewCell] {
         
         for acell in visualCells {
           if acell != cell {
-            acell.hidden = true
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            acell.alpha = 0
+            })
           }
           
         }
       }
       
       UIView.animateWithDuration(0.3, animations: { () -> Void in
-        
+        self.maskView?.center.y -= y
         cell!.transform = CGAffineTransformMakeTranslation(0, -y)
-        
-        
+
       }, completion: { (finished) -> Void in
         
-        if finished {
-          UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.maskView?.hidden = false
-            self.maskView?.alpha = 1
-            })
-          
-        }
       })
     }
   }
@@ -1366,7 +1462,9 @@ extension EditViewController {
         
         for acell in visualCells {
           if acell != cell {
-            acell.hidden = false
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+              acell.alpha = 1
+            })
           }
         }
       }
@@ -1534,7 +1632,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   
   func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath) {
     if (fakePageView!.fromTemplate) {
-      bookModel.insertPageModelsAtIndex([PageModel()], FromIndex: indexPath.item)
+      bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
     } else {
       bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
     }
@@ -1627,33 +1725,40 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   
   // MARK: - Gesture Delegate
   func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-    
-    switch gestureRecognizer {
       
-    case let gesture as UITapGestureRecognizer where gesture == singleTapGesture :
-      
-      let location = gesture.locationInView(editToolBar)
-      let locationinPannel = gesture.locationInView(editToolPannel)
-      
-      if CGRectContainsPoint(editToolBar.bounds, location) || CGRectContainsPoint(editToolPannel.bounds, locationinPannel) {
-        return false
+      switch gestureRecognizer {
+        
+      case let gesture as UITapGestureRecognizer where gesture == singleTapGesture :
+        
+          
+          let location = gesture.locationInView(editToolBar)
+          let locationinPannel = gesture.locationInView(editToolPannel)
+          
+          if CGRectContainsPoint(editToolBar.bounds, location) || CGRectContainsPoint(editToolPannel.bounds, locationinPannel) {
+            return false
+          }
+          
+          let isNormalLayout = self.collectionView.collectionViewLayout is NormalLayout
+          if !isNormalLayout {
+            backToNormalLayout(gesture)
+          }
+
+        return isNormalLayout ? true : false
+        
+      case let gesture where gesture is UIPanGestureRecognizer:
+        
+        if maskView != nil {
+          return false
+        }
+        
+        return transitionLayout == nil ? true : false
+      case let gesture where gesture is UILongPressGestureRecognizer:
+        return collectionView.collectionViewLayout is smallLayout
+        
+      default:
+        return true
       }
-      
-      return self.collectionView.collectionViewLayout is NormalLayout ? true : false
-      
-    case let gesture where gesture is UIPanGestureRecognizer:
-      
-      if maskView != nil {
-        return false
-      }
-      
-      return transitionLayout == nil ? true : false
-    case let gesture where gesture is UILongPressGestureRecognizer:
-      return collectionView.collectionViewLayout is smallLayout
-      
-    default:
-      return true
     }
-  }
 }
+
 

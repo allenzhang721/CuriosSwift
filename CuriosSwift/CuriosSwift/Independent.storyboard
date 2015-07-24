@@ -122,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecE-v7-8IK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1418" y="1637"/>
+            <point key="canvasLocation" x="-1333" y="1628"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="EC6-Lb-1OG">
@@ -157,7 +157,11 @@
                                 <action selector="backAction:" destination="0kk-qt-5RG" id="ywh-IS-ly4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="BVZ-NT-fMd"/>
+                        <barButtonItem key="rightBarButtonItem" title="分享" id="BVZ-NT-fMd">
+                            <connections>
+                                <action selector="shareAction:" destination="0kk-qt-5RG" id="FZK-Kw-Iyb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="3cU-0r-7mi" id="qae-nX-ykS"/>
@@ -198,10 +202,30 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ik-70-eA4">
+                                                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                                    <animations/>
+                                                    <items>
+                                                        <barButtonItem title="Cancel" id="8xI-Ur-e0e">
+                                                            <connections>
+                                                                <action selector="cancelAction:" destination="Krh-qP-WDS" id="SR0-Sw-h79"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="vFi-Ak-MCD"/>
+                                                        <barButtonItem title="OK" id="xqS-Xe-13b">
+                                                            <connections>
+                                                                <action selector="confirmAction:" destination="Krh-qP-WDS" id="bKG-9w-AXV"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                    </items>
+                                                </toolbar>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="0.59749461206896548" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="5ik-70-eA4" firstAttribute="leading" secondItem="96X-8b-BQ3" secondAttribute="leading" id="0Tn-P2-x77"/>
+                                                <constraint firstAttribute="bottom" secondItem="5ik-70-eA4" secondAttribute="bottom" id="Iws-mC-QC8"/>
+                                                <constraint firstAttribute="trailing" secondItem="5ik-70-eA4" secondAttribute="trailing" id="JoY-du-GQ8"/>
                                                 <constraint firstItem="oZU-Ug-fPG" firstAttribute="trailing" secondItem="96X-8b-BQ3" secondAttribute="trailingMargin" id="X5s-BW-4Oj"/>
                                                 <constraint firstItem="oZU-Ug-fPG" firstAttribute="leading" secondItem="96X-8b-BQ3" secondAttribute="leadingMargin" id="dSc-8h-mP9"/>
                                                 <constraint firstItem="oZU-Ug-fPG" firstAttribute="top" secondItem="96X-8b-BQ3" secondAttribute="topMargin" id="gH6-DT-cjl"/>
@@ -232,11 +256,12 @@
                     </view>
                     <connections>
                         <outlet property="textView" destination="oZU-Ug-fPG" id="huX-HJ-L0W"/>
+                        <outlet property="toolbar" destination="5ik-70-eA4" id="nym-C2-DLo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rmP-9B-NVP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-141" y="938"/>
+            <point key="canvasLocation" x="-91" y="957"/>
         </scene>
         <!--Upload Setting View Controller-->
         <scene sceneID="2iX-Ud-bGm">

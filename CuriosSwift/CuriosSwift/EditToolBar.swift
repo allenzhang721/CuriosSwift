@@ -44,7 +44,7 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     
     let number = barItems.count
     
-    let lineSpace = (width - trail - leading - CGFloat(number) * itemSideLength) / CGFloat((number - 1))
+    let lineSpace = number > 2 ? (width - trail - leading - CGFloat(number) * itemSideLength) / CGFloat((number - 1)) : 20
     layout.minimumLineSpacing = lineSpace
     layout.sectionInset = inset
     layout.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
