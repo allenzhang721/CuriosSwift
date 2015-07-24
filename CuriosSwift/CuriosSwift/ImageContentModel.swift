@@ -16,6 +16,18 @@ class ImageContentModel: ComponentModel, IFile {
   private var updateImageHandler: ((UIImage?) -> ())?
   private var generateImageHandler: ((UIImage?) -> ())?
   
+  var imageID: String? {
+    
+    get {
+      let string = attributes["ImageID"] as? String
+      return string
+    }
+    
+    set {
+      attributes["ImageID"] = newValue
+    }
+    
+  }
   
   var key: String {
     
@@ -50,8 +62,12 @@ class ImageContentModel: ComponentModel, IFile {
     needUpload = true
     
     KingfisherManager.sharedManager.cache.removeImageForKey(key)
-    let imageID = UniqueIDStringWithCount(count: 8)
-    key = pathByComponents([userID, PublishID, "\(imageID).jpg"])
+    
+    let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
+    if aImageID != imageID {
+      imageID = aImageID
+    }
+    key = pathByComponents([userID, PublishID, "\(aImageID).jpg"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     
     updateImageHandler?(image)

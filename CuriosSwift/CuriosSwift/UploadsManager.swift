@@ -45,6 +45,9 @@ class UploadsManager {
     
     totalCount += tokens.count
     
+    println("totalCount = \(totalCount)")
+    println("finishedCount = \(finishCount)")
+    
     let cancelSignal = {[unowned self] () -> Bool in
       return false
     }
@@ -67,6 +70,7 @@ class UploadsManager {
         }
         
         if self.finishCount == self.totalCount {
+          println("uploads finished")
           self.finished = true
           self.compeletedBlock?(true)
         }

@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import WebKit
 
 protocol preViewControllerProtocol: NSObjectProtocol {
   
@@ -24,6 +25,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     case Local, Internet
   }
   
+  var wkWebView: WKWebView!
   @IBOutlet weak var webView: UIWebView!
   @IBOutlet weak var backButton: UIBarButtonItem!
   @IBOutlet weak var rightButton: UIBarButtonItem!
@@ -42,7 +44,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   }
   
   deinit {
-    webView.stopLoading()
+    wkWebView.stopLoading()
+    wkWebView = nil
     navigationController?.dismissViewControllerAnimated(true, completion: nil)
     
   }
@@ -50,15 +53,24 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupWebView()
     loadUrl()
   }
   
+  
+  func setupWebView() {
+    
+    if wkWebView == nil {
+      wkWebView = WKWebView(frame: view.bounds)
+      view.addSubview(wkWebView)
+    }
+  }
   
   func loadUrl() {
     
     let url = NSURL(string: urlString)
     let request = NSURLRequest(URL: url!)
-    webView.loadRequest(request)
+    wkWebView.loadRequest(request)
   }
   
   
@@ -354,9 +366,9 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   @IBAction func backAction(sender: UIBarButtonItem) {
                           
-                          let fileManager = NSFileManager.defaultManager()
-                          let bookURL = temporaryDirectory("CuriosPreview")
-                          fileManager.removeItemAtURL(bookURL, error: nil)
+//                          let fileManager = NSFileManager.defaultManager()
+//                          let bookURL = temporaryDirectory("CuriosPreview")
+//                          fileManager.removeItemAtURL(bookURL, error: nil)
                           dismissViewControllerAnimated(true, completion: nil)
   }
   

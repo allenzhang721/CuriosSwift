@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Publish Token
+
 
 // MARK: - User Book List
 let USER_FILE_LIST = ["publish", "userFileList"]

@@ -65,6 +65,19 @@ class TextContentModel: ComponentModel {
   
   private var updateAttributeStringHandler: UpdateAttributeStringHandler?
   
+  var imageID: String? {
+    
+    get {
+      let string = attributes["ImageID"] as? String
+      return string
+    }
+    
+    set {
+      attributes["ImageID"] = newValue
+    }
+    
+  }
+  
   var key: String? {
     
     get {
@@ -214,8 +227,11 @@ class TextContentModel: ComponentModel {
   func cacheSnapshotImage(image: UIImage, userID: String, PublishID: String) {
     
     removeCacheImage()
-    let imageID = UniqueIDStringWithCount(count: 8)
-    key = pathByComponents([userID, PublishID, "\(imageID).png"])
+    let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
+    if aImageID != imageID {
+      imageID = aImageID
+    }
+    key = pathByComponents([userID, PublishID, "\(aImageID).png"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
   }
   

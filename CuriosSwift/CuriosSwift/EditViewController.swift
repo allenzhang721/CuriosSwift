@@ -208,6 +208,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
       case .Began:
         // collectionView
         if CGRectContainsPoint(collectionView.frame, location) {
+          
+          if bookModel.pageModels.count <= 1 {
+            fallthrough
+          }
           println("CollectionView region")
           let pageLocation = sender.locationInView(collectionView)
           if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
@@ -570,6 +574,7 @@ extension EditViewController {
       textComponent.type = .Text
       textComponent.needUpload = true
       textComponent.attributes = defaultTextAttribute
+      textComponent.imageID = UniqueIDStringWithCount(count: 8)
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
       container.component = textComponent
@@ -600,6 +605,7 @@ extension EditViewController {
       imageComponent.type = .Image
       imageComponent.needUpload = true
       imageComponent.attributes = defaultImageAttribute
+      imageComponent.imageID = UniqueIDStringWithCount(count: 8)
       imageComponent.updateImage(image, userID: userID, PublishID: publishID)
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
@@ -714,6 +720,9 @@ extension EditViewController {
   func uploadComplete() {
     
     let userID = UsersManager.shareInstance.getUserID()
+    
+    println("uploadComplete userID = \(userID)")
+    
     let publishID = bookModel.Id
     let publishURL = pathByComponents([userID, publishID])
     let data = ["publishURL":"\(publishURL)" + "/",
@@ -724,12 +733,10 @@ extension EditViewController {
     
     UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { [unowned self] (json) -> Void in
       
-//      println("uploadComplete json = \(json)")
+      println("uploadComplete json = \(json)")
       if let aData = json["data"] as? String {
-        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.showPreviewControllerWithUrl(aData)
-          
         })
         
         println(aData)
@@ -746,7 +753,6 @@ extension EditViewController {
         
         presentViewController(previewNavVC, animated: true, completion: nil)
       }
-      
     }
   }
   
@@ -1049,8 +1055,7 @@ extension EditViewController {
       
       completedBlock(finished)
       UploadsManager.shareInstance.setCompeletedHandler(nil)
-      println("bookID: \(self.bookModel.Id)")
-      println(" upload finished")
+      println("prepareForPreivew - upload finished")
     }
     
     uploadPublishFile { (datas, keys, tokens) -> () in
@@ -1063,28 +1068,13 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
-    let res = "res"
     let js = "js"
-    let ani = "curiosAnim.js"
     let cur = "curiosRes.js"
-    let jqu = "jquery-1.10.1.min.js"
-    let mai = "main.js"
-    let index = "index.html"
-    let main = "main.json"
-    
-    //    let indexKey = pathByComponents([userID, bookID, index])
-    //    let aniKey = pathByComponents([userID, bookID, js, ani])
     let curKey = pathByComponents([userID, bookID, js, cur])
-    //    let jquKey = pathByComponents([userID, bookID, js, jqu])
-    //    let maiKey = pathByComponents([userID, bookID, js, mai])
-    
+
     let publishTokenDic: String = {
       let dic = ["list":[
-        //        ["key": indexKey],
-        //        ["key": aniKey],
         ["key": curKey]
-        //        ["key": jquKey],
-        //        ["key": maiKey]
         ]
       ]
       let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
@@ -1093,10 +1083,10 @@ extension EditViewController {
       }()
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-    
-    println("bookjson = \(bookjson)")
-    
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
+    
+    println("preview Book = \(bookjson)")
+    
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
     let appString = "curiosMainJson=" + string
     let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -1192,7 +1182,7 @@ extension EditViewController {
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     
-    println(bookModel)
+    println("save book = \(bookjson)")
     
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
