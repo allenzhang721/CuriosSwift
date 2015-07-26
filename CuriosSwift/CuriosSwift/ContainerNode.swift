@@ -59,6 +59,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         position = postion
         bounds.size = size
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
+      
         component = containerModel.component.createComponent()
       
         if let aCom = component as? ASDisplayNode {
@@ -91,6 +92,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     let newSize = calculateSizeThatFits(CGSize(width: CGFloat.max, height: CGFloat.max))
     println("newSize = \(newSize)")
     containerModel.updateOnScreenSize(newSize)
+    
   }
   
   override func calculateSizeThatFits(constrainedSize: CGSize) -> CGSize {
@@ -147,6 +149,9 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
 
         self?.view.bounds.size.width = size.width
         self?.view.bounds.size.height = size.height
+      
+      let origin = self?.frame.origin
+      self?.containerModel.setOnScreenOrigin(origin!)
     }
     
     containerModel.centerChangeListener.bind("ContainerNode_\(randID)") {[weak self] postion -> Void in

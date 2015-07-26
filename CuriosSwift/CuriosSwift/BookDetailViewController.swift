@@ -1,77 +1,93 @@
 //
 //  BookDetailViewController.swift
-//  
+//
 //
 //  Created by Emiaostein on 6/18/15.
 //
 //
 
 import UIKit
+import Kingfisher
+
+protocol BookDetailViewControllerDelegate: NSObjectProtocol {
+  
+  func bookDetailViewControllerDidChangeIcon(iconData: NSData)
+}
 
 class BookDetailViewController: UIViewController,UINavigationControllerDelegate {
-
-    @IBOutlet weak var tableView: UITableView!
-    
-    var bookModel: BookModel!
-    
-//    lazy var iconPath: String = {
-//        
-//        let userID = UsersManager.shareInstance.getUserID()
-//        let bookID = aBookModel.Id
-//        let iconPath = aBookModel.icon
-//        let url = temporaryDirectory(userID, bookID, iconPath)
-//        
-//        return ""
-//    }()
-    
-    var icon: UIImage? {
-        
-        let userID = UsersManager.shareInstance.getUserID()
-        
-        let bookID = bookModel.Id
-        let iconPath = bookModel.icon
-        let url = temporaryDirectory(userID, bookID, iconPath)
-        println(url)
-        let image = UIImage(contentsOfFile: url.path!)
-        return image
-    }
-    
-//    var background: UIImage? {
-//        
-//        let userID = UsersManager.shareInstance.getUserID()
-//        let bookID = bookModel.Id
-//        let background = bookModel.background
-//        let url = temporaryDirectory(userID, bookID, background)
-//      
-//        println(url)
-//        let image = UIImage(contentsOfFile: url.path!)
-//        return image
-//    }
   
-    var bookTitle: String {
-        
-        let title = bookModel.title
-        return title
+  @IBOutlet weak var tableView: UITableView!
+  
+  var delegate: BookDetailViewControllerDelegate?
+  var bookModel: BookModel!
+  
+  var needuploadIcon = false
+  
+  let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
+  
+  var iconKey: String {
+    
+    get {
+      let userID = UsersManager.shareInstance.getUserID()
+      let publishID = bookModel.Id
+      let icon = "icon.png"
+      let path = pathByComponents([userID, publishID, icon])
+      return path
+    }
+  }
+  
+  
+  var bookTitle: String {
+    
+    let title = bookModel.title
+    return title
+  }
+  
+  var bookDescription: String {
+    
+    let title = bookModel.desc
+    return title
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    
+    
+    
+    tableView.registerNib(UINib(nibName: "BookDetailImageCell", bundle: nil), forCellReuseIdentifier: "BookDetailImageCell")
+    tableView.registerNib(UINib(nibName: "BookDetailInfoCell", bundle: nil), forCellReuseIdentifier: "BookDetailInfoCell")
+    tableView.estimatedRowHeight = 72
+    tableView.rowHeight = UITableViewAutomaticDimension
+    
+    let iconString = HOST.stringByAppendingPathComponent(bookModel.icon)
+    let iconURL = NSURL(string: iconString)!
+    let aIconKey = iconKey
+    KingfisherManager.sharedManager.retrieveImageWithURL(iconURL, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
+      if error != nil {
+        println(error)
+      } else {
+        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
+        self?.tableView.reloadData()
+      }
     }
     
-    var bookDescription: String {
-        
-        let title = bookModel.desc
-        return title
-    }
+  }
+  @IBAction func backAction(sender: UIBarButtonItem) {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.registerNib(UINib(nibName: "BookDetailImageCell", bundle: nil), forCellReuseIdentifier: "BookDetailImageCell")
-        tableView.registerNib(UINib(nibName: "BookDetailInfoCell", bundle: nil), forCellReuseIdentifier: "BookDetailInfoCell")
-        tableView.estimatedRowHeight = 72
-        tableView.rowHeight = UITableViewAutomaticDimension
-    }
-    @IBAction func backAction(sender: UIBarButtonItem) {
+    if needuploadIcon {
+      KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions, completionHandler: { [weak self] (image, cacheType) -> () in
         
-        dismissViewControllerAnimated(true, completion: nil)
+        if let image  = image {
+          let imageData = UIImagePNGRepresentation(image)
+          self?.delegate?.bookDetailViewControllerDidChangeIcon(imageData)
+        }
+        
+        self?.dismissViewControllerAnimated(true, completion: nil)
+        
+      })
     }
+  }
 }
 
 // MARK: - DataSource and Delegate
@@ -83,122 +99,123 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
 // MARK: - Private Method
 // MARK: -
 extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, textInputViewControllerProtocol {
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
-        return 2
+    return 2
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    if section == 0 {
+      return 3
+    } else {
+      return 0
     }
+  }
+  
+  // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+  // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0 {
-            return 3
-        } else {
-            return 0
+    let section = indexPath.section
+    let row = indexPath.row
+    
+    if section == 0 {
+      if row == 0 {
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
+        cell.titleLabel?.text = NSLocalizedString("BookDetailIcon", comment: "国际化的语言测试")
+        KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
+          if let aImage = image {
+            cell.iconImageView.image = aImage
+          }
         }
-    }
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let section = indexPath.section
-        let row = indexPath.row
+        return cell
         
-        if section == 0 {
-            if row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
-                cell.titleLabel?.text = NSLocalizedString("BookDetailIcon", comment: "国际化的语言测试")
-                println(icon)
-                cell.iconImageView?.image = icon
-                return cell
-            } else if row == 1{
-                let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
-                cell.titleLabel?.text = NSLocalizedString("BookDetailTitle", comment: "国际化的语言测试")
-                cell.descriText?.text = bookTitle
-                return cell
-            } else {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
-                cell.titleLabel?.text = NSLocalizedString("BookDetailDescri", comment: "国际化的语言测试")
-                cell.tableView = tableView
-                cell.descriText?.text = bookDescription
-                return cell
-            }
-            
-        } else {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
-            cell.titleLabel?.text = NSLocalizedString("BookDetailBackground", comment: "国际化的语言测试")
-//            cell.iconImageView?.image = background
-            return cell
-        }
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+      } else if row == 1{
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
+        cell.titleLabel?.text = NSLocalizedString("BookDetailTitle", comment: "国际化的语言测试")
+        cell.descriText?.text = bookTitle
+        return cell
+      } else {
         
-        let section = indexPath.section
-        let row = indexPath.row
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
+        cell.titleLabel?.text = NSLocalizedString("BookDetailDescri", comment: "国际化的语言测试")
+        cell.tableView = tableView
+        cell.descriText?.text = bookDescription
+        return cell
+      }
       
-      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    } else {
       
-        if section == 0 {
-            
-            if row == 2{
-                
-                if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
-                    aInputVC.text = bookModel.desc
-                    aInputVC.ID = "Description"
-                    aInputVC.delegate = self
-                    navigationController?.pushViewController(aInputVC, animated: true)
-                }
-            } else if row == 1 {
-                if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
-                    aInputVC.text = bookModel.title
-                    aInputVC.ID = "Title"
-                    aInputVC.delegate = self
-                    navigationController?.pushViewController(aInputVC, animated: true)
-                }
-            } else if row == 0 {
-                
-                var imagePickerController = UIImagePickerController()
-                imagePickerController.delegate = self
-                imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-                imagePickerController.allowsEditing = true
-                self.presentViewController(imagePickerController, animated: true, completion: { imageP in
-                    
-                })
-            }
+      let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
+      cell.titleLabel?.text = NSLocalizedString("BookDetailBackground", comment: "国际化的语言测试")
+      //            cell.iconImageView?.image = background
+      return cell
+    }
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    let section = indexPath.section
+    let row = indexPath.row
+    
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    
+    if section == 0 {
+      
+      if row == 2{
+        
+        if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
+          aInputVC.text = bookModel.desc
+          aInputVC.ID = "Description"
+          aInputVC.delegate = self
+          navigationController?.pushViewController(aInputVC, animated: true)
         }
+      } else if row == 1 {
+        if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
+          aInputVC.text = bookModel.title
+          aInputVC.ID = "Title"
+          aInputVC.delegate = self
+          navigationController?.pushViewController(aInputVC, animated: true)
+        }
+      } else if row == 0 {
+        
+        var imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        imagePickerController.allowsEditing = true
+        self.presentViewController(imagePickerController, animated: true, completion: { imageP in
+          
+        })
+      }
+    }
+  }
+  
+  func textInputViewControllerTextDidEnd(inputViewController: TextInputViewController, text: String) {
+    
+    if inputViewController.ID == "Description" {
+      bookModel.desc = text
+    } else if inputViewController.ID == "Title" {
+      bookModel.title = text
     }
     
-    func textInputViewControllerTextDidEnd(inputViewController: TextInputViewController, text: String) {
-        
-        if inputViewController.ID == "Description" {
-            bookModel.desc = text
-        } else if inputViewController.ID == "Title" {
-            bookModel.title = text
-        }
-        
-        tableView.reloadData()
-    }
+    tableView.reloadData()
+  }
 }
 
 extension BookDetailViewController: UIImagePickerControllerDelegate {
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-        let imageData = UIImageJPEGRepresentation(selectedImage, 0.01)
-//        
-//        let userID = UsersManager.shareInstance.getUserID()
-//        let coverURL = temporaryDirectory(userID, bookModel.Id, "images", "icon.jpg")
-//        
-//        imageData.writeToURL(coverURL, atomically: true)
-      
-        tableView.reloadData()
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
+    let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+//    let imageData = UIImagePNGRepresentation(selectedImage)
+    KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKey)
+    bookModel.icon = iconKey
+    needuploadIcon = true
+    tableView.reloadData()
+    dismissViewControllerAnimated(true, completion: nil)
+  }
 }

@@ -73,7 +73,6 @@ class EditTemplateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     for template in aTemplates {
-      println(template.templateURL)
       templateList.append(template)
     }
   }

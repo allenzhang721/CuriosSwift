@@ -8,6 +8,9 @@
 
 import Foundation
 
+let ranToAngle = CGFloat(180 / M_PI)
+let angleToRan = CGFloat(M_PI / 180)
+
 // constant file name
 let login_ = "login"
 let main_json = "main.json"

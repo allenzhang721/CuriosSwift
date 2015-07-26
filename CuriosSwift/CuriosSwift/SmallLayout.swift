@@ -187,12 +187,12 @@ extension smallLayout {
           
           // will move in delegate
           aDelegate.layout(self, willMoveInAtIndexPath: aPlaceHolderIndexPath)
-          collectionView?.performBatchUpdates({ () -> Void in
-            
-            self.collectionView?.insertItemsAtIndexPaths([aPlaceHolderIndexPath])
-            
-            }, completion: { (completed) -> Void in
-          })
+//          collectionView?.performBatchUpdates({ () -> Void in
+//            
+//            self.collectionView?.insertItemsAtIndexPaths([aPlaceHolderIndexPath])
+//            
+//            }, completion: { (completed) -> Void in
+//          })
         }
       }
     }
@@ -204,23 +204,23 @@ extension smallLayout {
     
     if let aPlacehoderIndexPath = placeholderIndexPath {
       self.delegate?.layout(self, willMoveOutFromIndexPath: aPlacehoderIndexPath)
-      self.collectionView?.deleteItemsAtIndexPaths([aPlacehoderIndexPath])
       
-      collectionView?.performBatchUpdates({ () -> Void in
-        
-        }, completion: { [unowned self] (completed) -> Void in
-          
-          if completed {
-          }
-          
+      
+//      collectionView?.performBatchUpdates({ () -> Void in
+//        self.collectionView?.deleteItemsAtIndexPaths([aPlacehoderIndexPath])
+//        }, completion: { [unowned self] (completed) -> Void in
+//          
+//          if completed {
+//          }
+      
           self.fakeCellCenter = CGPointZero
           self.placeholderIndexPath = nil
           self.pointMoveIn = false
           self.invalidateDisplayLink()
           self.invalidateLayout()
-          self.collectionView?.performBatchUpdates({ () -> Void in
-            }, completion: nil)
-        })
+//          self.collectionView?.performBatchUpdates({ () -> Void in
+//            }, completion: nil)
+//        })
       
 //      collectionView?.scrollsToTop = true
 //      fakeCellCenter = CGPointZero
@@ -251,10 +251,11 @@ extension smallLayout {
     //...
     
     self.delegate?.layout(self, willChangeFromIndexPath: fromIndexPath!, toIndexPath: toIndexPath!)
-    collectionView?.performBatchUpdates({ [unowned self] () -> Void in
-      self.placeholderIndexPath = toIndexPath
-      self.collectionView?.moveItemAtIndexPath(fromIndexPath!, toIndexPath: toIndexPath!)
-      }, completion: nil)
+    self.placeholderIndexPath = toIndexPath
+//    collectionView?.performBatchUpdates({ [unowned self] () -> Void in
+//      
+//      self.collectionView?.moveItemAtIndexPath(fromIndexPath!, toIndexPath: toIndexPath!)
+//      }, completion: nil)
   }
   
   private func getIndexPathByPointInBounds(point: CGPoint) -> NSIndexPath {

@@ -26,7 +26,7 @@ func pathByComponents(components: [String]) -> String {
 }
 
 
-class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditNavigationViewControllerDelegate,EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, preViewControllerProtocol {
+class EditViewController: UIViewController, UIViewControllerTransitioningDelegate, EditNavigationViewControllerDelegate,EditToolBarDelegate,MaskViewDelegate, PageCollectionViewCellDelegate, BookDetailViewControllerDelegate, preViewControllerProtocol {
   
   //deprecated
   enum ToolState {
@@ -119,6 +119,10 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   override func prefersStatusBarHidden() -> Bool {
     return true
   }
+  
+//  override func viewWillLayoutSubviews() {
+//    super.viewWillLayoutSubviews()
+//  }
 
 }
 
@@ -176,15 +180,29 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     switch sender.state {
     case .Began:
       
+      println("pages Count = \(bookModel.pageModels.count)")
+
+
       beganPanY = LayoutSpec.layoutConstants.screenSize.height - sender.locationInView(view).y
       isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
       let nextLayout = isToSmallLayout ? SmallLayout : normalLayout
+      
       transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
         
+        if completed {
         self.transitionLayout = nil
-        self.progress = 0
+          self.progress = 0
         
-        }) as! TransitionLayout
+        }
+
+        
+        }) as? TransitionLayout
+      
+      if transitionLayout == nil {
+        
+        
+        println("transitionLayout == nil")
+      }
       
     case .Changed:
       progress = isToSmallLayout ? Float(transition.y / beganPanY) : -Float(transition.y / beganPanY)
@@ -579,7 +597,7 @@ extension EditViewController {
       container.Id = UniqueIDStringWithCount(count: 5)
       container.component = textComponent
       
-      pageModel.addContainerModel(container, OnScreenSize: CGSize(width: 100, height: 50))
+      pageModel.addContainerModel(container, OnScreenSize: CGSize(width: 0, height: 0))
       begainEdit()
     }
   }
@@ -633,6 +651,8 @@ extension EditViewController {
     
     maskView = MaskView.maskWithCenter(center, size: size, angle: angle, targetContainerModel: containerModel)
     maskView!.delegate = self
+    
+//    println("maskSize = \(size)")
     view.insertSubview(maskView!, aboveSubview: collectionView)
   }
   
@@ -1068,8 +1088,8 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
-    let js = "js"
-    let cur = "curiosRes.js"
+    let js = "res"
+    let cur = "curiosRes.json"
     let curKey = pathByComponents([userID, bookID, js, cur])
 
     let publishTokenDic: String = {
@@ -1085,11 +1105,11 @@ extension EditViewController {
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     
-    println("preview Book = \(bookjson)")
+//    println("preview Book = \(bookjson)")
     
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
-    let appString = "curiosMainJson=" + string
-    let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+//    let appString = "curiosMainJson=" + string
+    let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
     
     PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
       if let keyLokens = json["list"] as? [[String:String]] {
@@ -1125,7 +1145,7 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
-    let addEditFilePath = pathByComponents([userID, bookID, "res", "main.json"])
+    let addEditFilePath = pathByComponents([userID, bookID, "res", "curiosRes.json"])
     
     let string = ADD_EDITED_FILE_paras(userID, bookID, addEditFilePath)
     
@@ -1165,7 +1185,7 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
-    let main = "main.json"
+    let main = "curiosRes.json"
     let res = "res"
     
     let curKey = pathByComponents([userID, bookID, res, main])
@@ -1182,7 +1202,7 @@ extension EditViewController {
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     
-    println("save book = \(bookjson)")
+//    println("save book = \(bookjson)")
     
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
@@ -1294,6 +1314,7 @@ extension EditViewController {
       let bookdetailController = bookdetailNavigationController.topViewController as? BookDetailViewController {
         
         bookdetailController.bookModel = bookModel
+        bookdetailController.delegate = self
         presentViewController(bookdetailNavigationController, animated: true, completion: nil)
     }
     
@@ -1322,6 +1343,22 @@ extension EditViewController {
 }
 
 
+
+// MARK: - BookDetailDelegate
+extension EditViewController {
+  
+  func bookDetailViewControllerDidChangeIcon(iconData: NSData) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let publishID = bookModel.Id
+    let icon = "icon.png"
+    let key = pathByComponents([userID, publishID, icon])
+    
+    prepareUploadImageData(iconData, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
+      UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+    })
+  }
+}
 
 
 
@@ -1597,6 +1634,14 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   
   // MARK: - UICollectionViewDataSource and CollectionView Delegate
   
+//  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+//    collectionView.collectionViewLayout.invalidateLayout()
+//    
+//    return 1
+//  }
+
+  
+  
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
     return bookModel.pageModels.count
@@ -1621,8 +1666,18 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   // MARK: - SmallLayout Delegate
   
   func layout(layout: UICollectionViewLayout, willMoveInAtIndexPath indexPath: NSIndexPath) {
+    
+    
+    collectionView?.performBatchUpdates({ [weak self] () -> Void in
+      self!.bookModel.insertPageModelsAtIndex([self!.fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
+      self!.collectionView?.insertItemsAtIndexPaths([indexPath])
+      
+      }, completion: { (completed) -> Void in
+    })
+    
     if (fakePageView!.fromTemplate) {
-      bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
+      
+      
     } else {
       bookModel.insertPageModelsAtIndex([fakePageView!.getPlaceholderPage()], FromIndex: indexPath.item)
     }
@@ -1630,11 +1685,21 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   }
   
   func layout(layout: UICollectionViewLayout, willMoveOutFromIndexPath indexPath: NSIndexPath) {
-    bookModel.removePageModelAtIndex(indexPath.item)
+    
+    collectionView?.performBatchUpdates({ [weak self]() -> Void in
+      self!.bookModel.removePageModelAtIndex(indexPath.item)
+      self!.collectionView?.deleteItemsAtIndexPaths([indexPath])
+      }, completion: { [unowned self] (completed) -> Void in
+      })
+    
   }
   
   func layout(layout: UICollectionViewLayout, willChangeFromIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    exchange(&bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
+    collectionView?.performBatchUpdates({ [weak self] () -> Void in
+      exchange(&self!.bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
+      self!.collectionView?.moveItemAtIndexPath(fromIndexPath, toIndexPath: toIndexPath)
+      }, completion: nil)
+    
   }
   
   func layoutDidMoveIn(layout: UICollectionViewLayout, didMoveInAtIndexPath indexPath: NSIndexPath) {

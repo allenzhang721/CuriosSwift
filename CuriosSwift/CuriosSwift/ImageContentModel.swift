@@ -26,7 +26,6 @@ class ImageContentModel: ComponentModel, IFile {
     set {
       attributes["ImageID"] = newValue
     }
-    
   }
   
   var key: String {
@@ -62,11 +61,12 @@ class ImageContentModel: ComponentModel, IFile {
     needUpload = true
     
     KingfisherManager.sharedManager.cache.removeImageForKey(key)
-    
     let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
     if aImageID != imageID {
       imageID = aImageID
     }
+//    let newID = aImageID + UniqueIDStringWithCount(count: 4)
+//    let imageID = UniqueIDStringWithCount(count: 8)
     key = pathByComponents([userID, PublishID, "\(aImageID).jpg"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     

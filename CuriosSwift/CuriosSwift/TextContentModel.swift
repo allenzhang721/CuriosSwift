@@ -231,6 +231,7 @@ class TextContentModel: ComponentModel {
     if aImageID != imageID {
       imageID = aImageID
     }
+//    let newID = aImageID + UniqueIDStringWithCount(count: 4)
     key = pathByComponents([userID, PublishID, "\(aImageID).png"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
   }

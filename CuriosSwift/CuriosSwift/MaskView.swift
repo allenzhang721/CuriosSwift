@@ -54,6 +54,8 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     transform = CGAffineTransformMakeRotation(aAngle)
     backgroundColor = UIColor.clearColor()
     
+    println("mask angle = \(aAngle)")
+    
 //    aContainerModel.selectedListener.bind("Mask_View") {[weak self] selected -> Void in
 //      
 //      if selected {
@@ -312,6 +314,7 @@ extension MaskView {
         ratio = bounds.width / bounds.height
         begainFontSize = compoenent.getFontSize()
       }
+      
       
       
       let position = sender.locationInView(self)

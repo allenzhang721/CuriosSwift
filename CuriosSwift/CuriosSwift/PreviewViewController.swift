@@ -44,8 +44,12 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   }
   
   deinit {
-    wkWebView.stopLoading()
-    wkWebView = nil
+//    let urlcache = NSURLCache.sharedURLCache()
+//    urlcache.removeAllCachedResponses()
+//    urlcache.diskCapacity = 0
+//    urlcache.memoryCapacity = 0
+    webView.stopLoading()
+    webView = nil
     navigationController?.dismissViewControllerAnimated(true, completion: nil)
     
   }
@@ -53,7 +57,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupWebView()
+//    setupWebView()
     loadUrl()
   }
   
@@ -68,9 +72,9 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   func loadUrl() {
     
-    let url = NSURL(string: urlString)
-    let request = NSURLRequest(URL: url!)
-    wkWebView.loadRequest(request)
+    let url = NSURL(string: urlString + "#edit")!
+    let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 30)
+    webView.loadRequest(request)
   }
   
   

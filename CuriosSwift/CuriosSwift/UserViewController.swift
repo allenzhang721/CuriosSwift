@@ -48,6 +48,10 @@ class UserViewController: UIViewController {
     
   }
   
+  @IBAction func logoutAction(sender: UIButton) {
+    
+    LoginModel.shareInstance.logout();
+  }
   
   
 

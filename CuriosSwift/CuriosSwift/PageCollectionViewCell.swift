@@ -401,6 +401,9 @@ extension PageCollectionViewCell {
     
     for containerModel in aPageModel.containers {
       let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
+      
+      println("containerModel.rotation = \(containerModel.rotation)")
+      
       aContentNode.addSubnode(aContainerNode)
 //      aContainerNode.page = self
     }

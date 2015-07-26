@@ -28,7 +28,17 @@ class ContainerModel: Model {
   var y: CGFloat = 0
   var width: CGFloat =  300  // bounds.width
   var height: CGFloat =  300  // bounds.height
-  var rotation: CGFloat = 0.0
+  var containerAngle: CGFloat = 0.0
+  var rotation: CGFloat {
+    
+    get {
+      return containerAngle * angleToRan
+    }
+    
+    set {
+      containerAngle = newValue * ranToAngle
+    }
+  }
   var alpha: CGFloat = 1.0
   var editable = true //
   var animations:[Animation] = []
@@ -102,6 +112,13 @@ class ContainerModel: Model {
     height = size.height / aspectio
   }
   
+  func setOnScreenOrigin(point: CGPoint) {
+    
+    x = point.x / aspectio
+    y = point.y / aspectio
+    
+  }
+  
   func setOriginChange(point: CGPoint) {
     x += point.x / aspectio
     y += point.y / aspectio
@@ -135,7 +152,7 @@ class ContainerModel: Model {
       "y" : "ContainerY",
       "width" : "ContaienrWidth",
       "height" : "ContainerHeight",
-      "rotation" : "ContainerRotation",
+      "containerAngle" : "ContainerRotation",
       "alpha" : "ContainerAplha",
       "editable" : "Editable",
       "animations" : "Animations",
