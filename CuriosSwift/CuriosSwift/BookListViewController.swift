@@ -42,6 +42,7 @@ class BookListViewController: UIViewController {
     UserListManager.shareInstance.getList(userID, start:0, size: count) { [unowned self](books) -> () in
       self.cleanBooks()
       self.appBooks(books)
+      
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.tableView.reloadData()
         self.tableView.header.endRefreshing()
@@ -87,15 +88,24 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let bookModel = bookList[indexPath.item]
 //        cell.setBookMode(bookModel)
       cell.configWithModel(bookModel)
+      cell.layer.cornerRadius = 8
+      cell.clipsToBounds = true
         return cell
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let index = indexPath.item;
-//        let result = UsersManager.shareInstance.deleteBook(index);
-//        if result {
-//             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-//        }
+        let publishID = bookList[index].publishID
+      deleteBook(publishID, completed: { [unowned self](success) -> () in
+        
+        if success {
+          self.bookList.removeAtIndex(indexPath.item)
+          self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        } else {
+          println("delete book fail")
+        }
+        
+      })
     }
     
     func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String!{
@@ -165,6 +175,21 @@ extension BookListViewController {
 // MARK: -
 extension BookListViewController {
   
+  func deleteBook(publishID: String, completed: (Bool) -> ()) {
+    
+    let userID = UsersManager.shareInstance.getUserID()
+    let string = DELETE_PUBLISH_FILE_paras(userID, publishID)
+    DeletePublishFileRequest.requestWithComponents(DELETE_PUBLISH_FILE, aJsonParameter: string) { (json) -> Void in
+      if let re = json["resultType"] as? String where re == "success" {
+        completed(true)
+      } else {
+        completed(false)
+      }
+      println("Delete a book = \(json)")
+    }.sendRequest()
+    
+  }
+  
   func cleanBooks() {
     
     if bookList.count <= 0 {
@@ -181,6 +206,7 @@ extension BookListViewController {
     }
     
     for book in books {
+      println("booklistitem = \(book)")
       bookList.append(book)
     }
   }

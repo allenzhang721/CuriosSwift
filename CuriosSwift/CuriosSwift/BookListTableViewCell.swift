@@ -14,10 +14,14 @@ class BookListTableViewCell: UITableViewCell {
     @IBOutlet weak var bookListCellTitle: UILabel!
     @IBOutlet weak var bookListCellDesc: UITextView!
     @IBOutlet weak var bookListCellDate: UILabel!
+  
+  let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+      bookListCellImg.layer.cornerRadius = 8
+      bookListCellImg.clipsToBounds = true
 
     }
 
@@ -32,21 +36,22 @@ class BookListTableViewCell: UITableViewCell {
     let iconUrlString = bookModel.publishIconURL
     let url = NSURL(string: iconUrlString)
     
+    println("iconURL = \(url)")
     if let url = url {
       bookListCellImg.kf_setImageWithURL(url, placeholderImage: UIImage(named: "placeholder"))
     }
     
     bookListCellTitle.text = bookModel.publishTitle;
     bookListCellDesc.text = bookModel.publishDesc;
-    bookListCellDate.text = "2015/12/23"
+    bookListCellDate.text = bookModel.publishDate
     
-    if let date = bookModel.publishDate {
-      
-      let dateFormatter = NSDateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:MM"
-      let dateStr = dateFormatter.stringFromDate(date)
-      bookListCellDate.text = dateStr;
-    }
+//    if let date = bookModel.publishDate {
+    
+//      let dateFormatter = NSDateFormatter()
+//      dateFormatter.dateFormat = "yyyy-MM-dd HH:MM"
+//      let dateStr = dateFormatter.stringFromDate(date)
+//      bookListCellDate.text = dateStr;
+//    }
     
     
   }

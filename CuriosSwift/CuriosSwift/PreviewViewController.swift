@@ -82,7 +82,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     
     let bookModel = delegate!.previewControllerGetBookModel(self)
     
-    let HOST = ""
+    let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
     
     let title = bookModel.title
     let descr = bookModel.desc

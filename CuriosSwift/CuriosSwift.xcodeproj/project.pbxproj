@@ -76,6 +76,7 @@
 		2C77636D1B05ABD9000DDFB2 /* ITextComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */; };
 		2C77636F1B05B481000DDFB2 /* ComponentNoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77636E1B05B481000DDFB2 /* ComponentNoneNode.swift */; };
 		2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */; };
+		2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */; };
 		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
 		2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12211B1FFF6C0096819D /* SwiftColors.swift */; };
 		2C7D12251B200D060096819D /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12241B200D060096819D /* Region.swift */; };
@@ -156,6 +157,8 @@
 		2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */; };
 		2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF584A1B1EC7690053102A /* RippleView.swift */; };
 		2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF584B1B1EC7690053102A /* QCMethod.swift */; };
+		2CC7BDAC1B65236D001E7277 /* NormalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7BDAB1B65236D001E7277 /* NormalLayout.swift */; };
+		2CC7BDAE1B652394001E7277 /* TransitionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */; };
 		2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
@@ -285,6 +288,7 @@
 		2C77636C1B05ABD9000DDFB2 /* ITextComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITextComponent.swift; sourceTree = "<group>"; };
 		2C77636E1B05B481000DDFB2 /* ComponentNoneNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNoneNode.swift; sourceTree = "<group>"; };
 		2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGenerator.swift; sourceTree = "<group>"; };
+		2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePublishFileRequest.swift; sourceTree = "<group>"; };
 		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		2C7D12211B1FFF6C0096819D /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColors.swift; sourceTree = "<group>"; };
 		2C7D12241B200D060096819D /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
@@ -370,6 +374,8 @@
 		2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalTemplateViewController.swift; sourceTree = "<group>"; };
 		2CBF584A1B1EC7690053102A /* RippleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		2CBF584B1B1EC7690053102A /* QCMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCMethod.swift; sourceTree = "<group>"; };
+		2CC7BDAB1B65236D001E7277 /* NormalLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalLayout.swift; sourceTree = "<group>"; };
+		2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionLayout.swift; sourceTree = "<group>"; };
 		2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsBar.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
@@ -570,7 +576,6 @@
 			isa = PBXGroup;
 			children = (
 				2C5526E71B4CC533000F2C7D /* PublishRequest.swift */,
-				2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */,
 				2CA8F08C1B391D050063E964 /* TokenRequest.swift */,
 				2C5526B11B4A6B4E000F2C7D /* FileUplodRequest.swift */,
 			);
@@ -777,6 +782,8 @@
 			children = (
 				2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */,
 				2C54ADF21B097B8700B0D460 /* SmallLayout.swift */,
+				2CC7BDAB1B65236D001E7277 /* NormalLayout.swift */,
+				2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -919,7 +926,9 @@
 				2CAC96671B550A4100BA5291 /* AddEditFileRequest.swift */,
 				2C5526B51B4A7181000F2C7D /* ImageTokenRequest.swift */,
 				2C5526B31B4A6DFD000F2C7D /* PublishTokenRequest.swift */,
+				2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */,
 				2C4D81081B53F10900A93383 /* UploadCompleteReqest.swift */,
+				2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */,
 				2CAC964C1B54B73D00BA5291 /* useless */,
 			);
 			name = Request;
@@ -1118,6 +1127,7 @@
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
 				2C8F508E1B5CD85C0093DC63 /* EMJsonCache.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
+				2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */,
 				2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
@@ -1194,6 +1204,7 @@
 				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
 				2C2FB2431B4FD50E000F0FFA /* MaskView.swift in Sources */,
 				2CAC96501B54BD4500BA5291 /* Theme&Template.swift in Sources */,
+				2CC7BDAC1B65236D001E7277 /* NormalLayout.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
@@ -1220,6 +1231,7 @@
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
 				2C8F508F1B5CD85C0093DC63 /* EMJsonDownloader.swift in Sources */,
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
+				2CC7BDAE1B652394001E7277 /* TransitionLayout.swift in Sources */,
 				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,

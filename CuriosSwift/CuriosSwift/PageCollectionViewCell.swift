@@ -28,6 +28,11 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
   private var pageModel: PageModel!
   private var aspectRatio: CGFloat = 0.0
   
+  var scale: CGFloat = 1.0
+  
+  var updateBlock: ((Bool) -> ())?
+  
+  
   override func prepareForReuse() {
     super.prepareForReuse()
     if let operation = nodeRenderOperation {
@@ -58,12 +63,13 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
   
   func transitionWithProgress(progress: CGFloat, isSmallSize: Bool, minScale: CGFloat) {
     
-    let scale = POPTransition(progress, isSmallSize ? minScale : 1.0, isSmallSize ? 1.0 : minScale)
+    let minScale = POPTransition(progress, isSmallSize ? minScale : 1.0, isSmallSize ? 1.0 : minScale)
+    scale = isSmallSize ? minScale : 1.0
+    
     if let aContentNode = contentNode {
-      aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
+      aContentNode.transform = CATransform3DMakeScale(minScale, minScale, 1)
       contentNodeView!.center = contentView.center
     }
-    
   }
 }
 
@@ -345,6 +351,16 @@ extension PageCollectionViewCell {
 extension PageCollectionViewCell {
   
   
+   func update() {
+    
+    if let aContentNode = contentNode {
+//      println("transitionWithProgress = minScale")
+      aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
+      contentNodeView!.center = contentView.center
+    }
+  }
+  
+  
   private func respondToLongPressLocation(location: CGPoint, onTargetView targetView: UIView) -> Bool {
     
     return false
@@ -381,10 +397,12 @@ extension PageCollectionViewCell {
               return
             }
             
-            strongSelf.contentView.addSubview(aContentNode.view)
-            aContentNode.setNeedsDisplay()
             strongSelf.contentNodeView = aContentNode.view
             strongSelf.contentNode = aContentNode
+            strongSelf.update()
+            strongSelf.contentView.addSubview(aContentNode.view)
+            aContentNode.setNeedsDisplay()
+            
           }
           })
       }
@@ -402,7 +420,7 @@ extension PageCollectionViewCell {
     for containerModel in aPageModel.containers {
       let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
       
-      println("containerModel.rotation = \(containerModel.rotation)")
+//      println("containerModel.rotation = \(containerModel.rotation)")
       
       aContentNode.addSubnode(aContainerNode)
 //      aContainerNode.page = self
