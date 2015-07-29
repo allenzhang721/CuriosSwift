@@ -14,7 +14,8 @@ class BookListModel: Model {
     var publishDesc = ""
     var publishID = ""
     var publishIconURL = "/publishIcon.png"
-    var publishDate = ""
+    var publishDate = NSDate()
+//  var publishDate = ""
     var publishResURL = ""
     var publishTitle = ""
     var publishURL = ""
@@ -33,25 +34,25 @@ class BookListModel: Model {
     }
     
     // publishDate
-//    class func publishDateJSONTransformer() -> NSValueTransformer {
-//        
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        
-//        let forwardBlock: MTLValueTransformerBlock! = {
-//            (dateStr: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
-//            return dateFormatter.dateFromString(dateStr as! String)
-//        }
-//        
-//        let reverseBlock: MTLValueTransformerBlock! = {
-//            (date: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
-//            return dateFormatter.stringFromDate(date as! NSDate)
-//        }
-//        
-//        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
-//    }
-//    
-//    class func iconUrlJSONTransformer() -> NSValueTransformer {
-//        return NSValueTransformer(forName:MTLURLValueTransformerName)!
-//    }
+    class func publishDateJSONTransformer() -> NSValueTransformer {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd H:mm:ss"
+        
+        let forwardBlock: MTLValueTransformerBlock! = {
+            (dateStr: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, aerror: NSErrorPointer) -> AnyObject! in
+            return dateFormatter.dateFromString(dateStr as! String)
+        }
+        
+        let reverseBlock: MTLValueTransformerBlock! = {
+            (date: AnyObject!, succes: UnsafeMutablePointer<ObjCBool>, error: NSErrorPointer) -> AnyObject! in
+            return dateFormatter.stringFromDate(date as! NSDate)
+        }
+        
+        return MTLValueTransformer(usingForwardBlock: forwardBlock, reverseBlock: reverseBlock)
+    }
+    
+    class func iconUrlJSONTransformer() -> NSValueTransformer {
+        return NSValueTransformer(forName:MTLURLValueTransformerName)!
+    }
 }

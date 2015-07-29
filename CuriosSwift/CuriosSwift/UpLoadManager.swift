@@ -42,20 +42,15 @@ final class UpLoadManager {
         let customOptions = QNUploadOption(mime: defaultOptions.mimeType, progressHandler:defaultOptions.progressHandler, params: defaultOptions.params, checkCrc: defaultOptions.checkCrc, cancellationSignal: cancelSignal)
         
         let totalCount = fileKeys.count
-        println("total = \(totalCount)")
         for (key, filePath) in fileKeys {
             results[key] = false
             uploadMananger.putFile(filePath, key: key, token: token, complete: { [unowned self] (ResponseInfo, key, response) -> Void in
                 if response == nil {
                     
-                    println("\(key) = \(ResponseInfo)")
-                    
                 }
-                println("response = \(response)")
                 self.results[key] = (response != nil) ? true : false
                 self.completeCount++
                 self.progressHandler?(totalCount, self.completeCount, (CGFloat(self.completeCount) / CGFloat(totalCount)))
-                println("count = \(self.completeCount)")
                 if self.completeCount == totalCount {
                     var results = self.results
                     let successes = results.values.array.reduce(true, combine: { (now, next) -> Bool in

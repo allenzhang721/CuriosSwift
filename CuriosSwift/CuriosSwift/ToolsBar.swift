@@ -291,7 +291,6 @@ extension ToolsBar: UICollectionViewDataSource, UICollectionViewDelegate {
         
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         selectedIndexPath = indexPath
-        println("Cell selected")
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {

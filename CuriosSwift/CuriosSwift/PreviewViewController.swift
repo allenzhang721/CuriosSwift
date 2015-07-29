@@ -57,6 +57,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    let string = localString("PREVIEW")
+    title = string
 //    setupWebView()
     loadUrl()
   }
@@ -80,6 +82,9 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   @IBAction func shareAction(sender: UIBarButtonItem) {
     
+    share()
+    return
+    
     let bookModel = delegate!.previewControllerGetBookModel(self)
     
     let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
@@ -89,45 +94,80 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     let url = urlString
     let iconUrl = HOST.stringByAppendingPathComponent(bookModel.icon)
     
-    shareWithTitle(title, descr, url, iconUrl) { (success) -> () in
+//    shareWithTitle(title, descr, url, iconUrl) { (success) -> () in
+//      
+//      if success {
+//        
+//      } else {
+//        
+//      }
+//    }
+  }
+  
+  func share() {
+    
+    let link = urlString
+    let share = ShareViewController.create()
+    share.shareBlock = {[weak self] (shareType) -> () in
       
-      if success {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-          
-          SVProgressHUD.showSuccessWithStatus("分享成功")
-          
-          let time: NSTimeInterval = 0.5
-          let delay = dispatch_time(DISPATCH_TIME_NOW,
-            Int64(time * Double(NSEC_PER_SEC)))
-          dispatch_after(delay, dispatch_get_main_queue()) {
-            
-            SVProgressHUD.dismiss()
-          }
-          
-          })
-        
-      } else {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            
-            SVProgressHUD.showSuccessWithStatus("分享失败")
-            
-            let time: NSTimeInterval = 0.5
-            let delay = dispatch_time(DISPATCH_TIME_NOW,
-          Int64(time * Double(NSEC_PER_SEC)))
-            dispatch_after(delay, dispatch_get_main_queue()) {
-          
-          SVProgressHUD.dismiss()
-            }
-            
-            })
+      switch shareType {
+      case .Friends:
+        self?.shareWithSDK(22)
+      case .Timeline:
+        self?.shareWithSDK(23)
+      case .Browser:
+        self?.openInSafari(link)
+      case .CopyLink:
+        self?.copyString(link)
+      default:
+        return
       }
-      
     }
+    
+    presentViewController(share, animated: true, completion: nil)
     
   }
   
   
+  func shareWithSDK(type: Int32) {
+    
+    let bookModel = delegate!.previewControllerGetBookModel(self)
+    
+    let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
+    
+    let title = bookModel.title
+    let descr = bookModel.desc
+    let url = urlString
+    let iconUrl = HOST.stringByAppendingPathComponent(bookModel.icon)
+    
+    debugPrint.p(iconUrl)
+    
+    shareWithTitle(type, title, descr, url, iconUrl) { (success) -> () in
+      
+//      debugPrint.p(type)
+      if success {
+        HUD.share_success()
+      } else {
+        HUD.share_fail()
+      }
+    }
+    
+  }
   
+  func openInSafari(link: String) {
+    
+    let url = NSURL(string: link)!
+    
+    UIApplication.sharedApplication().openURL(url)
+  }
+  
+  
+  func copyString(string: String) {
+    
+    let pastboard = UIPasteboard.generalPasteboard()
+    pastboard.string = string
+    HUD.share_copy_success()
+  }
   
   
   

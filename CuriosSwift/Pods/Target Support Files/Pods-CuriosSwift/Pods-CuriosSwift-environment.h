@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_Alamofire 2
 #define COCOAPODS_VERSION_PATCH_Alamofire 3
 
+// DateTools
+#define COCOAPODS_POD_AVAILABLE_DateTools
+#define COCOAPODS_VERSION_MAJOR_DateTools 1
+#define COCOAPODS_VERSION_MINOR_DateTools 6
+#define COCOAPODS_VERSION_PATCH_DateTools 1
+
 // Kingfisher
 #define COCOAPODS_POD_AVAILABLE_Kingfisher
 #define COCOAPODS_VERSION_MAJOR_Kingfisher 1
@@ -89,6 +95,12 @@
 #define COCOAPODS_VERSION_MAJOR_Qiniu 7
 #define COCOAPODS_VERSION_MINOR_Qiniu 0
 #define COCOAPODS_VERSION_PATCH_Qiniu 11
+
+// ReachabilitySwift
+#define COCOAPODS_POD_AVAILABLE_ReachabilitySwift
+#define COCOAPODS_VERSION_MAJOR_ReachabilitySwift 1
+#define COCOAPODS_VERSION_MINOR_ReachabilitySwift 1
+#define COCOAPODS_VERSION_PATCH_ReachabilitySwift 0
 
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD

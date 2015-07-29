@@ -20,28 +20,22 @@ extension EditToolPannel {
   
   // container - LayerIndex / Animation
   func editToolBar(toolBar: EditToolBar, didSelectedLevel containerModel: ContainerModel) {
-    println("Level")
     updateSettingPannelByKey("Level", aContainerModel: containerModel)
   }
   
   func editToolBar(toolBar: EditToolBar, didSelectedAnimation containerModel: ContainerModel) {
-    println("Animation")
     updateSettingPannelByKey("Animation", aContainerModel: containerModel)
   }
   
   // text - FontName / Color / Alignment
   func editToolBar(toolBar: EditToolBar, didSelectedTextFont containerModel: ContainerModel) {
-    println("TextFont")
     updateSettingPannelByKey("TextFont", aContainerModel: containerModel)
   }
   func editToolBar(toolBar: EditToolBar, didSelectedTextColor containerModel: ContainerModel) {
-    println("TextColor")
-    
     updateSettingPannelByKey("TextColor", aContainerModel: containerModel)
     
   }
   func editToolBar(toolBar: EditToolBar, didSelectedTextAlignment containerModel: ContainerModel) {
-    println("TextAlignment")
     updateSettingPannelByKey("TextAlignment", aContainerModel: containerModel)
   }
   

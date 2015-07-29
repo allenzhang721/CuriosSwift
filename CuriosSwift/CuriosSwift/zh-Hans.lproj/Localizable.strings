@@ -10,12 +10,60 @@ TEST = "这是一个文本国际化的测试";
 
 
 // Universal
+PUBLISH  = "发布";
+SHARE   = "分享";
+COPY    = "拷贝";
 SUCCESS = "成功";
 FAIL    = "失败";
+CANCEL = "取消";
+CONFIRM = "确定";
+CONTINUE = "继续";
+KNEW = "知道了";
 
+// Alert
+TIPS = "温馨提醒";
+
+// net detection
+NEEDCHANGETOWIFI = "您现在使用的是蜂窝数据，建议在在 WiFi 下使用，要继续吗？";
+NEEDCONNECTED = "您的网络已中断，请先连接网络，建议在在 WiFi 下使用";
+INTERNETBROKEN = "网络已关闭";
+
+// Share
+"WeChatFirends" = "微信好友";
+"WeChatTimeline" = "微信朋友圈";
+"OpenInSafari" = "在浏览器中打开";
+"CopyLink" = "拷贝链接";
+
+//launch
+LOADING = "正在加载";
 
 //booklist
-ADDBOOKBUTTON_ERROR = "添加";
+ADDBOOKBUTTON = "添加";
+
+// ViewController Title
+USERINFO_TITLE = "个人信息";
+BOOKDETAIL_TITLE = "设置";
+
+
+// EDIT View Controller
+CAMERA = "拍照";
+LIBARAY = "从手机相册选择";
+DOUBLECLICK = "双击修改";
+PREVIEW = "预览";
+SYNCING = "同步中";
+UPLOADING = "上传素材中";
+
+
+
+
+
+
+
+
+
+
+
+
 
 //alert
 ALERT_TITLE = "Curios奇思";
@@ -52,9 +100,6 @@ RightAlignment       = "右对齐";
 FontSizePlus       = "字体加";
 FontSizeSubstract       = "字体减";
 
-// Preview
-Pubish          = "发布";
-Share           = "分享";
 
 // Book Detail
 BookDetailIcon              = "图标";

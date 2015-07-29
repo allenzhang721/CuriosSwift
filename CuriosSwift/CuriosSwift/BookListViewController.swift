@@ -10,35 +10,73 @@ import UIKit
 import Alamofire
 import Mantle
 import MJRefresh
+import ReachabilitySwift
 
 let publishHOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
+
+protocol BookListViewControllerDelegate: NSObjectProtocol {
+  
+  func viewController(controller: UIViewController, needHiddenStateBar hidden: Bool)
+  
+}
 
 class BookListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
   
+  let reachability = Reachability.reachabilityForInternetConnection()
   var bookList = [BookListModel]()
+  var delegate: BookListViewControllerDelegate?
+  var needRefresh = true
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      
       addRefreshControl()
     }
   
   override func viewWillAppear(animated: Bool) {
-     tableView.header.beginRefreshing()
+    navigationController?.navigationBarHidden = false
+    delegate?.viewController(self, needHiddenStateBar: false)
+    
+    if needRefresh {
+      needRefresh = false
+      tableView.header.beginRefreshing()
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    let viewController: AnyObject = segue.destinationViewController
+    
+    if viewController is UserViewController {
+      delegate?.viewController(self, needHiddenStateBar: false)
+    } else if let aviewController = viewController as? ThemeViewController {
+      aviewController.delegate = self
+      delegate?.viewController(self, needHiddenStateBar: true)
+    } else {
+      delegate?.viewController(self, needHiddenStateBar: false)
+    }
   }
   
   func addRefreshControl() {
     
     tableView.header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "refreshBooklist")
-    tableView.footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "appendBooklist")
+//    tableView.footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "appendBooklist")
+  }
+  
+  func needFooter() {
+    
+    if tableView.contentSize.height >= tableView.bounds.height {
+      tableView.footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "appendBooklist")
+    } else {
+      tableView.footer = nil
+    }
+    
   }
   
   func refreshBooklist() {
     
     let userID = UsersManager.shareInstance.getUserID()
-    let count = bookList.count <= 0 ? 20 : bookList.count
+    let count = bookList.count <= 20 ? 20 : bookList.count
     UserListManager.shareInstance.getList(userID, start:0, size: count) { [unowned self](books) -> () in
       self.cleanBooks()
       self.appBooks(books)
@@ -46,6 +84,7 @@ class BookListViewController: UIViewController {
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.tableView.reloadData()
         self.tableView.header.endRefreshing()
+        self.needFooter()
       })
     }
   }
@@ -66,7 +105,13 @@ class BookListViewController: UIViewController {
 
 
 
-
+// MARK: - ThemeDelegate
+extension BookListViewController: ThemeViewControllerDelegate {
+  
+  func viewController(controller: UIViewController, aNeedRefresh: Bool) {
+    needRefresh = aNeedRefresh
+  }
+}
 
 
 
@@ -88,8 +133,6 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let bookModel = bookList[indexPath.item]
 //        cell.setBookMode(bookModel)
       cell.configWithModel(bookModel)
-      cell.layer.cornerRadius = 8
-      cell.clipsToBounds = true
         return cell
     }
     
@@ -101,8 +144,8 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         if success {
           self.bookList.removeAtIndex(indexPath.item)
           self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+          self.needFooter()
         } else {
-          println("delete book fail")
         }
         
       })
@@ -120,6 +163,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
       let bookitem = bookList[indexPath.row]
       let aurl = bookitem.publishResURL
       // Fetch Request
+      needRefresh = true
       Alamofire.request(.POST, aurl, parameters: nil)
         .validate(statusCode: 200..<300)
         .responseJSON{ (request, response, JSON, error) in
@@ -163,7 +207,13 @@ extension BookListViewController {
     
     @IBAction func addBookAction(sender: UIBarButtonItem) {
       
-      
+      if reachability.currentReachabilityStatus == .NotReachable {
+        self.needConnectNet()
+      } else if reachability.currentReachabilityStatus != .ReachableViaWiFi  {
+        self.needChangeToWiFi()
+      } else {
+        showThemes()
+      }
     }
 
     @IBAction func logoutAction(sender: UIBarButtonItem) {
@@ -175,6 +225,35 @@ extension BookListViewController {
 // MARK: -
 extension BookListViewController {
   
+  func showThemes() {
+    if let themeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ThemeViewController") as? ThemeViewController {
+      
+      themeVC.delegate = self
+      delegate?.viewController(self, needHiddenStateBar: true)
+      navigationController?.pushViewController(themeVC, animated: true)
+    }
+  }
+  
+  func needConnectNet() {
+    
+    let alert = AlertHelper.alert_needConnected()
+    presentViewController(alert, animated: true, completion: nil)
+    
+  }
+  
+  func needChangeToWiFi() {
+    
+   let alert = AlertHelper.alert_internetconnection {[unowned self] (confirmed) -> () in
+      
+      if confirmed {
+        self.showThemes()
+      }
+    }
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  
+  
   func deleteBook(publishID: String, completed: (Bool) -> ()) {
     
     let userID = UsersManager.shareInstance.getUserID()
@@ -185,7 +264,6 @@ extension BookListViewController {
       } else {
         completed(false)
       }
-      println("Delete a book = \(json)")
     }.sendRequest()
     
   }
@@ -206,7 +284,6 @@ extension BookListViewController {
     }
     
     for book in books {
-      println("booklistitem = \(book)")
       bookList.append(book)
     }
   }

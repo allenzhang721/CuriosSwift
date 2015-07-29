@@ -52,8 +52,7 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
-    
+    title = localString("BOOKDETAIL_TITLE")
     
     tableView.registerNib(UINib(nibName: "BookDetailImageCell", bundle: nil), forCellReuseIdentifier: "BookDetailImageCell")
     tableView.registerNib(UINib(nibName: "BookDetailInfoCell", bundle: nil), forCellReuseIdentifier: "BookDetailInfoCell")
@@ -71,8 +70,8 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
         self?.tableView.reloadData()
       }
     }
-    
   }
+  
   @IBAction func backAction(sender: UIBarButtonItem) {
     
     if needuploadIcon {
@@ -86,6 +85,8 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
         self?.dismissViewControllerAnimated(true, completion: nil)
         
       })
+    } else {
+      dismissViewControllerAnimated(true, completion: nil)
     }
   }
 }
@@ -126,6 +127,8 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
           if let aImage = image {
             cell.iconImageView.image = aImage
+          } else {
+            cell.iconImageView.image = UIImage(named: "placeholder")
           }
         }
         
@@ -168,12 +171,14 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
           aInputVC.text = bookModel.desc
           aInputVC.ID = "Description"
+          aInputVC.type = "Content"
           aInputVC.delegate = self
           navigationController?.pushViewController(aInputVC, animated: true)
         }
       } else if row == 1 {
         if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
           aInputVC.text = bookModel.title
+          aInputVC.type = "Title"
           aInputVC.ID = "Title"
           aInputVC.delegate = self
           navigationController?.pushViewController(aInputVC, animated: true)

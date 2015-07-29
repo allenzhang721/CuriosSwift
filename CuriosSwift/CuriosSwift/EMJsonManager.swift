@@ -104,8 +104,6 @@ public class EMJsonManager {
         if let json: AnyObject = aJson {
           targetCache.storeJson(json, length: 100, forKey: key, toDisk: true, completionHandler: { () -> () in
             
-            println("Stroe")
-            
             let s = JsonCache.defaultCache.retrieveJsonForKey(key, completionHandler: { (json, cacheType) -> () in
               
                println(cacheType.hashValue)

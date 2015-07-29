@@ -40,13 +40,23 @@ class ContainerModel: Model {
     }
   }
   var alpha: CGFloat = 1.0
-  var editable = true //
+  var editable = true
   var animations:[Animation] = []
   //    var behaviors: [Behavior] = []
   var effects: [Effect] = []
   var component: ComponentModel! = NoneContentModel()
   
-  var locked = false
+  var locked: Bool {
+    
+    get {
+      return !editable
+    }
+    
+    set {
+      editable = !newValue
+    }
+    
+  }
   var selected: Bool = false
   weak var delegate: ContainerModelDelegate?
   weak var editDelegate: ContainerModelSuperEditDelegate?
@@ -150,6 +160,7 @@ class ContainerModel: Model {
       "Id" : "ID",
       "x" : "ContainerX",
       "y" : "ContainerY",
+//      "locked" : "Editable",
       "width" : "ContaienrWidth",
       "height" : "ContainerHeight",
       "containerAngle" : "ContainerRotation",

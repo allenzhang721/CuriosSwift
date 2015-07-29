@@ -217,7 +217,6 @@ extension PageCollectionViewCell {
       for subNode in reverseSubNodes {
         let point = convertPoint(onScreenPoint, toView: subNode.view)
         if CGRectContainsPoint(subNode.view.bounds, point) {
-          //        println("on container")
           findNode = subNode
           break
         }
@@ -354,7 +353,6 @@ extension PageCollectionViewCell {
    func update() {
     
     if let aContentNode = contentNode {
-//      println("transitionWithProgress = minScale")
       aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
       contentNodeView!.center = contentView.center
     }
@@ -419,9 +417,6 @@ extension PageCollectionViewCell {
     
     for containerModel in aPageModel.containers {
       let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
-      
-//      println("containerModel.rotation = \(containerModel.rotation)")
-      
       aContentNode.addSubnode(aContainerNode)
 //      aContainerNode.page = self
     }

@@ -33,7 +33,6 @@ class Dynamic<T> {
     func bind(ID: String, action: Listener<T>.Action) -> Bool {
         let listener = Listener(name: ID, action: action)
         if listenerSet.contains(listener) {
-          println("ID: \(ID), action: \(action)")
             assert(false, "The listener ID is repeat")
             return false
         } else {

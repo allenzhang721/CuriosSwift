@@ -54,8 +54,6 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     transform = CGAffineTransformMakeRotation(aAngle)
     backgroundColor = UIColor.clearColor()
     
-    println("mask angle = \(aAngle)")
-    
 //    aContainerModel.selectedListener.bind("Mask_View") {[weak self] selected -> Void in
 //      
 //      if selected {
@@ -102,8 +100,6 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
     }
   
   deinit {
-    println("maskView deinit")
-//    containerMomdel.selectedListener.removeActionWithID("Mask_View")
     unBindingContainerModel()
   }
 }
@@ -177,10 +173,6 @@ extension MaskView {
         self.hidden = true
       }
     }
-    
-    
-//    println("Mask begain binding")
-    
     containerMomdel.updateSizeListener.bind("Mask_View") {[unowned self] size -> Void in
       
       self.bounds.size = size
@@ -212,8 +204,6 @@ extension MaskView {
     }
     
     binding = false
-    
-//    println("Mask End binding")
     containerMomdel.lockChangedListener.removeActionWithID("Mask_View")
     CUAnimationFactory.shareInstance.animationStateListener.removeActionWithID("Mask_View")
     containerMomdel.updateSizeListener.removeActionWithID("Mask_View")
@@ -385,8 +375,7 @@ extension MaskView {
       setNeedsDisplay()
       
     case .Cancelled, .Ended:
-      println("")
-      
+      return
     default:
       return
     }
@@ -446,7 +435,7 @@ extension MaskView {
       
       
     case .Ended, .Cancelled:
-      println("")
+      return
       
     default:
       return

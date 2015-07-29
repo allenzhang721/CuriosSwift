@@ -137,7 +137,6 @@ extension EditToolBar {
       
       if containerModel != nil && actived == true {
         if containerModel != aContainerModel {
-          println("actived change to other container")
           
           let same = containerModel?.component.type == aContainerModel?.component.type
 
@@ -177,12 +176,12 @@ extension EditToolBar {
       
     case let component as TextContentModel:
       type = .Text
-      barItems = ["textFont", "textAlignment", "textColor", "level", "animation"]
+      barItems = ["textFont", "textColor", "textAlignment", "animation", "level"]
       
       
     case let component as ImageContentModel:
       type = .Image
-      barItems = ["level", "animation"]
+      barItems = [ "animation", "level"]
       
       
     default:

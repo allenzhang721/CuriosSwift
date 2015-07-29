@@ -26,8 +26,6 @@ extension UIViewController {
     let data = NSData(contentsOfURL: mainURL)
     let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil)
     
-    println("demoBookJson = \(json)")
-    
     let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! BookModel
     
     return book
@@ -37,6 +35,12 @@ extension UIViewController {
     
     let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
     edit.bookModel = book
-    navigationController?.presentViewController(edit, animated: true, completion: nil)
+    
+    navigationController?.presentViewController(edit, animated: true, completion: { [weak self]() -> Void in
+      self?.navigationController?.popToRootViewControllerAnimated(true)
+      if let themeVC = self as? ThemeViewController {
+        themeVC.delegate?.viewController(themeVC, aNeedRefresh: true)
+      }
+    })
   }
 }

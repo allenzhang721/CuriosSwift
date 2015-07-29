@@ -122,7 +122,8 @@ class TextContentModel: ComponentModel {
     let text: String = {
       
       if originText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
-        return "Double\nClick"
+        let string = localString("DOUBLECLICK")
+        return string
       } else {
         return originText
       }
@@ -197,15 +198,16 @@ class TextContentModel: ComponentModel {
     return attributeString
   }
   
-  func setFontName(name: String) -> NSAttributedString {
-    needUpload = true
-    attributes["FontName"] = name
+  func setFontName(name: String) -> Bool {
     
-    let attributeString = generateAttributeString()
-//    updateAttributeStringHandler?(attributeString)
-    
-    return attributeString
-    
+    if let currentName = attributes["FontName"] as? String where currentName != name {
+      needUpload = true
+      attributes["FontName"] = name
+      generateAttributeString()
+      return true
+    } else {
+      return false
+    }
   }
   
   func setFontSize(size: CGFloat) -> NSAttributedString {

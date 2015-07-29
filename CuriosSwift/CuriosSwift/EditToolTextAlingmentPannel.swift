@@ -48,11 +48,6 @@ class EditToolTextAlignmentPannel: EditToolSettingPannel, UICollectionViewDelega
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  
-  deinit {
-    println("textFont deinit")
-  }
 }
 
 
@@ -87,8 +82,6 @@ extension EditToolTextAlignmentPannel {
     let alignments = alignmentKey as NSArray
     let index = alignments.indexOfObject(currentAlignment)
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-    
-    println("index = \(index)")
   }
   
   override func updateConstraints() {

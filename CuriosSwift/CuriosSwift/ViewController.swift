@@ -8,104 +8,137 @@
 
 import UIKit
 import Mantle
+import ReachabilitySwift
 
 class ViewController: UIViewController {
+  
+  var hiddenStateBar = false
+  let reachability = Reachability.reachabilityForInternetConnection()
+  
+  @IBOutlet weak var imageView: UIImageView!
+  struct MainStoryboard {
+    static let name = "Main"
+    struct viewControllers {
+      static let loginViewController = "LoginViewController"
+      static let editViewController = "editViewController"
+      static let bookListViewController = "BookListViewController"
+      static let bookListNavigationController = "bookListNavigationController"
+      
+    }
+  }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return hiddenStateBar
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    @IBOutlet weak var imageView: UIImageView!
-    struct MainStoryboard {
-       static let name = "Main"
-        struct viewControllers {
-            static let loginViewController = "LoginViewController"
-            static let editViewController = "editViewController"
-            static let bookListViewController = "BookListViewController"
-            static let bookListNavigationController = "bookListNavigationController"
-            
-        }
+//    notifier()
+    didload();
+    loadViewController()
+    FontsManager.share.registerLocalFonts()
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    notifier()
+  }
+  
+  func notifier() {
+    reachability.whenReachable = { reachability in
+      if reachability.isReachableViaWiFi() {
+        println("Reachable via WiFi")
+      } else {
+        println("Reachable via Cellular")
+      }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      let a = ADD_EDITED_FILE_paras("EMiasteoin", "hahahah", "GGGGGG")
-      
-      println(a)
-      
-        didload();
-        loadViewController()
-        FontsManager.share.registerLocalFonts()
-        let string = NSLocalizedString("TEST", comment: "国际化的语言测试")
-      
-      
-//      let main = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent("main.json")
-//      let data = NSData(contentsOfURL: main!)
-//      
-//      let dic :[NSObject : AnyObject] = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil) as! [NSObject : AnyObject]
-//      
-//      println(dic)
-//      
-//      let book = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: dic, error: nil) as! BookModel
-//      
-//      println(book)
-      
+    reachability.whenUnreachable = {[unowned self] reachability in
+      self.netbroken()
+      println("Not reachable")
     }
+    
+    reachability.startNotifier()
+    
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.netbroken()
+    }
+    
+    debugPrint.p(reachability.currentReachabilityString)
+  }
+  
+  func netbroken() {
+    
+    let alert = AlertHelper.alert_internetBroken()
+    presentViewController(alert, animated: true, completion: nil)
+  }
 }
 
 extension ViewController {
-    
-    func didload(){
-//        TemplatesManager.instanShare.loadTemplates();
-        LoginModel.shareInstance.viewController = self;
-    }
-    
-    func loadViewController() {
-//        adminLogin()
-        LoginModel.shareInstance.loadInfo()
-        
-        println(LoginModel.shareInstance.isLogin)
-        
-        if LoginModel.shareInstance.isLogin {
-            let user = LoginModel.shareInstance.user;
-            UsersManager.shareInstance.user = user;
-            removeViewController();
-            loadBookListViewController();
-        } else {
-            removeViewController();
-            loadLoginViewController()
-        }
-    }
-    
-    func loadLoginViewController() {
-        
-        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.loginViewController) as! LoginViewController
-        addChildViewController(loginVC)
-        view.addSubview(loginVC.view)
-    }
-    
-    func removeViewController(){
-        if childViewControllers.count > 0 {
-            
-            for childVC in childViewControllers as! [UIViewController] {
-                childVC.view.removeFromSuperview();
-                childVC.removeFromParentViewController();
-            }
-        }
-    }
   
-    func loadBookListViewController() {
-        
-        let bookListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.bookListNavigationController) as! UINavigationController
-        addChildViewController(bookListVC)
-        view.addSubview(bookListVC.view)
-    }
+  func didload(){
     
-    func adminLogin() {
-        
-        let loginFile = documentDirectory(login_)
-        let adminUser = bundle(admin_)
-        let data = NSData(contentsOfURL: adminUser)?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
-        data?.writeToURL(loginFile, atomically: true)
+    LoginModel.shareInstance.viewController = self;
+  }
+  
+  func loadViewController() {
+            adminLogin()
+    LoginModel.shareInstance.loadInfo()
+    
+    println(LoginModel.shareInstance.isLogin)
+    
+    if LoginModel.shareInstance.isLogin {
+      let user = LoginModel.shareInstance.user;
+      UsersManager.shareInstance.user = user;
+      removeViewController();
+      loadBookListViewController();
+    } else {
+      removeViewController();
+      loadLoginViewController()
     }
+  }
+  
+  func loadLoginViewController() {
+    
+    let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.loginViewController) as! LoginViewController
+    addChildViewController(loginVC)
+    view.addSubview(loginVC.view)
+  }
+  
+  func removeViewController(){
+    if childViewControllers.count > 0 {
+      
+      for childVC in childViewControllers as! [UIViewController] {
+        childVC.view.removeFromSuperview();
+        childVC.removeFromParentViewController();
+      }
+    }
+  }
+  
+  func loadBookListViewController() {
+    
+    let bookListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.bookListNavigationController) as! UINavigationController
+    let bookvc = bookListVC.topViewController as! BookListViewController
+    bookvc.delegate = self
+    addChildViewController(bookListVC)
+    view.addSubview(bookListVC.view)
+  }
+  
+  func adminLogin() {
+    
+    let loginFile = documentDirectory(login_)
+    let adminUser = bundle(admin_)
+    let data = NSData(contentsOfURL: adminUser)?.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(0))
+    data?.writeToURL(loginFile, atomically: true)
+  }
 }
 
-
+extension ViewController: BookListViewControllerDelegate {
+  
+  func viewController(controller: UIViewController, needHiddenStateBar hidden: Bool) {
+    
+    hiddenStateBar = hidden
+    setNeedsStatusBarAppearanceUpdate()
+  }
+}
 

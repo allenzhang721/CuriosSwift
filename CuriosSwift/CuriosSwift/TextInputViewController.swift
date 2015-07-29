@@ -1,6 +1,6 @@
 //
 //  TextInputViewController.swift
-//  
+//
 //
 //  Created by Emiaostein on 6/24/15.
 //
@@ -8,36 +8,90 @@
 
 import UIKit
 
+protocol textInputDataSource: NSObjectProtocol {
+  
+  func textofTextInputController(inputViewController: UIViewController) -> String
+  
+   func textInputViewControllerTextDidChanged(inputViewController: UIViewController, didChangedText aText: String)
+}
+
 protocol textInputViewControllerProtocol: NSObjectProtocol {
-    
-    func textInputViewControllerTextDidEnd(inputViewController: TextInputViewController, text: String)
-//    func textInputViewControllerTextDidEnd(text: String)
+  
+  func textInputViewControllerTextDidEnd(inputViewController: TextInputViewController, text: String)
+  //    func textInputViewControllerTextDidEnd(text: String)
 }
 
 class TextInputViewController: UIViewController {
-
-    var text = ""
-    var ID = ""
-    weak var delegate: textInputViewControllerProtocol?
-    @IBOutlet weak var textView: UITextView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        textView.text = text
-        
-        // Do any additional setup after loading the view.
-    }
+  
+  let TextInputTypeTitleName = "Title"
+  let TextInputTypeContentName = "Content"
+  
+  var type = ""
+  
+  var text = ""
+  var ID = ""
+  weak var delegate: textInputViewControllerProtocol?
+  @IBOutlet weak var textView: UITextView!
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    override func viewWillDisappear(animated: Bool) {
-        
-        if let aDelegate = delegate {
-            aDelegate.textInputViewControllerTextDidEnd(self, text:textView.text)
-        }
+    if type == TextInputTypeTitleName {
+      
+      setupTitleVC()
+      
+    } else if type == TextInputTypeContentName {
+      
+      setupContentVC()
+    }
+//    
+//    textView.text = text
+  }
+  
+  func setupTitleVC() {
+    
+    
+    if let titleInput = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputTitleViewController") as? TextInputTitleViewController {
+      titleInput.dataSource = self
+      addChildViewController(titleInput)
+      titleInput.view.bounds = view.bounds
+      view.addSubview(titleInput.view)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+  }
+  
+  func setupContentVC() {
+    //TextInputContentViewController
+    if let Input = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputContentViewController") as? TextInputContentViewController {
+      Input.dataSource = self
+      addChildViewController(Input)
+      Input.view.bounds = view.bounds
+      view.addSubview(Input.view)
     }
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    
+    if let aDelegate = delegate {
+      aDelegate.textInputViewControllerTextDidEnd(self, text:text)
+    }
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+}
+
+extension TextInputViewController: textInputDataSource {
+  
+  func textInputViewControllerTextDidChanged(inputViewController: UIViewController, didChangedText aText: String) {
+    
+    text = aText
+  }
+  
+  func textofTextInputController(inputViewController: UIViewController) -> String {
+    
+    return text
+  }
 }
 

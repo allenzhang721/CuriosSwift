@@ -49,7 +49,6 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
       PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
         
         if let publishID = json["newID"] as? String {
-          println("publishID = \(publishID)")
           self.getBookWithBookID(publishID, getBookHandler: { [unowned self] (book) -> () in
             self.showEditViewControllerWithBook(book)
             })

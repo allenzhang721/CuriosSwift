@@ -53,7 +53,6 @@ class EditToolAnimationPannel: EditToolSettingPannel, UICollectionViewDelegate, 
   
   
   deinit {
-    println("textFont deinit")
   }
 }
 
@@ -89,8 +88,6 @@ extension EditToolAnimationPannel {
     let animations = AnimationsManager.shareInstance.defautAnimations as NSArray
     let index = animations.indexOfObject(currentAnimation)
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-    
-    println("index = \(index)")
   }
   
   override func updateConstraints() {

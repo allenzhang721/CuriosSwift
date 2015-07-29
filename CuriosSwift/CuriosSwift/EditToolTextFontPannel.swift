@@ -48,11 +48,6 @@ class EditToolTextFontPannel: EditToolSettingPannel, UICollectionViewDelegate, U
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  
-  deinit {
-    println("textFont deinit")
-  }
 }
 
 
@@ -87,8 +82,6 @@ extension EditToolTextFontPannel {
     let fontNames = FontsManager.share.getFontNameList() as NSArray
     let index = fontNames.indexOfObject(currentFont)
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-    
-    println("index = \(index)")
   }
   
   override func updateConstraints() {
@@ -146,7 +139,9 @@ extension EditToolTextFontPannel {
     
     let fontName = FontsManager.share.getFontsList()[indexPath.item].fontName
     currentFont = fontName
-    textComponent.setFontName(fontName)
-    containerModel.needUpdateOnScreenSize(true)
+    if textComponent.setFontName(fontName) {
+      containerModel.needUpdateOnScreenSize(true)
+    }
+    
   }
 }

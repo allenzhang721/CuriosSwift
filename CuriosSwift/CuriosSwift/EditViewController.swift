@@ -180,9 +180,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     switch sender.state {
     case .Began:
       
-      println("pages Count = \(bookModel.pageModels.count)")
-
-
       beganPanY = LayoutSpec.layoutConstants.screenSize.height - sender.locationInView(view).y
       isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
       let nextLayout = isToSmallLayout ? smallLayout() : NormalLayout()
@@ -199,12 +196,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
 
         }) as? TransitionLayout
-      
-      if transitionLayout == nil {
-        
-        
-        println("transitionLayout == nil")
-      }
       
     case .Changed:
       progress = isToSmallLayout ? Float(transition.y / beganPanY) : -Float(transition.y / beganPanY)
@@ -232,9 +223,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           if bookModel.pageModels.count <= 1 {
             fallthrough
           }
-          println("CollectionView region")
           let pageLocation = sender.locationInView(collectionView)
-          println("pageLocation = \(pageLocation)")
           if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
             where aSmallLayout.begainSelectedAtOnScreenPoint(pointOnCollectionViewContent: pageLocation) {
               fakePageView!.center = location
@@ -517,11 +506,12 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
   
   @IBAction func saveAction(sender: UIBarButtonItem) {
     
+    EndEdit()
+    HUD.save_sync()
     prepareUploadBookModelToServer {[unowned self] (finished) -> () in
       
       if finished {
-        
-        println("save book model to server")
+        HUD.dismiss()
         self.dismissViewControllerAnimated(true, completion: nil)
       }
     }
@@ -670,7 +660,6 @@ extension EditViewController {
     maskView = MaskView.maskWithCenter(center, size: size, angle: angle, targetContainerModel: containerModel)
     maskView!.delegate = self
     
-//    println("maskSize = \(size)")
     view.insertSubview(maskView!, aboveSubview: collectionView)
   }
   
@@ -759,8 +748,6 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     
-//    println("uploadComplete userID = \(userID)")
-    
     let publishID = bookModel.Id
     let publishURL = pathByComponents([userID, publishID])
     let data = ["publishURL":"\(publishURL)" + "/",
@@ -771,7 +758,6 @@ extension EditViewController {
     
     UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { [unowned self] (json) -> Void in
       
-//      println("uploadComplete json = \(json)")
       if let aData = json["data"] as? String {
         self.publishFile()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -801,6 +787,7 @@ extension EditViewController {
   
   func showPreviewControllerWithUrl(url: String) {
     
+    HUD.dismiss()
     if let previewNavVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController {
       
       if let previewVC = previewNavVC.topViewController as? PreviewViewController {
@@ -982,8 +969,6 @@ extension EditViewController {
     
     container.setSelectedState(true)
     
-    println("DidSelected")
-    
     editToolBar.updateWithModel(container)
   }
   
@@ -1049,18 +1034,22 @@ extension EditViewController {
     
     if (UIImagePickerController.availableMediaTypesForSourceType(.Camera) != nil) {
       
-      let CameraAction = UIAlertAction(title: "Camera", style: .Default) { (action) -> Void in
+      let string = localString("CAMERA")
+      let CameraAction = UIAlertAction(title: string, style: .Default) { (action) -> Void in
         
         self.showImagePicker(.Camera)
       }
       sheet.addAction(CameraAction)
     }
     
-    let LibarayAction = UIAlertAction(title: "Libaray", style: .Default) { (action) -> Void in
+    let libarayString = localString("LIBARAY")
+    let LibarayAction = UIAlertAction(title: libarayString, style: .Default) { (action) -> Void in
       
       self.showImagePicker(.PhotoLibrary)
     }
-    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+    
+    let cancel = localString("CANCEL")
+    let CancelAction = UIAlertAction(title: cancel, style: .Cancel) { (action) -> Void in
       
     }
     
@@ -1125,7 +1114,6 @@ extension EditViewController {
       
       completedBlock(finished)
       UploadsManager.shareInstance.setCompeletedHandler(nil)
-      println("prepareForPreivew - upload finished")
     }
     
     uploadPublishFile { (datas, keys, tokens) -> () in
@@ -1154,8 +1142,6 @@ extension EditViewController {
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
-    
-//    println("preview Book = \(bookjson)")
     
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
 //    let appString = "curiosMainJson=" + string
@@ -1200,15 +1186,10 @@ extension EditViewController {
     let icon = bookModel.icon
     let addEditFilePath = pathByComponents([userID, bookID, "res", "curiosRes.json"])
     
-//    println("icon = \(icon)")
-    
 //    let string = ADD_EDITED_FILE_paras(userID, bookID, addEditFilePath)
     let string = ADD_EDITED_FILE_paras(userID, bookID, addEditFilePath, publisherIconURL: icon, publishTitle: atitle, publishDesc: desc)
     
-//    println("add edit file paramer: \(string)")
-    
     AddEditFileRequest.requestWithComponents(ADD_EDITED_FILE, aJsonParameter: string) { (json) -> Void in
-//      println(" add edit file = \(json)")
       completedBlock(true)
       }.sendRequest()
   }
@@ -1257,8 +1238,6 @@ extension EditViewController {
       }()
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
-    
-//    println("save book = \(bookjson)")
     
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
     let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
@@ -1427,16 +1406,13 @@ extension EditViewController {
     constraintsState = .ShowPannel
   }
   func editToolBar(toolBar: EditToolBar, didChangedToContainerModel containerModel: ContainerModel) {
-    println("changeTo")
   }
   func editToolBarDidDeactived(toolBar: EditToolBar) {
-    println("deactive")
     constraintsState = .Default
   }
   
   // Default - Setting / AddText / AddImage / Preview
   func editToolBarDidSelectedSetting(toolBar: EditToolBar) {
-    println("setting")
     
     if let bookdetailNavigationController = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("bookdetailNavigationController") as? UINavigationController,
       let bookdetailController = bookdetailNavigationController.topViewController as? BookDetailViewController {
@@ -1448,8 +1424,9 @@ extension EditViewController {
     
   }
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
-    println("Preview")
     
+//    EndEdit()
+    HUD.preview_upload()
     prepareForPreivew {[unowned self] (finished) -> () in
       
       if finished {

@@ -10,12 +10,18 @@ import UIKit
 import Mantle
 import Alamofire
 
+protocol ThemeViewControllerDelegate: NSObjectProtocol {
+  
+  func viewController(controller: UIViewController, aNeedRefresh: Bool)
+}
+
 class ThemeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
 
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var titleText: UIBarButtonItem!
   
+  weak var delegate: ThemeViewControllerDelegate?
   
   var defaultLayout: UICollectionViewFlowLayout {
     
@@ -43,6 +49,8 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
       
+      navigationController?.navigationBarHidden = true
+      
       collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
       collectionView.decelerationRate = 0.1
       collectionView.setCollectionViewLayout(defaultLayout, animated: false)
@@ -59,7 +67,9 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
     return true
   }
   @IBAction func backAction(sender: UIBarButtonItem) {
-    dismissViewControllerAnimated(true, completion: nil)
+    
+    delegate?.viewController(self, aNeedRefresh: false)
+    navigationController?.popToRootViewControllerAnimated(true)
   }
 }
 
@@ -101,41 +111,41 @@ extension ThemeViewController {
   // MARK: - CollectionView Delegate
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
-    let themeID = themeList[indexPath.item].themeID
-    
-    TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
-      if templates.count <= 0 {
-        return
-      }
-      let templateURL = templates[0].templateURL
-        
-        let url = NSURL(string: templateURL)!
-      
-      // Fetch Request
-      Alamofire.request(.POST, url, parameters: nil)
-        .validate(statusCode: 200..<300)
-        .responseJSON{ (request, response, JSON, error) in
-          if (error == nil)
-          {
-            
-            if let jsondic = JSON as? [NSObject : AnyObject] {
-              
-              let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
-              
-              // change Page ID
-              pageModel.Id = UniqueIDStringWithCount(count: 8)
-              self.createANewBookWithPageModel(pageModel)
-            }
-          }
-          else
-          {
-            if let aError = error{
-            
-            }
-            println("HTTP HTTP Request failed: \(error)")
-          }
-      }
-    }
+//    let themeID = themeList[indexPath.item].themeID
+//    
+//    TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
+//      if templates.count <= 0 {
+//        return
+//      }
+//      let templateURL = templates[0].templateURL
+//        
+//        let url = NSURL(string: templateURL)!
+//      
+//      // Fetch Request
+//      Alamofire.request(.POST, url, parameters: nil)
+//        .validate(statusCode: 200..<300)
+//        .responseJSON{ (request, response, JSON, error) in
+//          if (error == nil)
+//          {
+//            
+//            if let jsondic = JSON as? [NSObject : AnyObject] {
+//              
+//              let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
+//              
+//              // change Page ID
+//              pageModel.Id = UniqueIDStringWithCount(count: 8)
+//              self.createANewBookWithPageModel(pageModel)
+//            }
+//          }
+//          else
+//          {
+//            if let aError = error{
+//            
+//            }
+//            println("HTTP HTTP Request failed: \(error)")
+//          }
+//      }
+//    }
   }
   
   

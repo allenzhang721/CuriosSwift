@@ -48,12 +48,6 @@ class EditToolTextColorPannel: EditToolSettingPannel, UICollectionViewDelegate, 
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  
-  deinit {
-    
-    println("Color deinit")
-  }
 }
 
 
@@ -88,8 +82,6 @@ extension EditToolTextColorPannel {
     let colors = ColorManager.shareInstance.defaultColors as NSArray
     let index = colors.indexOfObject(currentColor)
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-    
-    println("index = \(index)")
   }
   
   override func updateConstraints() {

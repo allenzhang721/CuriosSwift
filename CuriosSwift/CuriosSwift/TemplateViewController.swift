@@ -17,7 +17,7 @@ class TemplateViewController: UIViewController {
         super.viewDidLoad()
 
         collectionView.pagingEnabled = true
-        
+      
 //        getTemplates()
     
     }

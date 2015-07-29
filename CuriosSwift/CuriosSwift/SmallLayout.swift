@@ -208,8 +208,6 @@ class smallLayout: UICollectionViewFlowLayout {
 //    let right = sectionInset.right
     let count = collectionView!.numberOfItemsInSection(0)
     
-    
-    println("count = \(count)")
     // get insert indexPath
     if ignoreY && needCreateNewIndexPath {
       

@@ -7,3 +7,56 @@
 */
 
 TEST = "This is a Localizable Sting Test";
+
+
+// Universal
+PUBLISH  = "publish ";
+SHARE   = "share ";
+SUCCESS = "success ";
+FAIL    = "fail ";
+
+
+//booklist
+ADDBOOKBUTTON = "Add+";
+
+//alert
+ALERT_TITLE = "Curios奇思";
+LOGIN_ERROR = "登录失败，请稍后再试。";
+CONNECT_IOERROR = "无法链接网络，请稍后再试。";
+
+
+// Animation
+None            = "无";
+FadeIn          = "渐现";
+FloatIn         = "浮入";
+ZoomIn          = "弹入";
+ScaleIn         = "缩放入";
+DropIn          = "掉落";
+SlideIn         = "滑入";
+TeetertotterIn  = "陀螺旋转入";
+FadeOut         = "渐隐";
+FloatOut        = "浮出";
+ZoomOut         = "弹出";
+ScaleOut        = "缩放出";
+DropOut         = "滑落";
+SlideOut        = "滑出";
+TeetertotterOut = "陀螺旋转出";
+
+// Typography
+Moveforward     = "前移";
+MoveBack        = "后移";
+Lock            = "锁定";
+
+// Font
+LeftAlignment       = "左对齐";
+CenterAlignment       = "居中";
+RightAlignment       = "右对齐";
+FontSizePlus       = "字体加";
+FontSizeSubstract       = "字体减";
+
+
+// Book Detail
+BookDetailIcon              = "图标";
+BookDetailTitle             = "标题";
+BookDetailDescri            = "简介";
+BookDetailBackground        = "背景";

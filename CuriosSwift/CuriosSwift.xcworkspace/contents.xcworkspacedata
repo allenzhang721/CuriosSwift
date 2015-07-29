@@ -2,27 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CuriosSwift/EditNaviAimation.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/EditTemplateViewController.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/ImageTokenRequest.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/PublishTokenRequest.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/FontCollectionViewCell.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/ColorPickCollectionViewCell.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/ColorPickView.swift">
-   </FileRef>
-   <FileRef
       location = "group:CuriosSwift.xcodeproj">
    </FileRef>
    <FileRef

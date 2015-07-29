@@ -48,7 +48,6 @@ class TextEditorViewController: UIViewController {
     }
   
   deinit {
-    println("textEditor deinit")
      NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
