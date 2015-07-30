@@ -17,7 +17,6 @@ struct FontInfo {
 final class FontsManager {
     
     private var fontsList = [FontInfo]()
-    
     let fontsURL = NSBundle.mainBundle().bundleURL.URLByAppendingPathComponent("Font")
    static let share = FontsManager()
     
@@ -55,16 +54,15 @@ final class FontsManager {
         
         let fileManger = NSFileManager.defaultManager()
         
-//        let entries = fileManger.enumeratorAtURL(fontsURL, includingPropertiesForKeys: nil, options: [.SkipsPackageDescendants, .SkipsHiddenFiles]) { (url, error) -> Bool in
-//            return true
-//        }
-        
         let entries = fileManger.enumeratorAtURL(fontsURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions(0)) { (url, error) -> Bool in
             return true
         }
+      
+      let defaultFontInfo = FontInfo(fontTitle: "冬青黑", fontName: "Heiti SC")
+      fontsList.append(defaultFontInfo)
         
         while let url = entries?.nextObject() as? NSURL {
-            
+          
             var flag = ObjCBool(false)
             fileManger.fileExistsAtPath(url.path!, isDirectory: &flag)
             if flag.boolValue == false {

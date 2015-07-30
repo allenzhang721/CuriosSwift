@@ -97,6 +97,7 @@ class TextContentModel: ComponentModel {
   
   func updateFromDemoAttributeString(textAttributes: textAttribute) -> CGSize {
     needUpload = true
+    editDelegate?.componentModelDidUpdate(self)
     attributes["Text"] = textAttributes.text
     attributes["TextAligment"] = textAttributes.alignment
     attributes["TextColor"] = textAttributes.color
@@ -180,6 +181,7 @@ class TextContentModel: ComponentModel {
   
   func setTextAlignment(alignment: String) -> NSAttributedString {
     needUpload = true
+    editDelegate?.componentModelDidUpdate(self)
     attributes["TextAligment"] = alignment
     
     let attributeString = generateAttributeString()
@@ -190,6 +192,7 @@ class TextContentModel: ComponentModel {
   
   func setTextColor(color: String) -> NSAttributedString {
     needUpload = true
+    editDelegate?.componentModelDidUpdate(self)
     attributes["TextColor"] = color
     
     let attributeString = generateAttributeString()
@@ -202,6 +205,7 @@ class TextContentModel: ComponentModel {
     
     if let currentName = attributes["FontName"] as? String where currentName != name {
       needUpload = true
+      editDelegate?.componentModelDidUpdate(self)
       attributes["FontName"] = name
       generateAttributeString()
       return true
@@ -212,6 +216,7 @@ class TextContentModel: ComponentModel {
   
   func setFontSize(size: CGFloat) -> NSAttributedString {
     needUpload = true
+    editDelegate?.componentModelDidUpdate(self)
     attributes["FontSize"] = size
     
     let attributeString = generateAttributeString()

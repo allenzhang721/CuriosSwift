@@ -58,6 +58,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         containerModel.aspectio = theAspectRatio
         position = postion
         bounds.size = size
+        alpha = containerModel.alpha
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
       
         component = containerModel.component.createComponent()

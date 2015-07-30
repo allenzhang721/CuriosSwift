@@ -9,6 +9,11 @@
 import Foundation
 import Mantle
 
+protocol PageModelEditDelegate: NSObjectProtocol {
+  
+  func targetPageModelDidUpdate(model: PageModel)
+  
+}
 
 protocol PageModelDelegate: NSObjectProtocol {
   
@@ -18,6 +23,7 @@ protocol PageModelDelegate: NSObjectProtocol {
 
 class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   
+  weak var editDelegate: PageModelEditDelegate?
   weak var delegate: IFile?
   var Id = ""
   var width: CGFloat = 640.0
@@ -59,6 +65,11 @@ class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
 //MARK: - ContainerSuperEditDelegate
 extension PageModel {
   
+  func containerModelDidUpdate(model: ContainerModel) {
+    
+    editDelegate?.targetPageModelDidUpdate(self)
+  }
+  
   func containerModel(model: ContainerModel, levelDidChanged sendForward: Bool) -> Bool {
     
     if containers.count <= 0 {
@@ -73,7 +84,7 @@ extension PageModel {
       if index == count - 1 {
         return false
       }
-      
+      editDelegate?.targetPageModelDidUpdate(self)
       exchange(&containers, index, index + 1)
       return true
       
@@ -81,6 +92,7 @@ extension PageModel {
       if index == 0 {
         return false
       }
+      editDelegate?.targetPageModelDidUpdate(self)
       exchange(&containers, index, index - 1)
       return true
     }
@@ -127,12 +139,14 @@ extension PageModel {
       aContainer.component.delegate = self
       aContainer.editDelegate = self
       containers.append(aContainer)
+      editDelegate?.targetPageModelDidUpdate(self)
       modelDelegate?.targetPageModel(self, DidAddContainer: aContainer)
   }
   
   
   func removeContainerModel(aContainer: ContainerModel) {
     
+    editDelegate?.targetPageModelDidUpdate(self)
     modelDelegate?.targetpageModel(self, DidRemoveContainer: aContainer)
     
     var index = 0
@@ -182,11 +196,13 @@ extension PageModel {
     containers.append(aContainer)
     aContainer.component.delegate = self
     aContainer.editDelegate = self
+    editDelegate?.targetPageModelDidUpdate(self)
     modelDelegate?.targetPageModel(self, DidAddContainer: aContainer)
   }
   
   func removeContainer(aContainer: ContainerModel) {
 
+    editDelegate?.targetPageModelDidUpdate(self)
     modelDelegate?.targetpageModel(self, DidRemoveContainer: aContainer)
     
     var index = 0

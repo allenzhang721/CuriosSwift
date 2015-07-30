@@ -9,6 +9,11 @@
 import Foundation
 import Mantle
 
+protocol ComponentModelDelegate: NSObjectProtocol {
+  
+  func componentModelDidUpdate(model: ComponentModel)
+}
+
 class ComponentModel: Model, IFile  {
   
     var iD: String = ""
@@ -18,6 +23,7 @@ class ComponentModel: Model, IFile  {
     }
     
     weak var delegate: IFile?
+    weak var editDelegate: ComponentModelDelegate?
     var type: Type = .None
     var attributes: [String : AnyObject] = [:]
   

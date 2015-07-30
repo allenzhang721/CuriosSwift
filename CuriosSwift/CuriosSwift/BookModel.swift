@@ -9,7 +9,7 @@
 import Foundation
 import Mantle
 
-class BookModel: Model, IFile {
+class BookModel: Model, IFile, PageModelEditDelegate {
   
   @objc enum FlipDirections: Int {
     case ver, hor
@@ -35,6 +35,7 @@ class BookModel: Model, IFile {
   var icon                            = "/publishIcon.png"
   var pageModels: [PageModel]         = []
   
+  var needUpload = false
   var pagesInfo: [[String : String]] = [[:]]
   
   
@@ -64,6 +65,7 @@ class BookModel: Model, IFile {
     
     for page in pageModels {
       page.delegate = self
+      page.editDelegate = self
     }
   }
   
@@ -113,12 +115,26 @@ class BookModel: Model, IFile {
 //    }
 //  }
   
+  func isNeedUpload() -> Bool {
+    return needUpload
+  }
+  
+  func resetNeedUpload() {
+    needUpload = false
+  }
+  
+  func exchangePageModel(fromIndex: Int, toIndex: Int) {
+    needUpload = true
+    exchange(&pageModels, fromIndex, toIndex)
+  }
+  
   func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
-    
+    needUpload = true
     var i = index
     for pageModel in aPageModels {
       pageModels.insert(pageModel, atIndex: i)
       pageModel.delegate = self
+      pageModel.editDelegate = self
       i++
     }
   }
@@ -130,6 +146,7 @@ class BookModel: Model, IFile {
   }
   
   func removePageModelAtIndex(index: Int) {
+    needUpload = true
     let aPageModel = pageModels[index]
     aPageModel.delegate = nil
     pageModels.removeAtIndex(index)
@@ -193,6 +210,10 @@ class BookModel: Model, IFile {
 }
 
 extension BookModel {
+  
+  func targetPageModelDidUpdate(model: PageModel) {
+    needUpload = true
+  }
   
   func fileGetSuperPath(file: IFile) -> String {
     return Id

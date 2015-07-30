@@ -42,7 +42,7 @@ ADDBOOKBUTTON = "添加";
 
 // ViewController Title
 USERINFO_TITLE = "个人信息";
-BOOKDETAIL_TITLE = "设置";
+BOOKDETAIL_SETTING = "设置";
 
 
 // EDIT View Controller
@@ -54,7 +54,11 @@ SYNCING = "同步中";
 UPLOADING = "上传素材中";
 
 
-
+// Book Detail
+BOOKDETAIL_ICON              = "图标";
+BOOKDETAIL_TITLE             = "标题";
+BOOKDETAIL_DESCRIPTION       = "简介";
+BOOKDETAIL_BACKGROUND        = "背景";
 
 
 
@@ -101,8 +105,3 @@ FontSizePlus       = "字体加";
 FontSizeSubstract       = "字体减";
 
 
-// Book Detail
-BookDetailIcon              = "图标";
-BookDetailTitle             = "标题";
-BookDetailDescri            = "简介";
-BookDetailBackground        = "背景";

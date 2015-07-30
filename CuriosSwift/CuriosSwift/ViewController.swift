@@ -23,7 +23,6 @@ class ViewController: UIViewController {
       static let editViewController = "editViewController"
       static let bookListViewController = "BookListViewController"
       static let bookListNavigationController = "bookListNavigationController"
-      
     }
   }
   
@@ -38,6 +37,8 @@ class ViewController: UIViewController {
     didload();
     loadViewController()
     FontsManager.share.registerLocalFonts()
+    
+    debugPrint.p(FontsManager.share.getFontNameList())
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -63,8 +64,6 @@ class ViewController: UIViewController {
     if reachability.currentReachabilityStatus == .NotReachable {
       self.netbroken()
     }
-    
-    debugPrint.p(reachability.currentReachabilityString)
   }
   
   func netbroken() {

@@ -31,6 +31,10 @@ class UploadsManager {
   // uploading: Bool
   //
   
+  func uploadFinished() -> Bool {
+    return finished
+  }
+  
   func setCompeletedHandler(block:((Bool) -> ())?) {
     compeletedBlock = block
   }
@@ -66,6 +70,7 @@ class UploadsManager {
         }
         
         if self.finishCount == self.totalCount {
+          debugPrint.p("upload completed")
           self.finished = true
           self.compeletedBlock?(true)
         }

@@ -62,11 +62,11 @@ class ImageContentModel: ComponentModel, IFile {
     
     KingfisherManager.sharedManager.cache.removeImageForKey(key)
     let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
+    
     if aImageID != imageID {
+      editDelegate?.componentModelDidUpdate(self)
       imageID = aImageID
     }
-//    let newID = aImageID + UniqueIDStringWithCount(count: 4)
-//    let imageID = UniqueIDStringWithCount(count: 8)
     key = pathByComponents([userID, PublishID, "\(aImageID).jpg"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     

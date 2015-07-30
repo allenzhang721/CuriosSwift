@@ -506,13 +506,19 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
   
   @IBAction func saveAction(sender: UIBarButtonItem) {
     
+    
     EndEdit()
-    HUD.save_sync()
-    prepareUploadBookModelToServer {[unowned self] (finished) -> () in
-      
-      if finished {
-        HUD.dismiss()
-        self.dismissViewControllerAnimated(true, completion: nil)
+    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() {
+      UploadsManager.shareInstance.setCompeletedHandler(nil)
+      self.dismissViewControllerAnimated(true, completion: nil)
+    } else {
+      HUD.save_sync()
+      prepareUploadBookModelToServer {[unowned self] (finished) -> () in
+        
+        if finished {
+          HUD.dismiss()
+          self.dismissViewControllerAnimated(true, completion: nil)
+        }
       }
     }
   }
@@ -589,7 +595,7 @@ extension EditViewController {
       let pageModel = bookModel.pageModels[indexPath.item]
       
       let defaultTextAttribute = [ "Text": "",
-        "FontName": "RTWSYueRoudGoG0v1-Regular",
+        "FontName": "Heiti SC",
         "FontSize": 30,
         "TextColor": "#FFFFFF",
         "TextAligment": "center",
@@ -1199,8 +1205,8 @@ extension EditViewController {
     UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
       
       //      completedBlock(finished)
-      
       if finished {
+
         self.addEditFile({ (finished) -> () in
           
           if finished {
@@ -1211,11 +1217,12 @@ extension EditViewController {
       }
     }
     
-    uploadBookModelToserver { (datas, keys, tokens) -> () in
-      
-      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+    if bookModel.isNeedUpload() {
+      bookModel.resetNeedUpload()
+      uploadBookModelToserver { (datas, keys, tokens) -> () in
+        UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+      }
     }
-    
   }
   
   func uploadBookModelToserver(compeletedBlock:([NSData], [String], [String]) -> ()) {
@@ -1304,7 +1311,8 @@ extension EditViewController {
   
   func layout(layout: smallLayout, willMovedItemAtIndexPath FromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
     
-    exchange(&bookModel.pageModels, FromIndexPath.item, toIndexPath.item)
+    bookModel.exchangePageModel(FromIndexPath.item, toIndex: toIndexPath.item)
+//    exchange(&bookModel.pageModels, FromIndexPath.item, toIndexPath.item)
     collectionView.performBatchUpdates({[weak self] () -> Void in
     
       self?.collectionView.moveItemAtIndexPath(FromIndexPath, toIndexPath: toIndexPath)

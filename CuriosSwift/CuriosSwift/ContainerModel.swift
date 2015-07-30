@@ -16,11 +16,12 @@ protocol ContainerModelDelegate: NSObjectProtocol {
 
 protocol ContainerModelSuperEditDelegate: NSObjectProtocol {
   
+  func containerModelDidUpdate(model: ContainerModel)
   func containerModel(model: ContainerModel, levelDidChanged sendForward: Bool) -> Bool
   
 }
 
-class ContainerModel: Model {
+class ContainerModel: Model, ComponentModelDelegate {
   
   // json
   var Id = ""
@@ -75,11 +76,28 @@ class ContainerModel: Model {
   var levelChangedListener = Dynamic(true)
   var lockChangedListener = Dynamic(false)
   
+  
+  required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
+    super.init(dictionary: dictionaryValue, error: error)
+    
+    component.editDelegate = self
+  }
+  
+  override init!() {
+    super.init()
+  }
+  
+  
+  func componentModelDidUpdate(model: ComponentModel) {
+    editDelegate?.containerModelDidUpdate(self)
+  }
+  
   func setLockChanged(lock: Bool) {
     
     if locked != lock {
       locked = lock
       lockChangedListener.value = lock
+      editDelegate?.containerModelDidUpdate(self)
     }
   }
   
@@ -112,6 +130,8 @@ class ContainerModel: Model {
     
     width = size.width / aspectio
     height = size.height / aspectio
+    
+    editDelegate?.containerModelDidUpdate(self)
   }
   
   func setOnScreenSize(size: CGSize) {
@@ -120,6 +140,8 @@ class ContainerModel: Model {
     
     width = size.width / aspectio
     height = size.height / aspectio
+    
+//    editDelegate?.containerModelDidUpdate(self)
   }
   
   func setOnScreenOrigin(point: CGPoint) {
@@ -127,11 +149,14 @@ class ContainerModel: Model {
     x = point.x / aspectio
     y = point.y / aspectio
     
+    editDelegate?.containerModelDidUpdate(self)
   }
   
   func setOriginChange(point: CGPoint) {
     x += point.x / aspectio
     y += point.y / aspectio
+    
+    editDelegate?.containerModelDidUpdate(self)
   }
   
   func setCenterChange(point: CGPoint) {
@@ -145,6 +170,8 @@ class ContainerModel: Model {
     
     width += size.width / aspectio
     height += size.height / aspectio
+    
+    editDelegate?.containerModelDidUpdate(self)
   }
   
   func setAngleChange(angle: CGFloat) {
@@ -152,6 +179,8 @@ class ContainerModel: Model {
     let newAngle = angle + rotation
     rotationListener.value = newAngle
     rotation = newAngle
+    
+    editDelegate?.containerModelDidUpdate(self)
   }
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

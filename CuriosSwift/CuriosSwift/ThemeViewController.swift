@@ -286,7 +286,9 @@ extension ThemeViewController {
         
         self.getBookWithBookID(newID) {[unowned self] (aBookModel) -> () in
           
-          aBookModel.pageModels.append(pageModel)
+          aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
+          aBookModel.needUpload = false
+//          aBookModel.pageModels.append(pageModel)
           self.showEditViewControllerWithBook(aBookModel)
         }
       }

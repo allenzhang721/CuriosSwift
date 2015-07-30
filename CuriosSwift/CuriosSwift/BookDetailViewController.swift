@@ -52,7 +52,7 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = localString("BOOKDETAIL_TITLE")
+    title = localString("BOOKDETAIL_SETTING")
     
     tableView.registerNib(UINib(nibName: "BookDetailImageCell", bundle: nil), forCellReuseIdentifier: "BookDetailImageCell")
     tableView.registerNib(UINib(nibName: "BookDetailInfoCell", bundle: nil), forCellReuseIdentifier: "BookDetailInfoCell")
@@ -117,13 +117,17 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
+    //BOOKDETAIL_ICON              = "图标";
+//    BOOKDETAIL_TITLE             = "标题";
+//    BOOKDETAIL_DESCRIPTION       = "简介";
+    
     let section = indexPath.section
     let row = indexPath.row
     
     if section == 0 {
       if row == 0 {
         let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
-        cell.titleLabel?.text = NSLocalizedString("BookDetailIcon", comment: "国际化的语言测试")
+        cell.titleLabel?.text = localString("BOOKDETAIL_ICON")
         KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
           if let aImage = image {
             cell.iconImageView.image = aImage
@@ -136,13 +140,13 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         
       } else if row == 1{
         let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
-        cell.titleLabel?.text = NSLocalizedString("BookDetailTitle", comment: "国际化的语言测试")
+        cell.titleLabel?.text = localString("BOOKDETAIL_TITLE")
         cell.descriText?.text = bookTitle
         return cell
       } else {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailInfoCell") as! BookDetailInfoCell
-        cell.titleLabel?.text = NSLocalizedString("BookDetailDescri", comment: "国际化的语言测试")
+        cell.titleLabel?.text = localString("BOOKDETAIL_DESCRIPTION")
         cell.tableView = tableView
         cell.descriText?.text = bookDescription
         return cell
@@ -151,7 +155,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
     } else {
       
       let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
-      cell.titleLabel?.text = NSLocalizedString("BookDetailBackground", comment: "国际化的语言测试")
+      cell.titleLabel?.text = localString("BOOKDETAIL_BACKGROUND")
       //            cell.iconImageView?.image = background
       return cell
     }
@@ -170,6 +174,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
         
         if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
           aInputVC.text = bookModel.desc
+          aInputVC.title = localString("BOOKDETAIL_DESCRIPTION")
           aInputVC.ID = "Description"
           aInputVC.type = "Content"
           aInputVC.delegate = self
@@ -178,6 +183,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
       } else if row == 1 {
         if let aInputVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("TextInputViewController") as? TextInputViewController {
           aInputVC.text = bookModel.title
+          aInputVC.title = localString("BOOKDETAIL_TITLE")
           aInputVC.type = "Title"
           aInputVC.ID = "Title"
           aInputVC.delegate = self
