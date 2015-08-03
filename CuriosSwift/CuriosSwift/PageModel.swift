@@ -23,6 +23,8 @@ protocol PageModelDelegate: NSObjectProtocol {
 
 class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   
+
+  
   weak var editDelegate: PageModelEditDelegate?
   weak var delegate: IFile?
   var Id = ""
@@ -58,9 +60,22 @@ class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   override init!() {
     super.init()
   }
+  
+  typealias aResult = PageModel
+  static func converFromData(data: NSData!) -> (aResult?, NSError?) {
+    
+    if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 {
+      
+      if let model = MTLJSONAdapter.modelOfClass(aResult.self, fromJSONDictionary: dic, error: nil) as? PageModel {
+        return (model, nil)
+      } else {
+        return (nil, nil)
+      }
+    } else {
+      return (nil, nil)
+    }
+  }
 }
-
-
 
 //MARK: - ContainerSuperEditDelegate
 extension PageModel {

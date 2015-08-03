@@ -15,6 +15,7 @@ import UIKit
 public class CuriosKit : NSObject {
   
   //// Drawing Methods
+  static let controlPannelDashColor = UIColor(hexString: "#5499EA")!
   
   public class func drawControlPannel(#frame: CGRect) {
     //// General Declarations
@@ -22,7 +23,7 @@ public class CuriosKit : NSObject {
     
     //// Rectangle Drawing
     let rectanglePath = UIBezierPath(rect: CGRectMake(frame.minX + 0.5, frame.minY + 0.5, frame.width - 1, frame.height - 1))
-    UIColor.redColor().setStroke()
+    CuriosKit.controlPannelDashColor.setStroke()
     rectanglePath.lineWidth = 1
     CGContextSaveGState(context)
     CGContextSetLineDash(context, 0, [5, 2], 2)

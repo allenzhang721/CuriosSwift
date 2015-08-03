@@ -200,6 +200,7 @@ extension JsonDownloader: NSURLSessionDataDelegate {
               // It should be handled to get an image from cache, which is response of a manager object.
               if let res = task.response as? NSHTTPURLResponse where res.statusCode == 304 {
                 self.callbackWithJson(nil, error: nil, JsonURL: URL)
+                
                 return
               }
               

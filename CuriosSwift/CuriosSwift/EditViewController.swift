@@ -41,6 +41,9 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   }
   
   // UI
+  
+  var isUploaded = false
+  
   var bottomToolBar: ToolsBar!  //deprecated
   var pannel: ToolsPannel!      //deprecated
   var templateViewController: EditorTemplateNavigationController! //deprecated
@@ -74,6 +77,8 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   var multiSection = false
   
   var isReplacedImage: Bool = false
+  
+  var longPressBegainLocation: CGPoint!
   
   var maskAttributes = [IMaskAttributeSetter]()
   var currentEditContainer: IContainer?
@@ -226,32 +231,38 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           let pageLocation = sender.locationInView(collectionView)
           if let aSmallLayout = collectionView.collectionViewLayout as? smallLayout
             where aSmallLayout.begainSelectedAtOnScreenPoint(pointOnCollectionViewContent: pageLocation) {
-              fakePageView!.center = location
+//              fakePageView!.center = location
+              longPressBegainLocation = location
           }
 
         // editNavigationController
         } else if CGRectContainsPoint(editNavigationViewController.view.frame, location) {
           
-          
           let location = sender.locationInView(editNavigationViewController.view)
-          editNavigationViewController.begainResponseToLongPress(location)
+          
           editNavigationViewController.didSelectedBlock = {[unowned self](snapshot, json) -> () in
             
-            let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as! PageModel
-            
-            // change Page id
-            page.Id = UniqueIDStringWithCount(count: 8)
-            
-            self.fakePageView = FakePageView.fakePageViewWith(snapshot, array: [page])
-            self.fakePageView?.fromTemplate = true
-            self.fakePageView?.center = location
-            self.view.addSubview(self.fakePageView!)
-            
-            if let aSmallLayout = self.collectionView.collectionViewLayout as? smallLayout {
-              let pageLocation = sender.locationInView(self.collectionView)
-              aSmallLayout.begainInsertSelectedAtOnScreenPoint(pointOnCollectionViewContent: pageLocation)
+            if let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as? PageModel {
+              
+              // change Page id
+              page.Id = UniqueIDStringWithCount(count: 8)
+              
+              self.fakePageView = FakePageView.fakePageViewWith(snapshot, array: [page])
+              self.fakePageView?.fromTemplate = true
+              self.fakePageView?.center = location
+              self.view.addSubview(self.fakePageView!)
+              
+              if let aSmallLayout = self.collectionView.collectionViewLayout as? smallLayout {
+                let pageLocation = sender.locationInView(self.collectionView)
+                
+                debugPrint.p("pageLocation = \(pageLocation)")
+                self.longPressBegainLocation = location
+                aSmallLayout.begainInsertSelectedAtOnScreenPoint(pointOnCollectionViewContent: pageLocation)
+              }
             }
           }
+          
+          editNavigationViewController.begainResponseToLongPress(location)
         }
         
       case .Changed:
@@ -259,8 +270,10 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         // collectionView
         if collectionView.collectionViewLayout is smallLayout {
           if let fake = fakePageView {
-            let transition = CGPoint(x: location.x - fake.center.x, y: location.y - fake.center.y)
-            fake.center = location
+            let transition = CGPoint(x: location.x - longPressBegainLocation.x, y: location.y - longPressBegainLocation.y)
+            longPressBegainLocation = location
+            fake.center.x += transition.x
+            fake.center.y += transition.y
             if let aSmallLyout = collectionView.collectionViewLayout as? smallLayout {
               let inEditBoundsLocation = sender.locationInView(collectionView)
 //              let mapLocation = CGPoint(x: inEditBoundsLocation.x, y: 150)
@@ -270,8 +283,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
               let location = sender.locationInView(collectionView)
               if CGRectContainsPoint(CGRect(x: 0, y: 568 - 50, width: 320, height: 50), onViewLocation) {
                 updateDeleteButton(true)
-              } else if !CGRectContainsPoint(collectionView.bounds, location) {
-                updateDeleteButton(true)
+//              } else if !CGRectContainsPoint(collectionView.bounds, location) {
+//                updateDeleteButton(true)
               } else {
                 updateDeleteButton(false)
               }
@@ -308,7 +321,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
               } else if !CGRectContainsPoint(collectionView.bounds, location) {
                 
-                aSmallLyout.endSelected(true)
+                aSmallLyout.endSelected(fakePageView!.fromTemplate)
 //              let location = sender.locationInView(collectionView)
 //              aSmallLyout.selectedItemMoveFinishAtLocation(location, fromeTemplate: fakePageView!.fromTemplate)
               } else {
@@ -473,7 +486,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     let fileManger = NSFileManager.defaultManager()
     var error = NSErrorPointer()
     let mainDirEntries = fileManger.enumeratorAtURL(rootURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsPackageDescendants | NSDirectoryEnumerationOptions.SkipsHiddenFiles) { (url, error) -> Bool in
-      println(url.lastPathComponent)
       return true
     }
     
@@ -829,9 +841,19 @@ extension EditViewController {
     
     if let aDeletedBu = editDeletedButton {
       if deleted {
+        
+        UIView.animateWithDuration(0.2, animations: {[unowned self] () -> Void in
+          self.fakePageView?.alpha = 0.5
+          
+        })
+        
         let image = UIImage(named: "Edit_deleted_delete")
         aDeletedBu.image = image
       } else {
+        UIView.animateWithDuration(0.2, animations: {[unowned self] () -> Void in
+          self.fakePageView?.alpha = 1
+          
+          })
         let image = UIImage(named: "Edit_deleted_normal")
         aDeletedBu.image = image
       }
@@ -1122,9 +1144,14 @@ extension EditViewController {
       UploadsManager.shareInstance.setCompeletedHandler(nil)
     }
     
-    uploadPublishFile { (datas, keys, tokens) -> () in
-      
-      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+    if !(!bookModel.isNeedUpload() && isUploaded) {
+      self.isUploaded = true
+      bookModel.resetNeedUpload()
+      HUD.preview_upload()
+      uploadPublishFile { (datas, keys, tokens) -> () in
+        
+        UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+      }
     }
   }
   
@@ -1286,8 +1313,20 @@ extension EditViewController {
     if let snapShot = layout.getSelectedItemSnapShot() {
       fakePageView = FakePageView.fakePageViewWith(snapShot, array: [bookModel.pageModels[indexPath.item]])
       fakePageView!.fromTemplate = false
-      view.addSubview(fakePageView!)
       showDeletedButton(true, animated: true)
+      view.addSubview(fakePageView!)
+      
+      let cell = collectionView.cellForItemAtIndexPath(indexPath)!
+      let center = view.convertPoint(cell.center, fromView: collectionView)
+      
+      debugPrint.p(center)
+      
+      fakePageView!.center = center
+      
+      UIView.animateWithDuration(0.2, animations: {[unowned self] () -> Void in
+        self.fakePageView!.transform = CGAffineTransformMakeScale(1.2, 1.2)
+      })
+      
     }
     
     layout.invalidateLayout()    
@@ -1303,6 +1342,7 @@ extension EditViewController {
       
       if finished {
         layout.invalidateLayout()
+        self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
       }
       
     })
@@ -1434,15 +1474,24 @@ extension EditViewController {
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
     
 //    EndEdit()
-    HUD.preview_upload()
-    prepareForPreivew {[unowned self] (finished) -> () in
+    
+    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && isUploaded {
       
-      if finished {
-        println(self.bookModel.Id)
+      self.uploadComplete()
+      
+    } else {
+      
+      prepareForPreivew {[unowned self] (finished) -> () in
         
-        self.uploadComplete()
+        if finished {
+          println(self.bookModel.Id)
+          
+          self.uploadComplete()
+        }
       }
     }
+    
+    
   }
 
   func editToolBarDidSelectedAddImage(toolBar: EditToolBar) {

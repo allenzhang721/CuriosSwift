@@ -142,7 +142,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     
     debugPrint.p(iconUrl)
     
-    shareWithTitle(type, title, descr, url, iconUrl) { (success) -> () in
+    
+    shareWithTitle(type, title, descr, url, iconUrl) { [unowned self] (success) -> () in
       
 //      debugPrint.p(type)
       if success {
@@ -150,6 +151,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
       } else {
         HUD.share_fail()
       }
+      self.dismissViewControllerAnimated(true, completion: nil)
     }
     
   }
@@ -159,6 +161,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     let url = NSURL(string: link)!
     
     UIApplication.sharedApplication().openURL(url)
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
   
@@ -167,6 +170,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     let pastboard = UIPasteboard.generalPasteboard()
     pastboard.string = string
     HUD.share_copy_success()
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
   

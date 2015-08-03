@@ -35,6 +35,7 @@ INTERNETBROKEN = "网络已关闭";
 "CopyLink" = "拷贝链接";
 
 //launch
+LAUNCHING = "登录中";
 LOADING = "正在加载";
 
 //booklist

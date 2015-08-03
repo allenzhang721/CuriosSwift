@@ -154,7 +154,6 @@ class smallLayout: UICollectionViewFlowLayout {
     let insertedIndexPath = getInsertedIndexpathWithPoint(pointOnCollectionContent: onContentCenter)
     placeholderIndexPath = insertedIndexPath
     delegate?.layout(self, willInsertSelectedItemAtIndexPath: placeholderIndexPath)
-    
   }
   
   func changedOnScreenPointTransition(pointOnCollectionContent translation: CGPoint) {
@@ -216,20 +215,25 @@ class smallLayout: UICollectionViewFlowLayout {
         return NSIndexPath(forItem: 0, inSection: 0)
       } else {
         
+        if count == 1 {
+          return NSIndexPath(forItem: count, inSection: 0)
+        }
+        
         let firstX = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)).center.x
         let lastX = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: count - 1, inSection: 0)).center.x
-        
-        // first
-        if x < firstX {
-          return NSIndexPath(forItem: 0, inSection: 0)
-        }
         
         // last
         if x > lastX {
           return NSIndexPath(forItem: count, inSection: 0)
         }
         
+        // first
+        if x < firstX {
+          return NSIndexPath(forItem: 0, inSection: 0)
+        }
+
         // middle
+        let rect = CGRect(x: collectionView!.contentOffset.x, y: 0, width: collectionView!.bounds.width, height: collectionView!.bounds.height)
         let visualCells = collectionView!.visibleCells() as! [UICollectionViewCell]
         let nearestCell = visualCells.filter { $0.center.x < x }.last!
         let nearestIndexPath = collectionView!.indexPathForCell(nearestCell)!

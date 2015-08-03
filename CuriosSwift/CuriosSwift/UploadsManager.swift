@@ -32,7 +32,10 @@ class UploadsManager {
   //
   
   func uploadFinished() -> Bool {
-    return finished
+//    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+    
+      return finished
+//    })
   }
   
   func setCompeletedHandler(block:((Bool) -> ())?) {

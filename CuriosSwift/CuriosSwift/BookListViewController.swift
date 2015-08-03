@@ -162,18 +162,20 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
       // open a book
       let bookitem = bookList[indexPath.row]
       let aurl = bookitem.publishResURL
+      
       // Fetch Request
       needRefresh = true
       Alamofire.request(.POST, aurl, parameters: nil)
         .validate(statusCode: 200..<300)
         .responseJSON{ (request, response, JSON, error) in
+          
           if (error == nil)
           {
             if let jsondic = JSON as? [NSObject : AnyObject] {
               
               let bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! BookModel
               
-              self.showEditViewControllerWithBook(bookModel)
+              self.showEditViewControllerWithBook(bookModel, isUploaded: true)
             }
           }
           else

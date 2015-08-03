@@ -75,7 +75,7 @@ extension Request {
 
         :returns: A JSON object response serializer.
     */
-    public class func JSONResponseSerializer(options: NSJSONReadingOptions = .AllowFragments) -> Serializer {
+    public class func JSONResponseSerializer(options: NSJSONReadingOptions = NSJSONReadingOptions(0)) -> Serializer {
         return { request, response, data in
             if data == nil || data?.length == 0 {
                 return (nil, nil)

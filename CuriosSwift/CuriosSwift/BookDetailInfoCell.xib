@@ -18,7 +18,7 @@
                         <rect key="frame" x="8" y="25" width="109" height="21"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="109" id="NLU-il-Z6v"/>
+                            <constraint firstAttribute="width" constant="109" id="NLU-il-Z6v"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,11 +40,10 @@
                 <animations/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="EKu-f9-iQs" secondAttribute="trailing" constant="-8" id="Hbu-ZI-UvW"/>
-                    <constraint firstItem="EKu-f9-iQs" firstAttribute="leading" secondItem="HRz-2k-JZ2" secondAttribute="trailing" constant="26" id="QeV-LZ-6FG"/>
                     <constraint firstItem="HRz-2k-JZ2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Vh5-vF-UX7"/>
                     <constraint firstAttribute="bottomMargin" secondItem="EKu-f9-iQs" secondAttribute="bottom" constant="14" id="Von-wo-XIo"/>
                     <constraint firstItem="EKu-f9-iQs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="hBs-Lw-9Md"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="HRz-2k-JZ2" secondAttribute="bottom" constant="17" id="s2f-SZ-RTk"/>
+                    <constraint firstAttribute="centerY" secondItem="HRz-2k-JZ2" secondAttribute="centerY" id="vGU-Il-Eyj"/>
                     <constraint firstItem="HRz-2k-JZ2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="wle-GF-Z6N"/>
                 </constraints>
             </tableViewCellContentView>
@@ -53,7 +52,7 @@
                 <outlet property="descriText" destination="EKu-f9-iQs" id="Noq-lQ-FJ9"/>
                 <outlet property="titleLabel" destination="HRz-2k-JZ2" id="6xk-hD-f50"/>
             </connections>
-            <point key="canvasLocation" x="543" y="449"/>
+            <point key="canvasLocation" x="343" y="369"/>
         </tableViewCell>
     </objects>
 </document>

@@ -31,11 +31,11 @@ extension UIViewController {
     return book
   }
   
-   func showEditViewControllerWithBook(book: BookModel) {
+  func showEditViewControllerWithBook(book: BookModel, isUploaded: Bool) {
     
     let edit = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editViewController") as! EditViewController
     edit.bookModel = book
-    
+    edit.isUploaded = isUploaded
     navigationController?.presentViewController(edit, animated: true, completion: { [weak self]() -> Void in
       self?.navigationController?.popToRootViewControllerAnimated(true)
       if let themeVC = self as? ThemeViewController {

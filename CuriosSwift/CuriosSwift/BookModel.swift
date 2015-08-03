@@ -114,6 +114,20 @@ class BookModel: Model, IFile, PageModelEditDelegate {
 //      page.delegate = self
 //    }
 //  }
+  func setBookIcon(string: String) {
+    needUpload = true
+    icon = string
+  }
+  
+  func setBookTitle(string: String) {
+    needUpload = true
+    title = string
+  }
+  
+  func setBookDescription(string: String) {
+    needUpload = true
+    desc = string
+  }
   
   func isNeedUpload() -> Bool {
     return needUpload

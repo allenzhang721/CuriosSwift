@@ -97,7 +97,8 @@ extension ThemeViewController {
     if let imageView = cell.backgroundView as? UIImageView {
       
       let theme = themeList[indexPath.item]
-      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")
+//      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")
+      let url = NSURL(string: theme.themeIconURL)
       
       imageView.kf_setImageWithURL(url!, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
         
@@ -161,9 +162,9 @@ extension ThemeViewController {
     if let indexPath = getCurrentIndexPath() {
       
       let theme = themeList[indexPath.item]
-      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
-      let string = urls[indexPath.item % 2]
-      let url = NSURL(string: string)!
+//      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
+//      let string = urls[indexPath.item % 2]
+      let url = NSURL(string: theme.themeIconURL)!
       
       titleText.title = theme.themeName
       
@@ -209,40 +210,100 @@ extension ThemeViewController {
     
     if let currentIndexPath = getCurrentIndexPath() {
       
-      let themeID = themeList[currentIndexPath.item].themeID
+      let theme = themeList[currentIndexPath.item]
+      let themeID = theme.themeID
+      let themeURL = theme.themeURL
       
-      TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
-        if templates.count <= 0 {
-          return
-        }
-        let templateURL = templates[0].templateURL
-        
-        let url = NSURL(string: templateURL)!
-        
-        // Fetch Request
-        Alamofire.request(.POST, url, parameters: nil)
-          .validate(statusCode: 200..<300)
-          .responseJSON{ (request, response, JSON, error) in
-            if (error == nil)
-            {
-              
-              if let jsondic = JSON as? [NSObject : AnyObject] {
-                
-                let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
-                
-                self.createANewBookWithPageModel(pageModel)
-              }
-            }
-            else
-            {
-              if let aError = error{
-                
-              }
-              println("HTTP HTTP Request failed: \(error)")
-            }
-        }
-      }
+      // 1. theme Style 
+//      retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
       
+        // 2. templateURL
+        TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
+          if templates.count <= 0 {
+            return
+          }
+          
+          let templateURL = templates[0].templateURL
+          
+          // 3. first template
+          self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
+            
+            // 4. create a new book
+            self.createANewBookWithPageModel(pagemodel, bookAttribute: nil)
+          })
+        }
+//      })
+    }
+  }
+  
+  func retriveThemeStyle(themeURL: String, completed: ([String:AnyObject]) -> ()) {
+    
+    let url = NSURL(string: themeURL)!
+    
+//    debugPrint.p(url)
+    
+    BlackCatManager.sharedManager.retrieveDataWithURL(url, optionsInfo: nil, progressBlock: nil) { (data, error, cacheType, URL) -> () in
+      
+      debugPrint.p(URL)
+      
+      let string = NSString(data: data!, encoding: NSUnicodeStringEncoding)
+      
+      debugPrint.p(string)
+      
+    }
+    
+    // Fetch Request
+//    Alamofire.request(.POST, url, parameters: nil)
+//      .validate(statusCode: 200..<300)
+//      .responseJSON{ (request, response, JSON, error) in
+//        
+//         debugPrint.p(JSON)
+//        if (error == nil)
+//        {
+//          
+//          if let jsondic = JSON as? [NSObject : AnyObject] {
+//            
+//            debugPrint.p(jsondic)
+////            let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
+////            pageModel.Id = UniqueIDStringWithCount(count: 8)
+////            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
+//          }
+//        }
+//        else
+//        {
+//          if let aError = error{
+//            
+//          }
+//          println("HTTP HTTP Request failed: \(error)")
+//        }
+//    }
+  }
+  
+  func retriveFirstTemplatePage(templateURL: String, completed: (PageModel) -> ()) {
+    
+    let url = NSURL(string: templateURL)!
+    debugPrint.p(url)
+    // Fetch Request
+    Alamofire.request(.POST, url, parameters: nil)
+      .validate(statusCode: 200..<300)
+      .responseJSON{ (request, response, JSON, error) in
+        if (error == nil)
+        {
+          
+          if let jsondic = JSON as? [NSObject : AnyObject] {
+            
+            let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
+            pageModel.Id = UniqueIDStringWithCount(count: 8)
+            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
+          }
+        }
+        else
+        {
+          if let aError = error{
+            
+          }
+          println("HTTP HTTP Request failed: \(error)")
+        }
     }
     
   }
@@ -278,7 +339,9 @@ extension ThemeViewController {
     return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
   }
   
-  func createANewBookWithPageModel(pageModel: PageModel) {
+  func createANewBookWithPageModel(pageModel: PageModel, bookAttribute: [String: AnyObject]?) {
+    
+    debugPrint.p(bookAttribute)
     
     PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
@@ -289,7 +352,7 @@ extension ThemeViewController {
           aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
           aBookModel.needUpload = false
 //          aBookModel.pageModels.append(pageModel)
-          self.showEditViewControllerWithBook(aBookModel)
+          self.showEditViewControllerWithBook(aBookModel, isUploaded: false)
         }
       }
     }.sendRequest()

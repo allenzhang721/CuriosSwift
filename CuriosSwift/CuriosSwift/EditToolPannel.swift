@@ -52,8 +52,6 @@ extension EditToolPannel {
       apannel.removeFromSuperview()
     }
     
-    println(bounds)
-    
     settingPannel = EditToolSettingPannelFactory.createSettingPannelwithKey(key, containerModel: aContainerModel)
     settingPannel.bounds = bounds
     

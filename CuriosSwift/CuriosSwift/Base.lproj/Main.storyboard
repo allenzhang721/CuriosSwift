@@ -55,57 +55,58 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2u-B2-PlT">
-                                                    <rect key="frame" x="592" y="8" width="0.0" height="21"/>
+                                                    <rect key="frame" x="542" y="13" width="50" height="21"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="474" id="DKF-Rh-R8G"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="DKF-Rh-R8G"/>
                                                         <constraint firstAttribute="height" constant="21" id="xwV-Ck-whX"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.1803921568627451" green="0.42352941176470588" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text=" 这是最好的时代，也是最坏的时代" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-6s-1LM">
-                                                    <rect key="frame" x="74" y="26" width="518" height="57"/>
-                                                    <animations/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Os-hC-1LI">
-                                                    <rect key="frame" x="74" y="8" width="44" height="21"/>
+                                                    <rect key="frame" x="74" y="13" width="300" height="22"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="WS1-bi-Nl2"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="WS1-bi-Nl2"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" red="0.14901960780000001" green="0.16862745100000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gP-Xf-N31">
+                                                    <rect key="frame" x="74" y="32" width="518" height="20"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="52" id="anQ-ek-PqN"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="6Os-hC-1LI" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="0JU-r9-GwI"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="top" secondItem="6Os-hC-1LI" secondAttribute="bottom" constant="-3" id="6GP-yh-vBY"/>
+                                                <constraint firstItem="6Os-hC-1LI" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" constant="5" id="0JU-r9-GwI"/>
                                                 <constraint firstItem="6Os-hC-1LI" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="Buu-xt-n73"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="LB0-Qa-raP"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="bottom" secondItem="B5b-hP-79G" secondAttribute="bottomMargin" constant="8" id="XfL-tR-vai"/>
-                                                <constraint firstItem="Gqc-6s-1LM" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="ah1-gL-BOu"/>
+                                                <constraint firstItem="6gP-Xf-N31" firstAttribute="top" secondItem="6Os-hC-1LI" secondAttribute="bottom" constant="-3" id="LQe-Uh-QUc"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Os-hC-1LI" secondAttribute="trailing" id="WdR-0J-1cI"/>
                                                 <constraint firstItem="H2u-B2-PlT" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="cKz-fS-9nm"/>
+                                                <constraint firstItem="6gP-Xf-N31" firstAttribute="trailing" secondItem="B5b-hP-79G" secondAttribute="trailingMargin" id="fiE-QL-wyZ"/>
                                                 <constraint firstItem="pjm-jv-21R" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" constant="5" id="pY2-1A-02v"/>
+                                                <constraint firstItem="6gP-Xf-N31" firstAttribute="leading" secondItem="pjm-jv-21R" secondAttribute="trailing" constant="8" id="wM0-SP-A6S"/>
                                                 <constraint firstItem="pjm-jv-21R" firstAttribute="leading" secondItem="B5b-hP-79G" secondAttribute="leadingMargin" id="xUB-WH-VtO"/>
-                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" id="zrB-yS-dus"/>
+                                                <constraint firstItem="H2u-B2-PlT" firstAttribute="top" secondItem="B5b-hP-79G" secondAttribute="topMargin" constant="5" id="zrB-yS-dus"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="bookListCellDate" destination="H2u-B2-PlT" id="Mvb-qd-Opz"/>
-                                            <outlet property="bookListCellDesc" destination="Gqc-6s-1LM" id="wIY-e5-cHS"/>
+                                            <outlet property="bookListCellDesc" destination="6gP-Xf-N31" id="21v-JL-VD3"/>
                                             <outlet property="bookListCellImg" destination="pjm-jv-21R" id="vai-ON-a5d"/>
                                             <outlet property="bookListCellTitle" destination="6Os-hC-1LI" id="mRl-OH-htk"/>
                                         </connections>

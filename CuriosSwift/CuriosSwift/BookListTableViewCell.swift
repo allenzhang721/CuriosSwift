@@ -13,7 +13,7 @@ import DateTools
 class BookListTableViewCell: UITableViewCell {
     @IBOutlet weak var bookListCellImg: UIImageView!
     @IBOutlet weak var bookListCellTitle: UILabel!
-    @IBOutlet weak var bookListCellDesc: UITextView!
+    @IBOutlet weak var bookListCellDesc: UILabel!
     @IBOutlet weak var bookListCellDate: UILabel!
   
   weak var date: NSDate!
@@ -44,8 +44,19 @@ class BookListTableViewCell: UITableViewCell {
     
     let iconUrlString = bookModel.publishIconURL
     let url = NSURL(string: iconUrlString)
+    
+    debugPrint.p("url = \(url)")
+    bookListCellImg.image = UIImage(named : "placeholder")
     if let url = url {
-      bookListCellImg.kf_setImageWithURL(url, placeholderImage: UIImage(named: "placeholder"))
+      KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
+        if error != nil {
+          println(error)
+        } else {
+          //        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
+          self?.bookListCellImg.image = image
+        }
+      }
+//      bookListCellImg.kf_setImageWithURL(url, placeholderImage: UIImage(named: "placeholder"))
     }
     
     date = bookModel.publishDate

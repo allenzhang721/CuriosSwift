@@ -25,6 +25,15 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
   
   let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
   
+  var bookIconUrlString: String {
+    
+    get {
+      let icon = bookModel.icon
+      return HOST.stringByAppendingString(icon)
+    }
+    
+  }
+  
   var iconKey: String {
     
     get {
@@ -33,6 +42,13 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
       let icon = "icon.png"
       let path = pathByComponents([userID, publishID, icon])
       return path
+    }
+  }
+  
+  var iconKeyUrl: String {
+    
+    get {
+      return HOST.stringByAppendingString(iconKey)
     }
   }
   
@@ -59,23 +75,68 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
     tableView.estimatedRowHeight = 72
     tableView.rowHeight = UITableViewAutomaticDimension
     
-    let iconString = HOST.stringByAppendingPathComponent(bookModel.icon)
-    let iconURL = NSURL(string: iconString)!
-    let aIconKey = iconKey
+    let iconURL = NSURL(string: bookIconUrlString)!
+    
+    debugPrint.p("bookIconUrlString = \(bookIconUrlString)")
+    
     KingfisherManager.sharedManager.retrieveImageWithURL(iconURL, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
       if error != nil {
         println(error)
       } else {
-        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
+//        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
         self?.tableView.reloadData()
       }
     }
   }
   
+  
+  // show Sheet
+  private func showsheet() {
+    
+    let sheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+    
+    if (UIImagePickerController.availableMediaTypesForSourceType(.Camera) != nil) {
+      
+      let string = localString("CAMERA")
+      let CameraAction = UIAlertAction(title: string, style: .Default) { (action) -> Void in
+        
+        self.showImagePicker(.Camera)
+      }
+      sheet.addAction(CameraAction)
+    }
+    
+    let libarayString = localString("LIBARAY")
+    let LibarayAction = UIAlertAction(title: libarayString, style: .Default) { (action) -> Void in
+      
+      self.showImagePicker(.PhotoLibrary)
+    }
+    
+    let cancel = localString("CANCEL")
+    let CancelAction = UIAlertAction(title: cancel, style: .Cancel) { (action) -> Void in
+      
+    }
+    
+    sheet.addAction(LibarayAction)
+    sheet.addAction(CancelAction)
+    presentViewController(sheet, animated: true, completion: nil)
+  }
+  
+  // show Image Picker
+  private func showImagePicker(type: UIImagePickerControllerSourceType) {
+    
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = type
+    imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    presentViewController(imagePicker, animated: true, completion: nil)
+  }
+  
+  
+  
   @IBAction func backAction(sender: UIBarButtonItem) {
     
     if needuploadIcon {
-      KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions, completionHandler: { [weak self] (image, cacheType) -> () in
+      KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKeyUrl, options: KingfisherManager.DefaultOptions, completionHandler: { [weak self] (image, cacheType) -> () in
         
         if let image  = image {
           let imageData = UIImagePNGRepresentation(image)
@@ -117,10 +178,9 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    //BOOKDETAIL_ICON              = "图标";
+//    BOOKDETAIL_ICON              = "图标";
 //    BOOKDETAIL_TITLE             = "标题";
 //    BOOKDETAIL_DESCRIPTION       = "简介";
-    
     let section = indexPath.section
     let row = indexPath.row
     
@@ -128,7 +188,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
       if row == 0 {
         let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
         cell.titleLabel?.text = localString("BOOKDETAIL_ICON")
-        KingfisherManager.sharedManager.cache.retrieveImageForKey(iconKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
+        KingfisherManager.sharedManager.cache.retrieveImageForKey(bookIconUrlString, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
           if let aImage = image {
             cell.iconImageView.image = aImage
           } else {
@@ -190,14 +250,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
           navigationController?.pushViewController(aInputVC, animated: true)
         }
       } else if row == 0 {
-        
-        var imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-        imagePickerController.allowsEditing = true
-        self.presentViewController(imagePickerController, animated: true, completion: { imageP in
-          
-        })
+        showsheet()
       }
     }
   }
@@ -205,9 +258,9 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   func textInputViewControllerTextDidEnd(inputViewController: TextInputViewController, text: String) {
     
     if inputViewController.ID == "Description" {
-      bookModel.desc = text
+      bookModel.setBookDescription(text)
     } else if inputViewController.ID == "Title" {
-      bookModel.title = text
+      bookModel.setBookTitle(text)
     }
     
     tableView.reloadData()
@@ -220,8 +273,12 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
     
     let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
 //    let imageData = UIImagePNGRepresentation(selectedImage)
-    KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKey)
-    bookModel.icon = iconKey
+    
+//    debugPrint.p("bookModel = \(bookModel)")
+    KingfisherManager.sharedManager.cache.removeImageForKey(bookIconUrlString)
+    bookModel.setBookIcon(iconKey)
+//    debugPrint.p("iconKeyUrl = \(iconKeyUrl)")
+    KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKeyUrl)
     needuploadIcon = true
     tableView.reloadData()
     dismissViewControllerAnimated(true, completion: nil)

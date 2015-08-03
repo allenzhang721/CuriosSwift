@@ -174,13 +174,51 @@ class ContainerModel: Model, ComponentModelDelegate {
     editDelegate?.containerModelDidUpdate(self)
   }
   
+//  struct correctRange {
+//    let correctPoint: CGFloat = 0.0
+//    let distance: CGFloat = 1.5 * angleToRan
+//    
+//    func check(input: CGFloat) -> (CGFloat, Bool) {
+//      if fabs(input - correctPoint) <= distance {
+//        return (correctPoint, true)
+//      } else {
+//        return (input, false)
+//      }
+//    }
+//  }
+  
+
+  
   func setAngleChange(angle: CGFloat) {
+
+    let newAngle = (angle + rotation) % CGFloat((2 * M_PI))
+      rotationListener.value = newAngle
+      rotation = newAngle
     
-    let newAngle = angle + rotation
-    rotationListener.value = newAngle
-    rotation = newAngle
+    debugPrint.p("angle = \(rotation)")
     
-    editDelegate?.containerModelDidUpdate(self)
+    let check0 = CheckItem(correctPoint: 0.0, distance: 1.25 * angleToRan)
+//    let check45 = CheckItem(correctPoint: 45.0 * angleToRan, distance: 1.25 * angleToRan)
+    let check90 = CheckItem(correctPoint: 90.0 * angleToRan, distance: 1.25 * angleToRan)
+//    let check135 = CheckItem(correctPoint: 135.0 * angleToRan, distance: 1.25 * angleToRan)
+    let check180 = CheckItem(correctPoint: 180.0 * angleToRan, distance: 1.25 * angleToRan)
+    let check270 = CheckItem(correctPoint: 270.0 * angleToRan, distance: 1.25 * angleToRan)
+    
+    let checkm90 = CheckItem(correctPoint: -90.0 * angleToRan, distance: 1.25 * angleToRan)
+    //    let check135 = CheckItem(correctPoint: 135.0 * angleToRan, distance: 1.25 * angleToRan)
+    let checkm180 = CheckItem(correctPoint: -180.0 * angleToRan, distance: 1.25 * angleToRan)
+    let checkm270 = CheckItem(correctPoint: -270.0 * angleToRan, distance: 1.25 * angleToRan)
+    
+    
+    let result = rotation >= 0.0 ? rotation.check(check0).check(check90).check(check180).check(check270) : rotation.check(check0).check(checkm90).check(checkm180).check(checkm270)
+    
+    
+//    if an.1 {
+      rotationListener.value = result
+      rotation = result
+//    }
+    
+      editDelegate?.containerModelDidUpdate(self)
   }
   
   override class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

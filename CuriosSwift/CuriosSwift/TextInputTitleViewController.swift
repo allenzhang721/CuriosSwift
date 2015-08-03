@@ -12,6 +12,7 @@ class TextInputTitleViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var textField: UITextField!
   weak var dataSource: textInputDataSource?
+  let maxCount = 20
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,9 +26,37 @@ class TextInputTitleViewController: UIViewController, UITextFieldDelegate {
   
   func textFieldDidChanged(notification: NSNotification) {
     
-//    debugPrint.p(textField.text)
-    dataSource?.textInputViewControllerTextDidChanged(self, didChangedText: textField.text)
+    let textCount = (textField.text as NSString).length
+    
+    if textCount <= maxCount {
+      dataSource?.textInputViewControllerTextDidChanged(self, didChangedText: textField.text)
+    } else {
+      let string = textField.text as NSString
+      let subString = string.substringWithRange(NSMakeRange(0, min(textCount, maxCount)))
+      let subCount = (subString as NSString).length
+      textField.text = subString
+    }
+    
+    
+    
   }
+  
+  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    
+    let textCount = (textField.text as NSString).length
+    
+    if textCount >= maxCount {
+      if string == "" || range.length >= 1{
+        return true
+      }
+      return false
+    } else {
+      return true
+    }
+    
+  }
+  
+  
   
   deinit {
     

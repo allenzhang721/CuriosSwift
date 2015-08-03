@@ -38,8 +38,8 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   
     let trail: CGFloat = 10.0
     let leading: CGFloat = 10.0
-    let inset = UIEdgeInsets(top: bounds.height * 0, left: leading, bottom:  bounds.height * 0, right: trail)
-    let itemSideLength = bounds.height * 1
+    let inset = UIEdgeInsets(top: 0, left: leading, bottom:  0, right: trail)
+    let itemSideLength: CGFloat = 40
     let width = bounds.width
     
     let number = barItems.count
@@ -298,10 +298,10 @@ extension EditToolBar {
     collectionView.snp_makeConstraints { (make) -> Void in
       make.edges.equalTo(self)
     }
-    
-    updateItemLayout()
 
     super.updateConstraints()
+    
+    updateItemLayout()
   }
 }
 

@@ -234,25 +234,25 @@ extension MaskView {
     
     let settingPannelImage = UIImage(named: "Editor_SettingPannel")
     settingPannel = UIImageView(image: settingPannelImage)
-    settingPannel.bounds.size = CGSizeMake(40, 40)
+    settingPannel.bounds.size = CGSizeMake(25, 25)
     settingPannel.center = CGPointMake(0, 0)
     addSubview(settingPannel)
     
     let resizePannelImage = UIImage(named: "Editor_ResizePannel")
     resizePannel = UIImageView(image: resizePannelImage)
-    resizePannel.bounds.size = CGSizeMake(40, 40)
+    resizePannel.bounds.size = CGSizeMake(25, 25)
     resizePannel.center = CGPointMake(bounds.width, bounds.height)
     addSubview(resizePannel)
     
     let rotationPannelImage = UIImage(named: "Editor_RotationPannel")
     rotationPannel = UIImageView(image: rotationPannelImage)
-    rotationPannel.bounds.size = CGSizeMake(40, 40)
+    rotationPannel.bounds.size = CGSizeMake(25, 25)
     rotationPannel.center = CGPointMake(bounds.width, 0)
     addSubview(rotationPannel)
     
     let deletePannelImage = UIImage(named: "Editor_DeletePannel")
     deletePannel = UIImageView(image: deletePannelImage)
-    deletePannel.bounds.size = CGSizeMake(40, 40)
+    deletePannel.bounds.size = CGSizeMake(25, 25)
     deletePannel.center = CGPointMake(0, bounds.height)
     addSubview(deletePannel)
   }

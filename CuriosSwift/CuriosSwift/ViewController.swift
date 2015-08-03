@@ -37,8 +37,6 @@ class ViewController: UIViewController {
     didload();
     loadViewController()
     FontsManager.share.registerLocalFonts()
-    
-    debugPrint.p(FontsManager.share.getFontNameList())
   }
   
   override func viewDidAppear(animated: Bool) {

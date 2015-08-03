@@ -13,11 +13,12 @@ class TextInputContentViewController: UIViewController {
   @IBOutlet weak var textCountLabel: UILabel!
   @IBOutlet weak var textView: UITextView!
   weak var dataSource: textInputDataSource?
-  let maxCount = 30
+  let maxCount = 60
   var textCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
       
+      textView.becomeFirstResponder()
       let text = dataSource!.textofTextInputController(self)
       let count = (text as NSString).length
       textView.text = text
@@ -41,7 +42,6 @@ extension TextInputContentViewController: UITextViewDelegate {
       textView.text = subString
       textCountLabel.text = "\(subCount)/\(maxCount)"
     }
-    
   }
   
   func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

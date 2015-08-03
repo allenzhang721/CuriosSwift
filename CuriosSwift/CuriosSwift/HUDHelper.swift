@@ -43,7 +43,7 @@ class HUD {
   // 登录中
   class func launch_Loading() {
     
-    let string = localString("LOADING")
+    let string = localString("LAUNCHING")
     HUD.show_status(string, userInteractable: false, autodismiss: false)
   }
   

@@ -44,9 +44,7 @@ class EditTemplateViewController: UIViewController, UIGestureRecognizerDelegate 
     super.viewDidLoad()
     
     titleText.title = title
-    
-    
-    
+
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "TemplateCell")
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
     view.bringSubviewToFront(collectionView)
@@ -76,28 +74,55 @@ class EditTemplateViewController: UIViewController, UIGestureRecognizerDelegate 
       templateList.append(template)
     }
   }
-  
-  
+
   func begainResponseToLongPress(onScreenPoint: CGPoint) {
+    
     let offset = collectionView.contentOffset
     let point = CGPoint(x: offset.x + onScreenPoint.x, y: offset.y + onScreenPoint.y)
     if let indexPath = collectionView.indexPathForItemAtPoint(point) {
       let cell = collectionView.cellForItemAtIndexPath(indexPath)
-      println(cell)
       let snapshot = cell!.snapshotViewAfterScreenUpdates(true)
       snapshot.transform = CGAffineTransformMakeScale(0.7, 0.7)
       
-      let template = templateList[indexPath.item].templateURL
-      let URL = NSURL(string: template)!
-      EMJsonManager.sharedManager.retrieveJsonWithURL(URL, progressBlock: nil, completionHandler: {[unowned self] (Json, error, cacheType, jsonURL) -> () in
-        
-        if let Json: AnyObject = Json {
-          if let navigationVC = self.navigationController as? EditNavigationViewController {
-            navigationVC.didSelectedBlock?(snapshot, Json)
-            navigationVC.editDelegate?.navigationViewController(navigationVC, didGetTemplateJson: Json)
-          }
+      
+      let template = templateList[indexPath.item]
+      if let json = template.retrivePageModel() {
+        if let navigationVC = self.navigationController as? EditNavigationViewController {
+          navigationVC.didSelectedBlock?(snapshot, json)
         }
-      })
+      } else {
+        return
+      }
+      
+      
+      
+//      let template = templateList[indexPath.item].templateURL
+//      let URL = NSURL(string: template)!
+//      
+//      debugPrint.p(URL)
+//      
+//      BlackCatManager.sharedManager.retrieveDataWithURL(URL, optionsInfo: nil, progressBlock: nil, completionHandler: {[unowned self] (data, error, cacheType, URL) -> () in
+//        
+//        
+//        if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 {
+//          
+//          
+//        }
+//        if let dic = PageModel.converFromData(data).0 {
+//          debugPrint.p(dic)
+//        }
+        
+//      })
+      
+//      EMJsonManager.sharedManager.retrieveJsonWithURL(URL, progressBlock: nil, completionHandler: {[unowned self] (Json, error, cacheType, jsonURL) -> () in
+//        
+//        if let Json: AnyObject = Json {
+//          if let navigationVC = self.navigationController as? EditNavigationViewController {
+
+//            navigationVC.editDelegate?.navigationViewController(navigationVC, didGetTemplateJson: Json)
+//          }
+//        }
+//      })
     }
   }
 }
@@ -124,14 +149,16 @@ extension EditTemplateViewController {
       cell.backgroundView!.layer.shadowColor = UIColor.darkGrayColor().CGColor
     }
     
-    cell.backgroundColor = UIColor.darkGrayColor()
+    let template = templateList[indexPath.item]
+    template.retrivePageModel()
     
     if let imageView = cell.backgroundView as? UIImageView {
 
       imageView.alpha = 0
       
-      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
-      imageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
+//      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
+       let url = NSURL(string: template.templateIconURL)!
+      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
         
         imageView.image = image
         UIView.animateWithDuration(0.3, animations: { () -> Void in

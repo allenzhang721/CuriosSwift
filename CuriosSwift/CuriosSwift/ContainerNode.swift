@@ -277,10 +277,10 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
             scaleB = 2.0
             easeType = EasingFunctionType.EasingInBounce
         case "DropIn":
-            yB = Double(-frame.height)
+            yB = Double(-supernode.frame.height)
             easeType = EasingFunctionType.EasingOutBounce
         case "SlideIn":
-            xB = Double(0 - frame.width)
+            xB = Double(0 - supernode.frame.width)
             easeType = EasingFunctionType.EasingOutBack
         case "TeetertotterIn":
             alphaB = 0.0
@@ -305,7 +305,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
             yE = Double(0 + 504)
             easeType = EasingFunctionType.EasingOutSine
         case "SlideOut":
-            xE = Double(320 + frame.width)
+            xE = Double(frame.width + supernode.frame.width)
             easeType = EasingFunctionType.EasingInBack
         case "TeetertotterOut":
             alphaE = 0.0

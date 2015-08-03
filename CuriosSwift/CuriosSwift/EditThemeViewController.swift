@@ -61,6 +61,9 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     for theme in themes {
+      
+      debugPrint.p(theme)
+      
       themeList.append(theme)
     }
   }
@@ -93,9 +96,8 @@ extension EditThemeViewController {
     
     if let imageView = cell.backgroundView as? UIImageView {
       
-      
-      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")!
-      imageView.kf_setImageWithURL(url)
+      let url = NSURL(string: themeItem.themeIconURL)!
+      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"))
       
     }
     

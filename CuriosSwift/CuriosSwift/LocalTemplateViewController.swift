@@ -50,7 +50,7 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
         
         if let publishID = json["newID"] as? String {
           self.getBookWithBookID(publishID, getBookHandler: { [unowned self] (book) -> () in
-            self.showEditViewControllerWithBook(book)
+//            self.showEditViewControllerWithBook(book)
             })
         }
       }.sendRequest()
