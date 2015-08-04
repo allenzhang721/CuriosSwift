@@ -8,6 +8,13 @@
 
 import Foundation
 
+let ICON_THUMBNAIL: String = thumbnailImageUrl(120, 120)
+
+func thumbnailImageUrl(width: Int, height: Int) -> String {
+  
+  return "?imageView/1/w/\(width)/h/\(height)"
+}
+
 // MARK: - Publish Token
 
 

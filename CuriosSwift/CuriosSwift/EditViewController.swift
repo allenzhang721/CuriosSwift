@@ -44,6 +44,8 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   var isUploaded = false
   
+  var begainThemeID: String?
+  
   var bottomToolBar: ToolsBar!  //deprecated
   var pannel: ToolsPannel!      //deprecated
   var templateViewController: EditorTemplateNavigationController! //deprecated
@@ -138,7 +140,7 @@ extension EditViewController {
   private func setupSubView() {
     
     //top naviBar
-    editToolBar = EditToolBar(frame: CGRectZero)
+    editToolBar = EditToolBar(frame: CGRect(x: 0, y: view.bounds.height - 44.0, width: view.bounds.width, height: 44.0))
     editToolPannel = EditToolPannel(frame: CGRectZero)
     
     editToolBar.backgroundColor = UIColor.whiteColor()
@@ -146,6 +148,11 @@ extension EditViewController {
     
     // navigationController
     editNavigationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EditNavigationController") as! EditNavigationViewController
+    
+    if let theme = editNavigationViewController.topViewController as? EditThemeViewController {
+      theme.begainThemeID = begainThemeID
+    }
+    
     addChildViewController(editNavigationViewController)
     editNavigationViewController.editDelegate = self
     

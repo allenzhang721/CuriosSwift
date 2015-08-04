@@ -35,25 +35,63 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
   
   var themeList = [ThemeModel]()
   
+  var selectedIndex: NSIndexPath!
+  var begainThemeID: String?
+  var enteredTheme = false
+  var begainIndex: NSIndexPath?
+  
   @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      if let themeID = begainThemeID {
+        
+        let themes = ThemesManager.shareInstance.getThemeList()
+        
+        var aIndex = -1
+        for (index,theme) in enumerate(themes) {
+          if themeID == theme.themeID {
+            aIndex = index
+            break
+          }
+        }
+        if aIndex != -1 {
+          
+          let theme = ThemesManager.shareInstance.getThemeList()[aIndex]
+          let indexpath = NSIndexPath(forItem: aIndex, inSection: 0)
+          begainIndex = NSIndexPath(forItem: aIndex, inSection: 0)
+          
+          
+          //        let themeID = theme.themeID
+          //        let themeName = theme.themeName
+          //        showTemplatesWithThemeID(themeID, themeName: themeName)
+        }
+      }
       
       
       navigationController?.delegate = self
       collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
       collectionView.setCollectionViewLayout(defaultLayout, animated: false)
       
-      ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
-        
-        self.appThemes(themes)
-        self.collectionView.reloadData()
+      if ThemesManager.shareInstance.getThemeList().count <= 0 {
+        ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
+          
+//          self.appThemes(themes)
+          self.collectionView.reloadData()
+        }
+      } else {
       }
-      
     }
   
-  
-  
+  override func viewDidAppear(animated: Bool) {
+    
+    super.viewDidAppear(animated)
+    
+    if let bindex = begainIndex where enteredTheme == false {
+      collectionView.scrollToItemAtIndexPath(bindex, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: false)
+    }
+  }
+
   func appThemes(themes: [ThemeModel]) {
     
     if themes.count <= 0 {
@@ -61,9 +99,6 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     for theme in themes {
-      
-      debugPrint.p(theme)
-      
       themeList.append(theme)
     }
   }
@@ -73,7 +108,7 @@ class EditThemeViewController: UIViewController, UICollectionViewDataSource, UIC
 extension EditThemeViewController {
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    return themeList.count
+    return ThemesManager.shareInstance.getThemeList().count
   }
   
   // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -92,12 +127,23 @@ extension EditThemeViewController {
       cell.clipsToBounds = false
     }
     
-    let themeItem = themeList[indexPath.item]
-    
+    let themeItem = ThemesManager.shareInstance.getThemeList()[indexPath.item]
+    let themeID = themeItem.themeID
+    let themeName = themeItem.themeName
     if let imageView = cell.backgroundView as? UIImageView {
       
       let url = NSURL(string: themeItem.themeIconURL)!
-      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"))
+//      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"))
+      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, progressBlock: nil, completionHandler: {[unowned self] (image, error, cacheType, imageURL) -> () in
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          
+          if self.enteredTheme == false {
+            if let bgainID = self.begainThemeID where bgainID == themeID {
+              self.showTemplatesWithThemeID(bgainID, themeName: themeName)
+            }
+          }
+        })
+      })
       
     }
     
@@ -111,18 +157,25 @@ extension EditThemeViewController {
   // delegate
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
+    
+    
+    let themeID = ThemesManager.shareInstance.getThemeList()[indexPath.item].themeID
+    let themeName = ThemesManager.shareInstance.getThemeList()[indexPath.item].themeName
+
+    showTemplatesWithThemeID(themeID, themeName: themeName)
+  }
+  
+  func showTemplatesWithThemeID(themeID: String, themeName: String) {
     let template = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EditTemplateViewController") as! EditTemplateViewController
     
-    let themeID = themeList[indexPath.item].themeID
     template.themeID = themeID
-    template.title = themeList[indexPath.item].themeName
+    template.title = themeName
     navigationController?.pushViewController(template, animated: true)
-
+    
   }
   
   func getSelectedOriginFrame() -> CGRect {
-    
-    let selectedIndex = collectionView.indexPathsForSelectedItems().first as! NSIndexPath
+
     let cell = collectionView.cellForItemAtIndexPath(selectedIndex)!
     let frame = collectionView.convertRect(cell.frame, toView: view)
     
@@ -131,7 +184,14 @@ extension EditThemeViewController {
   
   func getSelectedSnapshot() -> UIView {
     
-    let selectedIndex = collectionView.indexPathsForSelectedItems().first as! NSIndexPath
+    if let beIndex = begainIndex where enteredTheme == false  {
+      enteredTheme = true
+      selectedIndex = beIndex
+      
+    } else {
+      selectedIndex = collectionView.indexPathsForSelectedItems().first as! NSIndexPath
+    }
+    
     let cell = collectionView.cellForItemAtIndexPath(selectedIndex)!
     let snapshot = cell.snapshotViewAfterScreenUpdates(true)
     let frame = collectionView.convertRect(cell.frame, toView: view)

@@ -103,7 +103,7 @@ class ContainerModel: Model, ComponentModelDelegate {
   
   func setLevelChanged(sendForward: Bool) {
     
-    if let aDelegate = editDelegate {
+    if let aDelegate = editDelegate where !locked {
       if aDelegate.containerModel(self, levelDidChanged: sendForward) {
         levelChangedListener.value = sendForward
       }

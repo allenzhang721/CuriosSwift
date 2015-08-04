@@ -71,10 +71,10 @@ extension EditToolBar {
   
   private func setupContentView() {
     
-    contentView = UIView(frame: CGRectZero)
+    contentView = UIView(frame: bounds)
     
     let layout = UICollectionViewFlowLayout()
-    collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+    collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolBarCell")

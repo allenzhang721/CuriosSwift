@@ -75,8 +75,7 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
     tableView.estimatedRowHeight = 72
     tableView.rowHeight = UITableViewAutomaticDimension
     
-    let iconURL = NSURL(string: bookIconUrlString)!
-    
+    let iconURL = NSURL(string: bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL))!
     debugPrint.p("bookIconUrlString = \(bookIconUrlString)")
     
     KingfisherManager.sharedManager.retrieveImageWithURL(iconURL, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
@@ -265,6 +264,15 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
     
     tableView.reloadData()
   }
+  
+  func thumbnailImage(image: UIImage, size: CGSize) -> UIImage {
+    
+    UIGraphicsBeginImageContext(size)
+    image.drawInRect(CGRect(origin: CGPointZero, size: size))
+    let aImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return aImage
+  }
 }
 
 extension BookDetailViewController: UIImagePickerControllerDelegate {
@@ -273,12 +281,17 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
     
     let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
 //    let imageData = UIImagePNGRepresentation(selectedImage)
+//    UIWebView
+    let thumbnail = thumbnailImage(selectedImage, size: CGSize(width: 120, height: 120))
     
 //    debugPrint.p("bookModel = \(bookModel)")
-    KingfisherManager.sharedManager.cache.removeImageForKey(bookIconUrlString)
+    let thumburl = bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL)
+    KingfisherManager.sharedManager.cache.removeImageForKey(thumburl)
     bookModel.setBookIcon(iconKey)
 //    debugPrint.p("iconKeyUrl = \(iconKeyUrl)")
+    let thumbnailKey = iconKeyUrl.stringByAppendingString(ICON_THUMBNAIL)
     KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKeyUrl)
+    KingfisherManager.sharedManager.cache.storeImage(thumbnail, forKey: thumbnailKey)
     needuploadIcon = true
     tableView.reloadData()
     dismissViewControllerAnimated(true, completion: nil)

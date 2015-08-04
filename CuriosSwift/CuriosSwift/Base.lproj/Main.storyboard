@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -426,6 +426,7 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="CoE-37-oNj" firstAttribute="trailing" secondItem="iZq-bP-c7n" secondAttribute="trailing" id="74J-Tf-BWj"/>
                             <constraint firstItem="iZq-bP-c7n" firstAttribute="bottom" secondItem="8Vh-bJ-y0E" secondAttribute="top" id="8QM-Ir-aJl"/>
@@ -446,6 +447,9 @@
                             <constraint firstItem="JK3-aT-S0a" firstAttribute="trailing" secondItem="iZq-bP-c7n" secondAttribute="trailing" id="uSh-U2-Ktn"/>
                             <constraint firstItem="CoE-37-oNj" firstAttribute="top" secondItem="ZZX-d9-ejl" secondAttribute="top" id="wSv-SO-Kh8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="jf3-k2-WCi" appends="YES" id="tAB-W2-WFi"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="选取模版" id="Q0Q-k9-o7P">
@@ -467,6 +471,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYh-UJ-3jC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="jf3-k2-WCi">
+                    <connections>
+                        <action selector="doubleTapAction:" destination="9wI-9n-chE" id="T4b-da-ceq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1010" y="-1074"/>
         </scene>

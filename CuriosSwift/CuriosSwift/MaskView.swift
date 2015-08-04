@@ -337,24 +337,65 @@ extension MaskView {
         if containerMomdel.component is ImageContentModel {
           
           let transition = sender.translationInView(self)
-          let transitionx = sender.translationInView(superview!)
-          containerMomdel.setSizeChange(CGSize(width: transition.x, height: transition.y))
-          containerMomdel.setCenterChange(CGPoint(x: transitionx.x / 2.0, y: transitionx.y / 2.0))
-          containerMomdel.setOriginChange(CGPoint(x: 0 - transition.x / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
+          let transitionCenter = sender.translationInView(superview!)
+          
+          let width = bounds.width + transition.x
+          let height = bounds.height + transition.y
+          
+          let minWidth: CGFloat = 40.0
+          let minHeight: CGFloat = 40.0
+          
+          let widthBool = width <= minWidth
+          let heightBool = height <= minHeight
+          
+          let widthChanged: CGFloat = widthBool ? 0 : transition.x
+          let heightChanged: CGFloat = heightBool ? 0 : transition.y
+          
+          let finalWidth = width + widthChanged
+          let finalHeight = height + heightChanged
+          
+          let begainPoint = CGPoint(x: width, y: height)
+          let endPoint = CGPoint(x: finalWidth, y: finalHeight)
+          
+          let onSuperBegainPoint = self.convertPoint(begainPoint, toView: superview)
+          let onSuperEndPoint = self.convertPoint(endPoint, toView: superview)
+          
+          let centerXChanged: CGFloat = (onSuperEndPoint.x - onSuperBegainPoint.x) / 2.0
+          let centerYChanged: CGFloat = (onSuperEndPoint.y - onSuperBegainPoint.y) / 2.0
+          
+          containerMomdel.setSizeChange(CGSize(width: widthChanged, height: heightChanged))
+          containerMomdel.setCenterChange(CGPoint(x: centerXChanged, y: centerYChanged))
+          containerMomdel.setOriginChange(CGPoint(x: 0 - widthChanged / 2.0 + centerXChanged, y:0 - heightChanged / 2.0 + centerYChanged))
           
         } else if let textComponent = containerMomdel.component as? TextContentModel {
           
           let transition = sender.translationInView(self)
           let transitionx = sender.translationInView(superview!)
           
+          let width = bounds.width + transition.x
+          let height = bounds.height + transition.y
+          
+          let minWidth: CGFloat = 30.0
+          let minHeight: CGFloat = 30.0
+          
+          let widthBool = width <= minWidth
+          let heightBool = height <= minHeight
+          
           let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
           let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
-          containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
-          containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
+          
+          if !heightBool {
+            containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
+            containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
+            let scale = bounds.width / panBeginSize.width
+            textComponent.setFontSize(scale * begainFontSize)
+          }
+          
+         
+         
 //          containerMomdel.setOriginChange(CGPoint(x: 0 - transition.y * ratio / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
 
-          let scale = bounds.width / panBeginSize.width
-          textComponent.setFontSize(scale * begainFontSize)
+          
         }
         
         

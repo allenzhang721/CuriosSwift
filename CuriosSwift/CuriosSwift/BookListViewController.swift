@@ -113,9 +113,6 @@ extension BookListViewController: ThemeViewControllerDelegate {
   }
 }
 
-
-
-
 // MARK: - DataSource and Delegate
 // MARK: - 
 
@@ -175,7 +172,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
               
               let bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! BookModel
               
-              self.showEditViewControllerWithBook(bookModel, isUploaded: true)
+              self.showEditViewControllerWithBook(bookModel, begainThemeID: nil, isUploaded: true)
             }
           }
           else

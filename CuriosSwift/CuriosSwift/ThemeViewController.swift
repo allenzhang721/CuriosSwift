@@ -54,13 +54,23 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
       collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
       collectionView.decelerationRate = 0.1
       collectionView.setCollectionViewLayout(defaultLayout, animated: false)
-
-      ThemesManager.shareInstance.getThemes(0, size: 20) { [weak self](themes) -> () in
-        
-        self?.appThemes(themes)
-        self?.collectionView.reloadData()
-        self?.setupbackgroundImage()
+      
+      if ThemesManager.shareInstance.getThemeList().count <= 0 {
+        ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
+          
+          //          self.appThemes(themes)
+          self.collectionView.reloadData()
+          self.setupbackgroundImage()
+        }
+      } else {
       }
+
+//      ThemesManager.shareInstance.getThemes(0, size: 20) { [weak self](themes) -> () in
+//        
+//        self?.appThemes(themes)
+//        self?.collectionView.reloadData()
+//        
+//      }
     }
   
   override func prefersStatusBarHidden() -> Bool {
@@ -80,7 +90,7 @@ extension ThemeViewController {
   // MARK: - CollectionView DataSource
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    return themeList.count
+    return ThemesManager.shareInstance.getThemeList().count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -96,7 +106,7 @@ extension ThemeViewController {
     
     if let imageView = cell.backgroundView as? UIImageView {
       
-      let theme = themeList[indexPath.item]
+      let theme = ThemesManager.shareInstance.getThemeList()[indexPath.item]
 //      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")
       let url = NSURL(string: theme.themeIconURL)
       
@@ -161,7 +171,7 @@ extension ThemeViewController {
     
     if let indexPath = getCurrentIndexPath() {
       
-      let theme = themeList[indexPath.item]
+      let theme = ThemesManager.shareInstance.getThemeList()[indexPath.item]
 //      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
 //      let string = urls[indexPath.item % 2]
       let url = NSURL(string: theme.themeIconURL)!
@@ -192,30 +202,22 @@ extension ThemeViewController {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 // MARK: - IBAction
 // MARK: -
 extension ThemeViewController {
   
-  @IBAction func createBook(sender: UIBarButtonItem) {
+  @IBAction func createBook(sender: AnyObject) {
     
     if let currentIndexPath = getCurrentIndexPath() {
       
-      let theme = themeList[currentIndexPath.item]
+      let theme = ThemesManager.shareInstance.getThemeList()[currentIndexPath.item]
       let themeID = theme.themeID
       let themeURL = theme.themeURL
       
       // 1. theme Style 
-//      retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
+      retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
+        
+//        debugPrint.p("bookAttribute = \(bookAttribute)")
       
         // 2. templateURL
         TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
@@ -228,11 +230,13 @@ extension ThemeViewController {
           // 3. first template
           self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
             
+//            debugPrint.p("bookAttribute = \(bookAttribute)")
+            
             // 4. create a new book
-            self.createANewBookWithPageModel(pagemodel, bookAttribute: nil)
+            self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute)
           })
         }
-//      })
+      })
     }
   }
   
@@ -244,12 +248,10 @@ extension ThemeViewController {
     
     BlackCatManager.sharedManager.retrieveDataWithURL(url, optionsInfo: nil, progressBlock: nil) { (data, error, cacheType, URL) -> () in
       
-      debugPrint.p(URL)
       
-      let string = NSString(data: data!, encoding: NSUnicodeStringEncoding)
-      
-      debugPrint.p(string)
-      
+        if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 as? [String: AnyObject] {
+            completed(dic)
+        }
     }
     
     // Fetch Request
@@ -294,7 +296,8 @@ extension ThemeViewController {
             
             let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
             pageModel.Id = UniqueIDStringWithCount(count: 8)
-            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
+            completed(pageModel)
+//            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
           }
         }
         else
@@ -307,6 +310,12 @@ extension ThemeViewController {
     }
     
   }
+  
+  @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
+    
+    createBook(sender)
+  }
+  
   
   
   
@@ -339,9 +348,9 @@ extension ThemeViewController {
     return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
   }
   
-  func createANewBookWithPageModel(pageModel: PageModel, bookAttribute: [String: AnyObject]?) {
+  func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?) {
     
-    debugPrint.p(bookAttribute)
+//    debugPrint.p(bookAttribute)
     
     PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
@@ -352,10 +361,50 @@ extension ThemeViewController {
           aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
           aBookModel.needUpload = false
 //          aBookModel.pageModels.append(pageModel)
-          self.showEditViewControllerWithBook(aBookModel, isUploaded: false)
+          if let attributes = bookAttribute {
+            self.configBookModel(aBookModel, attribute: attributes)
+          }
+          self.showEditViewControllerWithBook(aBookModel, begainThemeID: begainThemeID,isUploaded: false)
         }
       }
     }.sendRequest()
+  }
+  
+  func configBookModel(book: BookModel, attribute: [String: AnyObject]) {
+    debugPrint.p(attribute)
+    //["FlipLoop": false, "MainBackgroundAlpha": 1, "MainBackgroundColor": 255,255,255, "FlipType": translate3d, "MainTitle": 青春的回忆, "FlipDirection": ver, "MainDesc": 在那美好的年代，有那美好的记忆, "MainMusic": ])
+    
+    if let fliploop = attribute["FlipLoop"] as? String {
+      book.flipLoop = fliploop
+    }
+    
+    book.mainbackgroundAlpha = attribute["MainBackgroundAlpha"] as! CGFloat
+    book.mainbackgroundColor = attribute["MainBackgroundColor"] as! String
+    book.title = attribute["MainTitle"] as! String
+    book.desc = attribute["MainDesc"] as! String
+    book.mainMusic = attribute["MainMusic"] as! String
+    
+    if let type = attribute["FlipType"] as? String {
+      switch type {
+        case "translate3d":
+        book.flipType = .translate3d
+      default:
+        ()
+      }
+    }
+    
+    if let type = attribute["FlipDirection"] as? String {
+      switch type {
+      case "ver":
+        book.flipDirection = .ver
+        case "hor":
+        book.flipDirection = .hor
+      default:
+        ()
+      }
+    }
+    
+    
   }
   
   func appThemes(themes: [ThemeModel]) {

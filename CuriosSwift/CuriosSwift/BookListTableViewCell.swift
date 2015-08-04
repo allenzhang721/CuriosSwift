@@ -42,10 +42,9 @@ class BookListTableViewCell: UITableViewCell {
   
   func configWithModel(bookModel: BookListModel) {
     
-    let iconUrlString = bookModel.publishIconURL
+    let iconUrlString = bookModel.publishIconURL.stringByAppendingString(ICON_THUMBNAIL)
     let url = NSURL(string: iconUrlString)
-    
-    debugPrint.p("url = \(url)")
+    debugPrint.p("iconUrlString = \(iconUrlString)")
     bookListCellImg.image = UIImage(named : "placeholder")
     if let url = url {
       KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
