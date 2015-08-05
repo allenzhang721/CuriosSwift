@@ -217,12 +217,12 @@
                   symbolName = "CuriosSwift.EditThemeViewController.viewDidAppear (CuriosSwift.EditThemeViewController)(Swift.Bool) -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
-                  timestampString = "460304236.197548"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
+                  timestampString = "460461235.238286"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
                   offsetFromSymbolStart = "250">
                </Location>
                <Location
@@ -232,12 +232,12 @@
                   symbolName = "@objc CuriosSwift.EditThemeViewController.viewDidAppear (CuriosSwift.EditThemeViewController)(Swift.Bool) -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
-                  timestampString = "460304236.197906"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
+                  timestampString = "460461235.238475"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
                   offsetFromSymbolStart = "265">
                </Location>
             </Locations>
@@ -265,12 +265,12 @@
                   symbolName = "CuriosSwift.EditThemeViewController.(viewDidLoad (CuriosSwift.EditThemeViewController) -&gt; () -&gt; ()).(closure #1)"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
-                  timestampString = "460304236.199075"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
+                  timestampString = "460461235.239377"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
                   offsetFromSymbolStart = "17">
                </Location>
                <Location
@@ -280,12 +280,12 @@
                   symbolName = "CuriosSwift.EditThemeViewController.(viewDidLoad (CuriosSwift.EditThemeViewController) -&gt; () -&gt; ()).(closure #1)"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Emiaostein/mine/Git_Tower/Github/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
-                  timestampString = "460304236.199366"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditThemeViewController.swift"
+                  timestampString = "460461235.239588"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
                   offsetFromSymbolStart = "77">
                </Location>
             </Locations>

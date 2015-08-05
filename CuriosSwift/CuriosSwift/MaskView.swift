@@ -305,7 +305,7 @@ extension MaskView {
         begainFontSize = compoenent.getFontSize()
       }
       
-      
+      containerMomdel.updateSlopes()
       
       let position = sender.locationInView(self)
       
@@ -339,8 +339,19 @@ extension MaskView {
           let transition = sender.translationInView(self)
           let transitionCenter = sender.translationInView(superview!)
           
-          let width = bounds.width + transition.x
-          let height = bounds.height + transition.y
+          var delWidth = transition.x
+          var delHeight = transition.y
+          
+          var width = bounds.width + delWidth
+          var height = bounds.height + delHeight
+          
+          if let apoint = containerMomdel.retriveSlopeCorrectPoint(CGPoint(x: width, y: height)) {
+            
+            delWidth = apoint.x - bounds.width
+            delHeight = apoint.y - bounds.height
+            width = apoint.x
+            height = apoint.y
+          }
           
           let minWidth: CGFloat = 40.0
           let minHeight: CGFloat = 40.0
@@ -348,8 +359,8 @@ extension MaskView {
           let widthBool = width <= minWidth
           let heightBool = height <= minHeight
           
-          let widthChanged: CGFloat = widthBool ? 0 : transition.x
-          let heightChanged: CGFloat = heightBool ? 0 : transition.y
+          let widthChanged: CGFloat = widthBool ? 0 : delWidth
+          let heightChanged: CGFloat = heightBool ? 0 : delHeight
           
           let finalWidth = width + widthChanged
           let finalHeight = height + heightChanged

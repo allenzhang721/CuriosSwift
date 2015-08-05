@@ -62,6 +62,7 @@
 		29CA9543B7F03DECE76E2041 /* NSObject+MJCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619840C66916CBC32190EE7 /* NSObject+MJCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A21CBD5760B6E42ADCEF4C1 /* POPDecayAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AB2D6C52D997FA5C160D322 /* POPDecayAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2ADF4184477E19AB64F69C6C /* Pods-CuriosSwift-AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5E8322DA26287D842403AA /* Pods-CuriosSwift-AFNetworking-dummy.m */; };
+		2CAA00DB1B71A69B00F26DD1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA00DA1B71A69B00F26DD1 /* Info.plist */; };
 		2CBC7569D1FF5B397A2F4442 /* POPSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4043B15CDC7854E51EC32DE0 /* POPSpringAnimation.mm */; };
 		2D841F8B3FBE48B87F441778 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A062BCB5A39916234FAC0D7 /* MJRefreshComponent.m */; };
 		2DCA291101AE0324F54B0515 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1537724E4DFB460AB858C39A /* UIRefreshControl+AFNetworking.m */; };
@@ -483,6 +484,7 @@
 		2B5E3C6DCB977808A4CC785F /* DTTimePeriod.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriod.m; path = DateTools/DTTimePeriod.m; sourceTree = "<group>"; };
 		2B939A53A9BE57913F281A52 /* POP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POP.h; path = pop/POP.h; sourceTree = "<group>"; };
 		2BD238DBEE58BD235979DEC6 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
+		2CAA00DA1B71A69B00F26DD1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D0BF4ECF8215C7050ACF32F /* Pods-CuriosSwift-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CuriosSwift-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		2D7C50C0B83D202B27C164F7 /* MTLJSONAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLJSONAdapter.h; path = Mantle/MTLJSONAdapter.h; sourceTree = "<group>"; };
 		2D91052FF5A04028494998CB /* Pods-CuriosSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CuriosSwift-dummy.m"; sourceTree = "<group>"; };
@@ -662,7 +664,6 @@
 		9F3F6EC61A5814EC4684F32D /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		9F7339006F4191E9060DE4B2 /* QNFormUpload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNFormUpload.h; path = QiniuSDK/Storage/QNFormUpload.h; sourceTree = "<group>"; };
 		A144B4A99357D186023946D2 /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
-		A18F6A9CEC9592D5EC320A6E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2F8B086791A261FA458C298 /* Pods-CuriosSwift-AFNetworking-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CuriosSwift-AFNetworking-umbrella.h"; sourceTree = "<group>"; };
 		A3D0B0782B2736B535D78BD0 /* QNUpToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNUpToken.h; path = QiniuSDK/Storage/QNUpToken.h; sourceTree = "<group>"; };
 		A4D68692A06224700CB70E45 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1204,7 +1205,7 @@
 		89B609E4E4869976DB1878B1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A18F6A9CEC9592D5EC320A6E /* Info.plist */,
+				2CAA00DA1B71A69B00F26DD1 /* Info.plist */,
 				47ADB91483BB178D11E2A282 /* Pods-CuriosSwift-SVProgressHUD.modulemap */,
 				1E4328DA5299FEF31B902DEB /* Pods-CuriosSwift-SVProgressHUD.xcconfig */,
 				8BCEB8322EEDC603B804DB17 /* Pods-CuriosSwift-SVProgressHUD-Private.xcconfig */,
@@ -2173,6 +2174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CAA00DB1B71A69B00F26DD1 /* Info.plist in Resources */,
 				FC0B39AA20585A10259A9159 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

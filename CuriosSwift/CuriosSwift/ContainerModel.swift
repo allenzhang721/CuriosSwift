@@ -23,6 +23,34 @@ protocol ContainerModelSuperEditDelegate: NSObjectProtocol {
 
 class ContainerModel: Model, ComponentModelDelegate {
   
+  let boundsSlope = "com.botai.Curios.ContainerModel.boundsSlope"
+  let metaDataSlope = "com.botai.Curios.ContainerModel.metaDataSlope"
+    
+  struct Slope {
+      
+      // ax - by = 0  a > 0, b > 0  a = height, b = width
+  
+      let a: CGFloat
+      let b: CGFloat
+      
+      func distanceFromPoint(point: CGPoint) -> CGFloat {
+          
+          return fabs(a * point.x - b * point.y) / sqrt(pow(a, 2) + pow(b, 2))
+      }
+    
+    func retriveCorrectPointByY(y: CGFloat) -> CGPoint {
+      
+      let x = (b * y) / a
+      return CGPoint(x: x, y: y)
+    }
+    
+    func retriveCorrectPointByX(x: CGFloat) -> CGPoint {
+      
+      let y = (a * x) / b
+      return CGPoint(x: x, y: y)
+    }
+  }
+  
   // json
   var Id = ""
   var x: CGFloat = 0
@@ -40,6 +68,9 @@ class ContainerModel: Model, ComponentModelDelegate {
       containerAngle = newValue * ranToAngle
     }
   }
+  
+  var slopes = [String:Slope]()
+    
   var alpha: CGFloat = 1.0
   var editable = true
   var animations:[Animation] = []
@@ -81,10 +112,41 @@ class ContainerModel: Model, ComponentModelDelegate {
     super.init(dictionary: dictionaryValue, error: error)
     
     component.editDelegate = self
+    
+    
   }
   
   override init!() {
     super.init()
+  }
+  
+  func updateSlopes() {
+    
+    let currentSlope = Slope(a: height, b: width)
+    slopes[boundsSlope] = currentSlope
+    
+    if let imageComponent = component as? ImageContentModel,
+        let imageSize = imageComponent.retriveImageSize()
+    {
+      let originSlope = Slope(a: imageSize.height, b: imageSize.width)
+      slopes[metaDataSlope] = originSlope
+    }
+  }
+  
+  func retriveSlopeCorrectPoint(nextPoint: CGPoint) -> CGPoint? {  // in container's coordinate
+    
+    if slopes.count <= 0 {
+      return nil
+    }
+    
+    for (key, slope) in slopes {
+      
+      if slope.distanceFromPoint(nextPoint) <= 3.5 {
+        return slope.retriveCorrectPointByY(nextPoint.y)
+      }
+    }
+    
+    return nil
   }
   
   

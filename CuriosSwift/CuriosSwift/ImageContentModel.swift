@@ -16,6 +16,36 @@ class ImageContentModel: ComponentModel, IFile {
   private var updateImageHandler: ((UIImage?) -> ())?
   private var generateImageHandler: ((UIImage?) -> ())?
   
+  var imageWidth: CGFloat? {
+    
+    get {
+      let value = attributes["ImageWidth"] as? CGFloat
+      return value
+    }
+    
+    set {
+      
+      if let anewValue = newValue {
+        attributes["ImageWidth"] = anewValue
+      }
+    }
+  }
+  
+  var imageHeight: CGFloat? {
+    
+    get {
+      let value = attributes["ImageHeight"] as? CGFloat
+      return value
+    }
+    
+    set {
+      
+      if let anewValue = newValue {
+        attributes["ImageHeight"] = anewValue
+      }
+    }
+  }
+  
   var imageID: String? {
     
     get {
@@ -44,6 +74,17 @@ class ImageContentModel: ComponentModel, IFile {
     updateImageHandler = updateHandler
   }
   
+  func retriveImageSize() -> CGSize? {
+    
+    if let width = imageWidth,
+      let height = imageHeight {
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    return nil
+  }
+  
   func generateImage(imageBlock: ((UIImage?) -> ())?) {
     
     let url = NSURL(string: key)!
@@ -59,6 +100,9 @@ class ImageContentModel: ComponentModel, IFile {
   
   func updateImage(image: UIImage, userID: String, PublishID: String) {
     needUpload = true
+    
+    imageWidth = image.size.width
+    imageHeight = image.size.height
     
     KingfisherManager.sharedManager.cache.removeImageForKey(key)
     let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
