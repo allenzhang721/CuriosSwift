@@ -73,6 +73,11 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
 //      }
     }
   
+  override func viewDidAppear(animated: Bool) {
+    
+    self.setupbackgroundImage()
+  }
+  
   override func prefersStatusBarHidden() -> Bool {
     return true
   }

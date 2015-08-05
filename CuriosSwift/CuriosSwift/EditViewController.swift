@@ -1819,9 +1819,12 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
-    cell.backgroundColor = UIColor.darkGrayColor()
+    cell.backgroundColor = UIColor.whiteColor()
     cell.pageCellDelegate = self
     cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
+    
+    cell.layer.borderColor = UIColor.blueColor().colorWithAlphaComponent(0.5).CGColor
+    cell.layer.borderWidth = 1
     
     return cell
   }
