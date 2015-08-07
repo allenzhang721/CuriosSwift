@@ -147,7 +147,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     let title = bookModel.title
     let descr = bookModel.desc
     let url = urlString
-    let iconUrl = HOST.stringByAppendingPathComponent(bookModel.icon)
+    let iconUrl = HOST.stringByAppendingString(bookModel.icon)
     
     debugPrint.p(iconUrl)
     
