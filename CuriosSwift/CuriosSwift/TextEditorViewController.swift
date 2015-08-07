@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class TextEditorViewController: UIViewController {
+class TextEditorViewController: UIViewController, UITextViewDelegate {
   
   @IBOutlet weak var toolbar: UIToolbar!
   @IBOutlet weak var textView: UITextView!
@@ -37,19 +37,66 @@ class TextEditorViewController: UIViewController {
         super.viewDidLoad()
       
       textView.attributedText = begainAttriString
+      textView.delegate = self
       view.backgroundColor = UIColor.clearColor()
       
 //      let tap = UITapGestureRecognizer(target: self, action: "tap:")
 //      view.addGestureRecognizer(tap)
       
       textView.becomeFirstResponder()
+      textView.alpha = 0
+      
+      textView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
       
       NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+      
+      
     }
   
   deinit {
+    textView.removeObserver(self, forKeyPath: "contentSize")
      NSNotificationCenter.defaultCenter().removeObserver(self)
   }
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    setup()
+    UIView.animateWithDuration(0.2, animations: { [unowned self] () -> Void in
+      
+      self.textView.alpha = 1.0
+    })
+  }
+  
+  func setup() {
+    
+    let height = textView.bounds.height
+    let contentHeight = textView.contentSize.height
+    if height > contentHeight {
+      let topOffset = (height - contentHeight) / 2.0
+      let aOffset = topOffset < 0.0 ? 0.0 : topOffset
+      textView.contentOffset = CGPoint(x: textView.contentOffset.x, y: -aOffset)
+    }
+  }
+  
+  override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    let height = textView.bounds.height
+    let contentHeight = textView.contentSize.height
+    if keyPath == "contentSize" && object as! NSObject == textView && height > contentHeight {
+      
+      debugPrint.p("content height = \(textView.contentSize.height)")
+//      
+//      let height = textView.bounds.height
+//      let contentHeight = textView.contentSize.height
+      let topOffset = (height - contentHeight) / 2.0
+      let aOffset = topOffset < 0.0 ? 0.0 : topOffset
+      textView.contentOffset = CGPoint(x: textView.contentOffset.x, y: -aOffset)
+      
+    }
+    
+  }
+  
+  
+  
   
   func tap(sender: UITapGestureRecognizer) {
     
