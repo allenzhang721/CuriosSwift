@@ -158,8 +158,10 @@ class smallLayout: UICollectionViewFlowLayout {
   
   func changedOnScreenPointTransition(pointOnCollectionContent translation: CGPoint) {
     onContentCenter.x += translation.x
-    autoScrollIfNeed(onBoundsPoint: onContentCenter)
-    changeItemsIfNeed(pointOnContent: onContentCenter)
+    if !autoScrollIfNeed(onBoundsPoint: onContentCenter) {
+      changeItemsIfNeed(pointOnContent: onContentCenter)
+    }
+    
   }
   
   
@@ -176,10 +178,6 @@ class smallLayout: UICollectionViewFlowLayout {
     placeholderIndexPath = defaultSelectedIndexPath
     delegate?.layoutDidEndSelected(self)
   }
-  
-  
-  
-  
   
   func getIndexPathWithPoint(pointOnCollectionContent point: CGPoint) -> NSIndexPath? {
     
@@ -237,7 +235,7 @@ class smallLayout: UICollectionViewFlowLayout {
         let visualCells = collectionView!.visibleCells() as! [UICollectionViewCell]
         let nearestCell = visualCells.filter { $0.center.x < x }.last!
         let nearestIndexPath = collectionView!.indexPathForCell(nearestCell)!
-        return NSIndexPath(forItem: nearestIndexPath.item, inSection: 0)
+        return NSIndexPath(forItem: nearestIndexPath.item + 1, inSection: 0)
       }
     }
     
@@ -522,22 +520,25 @@ extension smallLayout {
 // MARK: - AutoScroll
 extension smallLayout {
   
-  private func autoScrollIfNeed(onBoundsPoint point: CGPoint) {
+  private func autoScrollIfNeed(onBoundsPoint point: CGPoint) -> Bool {
     let offset = collectionView!.contentOffset
     let triggerInsetTop: CGFloat = 50.0
     let triggerInsetEnd: CGFloat = 50.0
     let boundsLength = CGRectGetWidth(collectionView!.bounds)
     let contentLength = collectionView!.contentSize.width
     switch point.x {
-    case let x where x <= offset.x + triggerInsetTop && offset.x > 0:
+    case let x where offset.x > 0 && x <= offset.x + triggerInsetTop:
       autoScrollDirection = .Top
       setupDisplayLink()
-    case let x where x >= offset.x + boundsLength - triggerInsetEnd && offset.x <= contentLength - boundsLength:
+      return true
+    case let x where offset.x <= contentLength - boundsLength && x >= offset.x + boundsLength - triggerInsetEnd:
       autoScrollDirection = .End
       setupDisplayLink()
+      return true
     default:
       invalidateDisplayLink()
       changeItemsIfNeed(pointOnContent: onContentCenter)
+      return false
     }
   }
   
@@ -584,6 +585,7 @@ extension smallLayout {
     self.collectionView?.contentOffset = contentOffset
     changeItemsIfNeed(pointOnContent: onContentCenter)
     onContentCenter.x += scrollRate / 2.0
+    autoScrollIfNeed(onBoundsPoint: onContentCenter)
     //        changeItemIfNeed()
 //                }, completion: nil)
   }
