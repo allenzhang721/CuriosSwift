@@ -117,16 +117,19 @@ class BookModel: Model, IFile, PageModelEditDelegate {
 //  }
   func setBookIcon(string: String) {
     needUpload = true
+    needAddFile = true
     icon = string
   }
   
   func setBookTitle(string: String) {
     needUpload = true
+    needAddFile = true
     title = string
   }
   
   func setBookDescription(string: String) {
     needUpload = true
+    needAddFile = true
     desc = string
   }
   
@@ -150,11 +153,13 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   
   func exchangePageModel(fromIndex: Int, toIndex: Int) {
     needUpload = true
+    needAddFile = true
     exchange(&pageModels, fromIndex, toIndex)
   }
   
   func insertPageModelsAtIndex(aPageModels: [PageModel], FromIndex index: Int) {
     needUpload = true
+    needAddFile = true
     var i = index
     for pageModel in aPageModels {
       pageModels.insert(pageModel, atIndex: i)
@@ -172,6 +177,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   
   func removePageModelAtIndex(index: Int) {
     needUpload = true
+    needAddFile = true
     let aPageModel = pageModels[index]
     aPageModel.delegate = nil
     pageModels.removeAtIndex(index)
@@ -238,6 +244,7 @@ extension BookModel {
   
   func targetPageModelDidUpdate(model: PageModel) {
     needUpload = true
+    needAddFile = true
   }
   
   func fileGetSuperPath(file: IFile) -> String {

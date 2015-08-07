@@ -35,6 +35,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   var imageLoader: UpLoadManager?
   var urlString: String!
   
+  var sharing = false
   
   var type = PreviewType.Local {
     
@@ -106,6 +107,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   func share() {
     
+    
+    
     let link = urlString
     let share = ShareViewController.create()
     share.shareBlock = {[weak self] (shareType) -> () in
@@ -131,6 +134,12 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   func shareWithSDK(type: Int32) {
     
+    if sharing {
+      return
+    }
+    
+    sharing = true
+    
     let bookModel = delegate!.previewControllerGetBookModel(self)
     
     let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
@@ -152,25 +161,40 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
         HUD.share_fail()
       }
       self.dismissViewControllerAnimated(true, completion: nil)
+      self.sharing = false
     }
     
   }
   
   func openInSafari(link: String) {
     
+    if sharing {
+      return
+    }
+    
+    sharing = true
+    
     let url = NSURL(string: link)!
     
     UIApplication.sharedApplication().openURL(url)
     dismissViewControllerAnimated(true, completion: nil)
+    sharing = false
   }
   
   
   func copyString(string: String) {
     
+    if sharing {
+      return
+    }
+    
+    sharing = true
+    
     let pastboard = UIPasteboard.generalPasteboard()
     pastboard.string = string
     HUD.share_copy_success()
     dismissViewControllerAnimated(true, completion: nil)
+    sharing = false
   }
   
   
