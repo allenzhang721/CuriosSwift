@@ -12,6 +12,7 @@ import pop
 enum EasingFunctionType {
     
     case
+    Linear,
     EasingInBack,
     EasingOutBack,
     EasingInOutBack,
@@ -61,7 +62,7 @@ class CUAnimationFactory: NSObject {
         
         self.pop_removeAnimationForKey("Preview")
         
-        let function = easingFuntionWithType(easingFunctionType)
+        let function = AnimationFunction.easingFuntionWithType(easingFunctionType)
       
         let aAnimation = POPCustomAnimation {(target, animation: POPCustomAnimation!) -> Bool in
             

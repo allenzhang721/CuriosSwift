@@ -36,6 +36,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   var pageModels: [PageModel]         = []
   
   var needUpload = false
+  var needAddFile = false
   var pagesInfo: [[String : String]] = [[:]]
   
   
@@ -127,6 +128,16 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   func setBookDescription(string: String) {
     needUpload = true
     desc = string
+  }
+  
+  func isNeedAddFile() -> Bool {
+    
+    return needAddFile
+    
+  }
+  
+  func resetNeedAddFile() {
+    needAddFile = false
   }
   
   func isNeedUpload() -> Bool {

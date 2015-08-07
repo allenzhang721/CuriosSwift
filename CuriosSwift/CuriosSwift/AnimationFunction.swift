@@ -8,367 +8,382 @@
 //
 import Foundation
 
-
-
-typealias easingFunction = (t: Double, b: Double, c: Double, d: Double) -> Double
-
-func easingFuntionWithType(easingFuntionType: EasingFunctionType) -> easingFunction {
+class AnimationFunction {
+  
+  
+  
+  typealias easingFunction = (t: Double, b: Double, c: Double, d: Double) -> Double
+  
+  static func easingFuntionWithType(easingFuntionType: EasingFunctionType) -> easingFunction {
     switch easingFuntionType {
+      
+    case .Linear:
+      return AnimationFunction.Linear
+      
     case .EasingInBack:
-        return EasingInBack
-        
+      return AnimationFunction.EasingInBack
+      
     case .EasingOutBack:
-        return EasingOutBack
-        
+      return AnimationFunction.EasingOutBack
+      
     case .EasingInOutBack:
-        return EasingInOutBack
-        
+      return AnimationFunction.EasingInOutBack
+      
     case .EasingInBounce:
-        return EasingInBounce
-        
+      return AnimationFunction.EasingInBounce
+      
     case .EasingOutBounce:
-        return EasingOutBounce
-        
+      return AnimationFunction.EasingOutBounce
+      
     case .EasingInOutBounce:
-        return EasingInOutBounce
-        
+      return AnimationFunction.EasingInOutBounce
+      
     case .EasingInCirc:
-        return EasingInCirc
-        
+      return AnimationFunction.EasingInCirc
+      
     case .EasingOutCirc:
-        return EasingOutCirc
-        
+      return AnimationFunction.EasingOutCirc
+      
     case .EasingInOutCirc:
-        return EasingInOutCirc
-        
+      return AnimationFunction.EasingInOutCirc
+      
     case .EasingInCubic:
-        return EasingInCubic
-        
+      return AnimationFunction.EasingInCubic
+      
     case .EasingOutCubic:
-        return EasingOutCubic
-        
+      return AnimationFunction.EasingOutCubic
+      
     case .EasingInOutCubic:
-        return EasingInOutCubic
-        
+      return AnimationFunction.EasingInOutCubic
+      
     case .EasingInElastic:
-        return EasingInElastic
-        
+      return AnimationFunction.EasingInElastic
+      
     case .EasingOutElastic:
-        return EasingOutElastic
-        
+      return AnimationFunction.EasingOutElastic
+      
     case .EasingInOutElastic:
-        return EasingInOutElastic
-        
+      return AnimationFunction.EasingInOutElastic
+      
     case .EasingInExpo:
-        return EasingInExpo
-        
+      return AnimationFunction.EasingInExpo
+      
     case .EasingOutExpo:
-        return EasingOutExpo
-        
+      return AnimationFunction.EasingOutExpo
+      
     case .EasingInOutExpo:
-        return EasingInOutExpo
-        
+      return AnimationFunction.EasingInOutExpo
+      
     case .EasingInQuad:
-        return EasingInQuad
-        
+      return AnimationFunction.EasingInQuad
+      
     case .EasingOutQuad:
-        return EasingOutQuad
-        
+      return AnimationFunction.EasingOutQuad
+      
     case .EasingInOutQuad:
-        return EasingInOutQuad
-        
+      return AnimationFunction.EasingInOutQuad
+      
     case .EasingInQuart:
-        return EasingInQuart
-        
+      return AnimationFunction.EasingInQuart
+      
     case .EasingOutQuart:
-        return EasingOutQuart
-        
+      return AnimationFunction.EasingOutQuart
+      
     case .EasingInOutQuart:
-        return EasingInOutQuart
-        
+      return AnimationFunction.EasingInOutQuart
+      
     case .EasingInQuint:
-        return EasingInQuint
-        
+      return AnimationFunction.EasingInQuint
+      
     case .EasingOutQuint:
-        return EasingOutQuint
-        
+      return AnimationFunction.EasingOutQuint
+      
     case .EasingInOutQuint:
-        return EasingInOutQuint
-        
+      return AnimationFunction.EasingInOutQuint
+      
     case .EasingInSine:
-        return EasingInSine
-        
+      return AnimationFunction.EasingInSine
+      
     case .EasingOutSine:
-        return EasingOutSine
-        
+      return AnimationFunction.EasingOutSine
+      
     case .EasingInOutSine:
-        return EasingInOutSine
+      return AnimationFunction.EasingInOutSine
     }
-}
-
-let EasingInBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  
+  static let Linear =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+//    let s = 1.70158
+    t /= d
+    return b + c * t
+  }
+  
+  static let EasingInBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     let s = 1.70158
     t /= d
     return c * t * t * ((s + 1) * t - s) + b
-}
-
-let EasingOutBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  
+  static let EasingOutBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     let s = 1.70158
     t = t / d - 1
     return c * (t * t * ((s + 1) * t + s) + 1) + b
-}
-
-let EasingInOutBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  
+  static let EasingInOutBack =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     var s = 1.70158
     let k = 1.525
     t /= d / 2
     s *= k
     if (t < 1) {
-        return c / 2 * (t * t * ((s + 1) * t - s)) + b
+      return c / 2 * (t * t * ((s + 1) * t - s)) + b
     }
     else {
-        t -= 2;
-        return c / 2 * (t * t * ((s + 1) * t + s) + 2) + b
+      t -= 2;
+      return c / 2 * (t * t * ((s + 1) * t + s) + 2) + b
     }
-}
-let EasingInBounce =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInBounce =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     return c - EasingOutBounce(d - t, 0, c, d) + b
-}
-let EasingOutBounce =  { (var t: Double, var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutBounce =  { (var t: Double, var b: Double, var c: Double, var d: Double) -> Double in
     
     let k = 2.75
     t /= d
     if (t) < (1.0 / k) {
-        return c * (7.5625 * t * t) + b;
+      return c * (7.5625 * t * t) + b;
     }
     else if (t < (2 / k)) {
-        t -= 1.5 / k;
-        return c * (7.5625 * t * t + 0.75) + b;
+      t -= 1.5 / k;
+      return c * (7.5625 * t * t + 0.75) + b;
     }
     else if (t < (2.5 / k)) {
-        t -= 2.25 / k;
-        return c * (7.5625 * t * t + 0.9375) + b;
+      t -= 2.25 / k;
+      return c * (7.5625 * t * t + 0.9375) + b;
     }
     else {
-        t -= 2.625 / k;
-        return c * (7.5625 * t * t + 0.984375) + b;
+      t -= 2.625 / k;
+      return c * (7.5625 * t * t + 0.984375) + b;
     }
-}
-let EasingInOutBounce =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutBounce =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     if (t < d * 0.5) {
-        return EasingInBounce(t * 2, 0, c, d) * 0.5 + b;
+      return EasingInBounce(t * 2, 0, c, d) * 0.5 + b;
     }
     else {
-        return EasingOutBounce(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
+      return EasingOutBounce(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
     }
-}
-let EasingInCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t /= d
     return -c * (sqrt(1 - t * t) - 1) + b
-}
-let EasingOutCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t = t / d - 1
     return c * sqrt(1 - t * t) + b
-}
-let EasingInOutCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutCirc =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t /= (d/2)
     if (t <= 1) {
-        return -c / 2 * (sqrt(1 - t * t) - 1) + b
+      return -c / 2 * (sqrt(1 - t * t) - 1) + b
     }
     else {
-        t -= 2;
-        return c / 2 * (sqrt(1 - t * t) + 1) + b
+      t -= 2;
+      return c / 2 * (sqrt(1 - t * t) + 1) + b
     }
-}
-let EasingInCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t /= d
     return c * t * t * t + b
-}
-let EasingOutCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t = t / d - 1
     return c * (t * t * t + 1) + b
-}
-let EasingInOutCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutCubic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t /= d / 2
     if (t < 1) {
-        return c / 2 * t * t * t + b
+      return c / 2 * t * t * t + b
     }
     
     t -= 2
     return c / 2 * (t * t * t + 2) + b
-}
-let EasingInElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     var s = 1.70158
     var p = 0.0
     var a = c
     if t == 0.0 {
-        return b
+      return b
     }
     t /= d
     if t == 1.0 {
-        return b + c
+      return b + c
     }
     if p == 0 {
-        p = d * 0.3
+      p = d * 0.3
     }
     if a < fabs(c) {
-        a = c
-        s = p / 4.0
+      a = c
+      s = p / 4.0
     }
     else {
-        s = p / (2 * 3.1419) * asin(c / a);
+      s = p / (2 * 3.1419) * asin(c / a);
     }
     t--;
     return -(a * pow(2, 10 * t) * sin((t * d - s) * (2 * 3.1419) / p)) + b;
     
-}
-let EasingOutElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     var s = 1.70158
     var p = 0.0
     var a = c
     if (t == 0) {
-        return b;
+      return b;
     }
     t /= d
     if t == 1.0 {
-        return b + c
+      return b + c
     }
     if p == 0.0 {
-        p = d * 0.3
+      p = d * 0.3
     }
     if a < fabs(c) {
-        a = c
-        s = p / 4.0
+      a = c
+      s = p / 4.0
     }
     else {
-        s = p / (2 * 3.1419) * asin(c / a)
+      s = p / (2 * 3.1419) * asin(c / a)
     }
     return a * pow(2, -10 * t) * sin((t * d - s) * (2 * 3.1419) / p) + c + b
     
-}
-let EasingInOutElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutElastic =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     var s = 1.70158
     var p = 0.0
     var a = c
     if t == 0.0 {
-        return b;
+      return b;
     }
     t /= d / 2
     if (t) == 2 {
-        return b + c;
+      return b + c;
     }
     if p == 0.0 {
-        p = d * (0.3 * 1.5)
+      p = d * (0.3 * 1.5)
     }
     if (a < fabs(c)) {
-        a = c
-        s = p / 4
+      a = c
+      s = p / 4
     }
     else {
-        s = p / (2 * 3.1419) * asin(c / a)
+      s = p / (2 * 3.1419) * asin(c / a)
     }
     if (t < 1) {
-        t--
-        return -0.5 * (a * pow(2, 10 * t) * sin((t * d - s) * (2 * 3.1419) / p)) + b
+      t--
+      return -0.5 * (a * pow(2, 10 * t) * sin((t * d - s) * (2 * 3.1419) / p)) + b
     }
     t--
     return a * pow(2, -10 * t) * sin((t * d - s) * (2 * 3.1419) / p) * 0.5 + c + b
     
-}
-let EasingInExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     return (t == 0.0) ? b : c * pow(2, 10 * (t / d - 1)) + b
-}
-let EasingOutExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     return (t == d) ? b + c : c * (-pow(2, -10 * t / d) + 1) + b
-}
-let EasingInOutExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutExpo =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     if (t == 0) {
-        return b
+      return b
     }
     else if (t == d) {
-        return b + c
+      return b + c
     }
     
     t /= d / 2
     
     if (t < 1) {
-        return c / 2 * pow(2, 10 * (t - 1)) + b
+      return c / 2 * pow(2, 10 * (t - 1)) + b
     }
     else {
-        return c / 2 * (-pow(2, -10 * --t) + 2) + b
+      return c / 2 * (-pow(2, -10 * --t) + 2) + b
     }
-}
-let EasingInQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d
     return c * t * t + b
-}
-let EasingOutQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d
     return -c * t * (t - 2) + b
-}
-let EasingInOutQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutQuad =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d / 2
     if (t < 1) {
-        return c / 2 * t * t + b
+      return c / 2 * t * t + b
     }
     t--
     return -c / 2 * (t * (t - 2) - 1) + b
-}
-let EasingInQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d
     return c * t * t * t * t + b
-}
-let EasingOutQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t = t / d - 1
     return -c * (t * t * t * t - 1) + b
-}
-let EasingInOutQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutQuart =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d / 2
     if (t < 1) {
-        return c / 2 * t * t * t * t + b
+      return c / 2 * t * t * t * t + b
     }
     
     t -= 2
     return -c / 2 * (t * t * t * t - 2) + b
-}
-let EasingInQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d
     return c * t * t * t * t * t + b
-}
-let EasingOutQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     t = t / d - 1
     return c * (t * t * t * t * t + 1) + b
-}
-let EasingInOutQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutQuint =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     t /= d / 2
     if (t < 1) {
-        return c / 2 * t * t * t * t * t + b
+      return c / 2 * t * t * t * t * t + b
     }
     t -= 2;
     return c / 2 * (t * t * t * t * t + 2) + b
-}
-let EasingInSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     return -c * cos(t / d * (M_PI / 2)) + c + b
-}
-let EasingOutSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingOutSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     return c * sin(t / d * (M_PI / 2)) + b
-}
-let EasingInOutSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
+  }
+  static let EasingInOutSine =  { (var t: Double,var b: Double, var c: Double, var d: Double) -> Double in
     
     return -c / 2 * (cos(M_PI * t / d) - 1) + b
+  }
+
+  
 }

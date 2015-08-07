@@ -538,7 +538,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     
     EndEdit()
-    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() {
+    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && !bookModel.isNeedAddFile() {
       UploadsManager.shareInstance.setCompeletedHandler(nil)
       self.dismissViewControllerAnimated(true, completion: nil)
     } else {

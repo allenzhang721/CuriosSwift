@@ -313,6 +313,15 @@ class ContainerModel: Model, ComponentModelDelegate {
     
     let animation = Animation()
     
+    if animations.count > 0 {
+      
+      let firstAnimation = animations[0]
+        if firstAnimation.name() == name {
+          editDelegate?.containerModelDidUpdate(self)
+        }
+    }
+    
+    
     switch name {
     case "FadeIn":
       animation.type = .FadeIn
