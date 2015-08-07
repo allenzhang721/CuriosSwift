@@ -154,16 +154,16 @@ extension EditTemplateViewController {
     
     if let imageView = cell.backgroundView as? UIImageView {
 
-      imageView.alpha = 0
+//      imageView.alpha = 0
       
 //      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
        let url = NSURL(string: template.templateIconURL)!
       imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
         
-        imageView.image = image
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-        imageView.alpha = 1
-        })
+//        imageView.image = image
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+//        imageView.alpha = 1
+//        })
       })
     }
     return cell
