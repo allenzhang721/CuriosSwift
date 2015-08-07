@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 class ComponentImageNode: ASImageNode, IImageComponent {
   

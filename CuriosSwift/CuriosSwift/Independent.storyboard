@@ -302,7 +302,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96X-8b-BQ3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-Ug-fPG">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-Ug-fPG">
                                                     <rect key="frame" x="8" y="8" width="584" height="584"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -315,12 +315,14 @@
                                                     <animations/>
                                                     <items>
                                                         <barButtonItem title="Cancel" id="8xI-Ur-e0e">
+                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <connections>
                                                                 <action selector="cancelAction:" destination="Krh-qP-WDS" id="SR0-Sw-h79"/>
                                                             </connections>
                                                         </barButtonItem>
                                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="vFi-Ak-MCD"/>
                                                         <barButtonItem title="OK" id="xqS-Xe-13b">
+                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <connections>
                                                                 <action selector="confirmAction:" destination="Krh-qP-WDS" id="bKG-9w-AXV"/>
                                                             </connections>

@@ -127,6 +127,7 @@
 		2CA8F08D1B391D050063E964 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F08C1B391D050063E964 /* TokenRequest.swift */; };
 		2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */; };
 		2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */; };
+		2CAA013D1B74478600F26DD1 /* AsyncDisplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAA013C1B74478600F26DD1 /* AsyncDisplayKit.framework */; };
 		2CAC96501B54BD4500BA5291 /* Theme&Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC964F1B54BD4500BA5291 /* Theme&Template.swift */; };
 		2CAC96571B54D37900BA5291 /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC96561B54D37900BA5291 /* main.json */; };
 		2CAC96591B54E3E500BA5291 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC96581B54E3E500BA5291 /* ThemeModel.swift */; };
@@ -163,7 +164,6 @@
 		2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD731AE33A8D00DF6019 /* Models.swift */; };
 		2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD7B1AE465BD00DF6019 /* EditViewController.swift */; };
 		2CB4BD7E1AE46DD000DF6019 /* Layouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD7D1AE46DD000DF6019 /* Layouts.swift */; };
-		2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD861AE4794F00DF6019 /* libAsyncDisplayKit.a */; };
 		2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD881AE47A0F00DF6019 /* AssetsLibrary.framework */; };
 		2CB4BD8B1AE47A1500DF6019 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4BD8A1AE47A1500DF6019 /* Photos.framework */; };
 		2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC16BD1B15AE7F00F46541 /* LoginModel.swift */; };
@@ -353,6 +353,7 @@
 		2CA8F08C1B391D050063E964 /* TokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		2CA8F0BE1B3940CD0063E964 /* PublishIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishIDRequest.swift; sourceTree = "<group>"; };
 		2CA8F0C01B3947BB0063E964 /* PublishFileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishFileRequest.swift; sourceTree = "<group>"; };
+		2CAA013C1B74478600F26DD1 /* AsyncDisplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AsyncDisplayKit.framework; path = "Pods/../build/Release-iphoneos/Pods-CuriosSwift/AsyncDisplayKit.framework"; sourceTree = "<group>"; };
 		2CAC964F1B54BD4500BA5291 /* Theme&Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Theme&Template.swift"; sourceTree = "<group>"; };
 		2CAC96561B54D37900BA5291 /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
 		2CAC96581B54E3E500BA5291 /* ThemeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CAA013D1B74478600F26DD1 /* AsyncDisplayKit.framework in Frameworks */,
 				2C62F2211B6876A0007DA47F /* ReachabilitySwift.framework in Frameworks */,
 				2C62F21D1B6766CF007DA47F /* DateTools.framework in Frameworks */,
 				2CB362321B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework in Frameworks */,
@@ -490,7 +492,6 @@
 				2CB362301B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework in Frameworks */,
 				2CFDFD681B1EE91800246F59 /* WeChatConnection.framework in Frameworks */,
 				2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */,
-				2CB4BD871AE4794F00DF6019 /* libAsyncDisplayKit.a in Frameworks */,
 				15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */,
 				2CFDFD6E1B1EE91800246F59 /* ShareSDK.framework in Frameworks */,
 			);
@@ -509,6 +510,7 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CAA013C1B74478600F26DD1 /* AsyncDisplayKit.framework */,
 				2C62F2201B6876A0007DA47F /* ReachabilitySwift.framework */,
 				2C62F21C1B6766CE007DA47F /* DateTools.framework */,
 				2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */,
@@ -1494,6 +1496,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
+					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -1516,7 +1519,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
+				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1529,8 +1532,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1540,6 +1543,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
+					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -1562,7 +1566,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
+				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
@@ -359,15 +360,15 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         return CGRectContainsPoint(bounds, point)
     }
     
-    func becomeFirstResponder() {
+    func abecomeFirstResponder() {
         component.iBecomeFirstResponder()
     }
     
-    func resignFirstResponder() {
+    func aresignFirstResponder() {
         component.iResignFirstResponder()
     }
     
-    func isFirstResponder() -> Bool {
+    func aisFirstResponder() -> Bool {
         return component.iIsFirstResponder()
     }
     

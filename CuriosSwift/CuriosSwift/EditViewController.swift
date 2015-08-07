@@ -127,6 +127,11 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     return true
   }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    updateSelectBorder()
+  }
+  
 //  override func viewWillLayoutSubviews() {
 //    super.viewWillLayoutSubviews()
 //  }
@@ -192,11 +197,14 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     switch sender.state {
     case .Began:
       
+      resetSeletctBorder()
       beganPanY = LayoutSpec.layoutConstants.screenSize.height - sender.locationInView(view).y
       isToSmallLayout = collectionView.collectionViewLayout is NormalLayout
       let nextLayout = isToSmallLayout ? smallLayout() : NormalLayout()
       
+      var nextisSmall = false
       if let aSma = nextLayout as? smallLayout {
+        nextisSmall = true
         aSma.delegate = self
       }
       
@@ -205,6 +213,9 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         if completed {
         self.transitionLayout = nil
           self.progress = 0
+          if !nextisSmall {
+            self.updateSelectBorder()
+          }
         }
 
         }) as? TransitionLayout
@@ -1808,8 +1819,46 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
 //    
 //    return 1
 //  }
-
   
+  func resetSeletctBorder() {
+    
+    if let indexPath = getCurrentIndexPath() where collectionView.collectionViewLayout is NormalLayout {
+      let cells = collectionView.visibleCells() as! [UICollectionViewCell]
+      
+      for cell in cells {
+          cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
+      }
+    }
+  }
+  
+  func updateSelectBorder() {
+    if let indexPath = getCurrentIndexPath() where collectionView.collectionViewLayout is NormalLayout {
+      let cells = collectionView.visibleCells() as! [UICollectionViewCell]
+      
+      for cell in cells {
+        
+        if let aIndexPath = collectionView.indexPathForCell(cell) where aIndexPath.compare(indexPath) == .OrderedSame {
+          cell.layer.borderColor = UIColor.blueColor().colorWithAlphaComponent(0.5).CGColor
+        } else {
+          cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
+        }
+      }
+    }
+  }
+  
+  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    resetSeletctBorder()
+  }
+
+  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    
+    updateSelectBorder()
+  }
+  
+  func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    
+    updateSelectBorder()
+  }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
@@ -1823,7 +1872,7 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     cell.pageCellDelegate = self
     cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
     
-    cell.layer.borderColor = UIColor.blueColor().colorWithAlphaComponent(0.5).CGColor
+    cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
     cell.layer.borderWidth = 1
     
     return cell

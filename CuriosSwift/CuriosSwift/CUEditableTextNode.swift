@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CUEditableTextNode: ASEditableTextNode {
+//class CUEditableTextNode: ASEditableTextNode {
 //
 //    var viewModel: ContainerViewModel!
 ////        {
@@ -40,4 +40,4 @@ class CUEditableTextNode: ASEditableTextNode {
 //    func setupBy(viewModel: ContainerViewModel) {
 //        self.viewModel = viewModel
 //    }
-}
+//}

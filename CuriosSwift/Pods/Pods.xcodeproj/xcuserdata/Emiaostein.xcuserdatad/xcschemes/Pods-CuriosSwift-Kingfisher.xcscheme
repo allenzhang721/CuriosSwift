@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2FB39104B85A056650D212B7"
+               BlueprintIdentifier = "4C7EDCB93CEE6CE37A75EC4E"
                BuildableName = "Kingfisher.framework"
                BlueprintName = "Pods-CuriosSwift-Kingfisher"
                ReferencedContainer = "container:Pods.xcodeproj">

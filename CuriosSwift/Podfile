@@ -17,6 +17,7 @@ pod 'SnapKit', '~> 0.10.0'
 pod 'Qiniu', '~> 7.0'
 pod 'SVProgressHUD'
 pod 'MJRefresh', '~> 2.2.0'
+pod 'AsyncDisplayKit'
 
 end
 

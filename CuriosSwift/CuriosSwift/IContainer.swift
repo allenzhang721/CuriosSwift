@@ -19,9 +19,9 @@ protocol IContainer: NSObjectProtocol {
     weak var page: IPage?{get set}
     
     func responderToLocation(location: CGPoint, onTargetView targetVew: UIView) -> Bool
-    func becomeFirstResponder()
-    func resignFirstResponder()
-    func isFirstResponder() -> Bool
+    func abecomeFirstResponder()
+    func aresignFirstResponder()
+    func aisFirstResponder() -> Bool
     
     func setTransation(translation: CGPoint)
 //    func setResize(size: CGSize, center: CGPoint)

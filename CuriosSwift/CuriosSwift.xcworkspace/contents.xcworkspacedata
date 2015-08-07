@@ -5,9 +5,6 @@
       location = "group:CuriosSwift.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../AsyncDisplayKit-master/AsyncDisplayKit.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

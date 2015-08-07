@@ -21,6 +21,9 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Alamofire (1.2.3)
+  - AsyncDisplayKit (1.2.3):
+    - AsyncDisplayKit/ASDealloc2MainObject (= 1.2.3)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.2.3)
   - DateTools (1.6.1)
   - Kingfisher (1.4.2)
   - Mantle (2.0):
@@ -37,6 +40,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 1.2.3)
+  - AsyncDisplayKit
   - DateTools
   - Kingfisher (~> 1.4.2)
   - Mantle (~> 2.0)
@@ -60,6 +64,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Alamofire: 5550bf0b575ed1a4bf9be572f9463e1015cc169e
+  AsyncDisplayKit: 5c8f38225f7478e39c48196cec0dd0d2ac3455ed
   DateTools: 9bcc89e4f2f9004d8a7a2bd1b49269cf78968e65
   Kingfisher: 4446782a827abbe2e6048a1fa741924a10e6ad7c
   Mantle: d7c75b6fb789b20f7ae30cd0d09435fe545896ff
@@ -71,4 +76,4 @@ SPEC CHECKSUMS:
   SnapKit: 53696873f2cf84a15e8d7d0d9729ed4381196b16
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-COCOAPODS: 0.36.0.beta.1
+COCOAPODS: 0.36.0
