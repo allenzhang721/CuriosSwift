@@ -257,6 +257,9 @@
                                                 <state key="normal" title="清除缓存">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="CleanCache:" destination="X8B-ur-mPC" eventType="touchUpInside" id="7zC-kh-cds"/>
+                                                </connections>
                                             </button>
                                             <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npM-1s-8pu">
                                                 <rect key="frame" x="20" y="55" width="268" height="1"/>

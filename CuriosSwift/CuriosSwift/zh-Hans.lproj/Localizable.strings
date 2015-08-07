@@ -19,6 +19,8 @@ CANCEL = "取消";
 CONFIRM = "确定";
 CONTINUE = "继续";
 KNEW = "知道了";
+CLEANNING = "正在清理";
+CLEANED = "清理完毕";
 
 // Alert
 TIPS = "温馨提醒";

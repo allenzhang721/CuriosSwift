@@ -23,6 +23,19 @@ import SVProgressHUD
 
 class HUD {
   
+  // 清理完成
+  class func user_clean_finished() {
+    let string = localString("CLEANED")
+    HUD.show(true, string: string, autodismiss: true)
+  }
+  
+  // 清理缓存
+//  CLEANNING = "正在清理";
+  class func user_cleaning() {
+  let string = localString("CLEANNING")
+  HUD.show_status(string, userInteractable: false, autodismiss: false)
+  }
+  
   // 正在同步
   class func save_sync() {
 //    SYNCING = "同步中";
