@@ -44,10 +44,15 @@ struct textAttribute: Hashable {
     }
     
     let textColor = UIColor(hexString: color)!
-    let font = UIFont(name: fontName , size: fontSize)!
+    var aFont: UIFont!
+    if let font = UIFont(name: fontName , size: fontSize) {
+      aFont = font
+    } else {
+      aFont = UIFont(name: "RTWSYueGoG0v1-UltLight" , size: fontSize)
+    }
     
     let attribute = [
-      NSFontAttributeName: font,
+      NSFontAttributeName: aFont,
       NSParagraphStyleAttributeName: style,
       NSForegroundColorAttributeName: textColor
     ]

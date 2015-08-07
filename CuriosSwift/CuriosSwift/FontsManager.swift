@@ -69,8 +69,8 @@ final class FontsManager {
 //      return true
 //    }
     
-    let defaultFontInfo = FontInfo(fontTitle: "冬青黑", fontName: "Heiti SC")
-    fontsList.append(defaultFontInfo)
+//    let defaultFontInfo = FontInfo(fontTitle: "冬青黑", fontName: "Heiti SC")
+//    fontsList.append(defaultFontInfo)
     
 //    while let url = entries?.nextObject() as? NSURL {
     for url in fontInfosPath {
