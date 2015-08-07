@@ -10,7 +10,8 @@ import Foundation
 
 
 // MARK: - Get theme list
-let GET_THEME_LIST = ["template", "themeList"]
+//let GET_THEME_LIST = ["template", "themeList"]
+let GET_THEME_LIST = ["template", "formalThemeList"]
 func GET_THEME_LIST_paras(start: Int, size: Int) -> String {
   let data = [
     "start":start,
@@ -20,7 +21,8 @@ func GET_THEME_LIST_paras(start: Int, size: Int) -> String {
 
 
 // MARK: - get template list
-let GET_TEMPLATE_LIST = ["template","templateList"]
+//let GET_TEMPLATE_LIST = ["template","templateList"]
+let GET_TEMPLATE_LIST = ["template","formalTemplateList"]
 func GET_TEMPLATE_LIST_paras(themeID: String, start: Int, size: Int) -> String {
   let data: [String: AnyObject] = [
     "themeID":themeID,
