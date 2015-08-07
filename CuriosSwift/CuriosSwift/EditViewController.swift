@@ -862,18 +862,20 @@ extension EditViewController {
         
         UIView.animateWithDuration(0.2, animations: {[unowned self] () -> Void in
           self.fakePageView?.alpha = 0.5
-          
+          aDeletedBu.transform = CGAffineTransformMakeScale(1.2, 1.2)
         })
         
         let image = UIImage(named: "Edit_deleted_delete")
         aDeletedBu.image = image
+        
       } else {
         UIView.animateWithDuration(0.2, animations: {[unowned self] () -> Void in
           self.fakePageView?.alpha = 1
-          
+          aDeletedBu.transform = CGAffineTransformMakeScale(1.0, 1.0)
           })
         let image = UIImage(named: "Edit_deleted_normal")
         aDeletedBu.image = image
+        
       }
     }
     
@@ -897,10 +899,10 @@ extension EditViewController {
       if animated {
         UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
           
-          self.editDeletedButton!.transform = CGAffineTransformMakeTranslation(0, -2 * translation)
+          self.editDeletedButton!.center.y -=  2 * translation
         })
       } else {
-        self.editDeletedButton!.transform = CGAffineTransformMakeTranslation(0, -2 * translation)
+        self.editDeletedButton!.center.y -=  2 * translation
       }
       
       // hidden
@@ -910,7 +912,7 @@ extension EditViewController {
         let translation = editDeletedButton!.bounds.midY
         if animated {
           UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
-            deletedButton.transform = CGAffineTransformMakeTranslation(0, 2 * translation)
+            self.editDeletedButton!.center.y +=  2 * translation
             
           }, completion: { (finished) -> Void in
             if finished {
@@ -1927,22 +1929,23 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
   }
   
   func layout(layout: UICollectionViewLayout, willChangeFromIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    collectionView?.performBatchUpdates({ [weak self] () -> Void in
-      exchange(&self!.bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
-      self!.collectionView?.moveItemAtIndexPath(fromIndexPath, toIndexPath: toIndexPath)
-      }, completion: nil)
+    bookModel.exchangePageModel(fromIndexPath.item, toIndex: toIndexPath.item)
+//    collectionView?.performBatchUpdates({ [weak self] () -> Void in
+//      exchange(&self!.bookModel.pageModels, fromIndexPath.item, toIndexPath.item)
+      collectionView?.moveItemAtIndexPath(fromIndexPath, toIndexPath: toIndexPath)
+//      }, completion: nil)
     
   }
   
   func layoutDidMoveIn(layout: UICollectionViewLayout, didMoveInAtIndexPath indexPath: NSIndexPath) {
     bookModel.removePageModelAtIndex(indexPath.item)
     
-    collectionView?.performBatchUpdates({ () -> Void in
-      
+//    collectionView?.performBatchUpdates({ () -> Void in
+    
       self.collectionView?.deleteItemsAtIndexPaths([indexPath])
       
-      }, completion: { (completed) -> Void in
-    })
+//      }, completion: { (completed) -> Void in
+//    })
     
 //    let fileManager = NSFileManager.defaultManager()
 //    

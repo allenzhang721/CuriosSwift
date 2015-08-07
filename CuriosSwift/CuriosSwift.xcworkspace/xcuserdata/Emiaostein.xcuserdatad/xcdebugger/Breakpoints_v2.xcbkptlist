@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "460622584.054689"
+            timestampString = "460623860.24859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1512"
-            endingLineNumber = "1512"
+            startingLineNumber = "1514"
+            endingLineNumber = "1514"
             landmarkName = "editToolBarDidSelectedPreview(_:)"
             landmarkType = "5">
          </BreakpointContent>
