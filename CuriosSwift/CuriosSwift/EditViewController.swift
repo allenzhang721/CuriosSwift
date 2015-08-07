@@ -1268,6 +1268,17 @@ extension EditViewController {
         UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
       }
     }
+    
+    if UploadsManager.shareInstance.uploadFinished() && bookModel.isNeedAddFile() {
+      bookModel.resetNeedAddFile()
+      self.addEditFile({ (finished) -> () in
+        
+        if finished {
+          UploadsManager.shareInstance.setCompeletedHandler(nil)
+          completedBlock(true)
+        }
+      })
+    }
   }
   
   func uploadBookModelToserver(compeletedBlock:([NSData], [String], [String]) -> ()) {

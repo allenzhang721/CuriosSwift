@@ -316,7 +316,7 @@ class ContainerModel: Model, ComponentModelDelegate {
     if animations.count > 0 {
       
       let firstAnimation = animations[0]
-        if firstAnimation.name() == name {
+        if firstAnimation.name() != name {
           editDelegate?.containerModelDidUpdate(self)
         }
     }

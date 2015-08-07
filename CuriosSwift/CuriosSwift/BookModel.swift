@@ -32,7 +32,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   var mainMusic                       = ""
   var mainbackgroundColor             = "255,255,255"
   var mainbackgroundAlpha: CGFloat    = 1.0
-  var icon                            = "/publishIcon.png"
+  var icon                            = "images/publishIcon.png"
   var pageModels: [PageModel]         = []
   
   var needUpload = false
