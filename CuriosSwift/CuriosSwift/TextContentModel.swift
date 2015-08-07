@@ -48,7 +48,7 @@ struct textAttribute: Hashable {
     if let font = UIFont(name: fontName , size: fontSize) {
       aFont = font
     } else {
-      aFont = UIFont(name: "RTWSYueGoG0v1-UltLight" , size: fontSize)
+      aFont = UIFont(name: "RTWSYueRoudGoG0v1-Regular" , size: fontSize)
     }
     
     let attribute = [
@@ -105,7 +105,7 @@ class TextContentModel: ComponentModel {
     editDelegate?.componentModelDidUpdate(self)
     attributes["Text"] = textAttributes.text
     attributes["TextAligment"] = textAttributes.alignment
-    attributes["TextColor"] = textAttributes.color
+//    attributes["TextColor"] = textAttributes.color
     attributes["FontName"] = textAttributes.fontName
     let str = generateAttributeString()
      return str.boundingRectWithSize(CGSize(width: CGFloat.max, height: CGFloat.max), options: NSStringDrawingOptions(0), context: nil).size
@@ -115,7 +115,7 @@ class TextContentModel: ComponentModel {
     
     let text = attributes["Text"] as! String
     let alignment: String = attributes["TextAligment"] as! String
-    let color: String =  attributes["TextColor"] as! String
+    let color: String =  "#282B35"
     let name: String = attributes["FontName"] as! String
     
     return textAttribute(text: text, color: color, alignment: alignment, fontName: name)

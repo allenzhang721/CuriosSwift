@@ -625,9 +625,9 @@ extension EditViewController {
       let pageModel = bookModel.pageModels[indexPath.item]
       
       let defaultTextAttribute = [ "Text": "",
-        "FontName": "RTWSYueGoG0v1-UltLight",
+        "FontName": "RTWSYueRoudGoG0v1-Regular",
         "FontSize": 30,
-        "TextColor": "#FFFFFF",
+        "TextColor": "#282B35",
         "TextAligment": "center",
         "ImagePath": " "
       ]
