@@ -211,11 +211,13 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
       transitionLayout = collectionView.startInteractiveTransitionToCollectionViewLayout(nextLayout, completion: { [unowned self] (completed, finish) -> Void in
         
         if completed {
+          
+//          if self.transitionLayout.currentLayout is NormalLayout {
+            self.updateSelectBorder()
+//          }
         self.transitionLayout = nil
           self.progress = 0
-          if !nextisSmall {
-            self.updateSelectBorder()
-          }
+          
         }
 
         }) as? TransitionLayout
@@ -796,9 +798,14 @@ extension EditViewController {
       
       if let aData = json["data"] as? String {
         self.publishFile()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        
+        let time: NSTimeInterval = 1.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW,
+          Int64(time * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
           self.showPreviewControllerWithUrl(aData)
-        })
+          
+        }
         
         println(aData)
       }

@@ -186,11 +186,17 @@ extension ThemeViewController {
       let snapshot = backgroundImageView.snapshotViewAfterScreenUpdates(false)
       view.insertSubview(snapshot, belowSubview: backgroundImageView)
       //      backgroundImageView.alpha = 0
+      let image = backgroundImageView.image
       
-      backgroundImageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
+      backgroundImageView.kf_setImageWithURL(url, placeholderImage: image, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
         
-        self?.backgroundImageView.alpha = 0
-        self?.backgroundImageView.image = image
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+          
+          self?.backgroundImageView.alpha = 0.5
+          }, completion: { (finished) -> Void in
+        })
+        
+//        self?.backgroundImageView.image = image
         
         UIView.animateWithDuration(0.5, animations: { () -> Void in
           

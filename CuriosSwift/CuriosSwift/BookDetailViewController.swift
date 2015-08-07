@@ -187,7 +187,8 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
       if row == 0 {
         let cell = tableView.dequeueReusableCellWithIdentifier("BookDetailImageCell") as! BookDetailImageCell
         cell.titleLabel?.text = localString("BOOKDETAIL_ICON")
-        KingfisherManager.sharedManager.cache.retrieveImageForKey(bookIconUrlString, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
+        let bookIconThumbNail = bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL)
+        KingfisherManager.sharedManager.cache.retrieveImageForKey(bookIconThumbNail, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
           if let aImage = image {
             cell.iconImageView.image = aImage
           } else {
