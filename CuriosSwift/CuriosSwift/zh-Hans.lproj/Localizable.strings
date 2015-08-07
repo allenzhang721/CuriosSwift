@@ -6,8 +6,7 @@
   Copyright (c) 2015 botai. All rights reserved.
 */
 
-TEST = "这是一个文本国际化的测试";
-
+CFBundleDisplayName="奇思";
 
 // Universal
 PUBLISH  = "发布";
@@ -62,15 +61,6 @@ BOOKDETAIL_ICON              = "图标";
 BOOKDETAIL_TITLE             = "标题";
 BOOKDETAIL_DESCRIPTION       = "简介";
 BOOKDETAIL_BACKGROUND        = "背景";
-
-
-
-
-
-
-
-
-
 
 //alert
 ALERT_TITLE = "Curios奇思";
