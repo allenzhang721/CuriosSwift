@@ -262,7 +262,6 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
     } else if inputViewController.ID == "Title" {
       bookModel.setBookTitle(text)
     }
-    
     tableView.reloadData()
   }
   
@@ -280,8 +279,10 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     
-    let selectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-//    let imageData = UIImagePNGRepresentation(selectedImage)
+    let aSelectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+    let imageData = UIImageJPEGRepresentation(aSelectedImage, 0.01)
+    let selectedImage = UIImage(data: imageData)!
+    
 //    UIWebView
     let thumbnail = thumbnailImage(selectedImage, size: CGSize(width: 120, height: 120))
     

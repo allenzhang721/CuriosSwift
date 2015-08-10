@@ -12,6 +12,8 @@
 		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
 		2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */; };
 		2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AABA1B3030E100B718B9 /* MultiObserver.swift */; };
+		2C0355661B786413005FC94B /* ServePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0355651B786413005FC94B /* ServePaths.swift */; };
+		2C0355681B786D90005FC94B /* ServePathsManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0355671B786D90005FC94B /* ServePathsManger.swift */; };
 		2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359901B50FEB100B66574 /* TextEditorViewController.swift */; };
 		2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */; };
 		2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */; };
@@ -234,6 +236,8 @@
 		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUAnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AABA1B3030E100B718B9 /* MultiObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiObserver.swift; sourceTree = "<group>"; };
+		2C0355651B786413005FC94B /* ServePaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServePaths.swift; sourceTree = "<group>"; };
+		2C0355671B786D90005FC94B /* ServePathsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServePathsManger.swift; sourceTree = "<group>"; };
 		2C0359901B50FEB100B66574 /* TextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorViewController.swift; sourceTree = "<group>"; };
 		2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorTransitionAnimation.swift; sourceTree = "<group>"; };
 		2C0A69C31B5B44B000A6CF1A /* EditThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditThemeViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +652,7 @@
 			children = (
 				2C4D81041B5349A200A93383 /* RequestURL.swift */,
 				2CAC964F1B54BD4500BA5291 /* Theme&Template.swift */,
+				2C0355651B786413005FC94B /* ServePaths.swift */,
 				2CAC96691B550AE500BA5291 /* List&Edit&Save&Publish.swift */,
 			);
 			name = RequestURL;
@@ -907,6 +912,7 @@
 			isa = PBXGroup;
 			children = (
 				2CD3AF891B12C1C2008319A8 /* UsersManager.swift */,
+				2C0355671B786D90005FC94B /* ServePathsManger.swift */,
 				2C69242F1B46894900CC327D /* ColorManager.swift */,
 				2C92EA7B1B413F3500ABFABB /* FontsManager.swift */,
 				2C4D81061B535FFC00A93383 /* UploadsManager.swift */,
@@ -1216,7 +1222,9 @@
 				2CD6C30F1B17E892000C4FC6 /* URL.swift in Sources */,
 				2CAC96661B54F6CD00BA5291 /* TemplatesManager.swift in Sources */,
 				2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */,
+				2C0355661B786413005FC94B /* ServePaths.swift in Sources */,
 				2C62F2271B68B3E3007DA47F /* TextInputContentViewController.swift in Sources */,
+				2C0355681B786D90005FC94B /* ServePathsManger.swift in Sources */,
 				2C9147BA1B085A7A00579E4A /* IFile.swift in Sources */,
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
@@ -1519,7 +1527,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
+				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1532,8 +1540,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1566,7 +1574,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
+				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
