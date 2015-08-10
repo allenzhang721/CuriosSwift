@@ -1519,7 +1519,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
+				PROVISIONING_PROFILE = "12182951-1b48-4dcd-a308-df49c2530da2";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1566,7 +1566,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35b395ce-19e2-4856-9976-d813276dccdf";
+				PROVISIONING_PROFILE = "12182951-1b48-4dcd-a308-df49c2530da2";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
