@@ -25,3 +25,5 @@ let FILEPATH_TEMPLATE = ["upload", "publishFilePath"]
 
 
 // retrive image / publishFile / Template Root Path
+///upload/filePathes
+let FILEPATH_ALL = ["upload", "filePathes"]

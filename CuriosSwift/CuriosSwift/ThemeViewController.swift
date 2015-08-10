@@ -361,16 +361,18 @@ extension ThemeViewController {
   
   func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?) {
     
-//    debugPrint.p(bookAttribute)
+    debugPrint.p(bookAttribute)
     
     PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
       if let newID = json["newID"] as? String {
         
         self.getBookWithBookID(newID) {[unowned self] (aBookModel) -> () in
+          debugPrint.p(aBookModel)
           
           aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
-          aBookModel.needUpload = false
+          aBookModel.resetNeedAddFile()
+          aBookModel.resetNeedUpload()
 //          aBookModel.pageModels.append(pageModel)
           if let attributes = bookAttribute {
             self.configBookModel(aBookModel, attribute: attributes)
@@ -389,11 +391,25 @@ extension ThemeViewController {
       book.flipLoop = fliploop
     }
     
-    book.mainbackgroundAlpha = attribute["MainBackgroundAlpha"] as! CGFloat
-    book.mainbackgroundColor = attribute["MainBackgroundColor"] as! String
-    book.title = attribute["MainTitle"] as! String
-    book.desc = attribute["MainDesc"] as! String
-    book.mainMusic = attribute["MainMusic"] as! String
+    if let value = attribute["MainBackgroundAlpha"] as? CGFloat {
+      book.mainbackgroundAlpha = value
+    }
+    
+    if let value = attribute["MainBackgroundColor"] as? String {
+      book.mainbackgroundColor = value
+    }
+    
+    if let value = attribute["MainTitle"] as? String {
+      book.title = value
+    }
+    
+    if let value = attribute["MainDesc"] as? String {
+      book.desc = value
+    }
+    
+    if let value = attribute["MainMusic"] as? String {
+      book.mainMusic = value
+    }
     
     if let type = attribute["FlipType"] as? String {
       switch type {

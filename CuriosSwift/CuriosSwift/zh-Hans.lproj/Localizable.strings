@@ -35,6 +35,8 @@ INTERNETBROKEN = "网络已关闭";
 "OpenInSafari" = "在浏览器中打开";
 "CopyLink" = "拷贝链接";
 
+PREVIEW_PREPARING = "准备预览";
+
 //launch
 LAUNCHING = "登录中";
 LOADING = "正在加载";

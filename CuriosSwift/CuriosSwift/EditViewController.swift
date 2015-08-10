@@ -42,7 +42,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   // UI
   
-  var isUploaded = false
+  var isUploaded = false   // bookModel in server
   
   var begainThemeID: String?
   
@@ -782,32 +782,35 @@ extension EditViewController {
   }
   
   
-  func uploadComplete() {
+  func uploadComplete(completed:((String) -> ())?) {
     
     let userID = UsersManager.shareInstance.getUserID()
     
     let publishID = bookModel.Id
-    let publishURL = pathByComponents([userID, publishID])
-    let data = ["publishURL":"\(publishURL)" + "/",
-      "publishTitle":bookModel.title,
-      "publishDesc":bookModel.desc]
-    let jsondata = NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions(0), error: nil)
-    let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+    let publishURL = pathByComponents([userID, publishID]) + "/"
+    let bookTitle = bookModel.title
+    let bookDes = bookModel.desc
     
-    UploadCompleteReqest.requestWithComponents(uploadCompleteURL, aJsonParameter: string) { [unowned self] (json) -> Void in
+    let para = UPLOAD_COMPELTED_paras(publishID, userID, publishURL, bookTitle, bookDes)
+    
+    UploadCompleteReqest.requestWithComponents(UPLOAD_COMPELTED, aJsonParameter: para) { [unowned self] (json) -> Void in
       
-      if let aData = json["data"] as? String {
+      if let publishURL = json["data"] as? String {
+        
+        debugPrint.p("publishURL = \(publishURL)")
         self.publishFile()
+        self.bookModel.savePublishURL(publishURL)
+        
+        completed?(publishURL)
         
         let time: NSTimeInterval = 1.0
         let delay = dispatch_time(DISPATCH_TIME_NOW,
           Int64(time * Double(NSEC_PER_SEC)))
         dispatch_after(delay, dispatch_get_main_queue()) {
-          self.showPreviewControllerWithUrl(aData)
-          
+//          self.showPreviewControllerWithUrl(publishURL)
         }
-        
-        println(aData)
+      } else {
+        debugPrint.p("publishURL non = \(json)")
       }
       }.sendRequest()
   }
@@ -1162,6 +1165,117 @@ extension EditViewController {
 // MARK: - PreviewEditor
 extension EditViewController {
   
+  
+  func begainToPreview(completedBlock:(String) -> ()) {
+    
+    // 1. book whether in server
+    if isUploaded && !bookModel.needUpload && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
+      debugPrint.p("PreviewStation = 0")
+      let publishURL = bookModel.retrivePublishURL()!
+       completedBlock(publishURL)
+      return
+    }
+    
+    // 2. book whether make changed
+    if isUploaded {
+      
+      if bookModel.needUpload {
+        debugPrint.p("PreviewStation = 1")
+        // uploadCurios
+        begainUploadCuriosRes({[unowned self] (completed) -> () in
+          
+          self.begainUploadCompeleted({ (previewURL) -> () in
+            completedBlock(previewURL)
+          })
+          
+        })
+        return
+        
+      } else {
+        
+        if !bookModel.publishURLIsEmpty() {
+          debugPrint.p("PreviewStation = 2")
+          let publishURL = bookModel.retrivePublishURL()!
+          // completed
+          if UploadsManager.shareInstance.uploadFinished() {
+            completedBlock(publishURL)
+            return
+          } else {
+            
+            UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+              
+              completedBlock(publishURL)
+              UploadsManager.shareInstance.setCompeletedHandler(nil)
+            }
+            return
+          }
+          
+        } else {
+          // upload completed
+          debugPrint.p("PreviewStation = 3")
+          if UploadsManager.shareInstance.uploadFinished() {
+            begainUploadCompeleted({(previewURL) -> () in
+              completedBlock(previewURL)
+            })
+            return
+          } else {
+            
+            UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+              
+              self.begainUploadCompeleted({(previewURL) -> () in
+                completedBlock(previewURL)
+              })
+              UploadsManager.shareInstance.setCompeletedHandler(nil)
+            }
+            return
+          }
+        }
+      }
+      
+    } else {
+      debugPrint.p("PreviewStation = 4")
+      isUploaded = true
+      // uploadCurios
+      begainUploadCuriosRes({[unowned self] (completed) -> () in
+        
+        self.begainUploadCompeleted({ (previewURL) -> () in
+          completedBlock(previewURL)
+        })
+        
+        })
+      return
+    }
+  }
+  
+  
+  func begainUploadCuriosRes(completedBlock:(Bool) -> ()) {
+    
+    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+      
+      completedBlock(finished)
+      UploadsManager.shareInstance.setCompeletedHandler(nil)
+    }
+    
+    uploadCuriosRes { (datas, keys, tokens) -> () in
+      
+      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+    }
+    
+  }
+  
+  
+  func begainUploadCompeleted(completedBlock:(String) -> ()) {
+    
+    self.uploadComplete { (publishURL) -> () in
+      
+      completedBlock(publishURL)
+    }
+  }
+  
+  
+  
+  
+  
   //Upload main json and html file
   func prepareForPreivew(completedBlock:(Bool) -> ()) {
     
@@ -1175,14 +1289,14 @@ extension EditViewController {
       self.isUploaded = true
       bookModel.resetNeedUpload()
       HUD.preview_upload()
-      uploadPublishFile { (datas, keys, tokens) -> () in
+      uploadCuriosRes { (datas, keys, tokens) -> () in
         
         UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
       }
     }
   }
   
-  func uploadPublishFile(compeletedBlock:([NSData], [String], [String]) -> ()) {
+  func uploadCuriosRes(compeletedBlock:([NSData], [String], [String]) -> ()) {
     
     let userID = UsersManager.shareInstance.getUserID()
     let bookID = bookModel.Id
@@ -1512,22 +1626,28 @@ extension EditViewController {
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
     
 //    EndEdit()
-    
-    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && isUploaded {
+    HUD.preview_preparing()
+    begainToPreview {[unowned self] (publishURL) -> () in
       
-      self.uploadComplete()
-      
-    } else {
-      
-      prepareForPreivew {[unowned self] (finished) -> () in
-        
-        if finished {
-          println(self.bookModel.Id)
-          
-          self.uploadComplete()
-        }
-      }
+      HUD.dismiss()
+      self.showPreviewControllerWithUrl(publishURL)
     }
+    
+//    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && isUploaded && !bookModel.publishURLIsEmpty() {
+//      
+//      self.uploadComplete()
+//      
+//    } else {
+//      
+//      prepareForPreivew {[unowned self] (finished) -> () in
+//        
+//        if finished {
+//          println(self.bookModel.Id)
+//          
+//          self.uploadComplete()
+//        }
+//      }
+//    }
     
     
   }
@@ -1542,8 +1662,6 @@ extension EditViewController {
 
 }
 
-
-
 // MARK: - BookDetailDelegate
 extension EditViewController {
   
@@ -1551,7 +1669,7 @@ extension EditViewController {
     
     let userID = UsersManager.shareInstance.getUserID()
     let publishID = bookModel.Id
-    let icon = "icon.png"
+    let icon = "icon.jpg"
     let key = pathByComponents([userID, publishID, icon])
     
     prepareUploadImageData(iconData, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in

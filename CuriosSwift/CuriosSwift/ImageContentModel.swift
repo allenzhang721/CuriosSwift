@@ -9,9 +9,12 @@
 import Foundation
 import Kingfisher
 
-let Host = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
-
 class ImageContentModel: ComponentModel, IFile {
+  
+  private var HOST: String! {
+    
+    return ServePathsManger.imagePath!
+  }
   
   private var updateImageHandler: ((UIImage?) -> ())?
   private var generateImageHandler: ((UIImage?) -> ())?
@@ -62,7 +65,7 @@ class ImageContentModel: ComponentModel, IFile {
     
     get {
       let string = attributes["ImagePath"] as! String
-      return Host.stringByAppendingPathComponent(string)
+      return HOST.stringByAppendingString(string)
     }
     
     set {

@@ -18,7 +18,6 @@ class BookListTableViewCell: UITableViewCell {
   
   weak var date: NSDate!
   var timer: NSTimer!
-  let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
     
     override func awakeFromNib() {
         super.awakeFromNib()

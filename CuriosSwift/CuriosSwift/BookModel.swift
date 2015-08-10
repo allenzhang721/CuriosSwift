@@ -33,6 +33,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   var mainbackgroundColor             = "255,255,255"
   var mainbackgroundAlpha: CGFloat    = 1.0
   var icon                            = "images/publishIcon.png"
+  var publishURL                      = ""
   var pageModels: [PageModel]         = []
   
   var needUpload = false
@@ -57,7 +58,8 @@ class BookModel: Model, IFile, PageModelEditDelegate {
       "mainbackgroundColor" : "MainBackgroundColor",
       "mainbackgroundAlpha" : "MainBackgroundAlpha",
       "icon"                : "FileIcon",
-      "pageModels"          : "Pages"
+      "pageModels"          : "Pages",
+      "publishURL"          : "AuthorIDP"
     ]
   }
   
@@ -115,6 +117,22 @@ class BookModel: Model, IFile, PageModelEditDelegate {
 //      page.delegate = self
 //    }
 //  }
+  
+  func savePublishURL(url: String) {
+    needUpload = true
+    needAddFile = true
+    publishURL = url
+  }
+  
+  func retrivePublishURL() -> String? {
+    return publishURL.isEmpty ? nil : publishURL
+  }
+  
+  func publishURLIsEmpty() -> Bool {
+    
+    return publishURL.isEmpty
+  }
+  
   func setBookIcon(string: String) {
     needUpload = true
     needAddFile = true

@@ -17,6 +17,29 @@ func thumbnailImageUrl(width: Int, height: Int) -> String {
 
 // MARK: - Publish Token
 
+// MARK: - Upload complete
+let UPLOAD_COMPELTED = ["upload", "uploadComplete"]
+func UPLOAD_COMPELTED_paras(
+  
+  publishID: String,
+  userID: String,
+  publishURL: String,
+  publishTitle: String,
+  publishDesc: String
+  
+  ) -> String {
+    
+    let data = [
+      "userID":userID,
+      "publishID":publishID,
+      "publishURL":publishURL,
+      "publishTitle":publishTitle,
+      "publishDesc":publishDesc
+    ]
+    
+    return dicToJson(data)
+}
+
 
 // MARK: - Publish File
 let PUBLISH_FILE = ["publish", "publishFile"]

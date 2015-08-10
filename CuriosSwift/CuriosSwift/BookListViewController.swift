@@ -12,8 +12,6 @@ import Mantle
 import MJRefresh
 import ReachabilitySwift
 
-let publishHOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
-
 protocol BookListViewControllerDelegate: NSObjectProtocol {
   
   func viewController(controller: UIViewController, needHiddenStateBar hidden: Bool)
@@ -166,6 +164,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         .validate(statusCode: 200..<300)
         .responseJSON{ (request, response, JSON, error) in
           
+          debugPrint.p("JSON = \(JSON)")
           if (error == nil)
           {
             if let jsondic = JSON as? [NSObject : AnyObject] {

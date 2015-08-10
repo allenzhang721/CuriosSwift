@@ -25,6 +25,11 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     case Local, Internet
   }
   
+  private var HOST: String! {
+    
+    return ServePathsManger.imagePath!
+  }
+  
   var wkWebView: WKWebView!
   @IBOutlet weak var webView: UIWebView!
   @IBOutlet weak var backButton: UIBarButtonItem!
@@ -84,25 +89,6 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   @IBAction func shareAction(sender: UIBarButtonItem) {
     
     share()
-    return
-    
-    let bookModel = delegate!.previewControllerGetBookModel(self)
-    
-    let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
-    
-    let title = bookModel.title
-    let descr = bookModel.desc
-    let url = urlString
-    let iconUrl = HOST.stringByAppendingPathComponent(bookModel.icon)
-    
-//    shareWithTitle(title, descr, url, iconUrl) { (success) -> () in
-//      
-//      if success {
-//        
-//      } else {
-//        
-//      }
-//    }
   }
   
   func share() {
@@ -142,15 +128,12 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     
     let bookModel = delegate!.previewControllerGetBookModel(self)
     
-    let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
-    
     let title = bookModel.title
     let descr = bookModel.desc
     let url = urlString
     let iconUrl = HOST.stringByAppendingString(bookModel.icon)
     
     debugPrint.p(iconUrl)
-    
     
     shareWithTitle(type, title, descr, url, iconUrl) { [unowned self] (success) -> () in
       

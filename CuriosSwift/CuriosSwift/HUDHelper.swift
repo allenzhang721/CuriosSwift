@@ -44,6 +44,14 @@ class HUD {
     HUD.show_status(string, userInteractable: false, autodismiss: false)
   }
   
+  // 准备预览
+  class func  preview_preparing() {
+    
+    //   PREVIEW_PREPARING = "准备预览";
+    let string = localString("PREVIEW_PREPARING")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+  }
+  
   // 正在上传素材
   class func  preview_upload() {
     

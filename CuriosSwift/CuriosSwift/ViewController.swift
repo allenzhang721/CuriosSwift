@@ -35,8 +35,16 @@ class ViewController: UIViewController {
     
 //    notifier()
     didload();
-    loadViewController()
+//    loadViewController()
     FontsManager.share.registerLocalFonts()
+    
+    
+    ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
+      
+      if compeleted {
+        self.loadViewController()
+      }
+    }  //
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -79,7 +87,7 @@ extension ViewController {
   }
   
   func loadViewController() {
-//            adminLogin()
+            adminLogin()
     LoginModel.shareInstance.loadInfo()
     
     println(LoginModel.shareInstance.isLogin)

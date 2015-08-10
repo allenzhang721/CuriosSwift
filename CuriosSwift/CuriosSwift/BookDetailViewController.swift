@@ -23,7 +23,10 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
   
   var needuploadIcon = false
   
-  let HOST = "http://7wy3u8.com2.z0.glb.qiniucdn.com/"
+  private var HOST: String! {
+    
+    return ServePathsManger.imagePath!
+  }
   
   var bookIconUrlString: String {
     
@@ -39,7 +42,7 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
     get {
       let userID = UsersManager.shareInstance.getUserID()
       let publishID = bookModel.Id
-      let icon = "icon.png"
+      let icon = "icon.jpg"
       let path = pathByComponents([userID, publishID, icon])
       return path
     }
@@ -267,7 +270,7 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   
   func thumbnailImage(image: UIImage, size: CGSize) -> UIImage {
     
-    UIGraphicsBeginImageContext(size)
+    UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
     image.drawInRect(CGRect(origin: CGPointZero, size: size))
     let aImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
@@ -280,7 +283,8 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     
     let aSelectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
-    let imageData = UIImageJPEGRepresentation(aSelectedImage, 0.01)
+    let small = thumbnailImage(aSelectedImage, size: CGSize(width: 320, height: 320))
+    let imageData = UIImageJPEGRepresentation(small, 0)
     let selectedImage = UIImage(data: imageData)!
     
 //    UIWebView
