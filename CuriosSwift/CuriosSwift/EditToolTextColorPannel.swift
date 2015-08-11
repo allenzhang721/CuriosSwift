@@ -41,7 +41,7 @@ class EditToolTextColorPannel: EditToolSettingPannel, UICollectionViewDelegate, 
   override init(aContainerModel: ContainerModel) {
     super.init(aContainerModel: aContainerModel)
     textComponent = aContainerModel.component as! TextContentModel
-    currentColor = textComponent.getDemoStringAttributes().color
+    currentColor = textComponent.retriveColor()
     setupContentView()
   }
   
@@ -81,6 +81,9 @@ extension EditToolTextColorPannel {
     
     let colors = ColorManager.shareInstance.defaultColors as NSArray
     let index = colors.indexOfObject(currentColor)
+    
+    debugPrint.p("color index = \(index)")
+    
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
   }
   

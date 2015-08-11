@@ -36,6 +36,7 @@ INTERNETBROKEN = "网络已关闭";
 "CopyLink" = "拷贝链接";
 
 PREVIEW_PREPARING = "准备预览";
+PREVIEW_FAIL = "预览失败";
 
 //launch
 LAUNCHING = "登录中";

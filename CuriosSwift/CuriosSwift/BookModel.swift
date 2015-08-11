@@ -38,6 +38,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   
   var needUpload = false
   var needAddFile = false
+  var editedTitle = false
   var pagesInfo: [[String : String]] = [[:]]
   
   
@@ -142,13 +143,23 @@ class BookModel: Model, IFile, PageModelEditDelegate {
   func setBookTitle(string: String) {
     needUpload = true
     needAddFile = true
+    editedTitle = true
     title = string
   }
   
   func setBookDescription(string: String) {
     needUpload = true
     needAddFile = true
+    editedTitle = true
     desc = string
+  }
+  
+  func isEditedTitle() -> Bool {
+    return editedTitle
+  }
+  
+  func resetEditedTitle() {
+    editedTitle = false
   }
   
   func isNeedAddFile() -> Bool {

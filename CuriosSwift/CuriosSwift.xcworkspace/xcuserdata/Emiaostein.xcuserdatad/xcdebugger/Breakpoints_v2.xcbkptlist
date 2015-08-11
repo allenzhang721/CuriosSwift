@@ -9,46 +9,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/ViewController+Extension.swift"
-            timestampString = "460906248.464082"
+            filePath = "CuriosSwift/EditToolTextColorPannel.swift"
+            timestampString = "460973961.316672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "demoBook()"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "layoutSubviews()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ext.CuriosSwift.ObjectiveC.UIViewController.getBookWithBookID (ObjectiveC.UIViewController)(Swift.String, getBookHandler : (CuriosSwift.BookModel) -&gt; ()) -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/ViewController+Extension.swift"
-                  timestampString = "460906735.194112"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "310">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "@objc ext.CuriosSwift.ObjectiveC.UIViewController.getBookWithBookID (ObjectiveC.UIViewController)(Swift.String, getBookHandler : (CuriosSwift.BookModel) -&gt; ()) -&gt; ()"
-                  moduleName = "CuriosSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/ViewController+Extension.swift"
-                  timestampString = "460906735.194295"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "362">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

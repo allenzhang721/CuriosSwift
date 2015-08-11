@@ -44,6 +44,14 @@ class HUD {
     HUD.show_status(string, userInteractable: false, autodismiss: false)
   }
   
+  // 预览失败
+  class func  preview_fail() {
+    
+    //   PREVIEW_PREPARING = "准备预览";
+    let string = localString("PREVIEW_FAIL")
+    HUD.show_status(string, userInteractable: false, autodismiss: true)
+  }
+  
   // 准备预览
   class func  preview_preparing() {
     

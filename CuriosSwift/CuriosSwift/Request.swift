@@ -24,7 +24,7 @@ class BaseRequst {
     let testDomain = "http://192.168.1.104:8080/curiosService"
     var baseURL: String {
         
-        return testDomain
+        return publicDomain
     }
     typealias Result = ([String : AnyObject]) -> Void
     let requestComponents: [String]

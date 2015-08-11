@@ -16,8 +16,61 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     case Default, Image, Text
   }
   
+//  private enum State {
+//    case Normal
+//    case Image(Bool, String?) //selected, key
+//    case Text(Bool, String?)
+//  }
+  
+//  private var previousState: State = .Normal
+//  private var currentState: State = .Normal {
+//    
+//    willSet {
+//      stateWillChanged(previousState, after: newValue, beforeContainer: containerModel, afterContainer: containerModel)
+//      previousState = currentState
+//    }
+//    
+//    didSet {
+//      
+//    }
+//  }
+  
+  private var containerModel: ContainerModel?
+    
+//    willSet {
+//      stateWillChanged(currentState, after: currentState, beforeContainer: containerModel, afterContainer: newValue)
+//    }
+  
+//  private var didActived: Bool {
+//    
+//    switch currentState {
+//    case .Normal:
+//      return false
+//    default:
+//      return true
+//    }
+//  }
+//  
+//  private var previousItems: [String] {
+//    
+//    switch previousState {
+//    case .Normal:
+//      return ["setting", "addImage", "addText", "preView"]
+//    case .Image(let selected, let key):
+//      return [ "animation", "level"]
+//    case .Text(let selected, let key):
+//      return ["textFont", "textColor", "textAlignment", "animation", "level"]
+//    default:
+//      return ["setting", "addImage", "addText", "preView"]
+//    }
+//  }
+  
+  
+  
+  
   var contentView: UIView!
   var collectionView: UICollectionView!
+  var cancelButton: UIButton!
   var dataNumber = 4
   var barItems = [String]()
   var currentKey: String!
@@ -53,7 +106,7 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
   }
   
   var actived = false
-  var containerModel: ContainerModel?
+  
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -77,21 +130,61 @@ extension EditToolBar {
     collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
+    collectionView.showsHorizontalScrollIndicator = false
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolBarCell")
     collectionView.backgroundColor = UIColor.clearColor()
     addSubview(contentView)
     contentView.addSubview(collectionView)
     
+    //editButton
+    cancelButton = UIButton.buttonWithType(.Custom) as! UIButton
+    cancelButton.frame = CGRect(x: bounds.width, y: 0, width: 44, height: bounds.height)
+    cancelButton.backgroundColor = UIColor.lightGrayColor()
+    cancelButton.setTitle("X", forState: UIControlState.Normal)
+    cancelButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    cancelButton.addTarget(self, action: "cancelButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+    contentView.addSubview(cancelButton)
+    
     layer.borderWidth = 0.5
     layer.borderColor = UIColor.lightGrayColor().CGColor
     
+    setupConstraints()
+    
     changeToDefault()
+  }
+  
+  func cancelButtonAction(sender: UIButton) {
+    
+    delegate?.editToolBarDidSelectedCancel(self)
+    
   }
   
   private func updateItemLayout() {
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
   }
+  
+  private func setupConstraints() {
+    
+    let width = bounds.width
+    let cancelButtonWidth = 44
+    
+    contentView.snp_makeConstraints { (make) -> Void in
+      make.edges.equalTo(self)
+    }
+    
+    collectionView.snp_makeConstraints { (make) -> Void in
+      make.top.bottom.left.equalTo(self)
+      make.width.equalTo(width)
+    }
+    
+    cancelButton.snp_makeConstraints({ (make) -> Void in
+      make.width.equalTo(cancelButtonWidth)
+      make.top.bottom.equalTo(self)
+      make.right.equalTo(self).offset(cancelButtonWidth)
+    })
+  }
 }
+
 
 
 // MARK: - Public Method
@@ -107,6 +200,8 @@ extension EditToolBar {
       if containerModel != nil && actived == false {
         containerModel = nil
         changeToDefault()
+        setNeedsUpdateConstraints()
+//        updateConstraintsWithState()
         return
       }
       
@@ -114,7 +209,9 @@ extension EditToolBar {
         actived = false
         containerModel = nil
         changeToDefault()
+//        updateConstraintsWithState()
         delegate?.editToolBarDidDeactived(self)
+        setNeedsUpdateConstraints()
         return
       }
       
@@ -122,7 +219,9 @@ extension EditToolBar {
       if containerModel == nil && actived == false {
         containerModel = aContainerModel
         changedToModel(aContainerModel!)
+//        updateConstraintsWithState()
         delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
+        setNeedsUpdateConstraints()
         return
       }
       
@@ -130,7 +229,9 @@ extension EditToolBar {
         if containerModel != aContainerModel! {
           containerModel = aContainerModel
           changedToModel(aContainerModel!)
+//          updateConstraintsWithState()
           delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
+          setNeedsUpdateConstraints()
         }
         return
       }
@@ -154,8 +255,9 @@ extension EditToolBar {
           collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
           
           performSelectorWithKey(currentKey)
-          
+//          updateConstraintsWithState()
           delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
+          setNeedsUpdateConstraints()
         }
         return
       }
@@ -230,6 +332,182 @@ extension EditToolBar {
   }
 }
 
+
+
+// MARK: - 状态切换
+extension EditToolBar {
+  
+//  private func stateWillChanged(before: State, after: State, beforeContainer: ContainerModel?, afterContainer: ContainerModel?) {
+//    
+//    
+//    if afterContainer == nil {
+//      // cancel
+//      
+//      switch before {
+//      case .Normal:
+//        // 1
+//        switch after {
+//        case .Normal:
+//          ()
+//        case .Image(let aselected, let akey):
+//          // updateConstraints
+//          delegate?.editToolBarDidDeactived(self)
+//        case .Text(let aselected, let akey):
+//          // updateConstraints
+//          delegate?.editToolBarDidDeactived(self)
+//        default:
+//          ()
+//        }
+//        
+//      case .Image(let bselected, let bkey):
+//        
+//        // 2
+//        switch after {
+//        case .Normal:
+//          delegate?.editToolBarDidDeactived(self)
+//        case .Image(let aselected, let akey):
+//          ()
+//        case .Text(let aselected, let akey):
+//          ()
+//        default:
+//          ()
+//          
+//        }
+//        
+//      case .Text(let bselected, let bkey):
+//        
+//        // 3
+//        switch after {
+//          
+//        case .Normal:
+//          delegate?.editToolBarDidDeactived(self)
+//        case .Image(let aselected, let akey):
+//          ()
+//        case .Text(let aselected, let akey):
+//          ()
+//          
+//        default:
+//          ()
+//        }
+//        
+//      default:
+//        ()
+//        
+//      }
+//    } else {
+//      
+//      // different
+//      switch before {
+//      case .Normal:
+//        // 1
+//        switch after {
+//        case .Normal:
+//          ()
+//        case .Image(let aselected, let akey):
+//          delegate?.editToolBar(self, activedWithContainerModel: containerModel!)
+//          if let akey = akey {
+//            performSelectorWithKey(akey)
+//          }
+//        case .Text(let aselected, let akey):
+//          delegate?.editToolBar(self, activedWithContainerModel: containerModel!)
+//          if let akey = akey {
+//            performSelectorWithKey(akey)
+//          }
+//        default:
+//          ()
+//        }
+//        
+//      case .Image(let bselected, let bkey):
+//        
+//        // 2
+//        switch after {
+//        case .Normal:
+//          ()
+//        case .Image(let aselected, let akey):
+//          if  beforeContainer != afterContainer {
+//            
+//          }
+//          
+//        case .Text(let aselected, let akey):
+//          ()
+//          
+//        default:
+//          ()
+//          
+//        }
+//        
+//      case .Text(let bselected, let bkey):
+//        
+//        // 3
+//        switch after {
+//          
+//        case .Normal:
+//          ()
+//        case .Image(let aselected, let akey):
+//          ()
+//          
+//        case .Text(let aselected, let akey):
+//          ()
+//          
+//        default:
+//          ()
+//        }
+//        
+//      default:
+//        ()
+//        
+//      }
+//      
+//    }
+//  }
+  
+  
+  private func updateConstraintsWithState() {
+    
+    func showCancelButton() {
+      let buttonWidth = cancelButton.bounds.width
+      let width = bounds.width
+      cancelButton.snp_updateConstraints({ (make) -> Void in
+        make.right.equalTo(self)
+      })
+      
+      let cancelleft = cancelButton.snp_left
+      collectionView.snp_updateConstraints({ (make) -> Void in
+        make.width.equalTo(width - buttonWidth)
+      })
+    }
+    
+    func hiddenCancelButton() {
+      let buttonWidth = cancelButton.bounds.width
+      let width = bounds.width
+      collectionView.snp_updateConstraints { (make) -> Void in
+        make.width.equalTo(width)
+      }
+      cancelButton.snp_updateConstraints({ (make) -> Void in
+        make.width.equalTo(buttonWidth)
+        make.right.equalTo(self).offset(buttonWidth)
+      })
+      
+    }
+    
+    if containerModel != nil {
+      showCancelButton()
+      
+    }else {
+      hiddenCancelButton()
+    }
+    
+    
+    UIView.animateWithDuration(0.2, animations: { () -> Void in
+      self.layoutIfNeeded()
+    })
+  }
+}
+
+
+
+
+
 // MARK: - private method - delegate method
 extension EditToolBar {
   
@@ -290,15 +568,29 @@ extension EditToolBar {
 extension EditToolBar {
   
   override func updateConstraints() {
-    
-    contentView.snp_makeConstraints { (make) -> Void in
-      make.edges.equalTo(self)
-    }
-    
-    collectionView.snp_makeConstraints { (make) -> Void in
-      make.edges.equalTo(self)
-    }
 
+//    if didActived {
+//      let buttonWidth = cancelButton.bounds.width
+//      let width = bounds.width
+//      collectionView.snp_updateConstraints({ (make) -> Void in
+//        make.width.equalTo(width - buttonWidth)
+//      })
+////      
+//      cancelButton.snp_makeConstraints({ (make) -> Void in
+//        make.right.equalTo(self)
+//      })
+//      
+//    } else {
+//      collectionView.snp_makeConstraints { (make) -> Void in
+//        make.width.equalTo(self)
+//      }
+//      cancelButton.snp_makeConstraints({ (make) -> Void in
+//        make.left.equalTo(self.snp_right)
+//      })
+//    }
+    
+    updateConstraintsWithState()
+    
     super.updateConstraints()
     
     updateItemLayout()
@@ -366,6 +658,7 @@ extension EditToolBar {
     if actived == false && containerModel != nil {
       actived = true
 //      collectionView.reloadData()
+      updateConstraintsWithState()
       delegate?.editToolBar(self, activedWithContainerModel: containerModel!)
     }
     

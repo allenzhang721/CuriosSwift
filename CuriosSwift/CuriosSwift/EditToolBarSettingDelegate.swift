@@ -20,6 +20,7 @@ protocol EditToolBarDelegate: NSObjectProtocol {
   func editToolBarDidSelectedPreview(toolBar: EditToolBar)
   func editToolBarDidSelectedAddImage(toolBar: EditToolBar)
   func editToolBarDidSelectedAddText(toolBar: EditToolBar)
+  func editToolBarDidSelectedCancel(toolBar: EditToolBar)
   
 }
 

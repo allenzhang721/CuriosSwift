@@ -782,7 +782,7 @@ extension EditViewController {
   }
   
   
-  func uploadComplete(completed:((String) -> ())?) {
+  func uploadComplete(completed:((String?) -> ())?) {
     
     let userID = UsersManager.shareInstance.getUserID()
     
@@ -810,6 +810,7 @@ extension EditViewController {
 //          self.showPreviewControllerWithUrl(publishURL)
         }
       } else {
+        completed?(nil)
         debugPrint.p("publishURL non = \(json)")
       }
       }.sendRequest()
@@ -828,7 +829,7 @@ extension EditViewController {
     
     let string = PUBLISH_FILE_paras(userID, publishID, publishURL, publisherIconURL: icon, publishTitle: atitle, publishDesc: desc)
     PublishFileRequest.requestWithComponents(PUBLISH_FILE, aJsonParameter: string) { (json) -> Void in
-    }
+    }.sendRequest()
   }
   
   func showPreviewControllerWithUrl(url: String) {
@@ -1166,10 +1167,10 @@ extension EditViewController {
 extension EditViewController {
   
   
-  func begainToPreview(completedBlock:(String) -> ()) {
+  func begainToPreview(completedBlock:(String?) -> ()) {
     
     // 1. book whether in server
-    if isUploaded && !bookModel.needUpload && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
+    if isUploaded && !bookModel.needUpload && !bookModel.isEditedTitle() && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
       debugPrint.p("PreviewStation = 0")
       let publishURL = bookModel.retrivePublishURL()!
        completedBlock(publishURL)
@@ -1178,72 +1179,50 @@ extension EditViewController {
     
     // 2. book whether make changed
     if isUploaded {
-      
       if bookModel.needUpload {
         debugPrint.p("PreviewStation = 1")
         // uploadCurios
         begainUploadCuriosRes({[unowned self] (completed) -> () in
           
-          self.begainUploadCompeleted({ (previewURL) -> () in
-            completedBlock(previewURL)
+          self.willPreview({ (publishURL) -> () in
+            completedBlock(publishURL)
           })
-          
         })
         return
         
       } else {
-        
-        if !bookModel.publishURLIsEmpty() {
-          debugPrint.p("PreviewStation = 2")
-          let publishURL = bookModel.retrivePublishURL()!
-          // completed
-          if UploadsManager.shareInstance.uploadFinished() {
-            completedBlock(publishURL)
-            return
-          } else {
-            
-            UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
-              
-              completedBlock(publishURL)
-              UploadsManager.shareInstance.setCompeletedHandler(nil)
-            }
-            return
-          }
-          
-        } else {
-          // upload completed
-          debugPrint.p("PreviewStation = 3")
-          if UploadsManager.shareInstance.uploadFinished() {
-            begainUploadCompeleted({(previewURL) -> () in
-              completedBlock(previewURL)
-            })
-            return
-          } else {
-            
-            UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
-              
-              self.begainUploadCompeleted({(previewURL) -> () in
-                completedBlock(previewURL)
-              })
-              UploadsManager.shareInstance.setCompeletedHandler(nil)
-            }
-            return
-          }
-        }
+        willPreview({ (publishURL) -> () in
+          completedBlock(publishURL)
+        })
       }
-      
     } else {
-      debugPrint.p("PreviewStation = 4")
-      isUploaded = true
-      // uploadCurios
       begainUploadCuriosRes({[unowned self] (completed) -> () in
         
-        self.begainUploadCompeleted({ (previewURL) -> () in
-          completedBlock(previewURL)
+        self.willPreview({ (publishURL) -> () in
+          completedBlock(publishURL)
         })
-        
         })
-      return
+    }
+  }
+  
+  func willPreview(completed:(String?) -> ()) {
+    
+    if bookModel.publishURLIsEmpty() {
+      self.uploadComplete({[unowned self] (publishUrl) -> () in
+        completed(publishUrl)
+        })
+    } else {
+      
+      if bookModel.isEditedTitle() {
+        bookModel.resetEditedTitle()
+        self.uploadComplete({[unowned self] (publishUrl) -> () in
+          completed(publishUrl)
+          })
+      } else {
+        self.publishFile()
+        let publishURL = bookModel.retrivePublishURL()
+        completed(publishURL)
+      }
     }
   }
   
@@ -1264,7 +1243,7 @@ extension EditViewController {
   }
   
   
-  func begainUploadCompeleted(completedBlock:(String) -> ()) {
+  func begainUploadCompeleted(completedBlock:(String?) -> ()) {
     
     self.uploadComplete { (publishURL) -> () in
       
@@ -1629,8 +1608,14 @@ extension EditViewController {
     HUD.preview_preparing()
     begainToPreview {[unowned self] (publishURL) -> () in
       
-      HUD.dismiss()
-      self.showPreviewControllerWithUrl(publishURL)
+      
+      if let publishURL = publishURL {
+        HUD.dismiss()
+        self.showPreviewControllerWithUrl(publishURL)
+      } else {
+        HUD.preview_fail()
+      }
+      
     }
     
 //    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && isUploaded && !bookModel.publishURLIsEmpty() {
@@ -1658,6 +1643,10 @@ extension EditViewController {
 
   func editToolBarDidSelectedAddText(toolBar: EditToolBar) {
     addText("")
+  }
+  
+   func editToolBarDidSelectedCancel(toolBar: EditToolBar) {
+    EndEdit()
   }
 
 }
