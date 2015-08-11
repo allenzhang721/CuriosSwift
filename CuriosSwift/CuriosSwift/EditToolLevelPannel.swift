@@ -59,7 +59,7 @@ extension EditToolLevelPannel {
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "EditToolTextLevelCell")
-    collectionView.allowsSelection = true
+    collectionView.allowsMultipleSelection = true
     collectionView.backgroundColor = UIColor.clearColor()
     
     addSubview(collectionView)
@@ -131,9 +131,9 @@ extension EditToolLevelPannel {
     
     let key = levelKey[indexPath.item]
     if key == "lock" {
-      if currentLock {
-        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
-      }
+//      if currentLock {
+//        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+//      }
       currentLock = !currentLock
       containerModel.setLockChanged(currentLock)
     } else if key == "sendForward" {
@@ -143,6 +143,17 @@ extension EditToolLevelPannel {
     } else if key == "sendBackward" {
       collectionView.deselectItemAtIndexPath(indexPath, animated: true)
       containerModel.setLevelChanged(false)
+    }
+  }
+  
+  func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    let key = levelKey[indexPath.item]
+    if key == "lock" {
+      //      if currentLock {
+      //        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+      //      }
+      currentLock = !currentLock
+      containerModel.setLockChanged(currentLock)
     }
   }
 }
