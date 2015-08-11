@@ -134,6 +134,10 @@ class BookModel: Model, IFile, PageModelEditDelegate {
     return publishURL.isEmpty
   }
   
+  func isDefaultIcon() -> Bool {
+    return (icon.isEmpty || icon == "images/publishIcon.png")
+  }
+  
   func setBookIcon(string: String) {
     needUpload = true
     needAddFile = true

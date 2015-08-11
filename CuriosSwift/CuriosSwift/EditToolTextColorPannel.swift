@@ -82,8 +82,6 @@ extension EditToolTextColorPannel {
     let colors = ColorManager.shareInstance.defaultColors as NSArray
     let index = colors.indexOfObject(currentColor)
     
-    debugPrint.p("color index = \(index)")
-    
     collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
   }
   

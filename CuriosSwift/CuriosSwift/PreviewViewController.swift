@@ -79,8 +79,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   }
   
   func loadUrl() {
-    
-    let url = NSURL(string: urlString + "#edit")!
+    let time = Int(floor(NSDate().timeIntervalSince1970 * 1000))
+    let url = NSURL(string: urlString + "?v=\(time)#edit")!
     let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 30)
     webView.loadRequest(request)
   }
@@ -133,11 +133,8 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     let url = urlString
     let iconUrl = HOST.stringByAppendingString(bookModel.icon)
     
-    debugPrint.p(iconUrl)
-    
     shareWithTitle(type, title, descr, url, iconUrl) { [unowned self] (success) -> () in
       
-//      debugPrint.p(type)
       if success {
         HUD.share_success()
       } else {

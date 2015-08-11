@@ -257,8 +257,6 @@ class ContainerModel: Model, ComponentModelDelegate {
       rotationListener.value = newAngle
       rotation = newAngle
     
-    debugPrint.p("angle = \(rotation)")
-    
     let check0 = CheckItem(correctPoint: 0.0, distance: 1.25 * angleToRan)
 //    let check45 = CheckItem(correctPoint: 45.0 * angleToRan, distance: 1.25 * angleToRan)
     let check90 = CheckItem(correctPoint: 90.0 * angleToRan, distance: 1.25 * angleToRan)

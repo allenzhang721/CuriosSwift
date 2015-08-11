@@ -227,8 +227,6 @@ extension ThemeViewController {
       
       // 1. theme Style 
       retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
-        
-//        debugPrint.p("bookAttribute = \(bookAttribute)")
       
         // 2. templateURL
         TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
@@ -241,8 +239,6 @@ extension ThemeViewController {
           // 3. first template
           self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
             
-//            debugPrint.p("bookAttribute = \(bookAttribute)")
-            
             // 4. create a new book
             self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute)
           })
@@ -254,8 +250,6 @@ extension ThemeViewController {
   func retriveThemeStyle(themeURL: String, completed: ([String:AnyObject]) -> ()) {
     
     let url = NSURL(string: themeURL)!
-    
-//    debugPrint.p(url)
     
     BlackCatManager.sharedManager.retrieveDataWithURL(url, optionsInfo: nil, progressBlock: nil) { (data, error, cacheType, URL) -> () in
       
@@ -295,7 +289,6 @@ extension ThemeViewController {
   func retriveFirstTemplatePage(templateURL: String, completed: (PageModel) -> ()) {
     
     let url = NSURL(string: templateURL)!
-    debugPrint.p(url)
     // Fetch Request
     Alamofire.request(.POST, url, parameters: nil)
       .validate(statusCode: 200..<300)
@@ -361,14 +354,11 @@ extension ThemeViewController {
   
   func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?) {
     
-    debugPrint.p(bookAttribute)
-    
     PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
       if let newID = json["newID"] as? String {
         
         self.getBookWithBookID(newID) {[unowned self] (aBookModel) -> () in
-          debugPrint.p(aBookModel)
           
           aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
           aBookModel.resetNeedAddFile()
@@ -384,7 +374,6 @@ extension ThemeViewController {
   }
   
   func configBookModel(book: BookModel, attribute: [String: AnyObject]) {
-    debugPrint.p(attribute)
     //["FlipLoop": false, "MainBackgroundAlpha": 1, "MainBackgroundColor": 255,255,255, "FlipType": translate3d, "MainTitle": 青春的回忆, "FlipDirection": ver, "MainDesc": 在那美好的年代，有那美好的记忆, "MainMusic": ])
     
     if let fliploop = attribute["FlipLoop"] as? String {

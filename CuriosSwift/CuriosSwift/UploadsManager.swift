@@ -73,7 +73,7 @@ class UploadsManager {
         }
         
         if self.finishCount == self.totalCount {
-          debugPrint.p("upload completed")
+          debugPrint.p("upload compeleted")
           self.finished = true
           self.compeletedBlock?(true)
         }

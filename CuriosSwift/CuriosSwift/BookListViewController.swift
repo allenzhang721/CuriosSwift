@@ -156,7 +156,8 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
       
       // open a book
       let bookitem = bookList[indexPath.row]
-      let aurl = bookitem.publishResURL
+      let time = Int(floor(NSDate().timeIntervalSince1970 * 1000))
+      let aurl = bookitem.publishResURL + "?v=\(time)"
       
       // Fetch Request
       needRefresh = true
@@ -164,7 +165,6 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         .validate(statusCode: 200..<300)
         .responseJSON{ (request, response, JSON, error) in
           
-          debugPrint.p("JSON = \(JSON)")
           if (error == nil)
           {
             if let jsondic = JSON as? [NSObject : AnyObject] {

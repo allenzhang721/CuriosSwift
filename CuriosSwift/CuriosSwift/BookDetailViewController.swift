@@ -79,8 +79,7 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
     tableView.rowHeight = UITableViewAutomaticDimension
     
     let iconURL = NSURL(string: bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL))!
-    debugPrint.p("bookIconUrlString = \(bookIconUrlString)")
-    
+    debugPrint.p("iconURL = \(iconURL)")
     KingfisherManager.sharedManager.retrieveImageWithURL(iconURL, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
       if error != nil {
         println(error)
@@ -290,11 +289,9 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
 //    UIWebView
     let thumbnail = thumbnailImage(selectedImage, size: CGSize(width: 120, height: 120))
     
-//    debugPrint.p("bookModel = \(bookModel)")
     let thumburl = bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL)
     KingfisherManager.sharedManager.cache.removeImageForKey(thumburl)
     bookModel.setBookIcon(iconKey)
-//    debugPrint.p("iconKeyUrl = \(iconKeyUrl)")
     let thumbnailKey = iconKeyUrl.stringByAppendingString(ICON_THUMBNAIL)
     KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKeyUrl)
     KingfisherManager.sharedManager.cache.storeImage(thumbnail, forKey: thumbnailKey)

@@ -140,8 +140,7 @@ extension EditToolBar {
     cancelButton = UIButton.buttonWithType(.Custom) as! UIButton
     cancelButton.frame = CGRect(x: bounds.width, y: 0, width: 44, height: bounds.height)
     cancelButton.backgroundColor = UIColor.lightGrayColor()
-    cancelButton.setTitle("X", forState: UIControlState.Normal)
-    cancelButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    cancelButton.setImage(UIImage(named: "ToolBar_Cancel"), forState: UIControlState.Normal)
     cancelButton.addTarget(self, action: "cancelButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
     contentView.addSubview(cancelButton)
     

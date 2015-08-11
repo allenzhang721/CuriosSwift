@@ -10,6 +10,7 @@ import UIKit
 import Mantle
 import pop
 import SnapKit
+import Kingfisher
 
 
 func exchange<T>(inout data: [T], i:Int, j:Int) {
@@ -275,7 +276,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
               if let aSmallLayout = self.collectionView.collectionViewLayout as? smallLayout {
                 let pageLocation = sender.locationInView(self.collectionView)
                 
-                debugPrint.p("pageLocation = \(pageLocation)")
                 self.longPressBegainLocation = location
                 aSmallLayout.begainInsertSelectedAtOnScreenPoint(pointOnCollectionViewContent: pageLocation)
               }
@@ -548,8 +548,13 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
       prepareUploadBookModelToServer {[unowned self] (finished) -> () in
         
         if finished {
-          HUD.dismiss()
-          self.dismissViewControllerAnimated(true, completion: nil)
+          let time: NSTimeInterval = 2.0
+          let delay = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(time * Double(NSEC_PER_SEC)))
+          dispatch_after(delay, dispatch_get_main_queue()) {
+            HUD.dismiss()
+            self.dismissViewControllerAnimated(true, completion: nil)
+          }
         }
       }
     }
@@ -614,6 +619,15 @@ extension EditViewController {
 // MARK: - Action  - New
 extension EditViewController {
   
+  func retriveThumbnailImage(image: UIImage, size: CGSize) -> UIImage {
+  
+  UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
+  image.drawInRect(CGRect(origin: CGPointZero, size: size))
+  let aImage = UIGraphicsGetImageFromCurrentImageContext()
+  UIGraphicsEndImageContext()
+  return aImage
+  }
+  
   func addText(text: String) {
     
     EndEdit()
@@ -669,7 +683,17 @@ extension EditViewController {
       imageComponent.type = .Image
       imageComponent.needUpload = true
       imageComponent.attributes = defaultImageAttribute
-      imageComponent.imageID = UniqueIDStringWithCount(count: 8)
+      let imageID = UniqueIDStringWithCount(count: 8)
+      imageComponent.imageID = imageID
+      
+      if bookModel.isDefaultIcon() {
+        let key = pathByComponents([userID, publishID, "\(imageID).jpg"])
+        let cacheKey = ServePathsManger.imagePath!.stringByAppendingString(key).stringByAppendingString(ICON_THUMBNAIL)
+        let thumbNail = retriveThumbnailImage(image, size: CGSize(width: 120, height: 120))
+        KingfisherManager.sharedManager.cache.storeImage(thumbNail, forKey: cacheKey)
+        bookModel.setBookIcon(key)
+      }
+      
       imageComponent.updateImage(image, userID: userID, PublishID: publishID)
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
@@ -797,7 +821,6 @@ extension EditViewController {
       
       if let publishURL = json["data"] as? String {
         
-        debugPrint.p("publishURL = \(publishURL)")
         self.publishFile()
         self.bookModel.savePublishURL(publishURL)
         
@@ -811,7 +834,6 @@ extension EditViewController {
         }
       } else {
         completed?(nil)
-        debugPrint.p("publishURL non = \(json)")
       }
       }.sendRequest()
   }
@@ -1138,7 +1160,7 @@ extension EditViewController {
     let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
     let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
     let image = UIImage(data: imageData)!
-    
+
     isReplacedImage ? replaceImage(image, userID: userID, publishID: publishID) : addImage(image, userID: userID, publishID: publishID)
     isReplacedImage = false
     
@@ -1171,7 +1193,6 @@ extension EditViewController {
     
     // 1. book whether in server
     if isUploaded && !bookModel.needUpload && !bookModel.isEditedTitle() && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
-      debugPrint.p("PreviewStation = 0")
       let publishURL = bookModel.retrivePublishURL()!
        completedBlock(publishURL)
       return
@@ -1180,7 +1201,6 @@ extension EditViewController {
     // 2. book whether make changed
     if isUploaded {
       if bookModel.needUpload {
-        debugPrint.p("PreviewStation = 1")
         // uploadCurios
         begainUploadCuriosRes({[unowned self] (completed) -> () in
           
@@ -1449,8 +1469,6 @@ extension EditViewController {
       
       let cell = collectionView.cellForItemAtIndexPath(indexPath)!
       let center = view.convertPoint(cell.center, fromView: collectionView)
-      
-      debugPrint.p(center)
       
       fakePageView!.center = center
       

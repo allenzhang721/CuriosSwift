@@ -82,8 +82,6 @@ class TextEditorViewController: UIViewController, UITextViewDelegate {
     let height = textView.bounds.height
     let contentHeight = textView.contentSize.height
     if keyPath == "contentSize" && object as! NSObject == textView && height > contentHeight {
-      
-      debugPrint.p("content height = \(textView.contentSize.height)")
 //      
 //      let height = textView.bounds.height
 //      let contentHeight = textView.contentSize.height
