@@ -42,19 +42,19 @@ class BookListTableViewCell: UITableViewCell {
   func configWithModel(bookModel: BookListModel) {
     
     let iconUrlString = bookModel.publishIconURL.stringByAppendingString(ICON_THUMBNAIL)
-    let url = NSURL(string: iconUrlString)
-    bookListCellImg.image = UIImage(named : "placeholder")
-    if let url = url {
-      KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
-        if error != nil {
-          println(error)
-        } else {
-          //        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
-          self?.bookListCellImg.image = image
-        }
-      }
+    let url = NSURL(string: iconUrlString)!
+    bookListCellImg.kf_setImageWithURL(url, placeholderImage:  UIImage(named : "placeholder"))
+//    if let url = url {
+//      KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
+//        if error != nil {
+//          println(error)
+//        } else {
+//          //        KingfisherManager.sharedManager.cache.storeImage(image!, forKey: aIconKey)
+//          self?.bookListCellImg.image = image
+//        }
+//      }
 //      bookListCellImg.kf_setImageWithURL(url, placeholderImage: UIImage(named: "placeholder"))
-    }
+//    }
     
     date = bookModel.publishDate
     bookListCellTitle.text = bookModel.publishTitle;
