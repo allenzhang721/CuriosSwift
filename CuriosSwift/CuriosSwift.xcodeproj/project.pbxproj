@@ -102,6 +102,8 @@
 		2C8028B01B6B4CF600FCB7B2 /* BlackCatResultExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8028A91B6B4CF600FCB7B2 /* BlackCatResultExtension.swift */; };
 		2C8028B11B6B4CF600FCB7B2 /* String + bcMD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8028AA1B6B4CF600FCB7B2 /* String + bcMD5.swift */; };
 		2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */; };
+		2C8926831B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8926821B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift */; };
+		2C8926851B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8926841B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift */; };
 		2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */; };
 		2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */; };
 		2C8BB2261B5D0AB700AB4320 /* MJRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */; };
@@ -176,6 +178,9 @@
 		2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF584B1B1EC7690053102A /* QCMethod.swift */; };
 		2CC7BDAC1B65236D001E7277 /* NormalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7BDAB1B65236D001E7277 /* NormalLayout.swift */; };
 		2CC7BDAE1B652394001E7277 /* TransitionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */; };
+		2CCB02271B7B68FB00DDADF3 /* GetTemplateIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB02261B7B68FB00DDADF3 /* GetTemplateIDRequest.swift */; };
+		2CCB022A1B7B6A0700DDADF3 /* TemplateTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB02291B7B6A0700DDADF3 /* TemplateTokenRequest.swift */; };
+		2CCB022D1B7B840100DDADF3 /* AddTemplateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */; };
 		2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
@@ -332,6 +337,8 @@
 		2C8028A91B6B4CF600FCB7B2 /* BlackCatResultExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackCatResultExtension.swift; sourceTree = "<group>"; };
 		2C8028AA1B6B4CF600FCB7B2 /* String + bcMD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String + bcMD5.swift"; sourceTree = "<group>"; };
 		2C828A071AEF4D93004D4223 /* CUEditableTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUEditableTextNode.swift; sourceTree = "<group>"; };
+		2C8926821B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateTemplateViewController.swift; sourceTree = "<group>"; };
+		2C8926841B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeListSelectedViewController.swift; sourceTree = "<group>"; };
 		2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingAnimation.swift; sourceTree = "<group>"; };
 		2C8A8F3B1B4277B500606CCF /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
 		2C8BB2251B5D0AB700AB4320 /* MJRefresh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MJRefresh.framework; path = "Pods/build/Debug-iphoneos/Pods-CuriosSwift/MJRefresh.framework"; sourceTree = "<group>"; };
@@ -412,6 +419,10 @@
 		2CBF584B1B1EC7690053102A /* QCMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCMethod.swift; sourceTree = "<group>"; };
 		2CC7BDAB1B65236D001E7277 /* NormalLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalLayout.swift; sourceTree = "<group>"; };
 		2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionLayout.swift; sourceTree = "<group>"; };
+		2CCB02261B7B68FB00DDADF3 /* GetTemplateIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTemplateIDRequest.swift; sourceTree = "<group>"; };
+		2CCB02291B7B6A0700DDADF3 /* TemplateTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenRequest.swift; sourceTree = "<group>"; };
+		2CCB022B1B7B7DD200DDADF3 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTemplateRequest.swift; sourceTree = "<group>"; };
 		2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsBar.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
@@ -556,6 +567,8 @@
 		2C03598F1B50FE4B00B66574 /* EditViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2C8926821B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift */,
+				2C8926841B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift */,
 				2C362ACF1B5BF21C00F80012 /* ThemeLayout.swift */,
 				2C362A9C1B5B5C5600F80012 /* EditNaviAimation.swift */,
 				2C0359921B5104BF00B66574 /* TextEditorTransitionAnimation.swift */,
@@ -860,6 +873,7 @@
 				2CD6C30E1B17E892000C4FC6 /* URL.swift */,
 				2C7D12261B200FB50096819D /* CuriosKit.swift */,
 				2C7D12211B1FFF6C0096819D /* SwiftColors.swift */,
+				2CCB022B1B7B7DD200DDADF3 /* MyPlayground.playground */,
 				2C7AE88E1AE8E2A400ACEB65 /* UUIDGenerator.swift */,
 				2C5526E51B4B9961000F2C7D /* ViewExtension.swift */,
 				2C62F2161B672568007DA47F /* LocalStringHelper.swift */,
@@ -1005,6 +1019,9 @@
 				2C4D81081B53F10900A93383 /* UploadCompleteReqest.swift */,
 				2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */,
 				2CBAA8441B78828C00CE4883 /* FilePathsRequest.swift */,
+				2CCB02261B7B68FB00DDADF3 /* GetTemplateIDRequest.swift */,
+				2CCB02291B7B6A0700DDADF3 /* TemplateTokenRequest.swift */,
+				2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */,
 				2CAC964C1B54B73D00BA5291 /* useless */,
 			);
 			name = Request;
@@ -1276,6 +1293,7 @@
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C5526E81B4CC533000F2C7D /* PublishRequest.swift in Sources */,
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
+				2C8926831B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift in Sources */,
 				2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */,
 				2C8028AD1B6B4CF600FCB7B2 /* BlackCatManager.swift in Sources */,
 				2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */,
@@ -1300,8 +1318,10 @@
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
+				2C8926851B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift in Sources */,
 				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
 				2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */,
+				2CCB022D1B7B840100DDADF3 /* AddTemplateRequest.swift in Sources */,
 				2CAC96681B550A4100BA5291 /* AddEditFileRequest.swift in Sources */,
 				2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */,
 				2CFD5AD81B4F608900473C44 /* ImageContentModel.swift in Sources */,
@@ -1322,6 +1342,7 @@
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
 				2CC7BDAE1B652394001E7277 /* TransitionLayout.swift in Sources */,
 				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
+				2CCB02271B7B68FB00DDADF3 /* GetTemplateIDRequest.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
@@ -1342,6 +1363,7 @@
 				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
+				2CCB022A1B7B6A0700DDADF3 /* TemplateTokenRequest.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
 				2CBF584D1B1EC7690053102A /* QCMethod.swift in Sources */,
 				2CF293501B32633800539F76 /* AnimationFunction.swift in Sources */,

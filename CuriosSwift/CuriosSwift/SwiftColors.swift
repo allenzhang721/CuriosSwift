@@ -113,3 +113,37 @@ public extension SWColor {
     self.init(hexString: hexString as String , alpha: alpha)
   }
 }
+
+extension UIColor {
+  
+  /*
+  - (NSString *)hexStringFromColor:(UIColor *)color {
+  const CGFloat *components = CGColorGetComponents(color.CGColor);
+  
+  CGFloat r = components[0];
+  CGFloat g = components[1];
+  CGFloat b = components[2];
+  
+  return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
+  lroundf(r * 255),
+  lroundf(g * 255),
+  lroundf(b * 255)];
+  }
+  */
+  
+  class func toHexWithr(r: Int, g: Int, b: Int) -> String {
+    return NSString(format: "#%02lX%02lX%02lX",lroundf(Float(r)),lroundf(Float(g)),lroundf(Float(b))) as String
+  }
+  
+  func toHex() -> String {
+    
+    let components = CGColorGetComponents(self.CGColor)
+    
+    let r = components[0]
+    let g = components[1]
+    let b = components[2]
+    
+    return NSString(format: "#%02lX%02lX%02lX",lroundf(Float(r * 255)),lroundf(Float(g * 255)),lroundf(Float(b * 255))) as String
+  }
+  
+}

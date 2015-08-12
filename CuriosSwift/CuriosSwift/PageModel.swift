@@ -30,8 +30,33 @@ class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
   var Id = ""
   var width: CGFloat = 640.0
   var height: CGFloat = 1008.0
-  var pageBackgroundColor = "255,255,255"
-  var pageBackgroundAlpha: CGFloat = 1.0
+  var pageBackgroundColor = "255,255,255" { // red, green, blue
+    didSet {
+      editDelegate?.targetPageModelDidUpdate(self)
+    }
+    
+  }
+  var pageBackgroundAlpha: CGFloat = 1.0 {
+    
+    didSet {
+      editDelegate?.targetPageModelDidUpdate(self)
+    }
+  }
+  
+  
+  var pageTitle = "" {
+    didSet {
+      editDelegate?.targetPageModelDidUpdate(self)
+    }
+  }
+  
+  var pageDesc = "" {
+    
+    didSet {
+      editDelegate?.targetPageModelDidUpdate(self)
+    }
+  }
+  
   var containers: [ContainerModel] = []
   
   weak var modelDelegate: PageModelDelegate?
@@ -44,7 +69,9 @@ class PageModel: Model, IFile, ContainerModelSuperEditDelegate {
       "height"              : "PageHeight",
       "pageBackgroundColor" : "PageBackgroundColor",
       "pageBackgroundAlpha" : "PageBackgroundAlpha",
-      "containers"          : "Containers"
+      "containers"          : "Containers",
+      "pageTitle"           : "PageTitle",
+      "pageDesc"            : "PageDesc"
     ]
   }
   

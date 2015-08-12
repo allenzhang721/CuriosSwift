@@ -31,6 +31,25 @@ class ThemesManager {
     }.sendRequest()
   }
   
+  func getThemes(all:Bool, start: Int, size: Int, completedBlock: ([ThemeModel]) -> ()) {
+    
+    let paraString = !all ? GET_THEME_LIST_paras(start, size) : GET_THEME_LIST_paras(start, size)
+    let requestString = !all ? GET_THEME_LIST : GET_THEME_LIST_ALL
+    
+    ThemeRequest.requestWithComponents(requestString, aJsonParameter: paraString) {[unowned self] (json) -> Void in
+      
+      if let list = json["list"] as? [AnyObject] {
+        let aTemplateList = MTLJSONAdapter.modelsOfClass(ThemeModel.self, fromJSONArray: list, error: nil) as! [ThemeModel]
+        
+        completedBlock(aTemplateList)
+      }
+      
+      }.sendRequest()
+  }
+  
+  
+  
+  
   func getThemeList() -> [ThemeModel] {
     
     return themeList

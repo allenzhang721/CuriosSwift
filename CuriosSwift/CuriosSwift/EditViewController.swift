@@ -91,6 +91,36 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     }
   }
   
+  var currentPageModel: PageModel? {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      let pageModel = bookModel.pageModels[currentIndexPath.item]
+      return pageModel
+      
+    } else {
+      
+      return nil
+    }
+  }
+  
+  var currentPageCellSnapshot: UIImage? {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      let pageCell = collectionView.cellForItemAtIndexPath(currentIndexPath)!
+      let abounds = pageCell.bounds
+      UIGraphicsBeginImageContextWithOptions(abounds.size, true, 2.0)
+      pageCell.drawViewHierarchyInRect(abounds, afterScreenUpdates: true)
+      let image = UIGraphicsGetImageFromCurrentImageContext()!
+      UIGraphicsEndImageContext()
+      return image
+      
+    } else {
+      
+      return nil
+    }
+    
+  }
+  
   var constraintsState: ConstraintsState = .Default {
     
     // updateConstraintsWill animation update layout
@@ -133,10 +163,102 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     updateSelectBorder()
   }
   
-//  override func viewWillLayoutSubviews() {
-//    super.viewWillLayoutSubviews()
-//  }
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    setupGenerateTemplateVC(segue)
+    
+  }
+  
+  
+  func setupGenerateTemplateVC(segue: UIStoryboardSegue) {
+    
+    if let generateTemplateNavigationController = segue.destinationViewController as? UINavigationController,
+      let generateTemplateVC = generateTemplateNavigationController.topViewController as? GenerateTemplateViewController {
+        
+        generateTemplateVC.dataSource = self
+    }
+  }
 
+}
+
+// MARK: - generateTemplateVC DataSource
+extension EditViewController: GenerateTemplateViewControllerDataSource {
+  
+  func generateTemplateViewControllerPageTitle(ViewController: GenerateTemplateViewController) -> String {
+    
+    return currentPageModel!.pageTitle
+    
+  }
+  
+  func generateTemplateViewControllerPageDescription(ViewController: GenerateTemplateViewController) -> String {
+    return currentPageModel!.pageDesc
+  }
+  
+  func generateTemplateViewControllerPublishID(ViewController: GenerateTemplateViewController) -> String {
+    return bookModel.Id
+  }
+  
+  func generateTemplateViewControllerPageID(ViewController: GenerateTemplateViewController) -> String {
+    return currentPageModel!.Id
+  }
+  
+  func generateTemplateViewControllerPageBackgroundColorWithHex(ViewController: GenerateTemplateViewController) -> String {
+    
+    let color = currentPageModel!.pageBackgroundColor
+    if color.isEmpty {
+      return "#FFFFFF"
+    }
+    let rgb = color.componentsSeparatedByString(",")
+    let r = rgb[0].toInt()!
+    let g = rgb[1].toInt()!
+    let b = rgb[2].toInt()!
+    
+    return UIColor.toHexWithr(r, g: g, b: b)
+  }
+  
+  func generateTemplateViewControllerPageAlpha(ViewController: GenerateTemplateViewController) -> Float {
+    
+    return Float(currentPageModel!.pageBackgroundAlpha)
+  }
+  
+  func generateTemplateViewControllerPageSnapshot(ViewController: GenerateTemplateViewController) -> UIImage {
+    
+    return currentPageCellSnapshot!
+  }
+  
+  func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedTitle pageTitle: String) {
+    
+    currentPageModel?.pageTitle = pageTitle
+  }
+  
+  func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedDescri pageDescri: String) {
+    
+    currentPageModel?.pageDesc = pageDescri
+  }
+  
+  func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedBackgroundColor colorHex: String) {
+    
+    currentPageModel?.pageBackgroundColor = colorHex
+  }
+  
+  func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedBackAlpha alpha: CGFloat) {
+    
+    currentPageModel?.pageBackgroundAlpha = alpha
+  }
+  
+  func generateTemplateViewControllerChangedPageJsonData(ViewController: GenerateTemplateViewController) -> NSData {
+    
+    let pagejson = MTLJSONAdapter.JSONDictionaryFromModel(currentPageModel, error: nil)
+    debugPrint.p(pagejson)
+    let originData = NSJSONSerialization.dataWithJSONObject(pagejson, options: NSJSONWritingOptions(0), error: nil)!
+    return originData
+//    let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
+//    let appString = string
+//    let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+    
+  }
+  
 }
 
 
@@ -263,6 +385,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           
           editNavigationViewController.didSelectedBlock = {[unowned self](snapshot, json) -> () in
             
+            debugPrint.p("newPageJSOn = \(json)")
             if let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as? PageModel {
               
               // change Page id
