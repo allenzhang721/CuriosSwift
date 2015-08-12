@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "64C9E2EA21C1235907B00E71"
-               BuildableName = "Kingfisher.framework"
-               BlueprintName = "Pods-CuriosSwift-Kingfisher"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "2CB4BD4D1AE337EA00DF6019"
+               BuildableName = "CuriosSwift.app"
+               BlueprintName = "CuriosSwift"
+               ReferencedContainer = "container:CuriosSwift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2CB4BD4D1AE337EA00DF6019"
+            BuildableName = "CuriosSwift.app"
+            BlueprintName = "CuriosSwift"
+            ReferencedContainer = "container:CuriosSwift.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -39,6 +48,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2CB4BD4D1AE337EA00DF6019"
+            BuildableName = "CuriosSwift.app"
+            BlueprintName = "CuriosSwift"
+            ReferencedContainer = "container:CuriosSwift.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -48,12 +67,23 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2CB4BD4D1AE337EA00DF6019"
+            BuildableName = "CuriosSwift.app"
+            BlueprintName = "CuriosSwift"
+            ReferencedContainer = "container:CuriosSwift.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "In House Distribution"
+      customArchiveName = "Curios"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

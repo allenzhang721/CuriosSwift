@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A8F5E4089CD92C4BB16DD6E"
+               BlueprintIdentifier = "983B2A37A69B31AE49D56EC2"
                BuildableName = "AsyncDisplayKit.framework"
                BlueprintName = "Pods-CuriosSwift-AsyncDisplayKit"
                ReferencedContainer = "container:Pods.xcodeproj">

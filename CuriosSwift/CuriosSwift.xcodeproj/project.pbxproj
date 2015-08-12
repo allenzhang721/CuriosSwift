@@ -12,6 +12,7 @@
 		2C00AA3F1B2EC5CA00B718B9 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */; };
 		2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */; };
 		2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00AABA1B3030E100B718B9 /* MultiObserver.swift */; };
+		2C01328D1B7AC1BB00030540 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C01328C1B7AC1BB00030540 /* Mantle.framework */; };
 		2C0355661B786413005FC94B /* ServePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0355651B786413005FC94B /* ServePaths.swift */; };
 		2C0355681B786D90005FC94B /* ServePathsManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0355671B786D90005FC94B /* ServePathsManger.swift */; };
 		2C0359911B50FEB100B66574 /* TextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0359901B50FEB100B66574 /* TextEditorViewController.swift */; };
@@ -237,6 +238,7 @@
 		2C00AA3E1B2EC5CA00B718B9 /* AnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AAB81B301D4300B718B9 /* CUAnimationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUAnimationFactory.swift; sourceTree = "<group>"; };
 		2C00AABA1B3030E100B718B9 /* MultiObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiObserver.swift; sourceTree = "<group>"; };
+		2C01328C1B7AC1BB00030540 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/Mantle.framework"; sourceTree = "<group>"; };
 		2C0355651B786413005FC94B /* ServePaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServePaths.swift; sourceTree = "<group>"; };
 		2C0355671B786D90005FC94B /* ServePathsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServePathsManger.swift; sourceTree = "<group>"; };
 		2C0359901B50FEB100B66574 /* TextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorViewController.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C01328D1B7AC1BB00030540 /* Mantle.framework in Frameworks */,
 				2CAA013D1B74478600F26DD1 /* AsyncDisplayKit.framework in Frameworks */,
 				2C62F2211B6876A0007DA47F /* ReachabilitySwift.framework in Frameworks */,
 				2C62F21D1B6766CF007DA47F /* DateTools.framework in Frameworks */,
@@ -516,6 +519,7 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C01328C1B7AC1BB00030540 /* Mantle.framework */,
 				2CAA013C1B74478600F26DD1 /* AsyncDisplayKit.framework */,
 				2C62F2201B6876A0007DA47F /* ReachabilitySwift.framework */,
 				2C62F21C1B6766CE007DA47F /* DateTools.framework */,
@@ -1408,6 +1412,105 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2C0132891B7ABDCD00030540 /* In House Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "In House Distribution";
+		};
+		2C01328A1B7ABDCD00030540 /* In House Distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5427265469E634234843305F /* Pods-CuriosSwift.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/Connection",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/Core",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
+					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
+				);
+				INFOPLIST_FILE = CuriosSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Emiaostein/mine/Github/CuriosSwift/AsyncDisplayKit-master/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/Extend/WeChatSDK",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"Mantle\"",
+					"-framework",
+					"\"pop\"",
+					"-lc++",
+				);
+				PRODUCT_NAME = CuriosSwift;
+				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
+				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "In House Distribution";
+		};
+		2C01328B1B7ABDCD00030540 /* In House Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CuriosSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = CuriosSwiftTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriosSwift.app/CuriosSwift";
+			};
+			name = "In House Distribution";
+		};
 		2CB4BD6B1AE337EB00DF6019 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1444,7 +1547,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1483,7 +1586,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1511,7 +1614,7 @@
 					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1531,7 +1634,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
+				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1558,7 +1661,7 @@
 					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1578,7 +1681,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "870d6cc2-ca1f-407b-9b70-16a286ca66e8";
+				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1626,6 +1729,7 @@
 			buildConfigurations = (
 				2CB4BD6B1AE337EB00DF6019 /* Debug */,
 				2CB4BD6C1AE337EB00DF6019 /* Release */,
+				2C0132891B7ABDCD00030540 /* In House Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1635,6 +1739,7 @@
 			buildConfigurations = (
 				2CB4BD6E1AE337EB00DF6019 /* Debug */,
 				2CB4BD6F1AE337EB00DF6019 /* Release */,
+				2C01328A1B7ABDCD00030540 /* In House Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1644,6 +1749,7 @@
 			buildConfigurations = (
 				2CB4BD711AE337EB00DF6019 /* Debug */,
 				2CB4BD721AE337EB00DF6019 /* Release */,
+				2C01328B1B7ABDCD00030540 /* In House Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

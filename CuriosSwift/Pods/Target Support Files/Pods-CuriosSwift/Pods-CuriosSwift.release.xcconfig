@@ -2,8 +2,8 @@ FRAMEWORK_SEARCH_PATHS = "$PODS_FRAMEWORK_BUILD_PATH"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 OTHER_CFLAGS = $(inherited) -iquote "$PODS_FRAMEWORK_BUILD_PATH/AFNetworking.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Alamofire.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/AsyncDisplayKit.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/DateTools.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Kingfisher.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/MJExtension.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/MJRefresh.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Mantle.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Qiniu.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/ReachabilitySwift.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/SVProgressHUD.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/SnapKit.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/pop.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -ObjC -framework "AFNetworking" -framework "Alamofire" -framework "AsyncDisplayKit" -framework "DateTools" -framework "Kingfisher" -framework "MJExtension" -framework "MJRefresh" -framework "Mantle" -framework "Qiniu" -framework "ReachabilitySwift" -framework "SVProgressHUD" -framework "SnapKit" -framework "pop"
+OTHER_LDFLAGS = -ObjC -framework "AFNetworking" -framework "Alamofire" -framework "AsyncDisplayKit" -framework "DateTools" -framework "Kingfisher" -framework "MJExtension" -framework "MJRefresh" -framework "Mantle" -framework "Qiniu" -framework "ReachabilitySwift" -framework "SVProgressHUD" -framework "SnapKit" -framework "pop"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+OTHER_SWIFT_FLAGS = "-D COCOAPODS"
 PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-CuriosSwift
 PODS_ROOT = ${SRCROOT}/Pods
