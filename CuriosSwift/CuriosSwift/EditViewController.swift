@@ -122,14 +122,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     collectionView.decelerationRate = 0.1
     
     setupSubView()
-    
-    HUD.save_sync()
-    ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
-        
-        if compeleted {
-            HUD.dismiss()
-        }
-    }  //
   }
   
   override func prefersStatusBarHidden() -> Bool {

@@ -81,7 +81,7 @@ extension ViewController {
   }
   
   func loadViewController() {
-//            adminLogin()
+            adminLogin()
     LoginModel.shareInstance.loadInfo()
     
     println(LoginModel.shareInstance.isLogin)

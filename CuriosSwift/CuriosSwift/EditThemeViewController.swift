@@ -134,17 +134,16 @@ extension EditThemeViewController {
       
       let url = NSURL(string: themeItem.themeIconURL)!
 //      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"))
-      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, progressBlock: nil, completionHandler: {[unowned self] (image, error, cacheType, imageURL) -> () in
+      imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, progressBlock: nil, completionHandler: {[weak self] (image, error, cacheType, imageURL) -> () in
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           
-          if self.enteredTheme == false {
-            if let bgainID = self.begainThemeID where bgainID == themeID {
-              self.showTemplatesWithThemeID(bgainID, themeName: themeName)
+          if self?.enteredTheme == false {
+            if let bgainID = self?.begainThemeID where bgainID == themeID {
+              self?.showTemplatesWithThemeID(bgainID, themeName: themeName)
             }
           }
         })
       })
-      
     }
     
     if let label = cell.viewWithTag(100) as? UILabel {

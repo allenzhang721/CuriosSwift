@@ -30,6 +30,14 @@ class BookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       addRefreshControl()
+      
+      HUD.save_sync()
+      ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
+        
+        if compeleted {
+          HUD.dismiss()
+        }
+      }  //
     }
   
   override func viewWillAppear(animated: Bool) {
