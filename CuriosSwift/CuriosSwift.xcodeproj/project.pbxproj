@@ -1072,7 +1072,7 @@
 				TargetAttributes = {
 					2CB4BD4D1AE337EA00DF6019 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = LKNH59573E;
+						DevelopmentTeam = AJ6S3UXN3E;
 					};
 					2CB4BD621AE337EB00DF6019 = {
 						CreatedOnToolsVersion = 6.3;
@@ -1600,7 +1600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1647,7 +1647,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

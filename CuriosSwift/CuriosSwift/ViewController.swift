@@ -37,14 +37,8 @@ class ViewController: UIViewController {
     didload();
 //    loadViewController()
     FontsManager.share.registerLocalFonts()
+    self.loadViewController()
     
-    
-    ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
-      
-      if compeleted {
-        self.loadViewController()
-      }
-    }  //
   }
   
   override func viewDidAppear(animated: Bool) {
