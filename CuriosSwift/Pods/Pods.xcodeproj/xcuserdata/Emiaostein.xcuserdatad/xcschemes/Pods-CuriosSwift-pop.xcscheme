@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BF160E4917527966DD67ADBE"
+               BlueprintIdentifier = "6573D7BB6191DFDA53CC8EF5"
                BuildableName = "pop.framework"
                BlueprintName = "Pods-CuriosSwift-pop"
                ReferencedContainer = "container:Pods.xcodeproj">

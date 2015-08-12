@@ -83,7 +83,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "In House Distribution"
-      customArchiveName = "Curios"
+      customArchiveName = "Curios_InHouse"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

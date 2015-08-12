@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "44242492CB66E0BD250CAFCB"
+               BlueprintIdentifier = "1499831048CC31FCF453217F"
                BuildableName = "SVProgressHUD.framework"
                BlueprintName = "Pods-CuriosSwift-SVProgressHUD"
                ReferencedContainer = "container:Pods.xcodeproj">

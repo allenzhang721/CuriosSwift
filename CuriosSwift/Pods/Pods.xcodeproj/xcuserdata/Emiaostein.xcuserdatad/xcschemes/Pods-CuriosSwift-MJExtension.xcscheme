@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E5353ABB4C7301B7AAE6D705"
+               BlueprintIdentifier = "476F6A4BCB05F1411FBD3B58"
                BuildableName = "MJExtension.framework"
                BlueprintName = "Pods-CuriosSwift-MJExtension"
                ReferencedContainer = "container:Pods.xcodeproj">
