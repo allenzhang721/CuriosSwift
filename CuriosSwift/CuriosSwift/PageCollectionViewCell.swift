@@ -46,8 +46,22 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
     contentNodeView = nil
     contentNode = nil
   }
+    
+    func rgbToColor(rgbString: String) -> UIColor {
+        
+        if rgbString.isEmpty {
+            return UIColor.whiteColor()
+        }
+        let rgb = rgbString.componentsSeparatedByString(",")
+        let r = rgb[0].toInt()!
+        let g = rgb[1].toInt()!
+        let b = rgb[2].toInt()!
+        
+        return UIColor(red: CGFloat(r) / 255.0 , green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1.0)
+    }
   
   func configCell(aPageModel: PageModel, queue: NSOperationQueue) {
+    
     
     if let oldOperation = nodeRenderOperation {
       oldOperation.cancel()
@@ -364,8 +378,29 @@ extension PageCollectionViewCell {
     
     return false
   }
+    
+    
+    func updateColorAndAlpha() {
+        
+        if let contentNode = contentNode {
+            
+            let color = rgbToColor(pageModel.pageBackgroundColor)
+            
+            let alpha = pageModel.pageBackgroundAlpha
+            
+            contentNode.backgroundColor = color
+            contentNode.alpha = alpha
+        }
+    }
   
   private func configPageWithPageModel(aPageModel: PageModel, queue: NSOperationQueue) -> NSOperation {
+    
+    // background
+    let color = rgbToColor(aPageModel.pageBackgroundColor)
+    
+    let alpha = aPageModel.pageBackgroundAlpha
+    // cell alpha
+    
     let operation = NSBlockOperation()
     operation.addExecutionBlock { [weak self, unowned operation] in
       
@@ -376,7 +411,8 @@ extension PageCollectionViewCell {
       if let strongSelf = self {
         
         let aContentNode: ASDisplayNode = strongSelf.getContainerNodesWithPageModel(aPageModel)
-        aContentNode.backgroundColor = UIColor.whiteColor()
+        aContentNode.backgroundColor = color
+        aContentNode.alpha = alpha
         aContentNode.clipsToBounds = true
         
         if operation.cancelled {

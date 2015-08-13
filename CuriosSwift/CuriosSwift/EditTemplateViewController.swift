@@ -158,6 +158,9 @@ extension EditTemplateViewController {
       
 //      let url = NSURL(string: "http://img2.pconline.com.cn/pconline/1008/10/2190575_010_500.jpg")!
        let url = NSURL(string: template.templateIconURL)!
+        
+        debugPrint.p(url)
+        
       imageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
         
 //        imageView.image = image

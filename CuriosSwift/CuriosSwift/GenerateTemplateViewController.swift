@@ -92,7 +92,7 @@ class GenerateTemplateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-      begainSetup()
+//      begainSetup()
 
         // Do any additional setup after loading the view.
     }
@@ -117,6 +117,9 @@ class GenerateTemplateViewController: UIViewController {
   
   @IBAction func sliderValueDidChanged(sender: UISlider) {
     alphaLabel.text = "\(currentAlpha)"
+    if originAlpha != currentAlpha {
+        dataSource?.generateTemplateViewController(self, didChangedBackAlpha: CGFloat(currentAlpha))
+    }
   }
   
   func begainUpload(themeID: String, pagejsonData: NSData, completed: (Bool) -> ()) {
@@ -137,7 +140,6 @@ class GenerateTemplateViewController: UIViewController {
           completed(finished)
         })
       } else {
-        println(json)
         completed(true)
       }
     }.sendRequest()
@@ -259,14 +261,14 @@ extension GenerateTemplateViewController: ThemeListSelectedViewControllerDelegat
       dataSource?.generateTemplateViewController(self, didChangedDescri: descriTextField.text)
     }
     
-    if originColor != currentColor {
-      let rgb = hexToRgb(currentColor)
-      dataSource?.generateTemplateViewController(self, didChangedBackgroundColor: rgb)
-    }
+//    if originColor != currentColor {
+//      let rgb = hexToRgb(currentColor)
+//      dataSource?.generateTemplateViewController(self, didChangedBackgroundColor: rgb)
+//    }
     
-    if originAlpha != currentAlpha {
-      dataSource?.generateTemplateViewController(self, didChangedBackAlpha: CGFloat(currentAlpha))
-    }
+//    if originAlpha != currentAlpha {
+//      dataSource?.generateTemplateViewController(self, didChangedBackAlpha: CGFloat(currentAlpha))
+//    }
     
     if let pagejsonData = dataSource?.generateTemplateViewControllerChangedPageJsonData(self) {
       
@@ -278,6 +280,10 @@ extension GenerateTemplateViewController: ThemeListSelectedViewControllerDelegat
       })
     }
   }
+    
+    override func viewDidAppear(animated: Bool) {
+        begainSetup()
+    }
 }
 
 extension GenerateTemplateViewController {
@@ -323,7 +329,14 @@ extension GenerateTemplateViewController {
   
 }
 
-extension GenerateTemplateViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GenerateTemplateViewController: UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
@@ -340,6 +353,11 @@ extension GenerateTemplateViewController: UICollectionViewDelegate, UICollection
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    
+    if originColor != currentColor {
+        let rgb = hexToRgb(currentColor)
+        dataSource?.generateTemplateViewController(self, didChangedBackgroundColor: rgb)
+    }
     
     collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
   }

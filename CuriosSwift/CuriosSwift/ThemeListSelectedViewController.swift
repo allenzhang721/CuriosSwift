@@ -29,11 +29,11 @@ class ThemeListSelectedViewController: UIViewController {
         // Do any additional setup after loading the view.
       
       confirmButton.enabled = false
-      ThemesManager.shareInstance.getThemes(true, start: 0, size: 20) {[unowned self] (alist) -> () in
+      ThemesManager.shareInstance.getThemes(true, start: 0, size: 20) {[weak self] (alist) -> () in
         
         if alist.count > 0 {
-          self.appendThemes(alist)
-          self.tableView.reloadData()
+          self?.appendThemes(alist)
+          self?.tableView.reloadData()
         }
       }
     }

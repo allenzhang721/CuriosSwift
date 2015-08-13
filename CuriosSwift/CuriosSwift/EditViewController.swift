@@ -43,6 +43,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   // UI
   
+    @IBOutlet weak var templatebutton: UIBarButtonItem!
   var isUploaded = false   // bookModel in server
   
   var begainThemeID: String?
@@ -102,6 +103,15 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
       return nil
     }
   }
+    
+    var currentPageCell: PageCollectionViewCell? {
+        if let currentIndexPath = getCurrentIndexPath() {
+            let pageCell = collectionView.cellForItemAtIndexPath(currentIndexPath)! as! PageCollectionViewCell
+            return pageCell
+        } else {
+            return nil
+        }
+    }
   
   var currentPageCellSnapshot: UIImage? {
     
@@ -143,6 +153,11 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // show the template Maker Button
+    
+//    templatebutton = nil
+    
     
     SmallLayout.delegate = self
     collectionView.dataSource = self
@@ -240,11 +255,13 @@ extension EditViewController: GenerateTemplateViewControllerDataSource {
   func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedBackgroundColor colorHex: String) {
     
     currentPageModel?.pageBackgroundColor = colorHex
+    currentPageCell?.updateColorAndAlpha()
   }
   
   func generateTemplateViewController(ViewController: GenerateTemplateViewController, didChangedBackAlpha alpha: CGFloat) {
     
     currentPageModel?.pageBackgroundAlpha = alpha
+    currentPageCell?.updateColorAndAlpha()
   }
   
   func generateTemplateViewControllerChangedPageJsonData(ViewController: GenerateTemplateViewController) -> NSData {

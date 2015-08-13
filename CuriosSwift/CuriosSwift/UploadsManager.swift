@@ -69,6 +69,7 @@ class UploadsManager {
         self.finishCount += 1
         
         if response == nil {
+            debugPrint.p("upload \(uploadKey) fail")
           self.failCount += 1
         }
         

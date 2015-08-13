@@ -45,10 +45,13 @@ class TemplateModel: Model {
       
       let URL = NSURL(string: templateURL)!
       
-      BlackCatManager.sharedManager.retrieveDataWithURL(URL, optionsInfo: nil, progressBlock: nil, completionHandler: {[unowned self] (data, error, cacheType, URL) -> () in
-        if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 {
-          self.templatePageJson = dic
+      BlackCatManager.sharedManager.retrieveDataWithURL(URL, optionsInfo: nil, progressBlock: nil, completionHandler: {[weak self] (data, error, cacheType, URL) -> () in
+        if let strongSelf = self {
+            if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 {
+                strongSelf.templatePageJson = dic
+            }
         }
+        
         
         })
       return nil
