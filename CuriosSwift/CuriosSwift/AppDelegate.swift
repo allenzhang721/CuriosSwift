@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     registerShareSDK();
+    registerSMSSDK()
 //    createBaseDirectory();
 //    notifier()
     SVProgressHUD.setBackgroundColor(UIColor.clearColor())
@@ -71,6 +72,14 @@ extension AppDelegate {
     let weChatSecretID = "73f38330a03e2f21bf2f72d0fab83cea";
     ShareSDK.registerApp(shareSDKAppID);
     ShareSDK.connectWeChatWithAppId(weChatAppID, appSecret: weChatSecretID, wechatCls: WXApi.self)
+    
+  }
+  
+  private func registerSMSSDK() {
+    
+    let SMSSDKAppID = "9acaf26b9285"
+    let SMSSDKSecret = "34c0fd7701cd592cb8fb0df0b08192d8"
+    SMS_SDK.registerApp(SMSSDKAppID, withSecret: SMSSDKSecret)
     
   }
   

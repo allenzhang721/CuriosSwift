@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -812,10 +812,26 @@
                                 <rect key="frame" x="205" y="132" width="190" height="60"/>
                                 <animations/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfq-ZD-xwx">
+                                <rect key="frame" x="220" y="550" width="160" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3Eo-vV-iLO"/>
+                                    <constraint firstAttribute="width" constant="160" id="omw-KC-oQs"/>
+                                </constraints>
+                                <state key="normal" title="更多">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moreLoginAction:" destination="XvC-Lr-q2G" eventType="touchUpInside" id="MiB-wz-9K9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="jfq-ZD-xwx" secondAttribute="centerX" id="2Qf-fB-IQs"/>
                             <constraint firstItem="4cX-JM-2D1" firstAttribute="top" secondItem="1Yn-zV-Bvd" secondAttribute="bottom" constant="-185" id="3br-YO-v7v"/>
                             <constraint firstAttribute="centerX" secondItem="4cX-JM-2D1" secondAttribute="centerX" id="BBR-9P-VaJ"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="top" secondItem="DnY-Zd-o3R" secondAttribute="top" id="KpR-jQ-yl5"/>
@@ -825,6 +841,7 @@
                             <constraint firstItem="dFr-ze-IGA" firstAttribute="top" secondItem="ocZ-1r-Ptw" secondAttribute="bottom" constant="112" id="e4f-Tj-Sit"/>
                             <constraint firstItem="CzZ-aF-8EH" firstAttribute="top" secondItem="iqm-Kn-elj" secondAttribute="bottom" constant="97" id="frS-de-VLB"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="bottom" secondItem="CzZ-aF-8EH" secondAttribute="top" id="lSu-Kp-tGa"/>
+                            <constraint firstItem="jfq-ZD-xwx" firstAttribute="top" secondItem="1Yn-zV-Bvd" secondAttribute="bottom" constant="-50" id="lt4-ln-Zea"/>
                             <constraint firstItem="1Yn-zV-Bvd" firstAttribute="leading" secondItem="DnY-Zd-o3R" secondAttribute="leading" id="v7C-4D-OGQ"/>
                         </constraints>
                     </view>

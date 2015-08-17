@@ -8,6 +8,12 @@
 
 CFBundleDisplayName="奇思";
 
+// Login
+
+LOGIN = "登录";
+REGISTER = "注册";
+
+
 // Universal
 PUBLISH  = "发布";
 SHARE   = "分享";

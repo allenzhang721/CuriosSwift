@@ -104,7 +104,7 @@ class UserRequest :NSObject{
                 let sex = dic["sex"] as? Int
                 newUser.sex = String(stringInterpolationSegment: sex)
                 newUser.email = (dic["email"] as? String)!
-                newUser.areacodeID = String(stringInterpolationSegment: dic["areacodeID"] as? Int)
+                newUser.areacode = String(stringInterpolationSegment: dic["areacode"] as? Int)
                 newUser.phone = (dic["phone"] as? String)!
                 newUser.weixin = (dic["weixin"] as? String)!
                 newUser.weibo = (dic["weibo"] as? String)!;

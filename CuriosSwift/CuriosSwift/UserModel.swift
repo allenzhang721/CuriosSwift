@@ -18,7 +18,7 @@ class UserModel: Model {
     var sex = ""
     var email = ""
     var phone = ""
-    var areacodeID = ""
+    var areacode = ""
     var countryID = ""
     var provinceID = ""
     var cityID = ""
@@ -36,7 +36,7 @@ class UserModel: Model {
             "sex" : "sex",
             "email" : "email",
             "phone" : "phone",
-            "areacodeID" : "areacodeID",
+            "areacode" : "areacode",
             "countryID" : "countryID",
             "provinceID" : "provinceID",
             "cityID" : "cityID",

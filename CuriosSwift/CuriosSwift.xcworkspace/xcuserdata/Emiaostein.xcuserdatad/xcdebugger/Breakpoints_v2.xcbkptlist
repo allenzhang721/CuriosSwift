@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "232"
             endingLineNumber = "232"
-            landmarkName = "generateTemplateViewController(_:didChangedTitle:)"
+            landmarkName = "generateTemplateViewControllerPageBackgroundColorWithHex(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "237"
             endingLineNumber = "237"
-            landmarkName = "generateTemplateViewController(_:didChangedDescri:)"
+            landmarkName = "generateTemplateViewControllerPageAlpha(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,8 +111,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "generateTemplateViewControllerChangedPageJsonData(_:)"
-            landmarkType = "5">
+            landmarkName = "EditViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.EditViewController.generateTemplateViewController (CuriosSwift.EditViewController)(CuriosSwift.GenerateTemplateViewController, didChangedBackgroundColor : Swift.String) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "461511750.691587"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "257"
+                  endingLineNumber = "257"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for CuriosSwift.GenerateTemplateViewControllerDataSource.generateTemplateViewController &lt;A : CuriosSwift.GenerateTemplateViewControllerDataSource&gt;(CuriosSwift.GenerateTemplateViewControllerDataSource.Self)(CuriosSwift.GenerateTemplateViewController, didChangedBackgroundColor : Swift.String) -&gt; () in conformance CuriosSwift.EditViewController : CuriosSwift.GenerateTemplateViewControllerDataSource in CuriosSwift"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "461511750.691808"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "255"
+                  endingLineNumber = "255"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -127,7 +159,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
             endingLineNumber = "191"
-            landmarkName = "generateTemplateViewControllerPageTitle(_:)"
+            landmarkName = "setupGenerateTemplateVC(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

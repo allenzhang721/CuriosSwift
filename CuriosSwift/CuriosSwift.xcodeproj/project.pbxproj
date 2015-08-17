@@ -59,6 +59,16 @@
 		2C5526E81B4CC533000F2C7D /* PublishRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5526E71B4CC533000F2C7D /* PublishRequest.swift */; };
 		2C5D46B91B3CF1A4001D77FF /* UploadSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */; };
 		2C6162981B294878005B9EA4 /* ToolsPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6162971B294878005B9EA4 /* ToolsPannel.swift */; };
+		2C6273BC1B81D18600B4369F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6273BB1B81D18600B4369F /* Login.storyboard */; };
+		2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273C01B81DA5900B4369F /* PhoneRegisterViewController.swift */; };
+		2C6273C51B82059800B4369F /* CountryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273C41B82059800B4369F /* CountryTableViewController.swift */; };
+		2C6273CB1B820FAA00B4369F /* SMS_SDKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C6273C71B820FAA00B4369F /* SMS_SDKLocalizable.strings */; };
+		2C6273CC1B820FAA00B4369F /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273C91B820FAA00B4369F /* SMS_SDK.framework */; };
+		2C6273CE1B820FFC00B4369F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273CD1B820FFC00B4369F /* libz.dylib */; };
+		2C6273D01B82100700B4369F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273CF1B82100700B4369F /* MessageUI.framework */; };
+		2C6273D21B82101100B4369F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273D11B82101100B4369F /* AddressBook.framework */; };
+		2C6273D41B82101700B4369F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273D31B82101700B4369F /* AddressBookUI.framework */; };
+		2C6273D61B82139600B4369F /* CountryCodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D51B82139600B4369F /* CountryCodeHelper.swift */; };
 		2C62F2171B672568007DA47F /* LocalStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F2161B672568007DA47F /* LocalStringHelper.swift */; };
 		2C62F2191B673861007DA47F /* PrintHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F2181B673861007DA47F /* PrintHelper.swift */; };
 		2C62F21B1B675D4D007DA47F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F21A1B675D4D007DA47F /* DateHelper.swift */; };
@@ -294,6 +304,17 @@
 		2C5526E71B4CC533000F2C7D /* PublishRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishRequest.swift; sourceTree = "<group>"; };
 		2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSettingViewController.swift; sourceTree = "<group>"; };
 		2C6162971B294878005B9EA4 /* ToolsPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsPannel.swift; sourceTree = "<group>"; };
+		2C6273BB1B81D18600B4369F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		2C6273C01B81DA5900B4369F /* PhoneRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRegisterViewController.swift; sourceTree = "<group>"; };
+		2C6273C41B82059800B4369F /* CountryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryTableViewController.swift; sourceTree = "<group>"; };
+		2C6273C81B820FAA00B4369F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SMS_SDKLocalizable.strings; sourceTree = "<group>"; };
+		2C6273C91B820FAA00B4369F /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		2C6273CA1B820FAA00B4369F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SMS_SDKLocalizable.strings"; sourceTree = "<group>"; };
+		2C6273CD1B820FFC00B4369F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2C6273CF1B82100700B4369F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		2C6273D11B82101100B4369F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		2C6273D31B82101700B4369F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		2C6273D51B82139600B4369F /* CountryCodeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeHelper.swift; sourceTree = "<group>"; };
 		2C62F2161B672568007DA47F /* LocalStringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStringHelper.swift; sourceTree = "<group>"; };
 		2C62F2181B673861007DA47F /* PrintHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintHelper.swift; sourceTree = "<group>"; };
 		2C62F21A1B675D4D007DA47F /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -481,11 +502,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6273D41B82101700B4369F /* AddressBookUI.framework in Frameworks */,
+				2C6273D21B82101100B4369F /* AddressBook.framework in Frameworks */,
+				2C6273D01B82100700B4369F /* MessageUI.framework in Frameworks */,
+				2C6273CE1B820FFC00B4369F /* libz.dylib in Frameworks */,
+				2CFDFD761B1EE96000246F59 /* libicucore.dylib in Frameworks */,
 				2C01328D1B7AC1BB00030540 /* Mantle.framework in Frameworks */,
 				2CAA013D1B74478600F26DD1 /* AsyncDisplayKit.framework in Frameworks */,
 				2C62F2211B6876A0007DA47F /* ReachabilitySwift.framework in Frameworks */,
 				2C62F21D1B6766CF007DA47F /* DateTools.framework in Frameworks */,
 				2CB362321B60DA14007F96FB /* ShareSDKiPadSimpleShareViewUI.framework in Frameworks */,
+				2C6273CC1B820FAA00B4369F /* SMS_SDK.framework in Frameworks */,
 				2C8BB2261B5D0AB700AB4320 /* MJRefresh.framework in Frameworks */,
 				2C29E0E51B4F3FA40064C2F1 /* Kingfisher.framework in Frameworks */,
 				2C29E0E31B4F3FA00064C2F1 /* MJExtension.framework in Frameworks */,
@@ -495,7 +522,6 @@
 				2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */,
 				2CFDFD7A1B1EE96D00246F59 /* Security.framework in Frameworks */,
 				2CFDFD781B1EE96600246F59 /* libz.1.2.5.dylib in Frameworks */,
-				2CFDFD761B1EE96000246F59 /* libicucore.dylib in Frameworks */,
 				2CFDFD741B1EE95600246F59 /* CoreTelephony.framework in Frameworks */,
 				2CFDFD721B1EE94F00246F59 /* QuartzCore.framework in Frameworks */,
 				2CFDFD701B1EE94700246F59 /* SystemConfiguration.framework in Frameworks */,
@@ -530,6 +556,10 @@
 		1A87E59000420D40618F20E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C6273D31B82101700B4369F /* AddressBookUI.framework */,
+				2C6273D11B82101100B4369F /* AddressBook.framework */,
+				2C6273CF1B82100700B4369F /* MessageUI.framework */,
+				2C6273CD1B820FFC00B4369F /* libz.dylib */,
 				2C01328C1B7AC1BB00030540 /* Mantle.framework */,
 				2CAA013C1B74478600F26DD1 /* AsyncDisplayKit.framework */,
 				2C62F2201B6876A0007DA47F /* ReachabilitySwift.framework */,
@@ -587,6 +617,15 @@
 				2C62F2261B68B3E3007DA47F /* TextInputContentViewController.swift */,
 			);
 			name = EditViewController;
+			sourceTree = "<group>";
+		};
+		2C6273C61B820FAA00B4369F /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				2C6273C71B820FAA00B4369F /* SMS_SDKLocalizable.strings */,
+				2C6273C91B820FAA00B4369F /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
 			sourceTree = "<group>";
 		};
 		2C7BA27F1B671F1100894102 /* json file */ = {
@@ -736,6 +775,7 @@
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
 				2C92EA7F1B413F6A00ABFABB /* Font */,
+				2C6273C61B820FAA00B4369F /* SMS_SDK */,
 				2CFDFD581B1EE91800246F59 /* ShareSDK */,
 				2C8028A31B6B4CC300FCB7B2 /* BlackCatManager_Emiaostein */,
 				2C8F50891B5CD83F0093DC63 /* EmiaosteinJsonManager */,
@@ -749,6 +789,8 @@
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
 				2C4B85011B5F36EE006B24FD /* UserViewController.swift */,
+				2C6273C01B81DA5900B4369F /* PhoneRegisterViewController.swift */,
+				2C6273C41B82059800B4369F /* CountryTableViewController.swift */,
 				2C62F21E1B6798FA007DA47F /* ShareViewController.swift */,
 				2CB3621E1B60C4AF007F96FB /* ShareController.swift */,
 				2CB4BD551AE337EA00DF6019 /* ViewController.swift */,
@@ -762,6 +804,7 @@
 				2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CF293531B32C03D00539F76 /* Independent.storyboard */,
+				2C6273BB1B81D18600B4369F /* Login.storyboard */,
 				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
 				2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */,
 				2CB4BD511AE337EA00DF6019 /* Supporting Files */,
@@ -881,6 +924,7 @@
 				2C62F21A1B675D4D007DA47F /* DateHelper.swift */,
 				2C7BA2801B671F7C00894102 /* HUDHelper.swift */,
 				2C62F2221B687869007DA47F /* AlertHelper.swift */,
+				2C6273D51B82139600B4369F /* CountryCodeHelper.swift */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1122,6 +1166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6273CB1B820FAA00B4369F /* SMS_SDKLocalizable.strings in Resources */,
 				2CB362361B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
 				2CE121E51B45436400FB10C5 /* TextInputView.xib in Resources */,
@@ -1132,6 +1177,7 @@
 				2CF293A41B33B46900539F76 /* BookDetailInfoCell.xib in Resources */,
 				2CAC96571B54D37900BA5291 /* main.json in Resources */,
 				2CB362341B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */,
+				2C6273BC1B81D18600B4369F /* Login.storyboard in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
 				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
 				2C92EA801B413F6A00ABFABB /* Font in Resources */,
@@ -1306,6 +1352,7 @@
 				2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */,
 				2C62F2171B672568007DA47F /* LocalStringHelper.swift in Sources */,
 				2C69242E1B4686BA00CC327D /* ColorItem.swift in Sources */,
+				2C6273C51B82059800B4369F /* CountryTableViewController.swift in Sources */,
 				2C7763611B056C33000DDFB2 /* ContainerNode.swift in Sources */,
 				2C1825D61B2802DB00F3B59E /* Request.swift in Sources */,
 				2C2FB2431B4FD50E000F0FFA /* MaskView.swift in Sources */,
@@ -1313,6 +1360,7 @@
 				2CC7BDAC1B65236D001E7277 /* NormalLayout.swift in Sources */,
 				2CBAA8451B78828C00CE4883 /* FilePathsRequest.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
+				2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2C8028AF1B6B4CF600FCB7B2 /* BlackCatOptionsInfo.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
@@ -1351,6 +1399,7 @@
 				2C4D81091B53F10900A93383 /* UploadCompleteReqest.swift in Sources */,
 				2C2FB2491B4FE4DA000F0FFA /* Animation.swift in Sources */,
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
+				2C6273D61B82139600B4369F /* CountryCodeHelper.swift in Sources */,
 				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2C0A69C61B5B44F200A6CF1A /* EditNavigationViewController.swift in Sources */,
@@ -1402,6 +1451,15 @@
 				2C0BB48A1B2AD4B4007C18AC /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		2C6273C71B820FAA00B4369F /* SMS_SDKLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C6273C81B820FAA00B4369F /* en */,
+				2C6273CA1B820FAA00B4369F /* zh-Hans */,
+			);
+			name = SMS_SDKLocalizable.strings;
 			sourceTree = "<group>";
 		};
 		2CB4BD571AE337EA00DF6019 /* Main.storyboard */ = {
@@ -1478,8 +1536,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1490,6 +1548,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
 					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/SMS_SDK",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1512,7 +1571,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1624,8 +1683,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1636,6 +1695,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
 					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/SMS_SDK",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1658,7 +1718,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1671,8 +1731,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1683,6 +1743,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos/Pods-CuriosSwift",
 					"$(PROJECT_DIR)/CuriosSwift/ShareSDK/UI",
 					"$(PROJECT_DIR)/build/Release-iphoneos/Pods-CuriosSwift",
+					"$(PROJECT_DIR)/CuriosSwift/SMS_SDK",
 				);
 				INFOPLIST_FILE = CuriosSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1705,7 +1766,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "c9d36c16-09f0-4639-93c3-1d17c72d2b23";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

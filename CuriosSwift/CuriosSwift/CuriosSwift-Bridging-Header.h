@@ -8,5 +8,7 @@
 //#import <pop/POP.h>
 //#import <POP/POPLayerExtras.h>
 #import <ShareSDK/ShareSDK.h>
+#import <SMS_SDK/SMS_SDK.h>
+#import <SMS_SDK/CountryAndAreaCode.h>
 #import "WXApi.h"
 //#import <DateTools/NSDate+DateTools.h>
