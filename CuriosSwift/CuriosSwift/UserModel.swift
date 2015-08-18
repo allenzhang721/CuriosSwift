@@ -15,13 +15,13 @@ class UserModel: Model {
     var descri = ""
     var password = ""
     var iconURL = ""
-    var sex = ""
+  var sex = 0
     var email = ""
     var phone = ""
     var areacode = ""
-    var countryID = ""
-    var provinceID = ""
-    var cityID = ""
+    var countryID = 0
+    var provinceID = 0
+    var cityID = 0
     var weixin = ""
     var weibo = ""
     
@@ -41,7 +41,7 @@ class UserModel: Model {
             "provinceID" : "provinceID",
             "cityID" : "cityID",
             "weixin" : "weixin",
-            "weibo" : "weibo",
+            "weibo" : "weibo"
         ]
     }
 }

@@ -97,20 +97,19 @@ class UserRequest :NSObject{
             }
             if resultTypeStr == "success" {
                 var newUser = UserModel()
-                newUser.userID = (dic["userID"] as? String)!
-                newUser.nikename = (dic["nikeName"] as? String)!
-                newUser.descri = (dic["description"] as? String)!
-                newUser.iconURL = (dic["iconURL"] as? String)!
-                let sex = dic["sex"] as? Int
-                newUser.sex = String(stringInterpolationSegment: sex)
-                newUser.email = (dic["email"] as? String)!
-                newUser.areacode = String(stringInterpolationSegment: dic["areacode"] as? Int)
-                newUser.phone = (dic["phone"] as? String)!
-                newUser.weixin = (dic["weixin"] as? String)!
-                newUser.weibo = (dic["weibo"] as? String)!;
-                newUser.countryID = String(stringInterpolationSegment: dic["countryID"] as? Int)
-                newUser.provinceID = String(stringInterpolationSegment: dic["provinceID"] as? Int)
-                newUser.cityID = String(stringInterpolationSegment: dic["cityID"] as? Int)
+              newUser.userID = (dic["userID"] as? String)!
+              newUser.nikename = (dic["nikeName"] as? String)!
+              newUser.descri = (dic["description"] as? String)!
+              newUser.iconURL = (dic["iconURL"] as? String)!
+              newUser.sex = (dic["sex"] as? Int)!
+              newUser.email = (dic["email"] as? String)!
+              newUser.areacode = (dic["areacode"] as? String)!
+              newUser.phone = (dic["phone"] as? String)!
+              newUser.weixin = (dic["weixin"] as? String)!
+              newUser.weibo = (dic["weibo"] as? String)!
+              newUser.countryID = (dic["countryID"] as? Int)!
+              newUser.provinceID = (dic["provinceID"] as? Int)!
+              newUser.cityID = (dic["cityID"] as? Int)!
                 
                 if let aDelegate = self.registerDelegate{
                     aDelegate.requestSuccess(newUser, resultIndex: resultMes);

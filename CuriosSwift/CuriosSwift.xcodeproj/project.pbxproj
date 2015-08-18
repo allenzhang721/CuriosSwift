@@ -69,6 +69,14 @@
 		2C6273D21B82101100B4369F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273D11B82101100B4369F /* AddressBook.framework */; };
 		2C6273D41B82101700B4369F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273D31B82101700B4369F /* AddressBookUI.framework */; };
 		2C6273D61B82139600B4369F /* CountryCodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D51B82139600B4369F /* CountryCodeHelper.swift */; };
+		2C6273D81B82D49400B4369F /* RegisterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D71B82D49400B4369F /* RegisterHelper.swift */; };
+		2C6273DA1B82E24900B4369F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D91B82E24900B4369F /* Register.swift */; };
+		2C6273DC1B82E55A00B4369F /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */; };
+		2C6273E01B82E59800B4369F /* RegisterWeiboRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */; };
+		2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */; };
+		2C6273E41B82E73300B4369F /* RegisterPhoneRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273E31B82E73300B4369F /* RegisterPhoneRequest.swift */; };
+		2C6273E61B82EE7300B4369F /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273E51B82EE7300B4369F /* VerificationViewController.swift */; };
+		2C6273EA1B8345C600B4369F /* RegisterInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273E91B8345C600B4369F /* RegisterInfoViewController.swift */; };
 		2C62F2171B672568007DA47F /* LocalStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F2161B672568007DA47F /* LocalStringHelper.swift */; };
 		2C62F2191B673861007DA47F /* PrintHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F2181B673861007DA47F /* PrintHelper.swift */; };
 		2C62F21B1B675D4D007DA47F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62F21A1B675D4D007DA47F /* DateHelper.swift */; };
@@ -315,6 +323,14 @@
 		2C6273D11B82101100B4369F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2C6273D31B82101700B4369F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		2C6273D51B82139600B4369F /* CountryCodeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeHelper.swift; sourceTree = "<group>"; };
+		2C6273D71B82D49400B4369F /* RegisterHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterHelper.swift; sourceTree = "<group>"; };
+		2C6273D91B82E24900B4369F /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterWeiboRequest.swift; sourceTree = "<group>"; };
+		2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterWeixinRequest.swift; sourceTree = "<group>"; };
+		2C6273E31B82E73300B4369F /* RegisterPhoneRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPhoneRequest.swift; sourceTree = "<group>"; };
+		2C6273E51B82EE7300B4369F /* VerificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
+		2C6273E91B8345C600B4369F /* RegisterInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterInfoViewController.swift; sourceTree = "<group>"; };
 		2C62F2161B672568007DA47F /* LocalStringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStringHelper.swift; sourceTree = "<group>"; };
 		2C62F2181B673861007DA47F /* PrintHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintHelper.swift; sourceTree = "<group>"; };
 		2C62F21A1B675D4D007DA47F /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -709,6 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				2C4D81041B5349A200A93383 /* RequestURL.swift */,
+				2C6273D91B82E24900B4369F /* Register.swift */,
 				2CAC964F1B54BD4500BA5291 /* Theme&Template.swift */,
 				2C0355651B786413005FC94B /* ServePaths.swift */,
 				2CAC96691B550AE500BA5291 /* List&Edit&Save&Publish.swift */,
@@ -789,6 +806,8 @@
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
 				2C4B85011B5F36EE006B24FD /* UserViewController.swift */,
+				2C6273E91B8345C600B4369F /* RegisterInfoViewController.swift */,
+				2C6273E51B82EE7300B4369F /* VerificationViewController.swift */,
 				2C6273C01B81DA5900B4369F /* PhoneRegisterViewController.swift */,
 				2C6273C41B82059800B4369F /* CountryTableViewController.swift */,
 				2C62F21E1B6798FA007DA47F /* ShareViewController.swift */,
@@ -925,6 +944,7 @@
 				2C7BA2801B671F7C00894102 /* HUDHelper.swift */,
 				2C62F2221B687869007DA47F /* AlertHelper.swift */,
 				2C6273D51B82139600B4369F /* CountryCodeHelper.swift */,
+				2C6273D71B82D49400B4369F /* RegisterHelper.swift */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1052,6 +1072,10 @@
 				2CAC964E1B54BD2600BA5291 /* RequestURL */,
 				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */,
+				2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */,
+				2C6273E31B82E73300B4369F /* RegisterPhoneRequest.swift */,
+				2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */,
+				2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */,
 				66C7839F1B281956002139F1 /* UserRequest.swift */,
 				2CAC96601B54EA5100BA5291 /* ThemeRequest.swift */,
 				2CAC96621B54F54400BA5291 /* TemplateRequest.swift */,
@@ -1266,10 +1290,13 @@
 				2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */,
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
+				2C6273E41B82E73300B4369F /* RegisterPhoneRequest.swift in Sources */,
+				2C6273DC1B82E55A00B4369F /* RegisterRequest.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */,
 				2C2FB2471B4FE4BC000F0FFA /* Behavior.swift in Sources */,
 				2C5427001B2A98A2007FF1DE /* Pannel.swift in Sources */,
+				2C6273E61B82EE7300B4369F /* VerificationViewController.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
 				2C9495AF1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
@@ -1314,9 +1341,11 @@
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
 				2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */,
 				2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */,
+				2C6273D81B82D49400B4369F /* RegisterHelper.swift in Sources */,
 				2C9147B41B0845C400579E4A /* PageModel.swift in Sources */,
 				2C5D46B91B3CF1A4001D77FF /* UploadSettingViewController.swift in Sources */,
 				2CFD5AD31B4F5BD200473C44 /* ViewController+Extension.swift in Sources */,
+				2C6273E01B82E59800B4369F /* RegisterWeiboRequest.swift in Sources */,
 				2C4388891AF7BCB40084236F /* FakePageView.swift in Sources */,
 				2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */,
 				2C8028AB1B6B4CF600FCB7B2 /* BlackCatCache.swift in Sources */,
@@ -1326,6 +1355,7 @@
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9495B11B57409C00D77EE2 /* EditToolSettingPannel.swift in Sources */,
+				2C6273EA1B8345C600B4369F /* RegisterInfoViewController.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2CAC965B1B54E49500BA5291 /* TemplateModel.swift in Sources */,
 				2C8A8F3C1B4277B500606CCF /* OverlayPresentationController.swift in Sources */,
@@ -1361,6 +1391,7 @@
 				2CBAA8451B78828C00CE4883 /* FilePathsRequest.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
 				2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */,
+				2C6273DA1B82E24900B4369F /* Register.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2C8028AF1B6B4CF600FCB7B2 /* BlackCatOptionsInfo.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
@@ -1410,6 +1441,7 @@
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
 				2C62F2231B687869007DA47F /* AlertHelper.swift in Sources */,
 				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,
+				2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
 				2CCB022A1B7B6A0700DDADF3 /* TemplateTokenRequest.swift in Sources */,

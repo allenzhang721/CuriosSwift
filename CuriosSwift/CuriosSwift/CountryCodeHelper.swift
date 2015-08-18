@@ -20,4 +20,75 @@ class  CountryCodeHelper {
     return defaultCodes.count
   }
   
+  class func currentCountryDisplayNameAreaCodeCountryCode() -> (String, String, String) {
+    let local = NSLocale.currentLocale()
+    let countryCode = local.objectForKey(NSLocaleCountryCode) as! String
+    let areaCode = CountryCodeHelper.defaultCodes[countryCode]
+    let countryName = local.displayNameForKey(NSLocaleCountryCode, value: countryCode)
+    return (countryName!, areaCode!, countryCode)
+  }
+  
+  /*
+  {
+  rule = "[0-9]{10}";
+  zone = 1;
+  }
+  */
+  
+  class func getVerificationCodeBySMSWithPhone(phone: String, zoneCode: String, compelted:(Bool) -> ()) {
+    
+    SMS_SDK.getVerificationCodeBySMSWithPhone(phone, zone: zoneCode) { (error) -> Void in
+      
+      if error == nil {
+        debugPrint.p("验证码发送成功")
+        compelted(true)
+      } else {
+        compelted(false)
+      }
+    }
+    
+  }
+  
+  class func commit(verifyCode: String, compelted:(Bool) -> ()) {
+    
+    SMS_SDK.commitVerifyCode(verifyCode, result: { (state) -> Void in
+      
+      if state.value == 1 {
+        compelted(true)
+      } else {
+        compelted(false)
+      }
+    })
+  }
+  
+  
+  
+  struct Zone {
+    let zoneCode: String   // 86
+    let phoneCheckRule: String //
+  }
+  
+  class func getZone(completed:(Bool, [Zone]) -> ()) {
+    SMS_SDK.getZone { (state, array) -> Void in
+      if state.value == 1 {
+        debugPrint.p("get the area code sucessfully")
+        
+        let zones = array.map({ (zoneDic) -> Zone in
+          let zoneCode = zoneDic["zone"] as! String
+          let rule = zoneDic["rule"] as! String
+          return Zone(zoneCode: zoneCode, phoneCheckRule: rule)
+        })
+        
+        completed(true, zones)
+      } else {
+        completed(true, [Zone]())
+      }
+    }
+  }
+  
+//  class func checkZoneBy(zoneCode: String, phone: String, toTargetZone zone: Zone) -> Bool {
+//    
+//    
+//  }
+  
 }

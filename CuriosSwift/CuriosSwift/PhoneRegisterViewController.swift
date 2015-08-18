@@ -1,6 +1,6 @@
 //
 //  PhoneLoginViewController.swift
-//  
+//
 //
 //  Created by Emiaostein on 8/17/15.
 //
@@ -11,6 +11,7 @@ import UIKit
 class PhoneRegisterViewController: UIViewController {
   
   struct Register {
+    var countryDisplayName: String
     var areacode: String
     var phone: String
     var password: String
@@ -22,17 +23,27 @@ class PhoneRegisterViewController: UIViewController {
       password = number
     }
     
-    func checkOK() -> Bool {
+    func checkOKWith(zoneCode: String, rule: String) -> Bool {
       
-      if phone.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) != 11 {
+      // get current zone code and rule
+      if zoneCode != areacode {
         return false
       }
       
+      // basic check: password count
       let passwordLength = password.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
       if passwordLength < 6 || passwordLength > 16 {
         return false
       }
       
+      
+      // phone rule
+      debugPrint.p(rule)
+      let predicate = NSPredicate(format: "SELF MATCHES %@", rule)
+      if !predicate.evaluateWithObject(phone) {
+        return false
+      }
+
       if !areacode.isEmpty && !phone.isEmpty && !password.isEmpty {
         return true
       }
@@ -41,55 +52,109 @@ class PhoneRegisterViewController: UIViewController {
     }
   }
   
-  let countryCodes = CountryAndAreaCode()
+  var supportZones: [CountryCodeHelper.Zone] = []
+  
+  var currentZone: CountryCodeHelper.Zone!
   
   @IBOutlet weak var loginButton: UIButton!
   
   
-  var defaultRegister = Register(areacode: "86", phone: "", password: "")
+  var defaultRegister:Register!
   
   @IBOutlet weak var tableView: UITableView!
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    begain()
+    
+    loginButton.enabled = false
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    func showRegisterInfoVC() {
+      if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
+        
+        navigationController?.pushViewController(infoVC, animated: true)
+      }
       
-      loginButton.enabled = false
       
-      NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    showRegisterInfoVC()
+  }
+  
+  func begain() {
+    
+    // current areaCode and country name
+    let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
+    let countryName = currentZoneInfo.0
+    let areaCode = currentZoneInfo.1
+    defaultRegister = Register(countryDisplayName: countryName, areacode: areaCode, phone: "", password: "")
+    
+    // zone
+    CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
+      if let strongSelf = self {
+        if success {
+          strongSelf.supportZones = zones
+          strongSelf.updateCurrentZoneWith(areaCode, zones: strongSelf.supportZones)
+        }
+      }
     }
+  }
+  
+  func updateCurrentZoneWith(zoneCode: String, zones: [CountryCodeHelper.Zone]) {
+    
+    let currentzone = zones.filter { zone -> Bool in
+      
+      return zone.zoneCode == zoneCode
+    }
+    
+    if currentzone.count > 0 {
+      currentZone = currentzone.first!
+      debugPrint.p("currentZone = \(currentZone)")
+    }
+  }
   
   
   @IBAction func loginAction(sender: UIButton) {
     
+    let phone = defaultRegister.phone
+    let zone = defaultRegister.areacode
     
+    CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[unowned self] (success) -> () in
+      
+      if success {
+        self.showVerificationVC()
+      } else {
+        
+      }
+    }
   }
   
+  func showVerificationVC() {
+    
+    if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
+      vc.phone = defaultRegister.phone
+      vc.areaCode = defaultRegister.areacode
+      vc.password = defaultRegister.password
+      
+      debugPrint.p(defaultRegister.password)
+      navigationController?.pushViewController(vc, animated: true)
+    }
+  }
   
   func showCountryVC() {
     
     if let countryVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("CountryTableViewController") as? CountryTableViewController {
       
       navigationController?.pushViewController(countryVC, animated: true)
-      
     }
-    
   }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate {
@@ -100,7 +165,6 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
       
       showCountryVC()
     }
-    
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,40 +172,46 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     return 3
   }
   
-  // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-  // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if indexPath.item == 0 {
       if let cell = tableView.dequeueReusableCellWithIdentifier("CountryCell") as? UITableViewCell {
         println("CountryCell")
+        cell.detailTextLabel?.textColor = UIColor(hexString: "#4894ED")
+        cell.detailTextLabel?.text = defaultRegister.countryDisplayName
         return cell
       }
     }
     
     if indexPath.item == 1 {
-    if let cell = tableView.dequeueReusableCellWithIdentifier("PhoneCell") as? UITableViewCell {
-      println("PhoneCell")
-      if let textField = cell.viewWithTag(1001) as? UITextField where textField.delegate == nil {
-        textField.delegate = self
+      if let cell = tableView.dequeueReusableCellWithIdentifier("PhoneCell") as? UITableViewCell {
+        println("PhoneCell")
+        cell.textLabel?.text = "+ " + defaultRegister.areacode
+        if let textField = cell.viewWithTag(1001) as? UITextField {
+          if textField.delegate == nil {
+            textField.delegate = self
+          }
+          textField.text = defaultRegister.phone
+        }
+        return cell
       }
-      return cell
-    }
     }
     
     if indexPath.item == 2 {
-    if let cell = tableView.dequeueReusableCellWithIdentifier("PasswordCell") as? UITableViewCell {
-      println("PasswordCell")
-      if let textField = cell.viewWithTag(1000) as? UITextField where textField.delegate == nil {
-        textField.delegate = self
+      if let cell = tableView.dequeueReusableCellWithIdentifier("PasswordCell") as? UITableViewCell {
+        println("PasswordCell")
+        if let textField = cell.viewWithTag(1001) as? UITextField {
+          if textField.delegate == nil {
+            textField.delegate = self
+          }
+          textField.text = defaultRegister.password
+        }
+        return cell
       }
-      return cell
-    }
     }
     
     let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
-      return cell
+    return cell
   }
 }
 
@@ -150,11 +220,13 @@ extension PhoneRegisterViewController: UITextFieldDelegate {
   func textFieldDidChanged(notification: NSNotification) {
     
     let textField = notification.object as! UITextField
-    
+    let zoneCode = currentZone.zoneCode
+    let rule = currentZone.phoneCheckRule
     if textField.tag == 1001 {
       println(textField.text)
       defaultRegister.updatePhone(textField.text)
-      if defaultRegister.checkOK() {
+      
+      if defaultRegister.checkOKWith(zoneCode, rule: rule) {
         loginButton.enabled = true
       } else {
         loginButton.enabled = false
@@ -164,43 +236,13 @@ extension PhoneRegisterViewController: UITextFieldDelegate {
     if textField.tag == 1000 {
       println(textField.text)
       defaultRegister.updatePassword(textField.text)
-      if defaultRegister.checkOK() {
+      if defaultRegister.checkOKWith(zoneCode, rule: rule) {
         loginButton.enabled = true
       } else {
         loginButton.enabled = false
       }
     }
-    
   }
-  
-//  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-//    
-//    
-//    
-//    if textField.tag == 1001 {
-//      println(textField.text)
-//      defaultRegister.updatePhone(textField.text)
-//      if defaultRegister.checkOK() {
-//        loginButton.enabled = true
-//      } else {
-//        loginButton.enabled = false
-//      }
-//    }
-//    
-//    if textField.tag == 1000 {
-//      println(textField.text)
-//      defaultRegister.updatePassword(textField.text)
-//      if defaultRegister.checkOK() {
-//        loginButton.enabled = true
-//      } else {
-//        loginButton.enabled = false
-//      }
-//    }
-//    
-//    
-//    return true
-//  }
-  
 }
 
 
