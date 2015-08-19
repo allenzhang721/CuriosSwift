@@ -11,4 +11,5 @@
 #import <SMS_SDK/SMS_SDK.h>
 #import <SMS_SDK/CountryAndAreaCode.h>
 #import "WXApi.h"
+#import "AESCrypt.h"
 //#import <DateTools/NSDate+DateTools.h>

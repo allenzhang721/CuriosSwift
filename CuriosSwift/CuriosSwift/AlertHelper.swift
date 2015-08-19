@@ -15,8 +15,63 @@ class AlertHelper {
 //  TIPS = "温馨提醒";
 //NEEDCONNECTED = "您的网络已中断，请先连接网络，建议在在 WiFi 下使用";
   
-  class func alert_needConnected() -> UIAlertController {
+  // 我们将发送验证码短信到这个号码
+  class func alert_willSendVerify(userinfo:String, finished: (Bool) -> ()) -> UIAlertController {
     
+    let title = localString("CONFIRMPHONE")
+    let message = localString("WILLSENDVERIFY") + "\n" + userinfo
+    let confirm = localString("CONTINUE")
+    let cancel = localString("CANCEL")
+    
+    return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
+  }
+  
+  // 验证码短信确定返回并重新开始
+  class func alert_verifyback(finished: (Bool) -> ()) -> UIAlertController {
+    
+    let title = localString("TIPS")
+    let message = localString("VERIFYBACK")
+    let confirm = localString("CONTINUE")
+    let cancel = localString("CANCEL")
+    
+    return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
+  }
+  
+  // 验证码不正确
+  class func alert_verifyfail() -> UIAlertController {
+    
+    let title = localString("TIPS")
+    let message = localString("VERIFYFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
+  
+  // 该号码已经注册，是否直接登录奇思？
+  class func alert_hasRegistered(finished: (Bool) -> ()) -> UIAlertController {
+    
+    //HASREGISTERED
+    let title = localString("TIPS")
+    let message = localString("HASREGISTERED")
+    let confirm = localString("CONTINUE")
+    let cancel = localString("CANCEL")
+    
+    return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
+  }
+  
+  
+  // 密码或者账户错误
+  class func alert_countfail() -> UIAlertController {
+    
+    let title = localString("TIPS")
+    let message = localString("COUNTFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
+  class func alert_needConnected() -> UIAlertController {
     //    KNEW = "知道了";
     //    INTERNETBROKEN = "网络已关闭";
     let title = localString("TIPS")

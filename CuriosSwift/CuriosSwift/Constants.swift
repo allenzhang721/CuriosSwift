@@ -11,6 +11,7 @@ import Foundation
 let ranToAngle = CGFloat(180 / M_PI)
 let angleToRan = CGFloat(M_PI / 180)
 
+let AESDecrptKey = "(P0g4k7fw6F859)E"
 
 
 // constant file name

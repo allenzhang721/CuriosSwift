@@ -19,12 +19,14 @@ private func requstURL(baseURL: String)(_ components: [String]) -> String {
 
 class BaseRequst {
   
+//  static let AESDecrptKey = "(P0g4k7fw6F859)E"
+  
   let officeDomain = "http://src.curiosapp.com"
     let publicDomain = "http://182.92.150.178/curiosService"
-    let testDomain = "http://192.168.1.101:8080/curiosService"
+    let testDomain = "http://192.168.1.105:8080/curiosService"
     var baseURL: String {
         
-        return publicDomain
+        return testDomain
     }
     typealias Result = ([String : AnyObject]) -> Void
     let requestComponents: [String]
@@ -91,6 +93,28 @@ class BaseRequst {
                     println("HTTP HTTP Request failed: \(error)")
                 }
         }
+//      let key = BaseRequst.AESDecrptKey
+//      Alamofire.request(.POST, url, parameters: URLParameters)
+//                  .validate(statusCode: 200..<300)
+//      .responseString(encoding: NSUTF8StringEncoding) {[unowned self] (request, response, AESString, error) -> Void in
+//        if error == nil {
+//          let jsonString = AESCrypt.decrypt(AESString!, password: key)
+//          if let JSONData = (jsonString as NSString).dataUsingEncoding(NSUTF8StringEncoding),
+//            let jsondic = NSJSONSerialization.JSONObjectWithData(JSONData, options: NSJSONReadingOptions(0), error: nil) as? [String : AnyObject] {
+//              self.result(jsondic)
+//              self.delegate?.requestSuccess()
+//          } else {
+//            self.delegate?.requestFailed()
+//          }
+//        }else {
+//            if let aError = error{
+//                if let aDelegate = self.delegate {
+//                    aDelegate.requestIOError(aError);
+//                }
+//            }
+//            println("HTTP HTTP Request failed: \(error)")
+//        }
+//      }
     }
 }
 

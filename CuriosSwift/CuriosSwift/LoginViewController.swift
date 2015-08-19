@@ -41,6 +41,8 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     
   }
   
+  
+  
   func navigationController(controller: LaunchNaviViewController, loginUser user: UserModel) {
     
     saveUserInfo(user)
@@ -63,14 +65,15 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
       self.showPhoneRegisterVC(false)
     }
     
-//    let cancel = UIAlertAction(title: localString("CANCEL"), style: .Cancel) { (action) -> Void in
-//      
-//    }
+    let cancel = UIAlertAction(title: localString("CANCEL"), style: .Cancel) { (action) -> Void in
+      
+    }
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     
     alert.addAction(login)
     alert.addAction(register)
+    alert.addAction(cancel)
     
     presentViewController(alert, animated: true, completion: nil)
   }

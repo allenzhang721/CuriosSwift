@@ -209,6 +209,10 @@
 		2CD3FA351B842E8400CA0ABB /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */; };
 		2CD3FA371B8435D800CA0ABB /* PhoneLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA361B8435D800CA0ABB /* PhoneLoginViewController.swift */; };
 		2CD3FA391B84391A00CA0ABB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA381B84391A00CA0ABB /* LoginRequest.swift */; };
+		2CD3FA8B1B84863200CA0ABB /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA841B84863200CA0ABB /* AESCrypt.m */; };
+		2CD3FA8C1B84863200CA0ABB /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA861B84863200CA0ABB /* NSData+Base64.m */; };
+		2CD3FA8D1B84863200CA0ABB /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA881B84863200CA0ABB /* NSData+CommonCrypto.m */; };
+		2CD3FA8E1B84863200CA0ABB /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA8A1B84863200CA0ABB /* NSString+Base64.m */; };
 		2CD6C30F1B17E892000C4FC6 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C30E1B17E892000C4FC6 /* URL.swift */; };
 		2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078A1B0B2908008B286B /* BookListViewController.swift */; };
 		2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078C1B0B2B5A008B286B /* IUser.swift */; };
@@ -475,6 +479,14 @@
 		2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		2CD3FA361B8435D800CA0ABB /* PhoneLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneLoginViewController.swift; sourceTree = "<group>"; };
 		2CD3FA381B84391A00CA0ABB /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		2CD3FA831B84863200CA0ABB /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		2CD3FA841B84863200CA0ABB /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		2CD3FA851B84863200CA0ABB /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		2CD3FA861B84863200CA0ABB /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		2CD3FA871B84863200CA0ABB /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		2CD3FA881B84863200CA0ABB /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		2CD3FA891B84863200CA0ABB /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		2CD3FA8A1B84863200CA0ABB /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		2CD6C30E1B17E892000C4FC6 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		2CD8078A1B0B2908008B286B /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
 		2CD8078C1B0B2B5A008B286B /* IUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IUser.swift; sourceTree = "<group>"; };
@@ -798,6 +810,7 @@
 		2CB4BD501AE337EA00DF6019 /* CuriosSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2CD3FA821B84861800CA0ABB /* AES256 */,
 				2C7BA27F1B671F1100894102 /* json file */,
 				2CB4BD751AE33AD500DF6019 /* CuriosSwift-Bridging-Header.h */,
 				2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */,
@@ -939,6 +952,21 @@
 				2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */,
 			);
 			name = Layouts;
+			sourceTree = "<group>";
+		};
+		2CD3FA821B84861800CA0ABB /* AES256 */ = {
+			isa = PBXGroup;
+			children = (
+				2CD3FA831B84863200CA0ABB /* AESCrypt.h */,
+				2CD3FA841B84863200CA0ABB /* AESCrypt.m */,
+				2CD3FA851B84863200CA0ABB /* NSData+Base64.h */,
+				2CD3FA861B84863200CA0ABB /* NSData+Base64.m */,
+				2CD3FA871B84863200CA0ABB /* NSData+CommonCrypto.h */,
+				2CD3FA881B84863200CA0ABB /* NSData+CommonCrypto.m */,
+				2CD3FA891B84863200CA0ABB /* NSString+Base64.h */,
+				2CD3FA8A1B84863200CA0ABB /* NSString+Base64.m */,
+			);
+			name = AES256;
 			sourceTree = "<group>";
 		};
 		2CD6C30D1B17E877000C4FC6 /* Utilty */ = {
@@ -1307,6 +1335,7 @@
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
 				2C6273E41B82E73300B4369F /* RegisterPhoneRequest.swift in Sources */,
 				2CD3FA311B8413B500CA0ABB /* UpdateUserInfoRequest.swift in Sources */,
+				2CD3FA8B1B84863200CA0ABB /* AESCrypt.m in Sources */,
 				2C6273DC1B82E55A00B4369F /* RegisterRequest.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */,
@@ -1407,6 +1436,7 @@
 				2C2FB2431B4FD50E000F0FFA /* MaskView.swift in Sources */,
 				2CAC96501B54BD4500BA5291 /* Theme&Template.swift in Sources */,
 				2CC7BDAC1B65236D001E7277 /* NormalLayout.swift in Sources */,
+				2CD3FA8C1B84863200CA0ABB /* NSData+Base64.m in Sources */,
 				2CBAA8451B78828C00CE4883 /* FilePathsRequest.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
 				2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */,
@@ -1415,6 +1445,7 @@
 				2C8028AF1B6B4CF600FCB7B2 /* BlackCatOptionsInfo.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
+				2CD3FA8E1B84863200CA0ABB /* NSString+Base64.m in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
 				2C8926851B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift in Sources */,
 				2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */,
@@ -1461,6 +1492,7 @@
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
 				2C62F2231B687869007DA47F /* AlertHelper.swift in Sources */,
 				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,
+				2CD3FA8D1B84863200CA0ABB /* NSData+CommonCrypto.m in Sources */,
 				2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
@@ -1588,8 +1620,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1623,7 +1655,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1735,8 +1767,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1770,7 +1802,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1783,8 +1815,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1818,7 +1850,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

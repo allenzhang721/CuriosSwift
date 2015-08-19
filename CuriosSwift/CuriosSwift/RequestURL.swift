@@ -9,17 +9,44 @@
 import Foundation
 
 func dicToJson(dic: [String: AnyObject]) -> String {
-  
+//  let aesKey = BaseRequst.AESDecrptKey
   let jsonData = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
-  return NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
+  let string = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
+//  let encryptString = AESCrypt.encrypt(string, password: aesKey)
+  
+//  debugPrint.p("String = \(string) /n enString = \(encryptString)")
+  
+  return string
 }
 
 
 
 let getPublishID = ["publish", "getPublishID"] // get a new ID when create a new book
-let addPublishFile = ["publish", "publishFile"] // finish published use this API to record the pubish info and get
+//let addPublishFile = ["publish", "publishFile"] // finish published use this API to record the pubish info and get
 
-let uploadCompleteURL = ["upload", "uploadComplete"]
-let getPublishToken = ["upload", "publishUptoken"] // upload non-resourse(image) file / data's token
-let getImageToken = ["upload", "imageUptoken"] // upload resourse(image) file / data's token
+//let uploadCompleteURL = ["upload", "uploadComplete"]
+//let getPublishToken = ["upload", "publishUptoken"] // upload non-resourse(image) file / data's token
+//let getImageToken = ["upload", "imageUptoken"] // upload resourse(image) file / data's token
 
+let GET_PUBLISH_ID = ["publish", "getPublishID"]
+
+let GET_PUBLISH_TOKEN = ["upload", "publishUptoken"]
+func GET_PUBLISH_TOKEN_paras (key: String) -> String {
+  
+  let data = ["list":[
+    ["key": key]
+    ]
+  ]
+  return dicToJson(data)
+}
+
+
+let GET_IMAGE_TOKEN = ["upload", "imageUptoken"]
+func GET_IMAGE_TOKEN_paras (key: String) -> String {
+  
+  let data = ["list":[
+    ["key": key]
+    ]
+  ]
+  return dicToJson(data)
+}

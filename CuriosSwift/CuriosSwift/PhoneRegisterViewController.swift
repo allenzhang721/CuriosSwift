@@ -12,6 +12,9 @@ class PhoneRegisterViewController: UIViewController {
   
   var isLogin = false
   
+  var phoneTextField: UITextField!
+  var passwordTextField: UITextField!
+  
   struct Register {
     var countryDisplayName: String
     var areacode: String
@@ -34,7 +37,7 @@ class PhoneRegisterViewController: UIViewController {
       
       // basic check: password count
       let passwordLength = password.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-      if passwordLength < 6 || passwordLength > 16 {
+      if passwordLength < 6 || passwordLength > 15 {
         return false
       }
       
@@ -89,8 +92,35 @@ class PhoneRegisterViewController: UIViewController {
 //    }
 //    showRegisterInfoVC()
 //  }
+  @IBAction func backAction(sender: AnyObject) {
+    
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
+  
+  @IBAction func tapAction(sender: UITapGestureRecognizer) {
+    
+    if let phone = phoneTextField {
+      phone.resignFirstResponder()
+    }
+    
+    if let passwor = passwordTextField {
+      passwor.resignFirstResponder()
+    }
+    
+    
+    
+  }
+  
   
   func begain() {
+    
+    if isLogin {
+      title = localString("LOGIN")
+    } else {
+      title = localString("REGISTER")
+    }
     
     // current areaCode and country name
     let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
@@ -129,31 +159,50 @@ class PhoneRegisterViewController: UIViewController {
     let zone = defaultRegister.areacode
     let password = defaultRegister.password
     
+    let encrptPassword = AESCrypt.encrypt(password, password: AESDecrptKey)
     
     if isLogin {
       
-      RegisterHelper.phoneLogin(phone, password: password, completed: {[weak self] (success, userModel) -> () in
+      RegisterHelper.phoneLogin(phone, password: encrptPassword, completed: {[weak self] (success, userModel) -> () in
         
         if success {
           self?.login(userModel!)
+        } else {
+          // acount fail
+          self?.showAcountFail()
         }
       })
       
     } else {
+      let phones = "+ \(zone) \(phone)"
       
-//      let phone = defaultRegister.phone
-//      let zone = defaultRegister.areacode
-      
-      CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[unowned self] (success) -> () in
+      let alert = AlertHelper.alert_willSendVerify(phones, finished: { [weak self] (confirm) -> () in
         
-        if success {
-          self.showVerificationVC()
-        } else {
-          
+        if let StrongSelf = self {
+          if confirm {
+            CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[weak self] (success) -> () in
+              if let strongSelf = self {
+                if success {
+                  self?.showVerificationVC()
+                } else {
+                  
+                }
+              }
+            }
+          }
         }
-      }
+      })
+      
+      self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    
+  }
+  
+  func showAcountFail() {
+    
+    let alert = AlertHelper.alert_countfail()
+    presentViewController(alert, animated: true, completion: nil)
     
   }
   
@@ -167,11 +216,14 @@ class PhoneRegisterViewController: UIViewController {
   func showVerificationVC() {
     
     if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
+      
+      let encrptPassword = AESCrypt.encrypt(defaultRegister.password, password: AESDecrptKey)
+      
       vc.phone = defaultRegister.phone
       vc.areaCode = defaultRegister.areacode
-      vc.password = defaultRegister.password
+      vc.password = encrptPassword
       
-      debugPrint.p(defaultRegister.password)
+//      debugPrint.p(defaultRegister.password)
       navigationController?.pushViewController(vc, animated: true)
     }
   }
@@ -216,6 +268,7 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
         println("PhoneCell")
         cell.textLabel?.text = "+ " + defaultRegister.areacode
         if let textField = cell.viewWithTag(1001) as? UITextField {
+          phoneTextField = textField
           if textField.delegate == nil {
             textField.delegate = self
           }
@@ -228,7 +281,8 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     if indexPath.item == 2 {
       if let cell = tableView.dequeueReusableCellWithIdentifier("PasswordCell") as? UITableViewCell {
         println("PasswordCell")
-        if let textField = cell.viewWithTag(1001) as? UITextField {
+        if let textField = cell.viewWithTag(1002) as? UITextField {
+          passwordTextField = textField
           if textField.delegate == nil {
             textField.delegate = self
           }
@@ -261,7 +315,7 @@ extension PhoneRegisterViewController: UITextFieldDelegate {
       }
     }
     
-    if textField.tag == 1000 {
+    if textField.tag == 1002 {
       println(textField.text)
       defaultRegister.updatePassword(textField.text)
       if defaultRegister.checkOKWith(zoneCode, rule: rule) {

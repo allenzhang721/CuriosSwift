@@ -1116,7 +1116,9 @@ extension EditViewController {
       return string
       }()
     
-    ImageTokenRequest.requestWithComponents(getImageToken, aJsonParameter: imageTokenDic) { (json) -> Void in
+    let para = GET_IMAGE_TOKEN_paras(key)
+    
+    ImageTokenRequest.requestWithComponents(GET_IMAGE_TOKEN, aJsonParameter: para) { (json) -> Void in
       
       if let keyTokens = json["list"] as? [[String:String]] {
         
@@ -1443,15 +1445,8 @@ extension EditViewController {
     let cur = "curiosRes.json"
     let curKey = pathByComponents([userID, bookID, js, cur])
 
-    let publishTokenDic: String = {
-      let dic = ["list":[
-        ["key": curKey]
-        ]
-      ]
-      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
-      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
-      return string
-      }()
+    
+    let paras = GET_PUBLISH_TOKEN_paras(curKey)
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     let originData = NSJSONSerialization.dataWithJSONObject(bookjson, options: NSJSONWritingOptions(0), error: nil)
@@ -1460,7 +1455,7 @@ extension EditViewController {
 //    let appString = "curiosMainJson=" + string
     let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
     
-    PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
+    PublishTokenRequest.requestWithComponents(GET_PUBLISH_TOKEN, aJsonParameter: paras) { (json) -> Void in
       if let keyLokens = json["list"] as? [[String:String]] {
         
         var datas = [NSData]()
@@ -1552,15 +1547,17 @@ extension EditViewController {
     
     let curKey = pathByComponents([userID, bookID, res, main])
     
-    let publishTokenDic: String = {
-      let dic = ["list":[
-        ["key": curKey]
-        ]
-      ]
-      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
-      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
-      return string
-      }()
+//    let publishTokenDic: String = {
+//      let dic = ["list":[
+//        ["key": curKey]
+//        ]
+//      ]
+//      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
+//      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
+//      return string
+//      }()
+    
+    let paras = GET_PUBLISH_TOKEN_paras(curKey)
     
     let bookjson = MTLJSONAdapter.JSONDictionaryFromModel(bookModel, error: nil)
     
@@ -1569,7 +1566,7 @@ extension EditViewController {
     let appString = string
     let data = appString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
     
-    PublishTokenRequest.requestWithComponents(getPublishToken, aJsonParameter: publishTokenDic) { (json) -> Void in
+    PublishTokenRequest.requestWithComponents(GET_PUBLISH_TOKEN, aJsonParameter: paras) { (json) -> Void in
       if let keyLokens = json["list"] as? [[String:String]] {
         
         var datas = [NSData]()

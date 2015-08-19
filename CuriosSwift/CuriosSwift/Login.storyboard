@@ -79,7 +79,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JtA-Yk-dSe">
-                                                    <rect key="frame" x="65" y="7" width="527" height="30"/>
+                                                    <rect key="frame" x="91" y="7" width="501" height="30"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="p7n-cG-zyM"/>
@@ -91,7 +91,7 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="JtA-Yk-dSe" secondAttribute="centerY" id="8Nd-cH-SvI"/>
-                                                <constraint firstItem="JtA-Yk-dSe" firstAttribute="leading" secondItem="lE6-ky-nKq" secondAttribute="leadingMargin" constant="57" id="G70-5y-AfX"/>
+                                                <constraint firstItem="JtA-Yk-dSe" firstAttribute="leading" secondItem="lE6-ky-nKq" secondAttribute="leadingMargin" constant="83" id="G70-5y-AfX"/>
                                                 <constraint firstItem="JtA-Yk-dSe" firstAttribute="trailing" secondItem="lE6-ky-nKq" secondAttribute="trailingMargin" id="Wk9-DD-QdQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -103,11 +103,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4il-9J-shv" id="TsI-Wh-Lnr">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="设置密码（6~16位）" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-l9-H5c">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="设置密码（6~15位）" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-l9-H5c">
                                                     <rect key="frame" x="14" y="7" width="578" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <animations/>
@@ -130,20 +130,35 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="HLa-vt-Kx3" firstAttribute="leading" secondItem="z5A-KW-LFU" secondAttribute="leading" id="ekS-pM-nZp"/>
                             <constraint firstAttribute="trailing" secondItem="HLa-vt-Kx3" secondAttribute="trailing" id="jAi-XP-Fkv"/>
                             <constraint firstItem="HLa-vt-Kx3" firstAttribute="bottom" secondItem="Awj-1Z-zCp" secondAttribute="top" id="qlw-dz-T7Z"/>
                             <constraint firstItem="HLa-vt-Kx3" firstAttribute="top" secondItem="z5A-KW-LFU" secondAttribute="top" id="sWc-ZN-ZI2"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="iON-Iv-3fr" appends="YES" id="fWp-eF-XRE"/>
+                        </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="注册" id="U3y-fB-Hyp"/>
+                    <navigationItem key="navigationItem" title="注册" id="U3y-fB-Hyp">
+                        <barButtonItem key="leftBarButtonItem" image="Template_Back" id="Qq5-IV-Aff">
+                            <connections>
+                                <action selector="backAction:" destination="TRN-bC-20E" id="34r-7B-Mew"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="loginButton" destination="3co-J0-a6Z" id="g07-Da-H3x"/>
                         <outlet property="tableView" destination="HLa-vt-Kx3" id="1Qo-is-wWM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uxx-2l-HlD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="iON-Iv-3fr">
+                    <connections>
+                        <action selector="tapAction:" destination="TRN-bC-20E" id="gBD-d5-jc3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1820" y="594"/>
         </scene>
@@ -233,15 +248,19 @@
                                     <constraint firstAttribute="height" constant="44" id="R4m-Nu-hSG"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLx-rS-UgW">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLx-rS-UgW">
                                 <rect key="frame" x="16" y="108" width="568" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9e-bw-xyr">
-                                <rect key="frame" x="16" y="218" width="568" height="30"/>
+                                <rect key="frame" x="0.0" y="218" width="600" height="44"/>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Xo1-mZ-wSv"/>
+                                </constraints>
                                 <state key="normal" title="下一步">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -266,24 +285,28 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="miM-mR-hkZ" firstAttribute="trailing" secondItem="k5I-Zn-NmF" secondAttribute="trailing" id="6YZ-19-YXC"/>
                             <constraint firstItem="RvF-vH-UxX" firstAttribute="centerY" secondItem="dLx-rS-UgW" secondAttribute="centerY" id="7gi-3y-afV"/>
                             <constraint firstItem="dLx-rS-UgW" firstAttribute="leading" secondItem="EWF-T7-c51" secondAttribute="leadingMargin" id="AZO-uY-XxB"/>
                             <constraint firstItem="k5I-Zn-NmF" firstAttribute="top" secondItem="miM-mR-hkZ" secondAttribute="bottom" constant="8" symbolic="YES" id="BQP-Bp-VWB"/>
+                            <constraint firstItem="e9e-bw-xyr" firstAttribute="leading" secondItem="RvF-vH-UxX" secondAttribute="leading" id="CcL-Vo-4Jr"/>
                             <constraint firstItem="miM-mR-hkZ" firstAttribute="top" secondItem="8tU-97-5wQ" secondAttribute="bottom" constant="20" id="EaP-Pu-hui"/>
                             <constraint firstItem="RvF-vH-UxX" firstAttribute="top" secondItem="k5I-Zn-NmF" secondAttribute="bottom" constant="11" id="EaZ-G8-Qbq"/>
                             <constraint firstItem="RvF-vH-UxX" firstAttribute="leading" secondItem="EWF-T7-c51" secondAttribute="leading" id="Elv-Gw-RqN"/>
-                            <constraint firstItem="dLx-rS-UgW" firstAttribute="trailing" secondItem="e9e-bw-xyr" secondAttribute="trailing" id="UaG-C9-vHm"/>
-                            <constraint firstItem="e9e-bw-xyr" firstAttribute="top" secondItem="dLx-rS-UgW" secondAttribute="bottom" constant="80" id="VKs-uU-8H9"/>
+                            <constraint firstItem="e9e-bw-xyr" firstAttribute="top" secondItem="RvF-vH-UxX" secondAttribute="bottom" constant="73" id="YI1-VS-lnE"/>
                             <constraint firstItem="miM-mR-hkZ" firstAttribute="trailing" secondItem="dLx-rS-UgW" secondAttribute="trailing" id="eg9-RW-W4z"/>
-                            <constraint firstItem="dLx-rS-UgW" firstAttribute="leading" secondItem="e9e-bw-xyr" secondAttribute="leading" id="h3G-Ck-K5g"/>
                             <constraint firstItem="dLx-rS-UgW" firstAttribute="trailing" secondItem="EWF-T7-c51" secondAttribute="trailingMargin" id="i0H-XV-Aff"/>
                             <constraint firstItem="RvF-vH-UxX" firstAttribute="centerX" secondItem="dLx-rS-UgW" secondAttribute="centerX" id="jPm-nW-w9R"/>
+                            <constraint firstItem="e9e-bw-xyr" firstAttribute="trailing" secondItem="RvF-vH-UxX" secondAttribute="trailing" id="nrk-nM-qui"/>
                             <constraint firstItem="miM-mR-hkZ" firstAttribute="leading" secondItem="dLx-rS-UgW" secondAttribute="leading" id="slL-X7-ACJ"/>
                             <constraint firstItem="dLx-rS-UgW" firstAttribute="top" secondItem="8tU-97-5wQ" secondAttribute="bottom" constant="88" id="xcr-cf-M51"/>
                             <constraint firstItem="miM-mR-hkZ" firstAttribute="leading" secondItem="k5I-Zn-NmF" secondAttribute="leading" id="yRP-E5-37d"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="789-3g-Iob" appends="YES" id="a9z-UT-WCv"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="nextButton" destination="e9e-bw-xyr" id="Zc6-wE-ILk"/>
@@ -292,8 +315,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QkD-xV-UKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="789-3g-Iob">
+                    <connections>
+                        <action selector="tapAction:" destination="LMr-HA-CNS" id="NVB-Tj-5O3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3993" y="351"/>
+            <point key="canvasLocation" x="3116" y="594"/>
         </scene>
         <!--Register Info View Controller-->
         <scene sceneID="fpn-S2-kle">
@@ -316,7 +344,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ym-dW-C3p">
-                                            <rect key="frame" x="0.0" y="30" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="17" width="600" height="44"/>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="登录">
@@ -330,14 +358,14 @@
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="4ym-dW-C3p" firstAttribute="top" secondItem="tEF-JB-0Rj" secondAttribute="top" constant="30" id="Psg-Ox-Xj2"/>
+                                        <constraint firstItem="4ym-dW-C3p" firstAttribute="top" secondItem="tEF-JB-0Rj" secondAttribute="top" constant="17" id="Psg-Ox-Xj2"/>
                                         <constraint firstItem="4ym-dW-C3p" firstAttribute="leading" secondItem="tEF-JB-0Rj" secondAttribute="leading" id="djf-sg-7UE"/>
                                         <constraint firstAttribute="trailing" secondItem="4ym-dW-C3p" secondAttribute="trailing" id="lBY-l4-odj"/>
-                                        <constraint firstItem="4ym-dW-C3p" firstAttribute="centerY" secondItem="tEF-JB-0Rj" secondAttribute="centerY" id="ypR-rT-6xX"/>
+                                        <constraint firstItem="4ym-dW-C3p" firstAttribute="centerY" secondItem="tEF-JB-0Rj" secondAttribute="centerY" constant="-13" id="ypR-rT-6xX"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IconCell" rowHeight="108" id="4br-jc-hOw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IconCell" rowHeight="108" id="4br-jc-hOw">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4br-jc-hOw" id="roh-8N-Sqk">
@@ -346,7 +374,7 @@
                                                 <imageView userInteractionEnabled="NO" tag="1000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AR6-N6-433">
                                                     <rect key="frame" x="504" y="10" width="88" height="88"/>
                                                     <animations/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="88" id="RXK-3c-Qhd"/>
                                                         <constraint firstAttribute="width" constant="88" id="sap-Km-rqP"/>
@@ -388,7 +416,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="Q8m-8A-jBh"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jad-PR-cex">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
@@ -423,20 +451,30 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="9Cf-Fu-LQp" firstAttribute="bottom" secondItem="SYX-68-9U5" secondAttribute="top" id="1Pa-Uf-nFy"/>
                             <constraint firstItem="9Cf-Fu-LQp" firstAttribute="top" secondItem="OY0-Fo-4Cs" secondAttribute="top" id="cyQ-yy-LHP"/>
                             <constraint firstItem="9Cf-Fu-LQp" firstAttribute="leading" secondItem="OY0-Fo-4Cs" secondAttribute="leading" id="uZw-k7-xaH"/>
                             <constraint firstAttribute="trailing" secondItem="9Cf-Fu-LQp" secondAttribute="trailing" id="uwm-h6-hP8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="QuR-2B-Nlg" appends="YES" id="m5a-HX-hqu"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="launchButton" destination="4ym-dW-C3p" id="O1z-D5-AVA"/>
                         <outlet property="tableView" destination="9Cf-Fu-LQp" id="iIb-rw-WQq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fg-jL-xZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="QuR-2B-Nlg">
+                    <connections>
+                        <action selector="tapAction:" destination="wVC-Jm-mpc" id="aT0-tC-RSj"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4643" y="351"/>
+            <point key="canvasLocation" x="3794" y="594"/>
         </scene>
         <!--Launch Navi View Controller-->
         <scene sceneID="j28-oY-y50">
@@ -458,4 +496,7 @@
             <point key="canvasLocation" x="1112" y="594"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Template_Back" width="19" height="15"/>
+    </resources>
 </document>

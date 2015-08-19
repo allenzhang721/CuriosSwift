@@ -46,7 +46,7 @@ extension LocalTemplateViewController: UICollectionViewDataSource, UICollectionV
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
       // open a book
-      PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
+      PublishIDRequest.requestWithComponents(GET_PUBLISH_ID, aJsonParameter: nil) {[unowned self] (json) -> Void in
         
         if let publishID = json["newID"] as? String {
           self.getBookWithBookID(publishID, getBookHandler: { [unowned self] (book) -> () in

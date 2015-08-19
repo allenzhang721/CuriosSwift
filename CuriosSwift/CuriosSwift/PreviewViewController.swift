@@ -280,7 +280,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   
   func getPublishID(compeletedHandler: RequestCompeletedBlock) {
           
-          let request = PublishIDRequest.requestWithComponents(["publish/getPublishID"], aJsonParameter: nil) {[unowned self] JSON -> Void in
+          let request = PublishIDRequest.requestWithComponents(GET_PUBLISH_ID, aJsonParameter: nil) {[unowned self] JSON -> Void in
     
     println(JSON)
     let publishID = JSON["newID"] as? String

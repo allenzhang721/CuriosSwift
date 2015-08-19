@@ -11,6 +11,7 @@ import Kingfisher
 
 class RegisterInfoViewController: UIViewController, UINavigationControllerDelegate {
 
+  @IBOutlet weak var launchButton: UIButton!
   var user: UserModel!
   weak var nicknameTextField: UITextField!
   
@@ -25,6 +26,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   }
   
   var iconImage: UIImage!
+  var iconURL: NSString = ""
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -33,7 +35,19 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
 
         // Do any additional setup after loading the view.
       begain()
-    }
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  func textFieldDidChanged(sender: AnyObject) {
+    
+    user.nikename = nicknameTextField.text
+    
+    launchButton.enabled = !user.iconURL.isEmpty && !user.nikename.isEmpty ? true : false
+  }
 
     /*
     // MARK: - Navigation
@@ -48,8 +62,18 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   
   func begain() {
     
+    title = localString("INFO")
+    
+    launchButton.enabled = false
   }
   
+  @IBAction func tapAction(sender: UITapGestureRecognizer) {
+    
+    if let nickte = nicknameTextField {
+      
+      nicknameTextField.resignFirstResponder()
+    }
+  }
   
   @IBAction func launchAction(sender: AnyObject) {
     let nickname = nicknameTextField.text
@@ -57,7 +81,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
     // upload image & save nickName
 
     // update userInfo
-    if !nickname.isEmpty && iconImage == nil {
+    if !nickname.isEmpty && !user.iconURL.isEmpty {
       
       user.nikename = nickname
       let iconURL = userIconPath
@@ -99,17 +123,9 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   
   func prepareUploadImageData(data: NSData, key: String, compeletedBlock:(NSData, String, String) -> ()) {
     
-    let imageTokenDic: String = {
-      let dic = ["list":[
-        ["key": key]
-        ]
-      ]
-      let jsondata = NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions(0), error: nil)
-      let string = NSString(data: jsondata!, encoding: NSUTF8StringEncoding) as! String
-      return string
-      }()
+    let para = GET_IMAGE_TOKEN_paras(key)
     
-    ImageTokenRequest.requestWithComponents(getImageToken, aJsonParameter: imageTokenDic) { (json) -> Void in
+    ImageTokenRequest.requestWithComponents(GET_IMAGE_TOKEN, aJsonParameter: para) { (json) -> Void in
       
       if let keyTokens = json["list"] as? [[String:String]] {
         
@@ -135,10 +151,11 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
     let cityID = "\(user.cityID)"
     
     let paras = UPDATE_USER_INFO_paras(userID, nickName, descri, aiconURL, sex, countryID, proviceID, cityID)
-    UpdateUserInfoRequest.requestWithComponents(UPDATE_USER_INFO, aJsonParameter: paras) { (result) -> Void in
+    UpdateUserInfoRequest.requestWithComponents(UPDATE_USER_INFO, aJsonParameter: paras) { (json) -> Void in
       
+      debugPrint.p(json)
       completed(true)
-    }
+    }.sendRequest()
     
   }
   
@@ -275,6 +292,8 @@ extension RegisterInfoViewController: UIImagePickerControllerDelegate {
     user.iconURL = userIconPath
     iconImage = selectedImage
 
+    launchButton.enabled = !user.iconURL.isEmpty && !user.nikename.isEmpty ? true : false
+    
     tableView.reloadData()
     dismissViewControllerAnimated(true, completion: nil)
   }

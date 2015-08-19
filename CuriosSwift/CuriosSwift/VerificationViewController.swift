@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VerificationViewController: UIViewController {
+class VerificationViewController: UIViewController, UINavigationBarDelegate {
   
   var phone: String = ""
   var areaCode: String = ""
@@ -19,19 +19,50 @@ class VerificationViewController: UIViewController {
   @IBOutlet weak var textField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      
+      title = localString("SMSVERIFY")
+      
       let ss = (phone as NSString)
       let secrtPhone = ss.stringByReplacingCharactersInRange(NSMakeRange(0, ss.length - 4), withString: "XXXXXX")
       
       let phonetext = "+ " + areaCode + " " + secrtPhone
       phoneLabel.text = phonetext
 
+      let backImage = UIImage(named: "Template_Back")
+      let backItem = UIBarButtonItem(image: backImage, landscapeImagePhone: nil, style: .Plain, target: self, action: "backAction:")
+//      navigationItem.backBarButtonItem = backItem
+      navigationItem.leftBarButtonItem = backItem
+      
         // Do any additional setup after loading the view.
     }
+  
+  
+  @IBAction func tapAction(sender: UITapGestureRecognizer) {
+    
+    textField.resignFirstResponder()
+  }
+  
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  func backAction(sender: AnyObject) {
+    
+    let alert = AlertHelper.alert_verifyback { [weak self] (confirm) -> () in
+      
+      if confirm {
+        if let navigation = self?.navigationController as? LaunchNaviViewController {
+          navigation.popViewControllerAnimated(true)
+        }
+      }
+      
+    }
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
     
 
   @IBAction func nextAction(sender: UIButton) {
@@ -44,20 +75,25 @@ class VerificationViewController: UIViewController {
     CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
       
       if let strongSelf = self {
-        
-        
+
         if success {
           debugPrint.p("verification is success !")
           
           strongSelf.register(aphone, code: aareaCode, password: apassword)
           
         } else {
+          self?.verifyfail()
           debugPrint.p("verification is fail !")
           
         }
       }
     })
+  }
+  
+  func verifyfail() {
     
+    let alert = AlertHelper.alert_verifyfail()
+    presentViewController(alert, animated: true, completion: nil)
   }
   
   func register(phone: String, code: String, password: String) {
@@ -85,9 +121,16 @@ class VerificationViewController: UIViewController {
   
   func login(user: UserModel) {
     
-    if let navigation = navigationController as? LaunchNaviViewController {
-      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+   let alert = AlertHelper.alert_hasRegistered { [weak self] (confirm) -> () in
+      
+      if confirm {
+        if let navigation = self?.navigationController as? LaunchNaviViewController {
+          navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+        }
+      }
     }
+    
+    presentViewController(alert, animated: true, completion: nil)
   }
     /*
     // MARK: - Navigation

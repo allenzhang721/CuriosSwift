@@ -8,10 +8,33 @@
 
 CFBundleDisplayName="奇思";
 
-// Login
 
+// TITLE
 LOGIN = "登录";
 REGISTER = "注册";
+SMSVERIFY = "短信验证";
+INFO = "个人信息";
+
+// Login
+
+/*
+ 
+ // 登录：密码或者账户错误
+ // 注册：验证码错误
+ // 已经注册
+ 该号码已经注册，是否直接登录奇思？
+ 验证码不正确，请重新输入？
+ 验证码短信可能略有延迟，确定返回并重新开始？
+ 确认手机号码：我们将发送验证码短信到这个号码：15501005475
+ */
+
+
+COUNTFAIL = "密码或者账户错误";
+HASREGISTERED = "该号码已经注册，是否直接登录奇思？";
+VERIFYFAIL = "验证码不正确，请重新输入。";
+VERIFYBACK = "验证码短信可能略有延迟，确定返回并重新开始？";
+CONFIRMPHONE = "确认手机号码";
+WILLSENDVERIFY = "我们将发送验证码短信到这个号码:";
 
 
 // Universal

@@ -21,7 +21,22 @@ import SVProgressHUD
 //launch
 //LOADING = "正在加载";
 
+
+
+
+
 class HUD {
+  
+  
+  // 登录：密码或者账户错误
+  
+  // 注册：验证码错误
+  
+  
+  
+  
+  
+  
   
   // 清理完成
   class func user_clean_finished() {
