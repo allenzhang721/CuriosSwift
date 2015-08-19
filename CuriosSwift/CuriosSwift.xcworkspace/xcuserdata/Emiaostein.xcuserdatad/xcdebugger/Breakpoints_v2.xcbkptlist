@@ -122,7 +122,7 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
-                  timestampString = "461592278.712171"
+                  timestampString = "461651070.786464"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "257"
@@ -137,7 +137,7 @@
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
-                  timestampString = "461592278.712354"
+                  timestampString = "461651070.78666"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "255"
@@ -145,22 +145,6 @@
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "461082733.878544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "setupGenerateTemplateVC(_:)"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

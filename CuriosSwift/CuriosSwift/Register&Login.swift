@@ -8,6 +8,59 @@
 
 import Foundation
 
+
+// MARK: - Login
+let USER_LOGIN = ["user", "login"]
+func USER_LOGIN_paras (
+  phone: String,
+  password: String
+  
+  ) -> String {
+    
+    let data = [
+      "phone": phone,
+      "password": password
+    ]
+    return dicToJson(data)
+}
+
+
+
+
+
+
+
+
+
+// MARK: - update user info
+let UPDATE_USER_INFO = ["user","updateUserInfo"]
+func UPDATE_USER_INFO_paras(
+  userID: String,
+  nikeName: String,
+  description: String,
+  iconURL: String,
+  sex: String,
+  countryID: String,
+  provinceID: String,
+  cityID: String
+  ) -> String {
+    
+    let data = [
+      "nikeName": nikeName,
+      "userID": userID,
+      "description": description,
+      "iconURL": iconURL,
+      "sex": sex,
+      "countryID": countryID,
+      "provinceID": provinceID,
+      "cityID": cityID,
+    ]
+    return dicToJson(data)
+}
+
+
+
+// MARK: - Register
 let REGISTER = ["user", "register"]
 func REGISTER_paras (
   

@@ -49,20 +49,40 @@ class RegisterHelper {
     return newUser
   }
   
+  
+  class func phoneLogin (phone: String, password: String, completed:(Bool, UserModel?) -> ()) {
+    
+    let paras = USER_LOGIN_paras(phone, password)
+    LoginRequest.requestWithComponents(USER_LOGIN, aJsonParameter: paras, aResult: { (dic) -> Void in
+      
+      if let resultTypeStr  = dic["resultType"] as? String where resultTypeStr == "success" {
+        let user = self.userBy(dic)
+        completed(true, user)
+      } else {
+        completed(false, nil)
+      }
+      
+    }).sendRequest()
+  }
+  
+  
   class func phoneRegister (
     phone: String,
     areaCode: String,
     password: String,
-    completed:(Bool, UserModel?) -> ()
+    completed:(Bool, Bool, UserModel?) -> ()
     ) {
       let params = REGISTER_PHONE_paras(phone, areaCode, password)
       RegisterPhoneRequest.requestWithComponents(REGISTER_PHONE, aJsonParameter: params) { (dic) -> Void in
         
         if let resultTypeStr  = dic["resultType"] as? String where resultTypeStr == "success" {
           let user = self.userBy(dic)
-          completed(true, user)
+          if let resultIndex = dic["resultIndex"] as? Int where resultIndex == 1 {
+            completed(true, true, user)
+          }
+          completed(true, false, user)
         } else {
-          completed(false, nil)
+          completed(false, false, nil)
         }
       }.sendRequest()
   }

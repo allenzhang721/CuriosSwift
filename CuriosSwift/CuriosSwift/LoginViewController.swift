@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, IRegisterDelegate{
+class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
   
   @IBOutlet weak var breathView: RippleView!
   override func viewDidLoad() {
@@ -41,6 +41,12 @@ class LoginViewController: UIViewController, IRegisterDelegate{
     
   }
   
+  func navigationController(controller: LaunchNaviViewController, loginUser user: UserModel) {
+    
+    saveUserInfo(user)
+    controller.dismissViewControllerAnimated(false, completion: nil)
+  }
+  
   func showMoreLogin() {
     
 //    LOGIN = "登录";
@@ -49,12 +55,12 @@ class LoginViewController: UIViewController, IRegisterDelegate{
     
     let login = UIAlertAction(title: localString("LOGIN"), style: .Default) {[unowned self] (action) -> Void in
       
-//      self.showPhoneLoginVC()
+      self.showPhoneRegisterVC(true)
     }
     
     let register = UIAlertAction(title: localString("REGISTER"), style: .Default) {[unowned self] (action) -> Void in
       
-      self.showPhoneRegisterVC()
+      self.showPhoneRegisterVC(false)
     }
     
 //    let cancel = UIAlertAction(title: localString("CANCEL"), style: .Cancel) { (action) -> Void in
@@ -69,10 +75,12 @@ class LoginViewController: UIViewController, IRegisterDelegate{
     presentViewController(alert, animated: true, completion: nil)
   }
   
-  func showPhoneRegisterVC() {
+  func showPhoneRegisterVC(login: Bool) {
     
-    if let navi = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("PhoneRegisterNavigationController") as? UINavigationController,
-    let phoneLogin = navi.topViewController as? PhoneRegisterViewController {
+    if let navi = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LaunchNaviViewController") as? LaunchNaviViewController,
+    let phoneregister = navi.topViewController as? PhoneRegisterViewController {
+      phoneregister.isLogin = login
+      navi.launchDelegate = self
       
       dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
         
@@ -81,9 +89,6 @@ class LoginViewController: UIViewController, IRegisterDelegate{
       })
     }
   }
-  
-  
-  
   
   @IBAction func LoginAction(sender: UIButton) {
     

@@ -70,7 +70,7 @@
 		2C6273D41B82101700B4369F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6273D31B82101700B4369F /* AddressBookUI.framework */; };
 		2C6273D61B82139600B4369F /* CountryCodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D51B82139600B4369F /* CountryCodeHelper.swift */; };
 		2C6273D81B82D49400B4369F /* RegisterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D71B82D49400B4369F /* RegisterHelper.swift */; };
-		2C6273DA1B82E24900B4369F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D91B82E24900B4369F /* Register.swift */; };
+		2C6273DA1B82E24900B4369F /* Register&Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273D91B82E24900B4369F /* Register&Login.swift */; };
 		2C6273DC1B82E55A00B4369F /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */; };
 		2C6273E01B82E59800B4369F /* RegisterWeiboRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */; };
 		2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */; };
@@ -204,6 +204,11 @@
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
 		2CD3AF8E1B12C5D7008319A8 /* IBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF8D1B12C5D7008319A8 /* IBook.swift */; };
 		2CD3AF921B12F9E8008319A8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF911B12F9E8008319A8 /* Constants.swift */; };
+		2CD3FA311B8413B500CA0ABB /* UpdateUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA301B8413B500CA0ABB /* UpdateUserInfoRequest.swift */; };
+		2CD3FA331B842CF100CA0ABB /* LaunchNaviViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA321B842CF100CA0ABB /* LaunchNaviViewController.swift */; };
+		2CD3FA351B842E8400CA0ABB /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */; };
+		2CD3FA371B8435D800CA0ABB /* PhoneLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA361B8435D800CA0ABB /* PhoneLoginViewController.swift */; };
+		2CD3FA391B84391A00CA0ABB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3FA381B84391A00CA0ABB /* LoginRequest.swift */; };
 		2CD6C30F1B17E892000C4FC6 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C30E1B17E892000C4FC6 /* URL.swift */; };
 		2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078A1B0B2908008B286B /* BookListViewController.swift */; };
 		2CD8078D1B0B2B5A008B286B /* IUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8078C1B0B2B5A008B286B /* IUser.swift */; };
@@ -324,7 +329,7 @@
 		2C6273D31B82101700B4369F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		2C6273D51B82139600B4369F /* CountryCodeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeHelper.swift; sourceTree = "<group>"; };
 		2C6273D71B82D49400B4369F /* RegisterHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterHelper.swift; sourceTree = "<group>"; };
-		2C6273D91B82E24900B4369F /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		2C6273D91B82E24900B4369F /* Register&Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Register&Login.swift"; sourceTree = "<group>"; };
 		2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterWeiboRequest.swift; sourceTree = "<group>"; };
 		2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterWeixinRequest.swift; sourceTree = "<group>"; };
@@ -465,6 +470,11 @@
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		2CD3AF8D1B12C5D7008319A8 /* IBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBook.swift; sourceTree = "<group>"; };
 		2CD3AF911B12F9E8008319A8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2CD3FA301B8413B500CA0ABB /* UpdateUserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoRequest.swift; sourceTree = "<group>"; };
+		2CD3FA321B842CF100CA0ABB /* LaunchNaviViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchNaviViewController.swift; sourceTree = "<group>"; };
+		2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
+		2CD3FA361B8435D800CA0ABB /* PhoneLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneLoginViewController.swift; sourceTree = "<group>"; };
+		2CD3FA381B84391A00CA0ABB /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		2CD6C30E1B17E892000C4FC6 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		2CD8078A1B0B2908008B286B /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
 		2CD8078C1B0B2B5A008B286B /* IUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IUser.swift; sourceTree = "<group>"; };
@@ -725,7 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				2C4D81041B5349A200A93383 /* RequestURL.swift */,
-				2C6273D91B82E24900B4369F /* Register.swift */,
+				2C6273D91B82E24900B4369F /* Register&Login.swift */,
 				2CAC964F1B54BD4500BA5291 /* Theme&Template.swift */,
 				2C0355651B786413005FC94B /* ServePaths.swift */,
 				2CAC96691B550AE500BA5291 /* List&Edit&Save&Publish.swift */,
@@ -806,6 +816,8 @@
 				2CB4BD831AE476A900DF6019 /* Views */,
 				2C03598F1B50FE4B00B66574 /* EditViewController */,
 				2C4B85011B5F36EE006B24FD /* UserViewController.swift */,
+				2CD3FA361B8435D800CA0ABB /* PhoneLoginViewController.swift */,
+				2CD3FA321B842CF100CA0ABB /* LaunchNaviViewController.swift */,
 				2C6273E91B8345C600B4369F /* RegisterInfoViewController.swift */,
 				2C6273E51B82EE7300B4369F /* VerificationViewController.swift */,
 				2C6273C01B81DA5900B4369F /* PhoneRegisterViewController.swift */,
@@ -945,6 +957,7 @@
 				2C62F2221B687869007DA47F /* AlertHelper.swift */,
 				2C6273D51B82139600B4369F /* CountryCodeHelper.swift */,
 				2C6273D71B82D49400B4369F /* RegisterHelper.swift */,
+				2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1073,6 +1086,8 @@
 				2C1825D51B2802DB00F3B59E /* Request.swift */,
 				2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */,
 				2C6273DB1B82E55A00B4369F /* RegisterRequest.swift */,
+				2CD3FA381B84391A00CA0ABB /* LoginRequest.swift */,
+				2CD3FA301B8413B500CA0ABB /* UpdateUserInfoRequest.swift */,
 				2C6273E31B82E73300B4369F /* RegisterPhoneRequest.swift */,
 				2C6273E11B82E5B100B4369F /* RegisterWeixinRequest.swift */,
 				2C6273DF1B82E59800B4369F /* RegisterWeiboRequest.swift */,
@@ -1291,6 +1306,7 @@
 				2CB4BD7C1AE465BD00DF6019 /* EditViewController.swift in Sources */,
 				2C1532561B3A74C300DC3AB8 /* TextInputViewController.swift in Sources */,
 				2C6273E41B82E73300B4369F /* RegisterPhoneRequest.swift in Sources */,
+				2CD3FA311B8413B500CA0ABB /* UpdateUserInfoRequest.swift in Sources */,
 				2C6273DC1B82E55A00B4369F /* RegisterRequest.swift in Sources */,
 				2CF2938E1B32E4BA00539F76 /* BookDetailViewController.swift in Sources */,
 				2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */,
@@ -1300,6 +1316,7 @@
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
 				2C9495AF1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
+				2CD3FA351B842E8400CA0ABB /* LoginHelper.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
 				2C6924301B46894900CC327D /* ColorManager.swift in Sources */,
 				2C00AAB91B301D4300B718B9 /* CUAnimationFactory.swift in Sources */,
@@ -1338,6 +1355,8 @@
 				2C92EA7C1B413F3500ABFABB /* FontsManager.swift in Sources */,
 				2CAC96611B54EA5100BA5291 /* ThemeRequest.swift in Sources */,
 				2C6D588C1B2A9C82002CFC3F /* FontsizePannel.swift in Sources */,
+				2CD3FA371B8435D800CA0ABB /* PhoneLoginViewController.swift in Sources */,
+				2CD3FA391B84391A00CA0ABB /* LoginRequest.swift in Sources */,
 				2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */,
 				2C5426FE1B2A982B007FF1DE /* PannelFactory.swift in Sources */,
 				2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */,
@@ -1391,7 +1410,7 @@
 				2CBAA8451B78828C00CE4883 /* FilePathsRequest.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
 				2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */,
-				2C6273DA1B82E24900B4369F /* Register.swift in Sources */,
+				2C6273DA1B82E24900B4369F /* Register&Login.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
 				2C8028AF1B6B4CF600FCB7B2 /* BlackCatOptionsInfo.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
@@ -1438,6 +1457,7 @@
 				2C9495B71B57C01100D77EE2 /* EditToolTextColorPannel.swift in Sources */,
 				2CE121E31B45434200FB10C5 /* TextInputView.swift in Sources */,
 				2C7BA2811B671F7C00894102 /* HUDHelper.swift in Sources */,
+				2CD3FA331B842CF100CA0ABB /* LaunchNaviViewController.swift in Sources */,
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
 				2C62F2231B687869007DA47F /* AlertHelper.swift in Sources */,
 				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,

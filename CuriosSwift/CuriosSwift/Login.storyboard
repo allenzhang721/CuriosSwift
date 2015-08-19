@@ -293,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QkD-xV-UKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3181" y="351"/>
+            <point key="canvasLocation" x="3993" y="351"/>
         </scene>
         <!--Register Info View Controller-->
         <scene sceneID="fpn-S2-kle">
@@ -322,6 +322,9 @@
                                             <state key="normal" title="登录">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="launchAction:" destination="wVC-Jm-mpc" eventType="touchUpInside" id="8JE-JA-I2M"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <animations/>
@@ -433,12 +436,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fg-jL-xZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3831" y="351"/>
+            <point key="canvasLocation" x="4643" y="351"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Launch Navi View Controller-->
         <scene sceneID="j28-oY-y50">
             <objects>
-                <navigationController storyboardIdentifier="PhoneRegisterNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="CLh-dw-mRE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LaunchNaviViewController" automaticallyAdjustsScrollViewInsets="NO" id="CLh-dw-mRE" customClass="LaunchNaviViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="buz-H9-01v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -452,7 +455,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB5-gb-3uT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="594"/>
+            <point key="canvasLocation" x="1112" y="594"/>
         </scene>
     </scenes>
 </document>

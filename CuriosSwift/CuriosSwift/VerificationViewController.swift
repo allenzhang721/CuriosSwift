@@ -36,47 +36,58 @@ class VerificationViewController: UIViewController {
 
   @IBAction func nextAction(sender: UIButton) {
     
-    showRegisterInfoVC()
+//    showRegisterInfoVC()
     
-//    let aphone = phone
-//    let aareaCode = areaCode
-//    let apassword = password
-//    CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
-//      
-//      if let strongSelf = self {
-//        
-//        
-//        if success {
-//          debugPrint.p("verification is success !")
-//          
-//          strongSelf.register(aphone, code: aareaCode, password: apassword)
-//          
-//        } else {
-//          debugPrint.p("verification is fail !")
-//          
-//        }
-//      }
-//    })
+    let aphone = phone
+    let aareaCode = areaCode
+    let apassword = password
+    CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
+      
+      if let strongSelf = self {
+        
+        
+        if success {
+          debugPrint.p("verification is success !")
+          
+          strongSelf.register(aphone, code: aareaCode, password: apassword)
+          
+        } else {
+          debugPrint.p("verification is fail !")
+          
+        }
+      }
+    })
     
   }
   
   func register(phone: String, code: String, password: String) {
     
-    RegisterHelper.phoneRegister(phone, areaCode: code, password: password) { (success, userModel) -> () in
+    RegisterHelper.phoneRegister(phone, areaCode: code, password: password) { [weak self] (success, registered,userModel) -> () in
       
       if success {
-        debugPrint.p(userModel)
+        
+        if registered {
+          self?.login(userModel!)
+        } else {
+          self?.showRegisterInfoVC(userModel!)
+        }
       }
     }
   }
   
-  func showRegisterInfoVC() {
+  func showRegisterInfoVC(user: UserModel) {
     if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
       
+      infoVC.user = user
       navigationController?.pushViewController(infoVC, animated: true)
     }
+  }
+  
+  func login(user: UserModel) {
     
-    
+    if let navigation = navigationController as? LaunchNaviViewController {
+      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+    }
   }
     /*
     // MARK: - Navigation

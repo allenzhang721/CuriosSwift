@@ -176,17 +176,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
     dismissViewControllerAnimated(true, completion: nil)
     sharing = false
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   
   

@@ -10,6 +10,8 @@ import UIKit
 
 class PhoneRegisterViewController: UIViewController {
   
+  var isLogin = false
+  
   struct Register {
     var countryDisplayName: String
     var areacode: String
@@ -76,17 +78,17 @@ class PhoneRegisterViewController: UIViewController {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
-  override func viewDidAppear(animated: Bool) {
-    func showRegisterInfoVC() {
-      if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
-        
-        navigationController?.pushViewController(infoVC, animated: true)
-      }
-      
-      
-    }
-    showRegisterInfoVC()
-  }
+//  override func viewDidAppear(animated: Bool) {
+//    func showRegisterInfoVC() {
+//      if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
+//        
+//        navigationController?.pushViewController(infoVC, animated: true)
+//      }
+//      
+//      
+//    }
+//    showRegisterInfoVC()
+//  }
   
   func begain() {
     
@@ -125,14 +127,40 @@ class PhoneRegisterViewController: UIViewController {
     
     let phone = defaultRegister.phone
     let zone = defaultRegister.areacode
+    let password = defaultRegister.password
     
-    CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[unowned self] (success) -> () in
+    
+    if isLogin {
       
-      if success {
-        self.showVerificationVC()
-      } else {
+      RegisterHelper.phoneLogin(phone, password: password, completed: {[weak self] (success, userModel) -> () in
         
+        if success {
+          self?.login(userModel!)
+        }
+      })
+      
+    } else {
+      
+//      let phone = defaultRegister.phone
+//      let zone = defaultRegister.areacode
+      
+      CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[unowned self] (success) -> () in
+        
+        if success {
+          self.showVerificationVC()
+        } else {
+          
+        }
       }
+    }
+    
+    
+  }
+  
+  func login(user: UserModel) {
+    
+    if let navigation = navigationController as? LaunchNaviViewController {
+      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
     }
   }
   
