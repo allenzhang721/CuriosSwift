@@ -16,6 +16,8 @@ class ImageContentModel: ComponentModel, IFile {
     return ServePathsManger.imagePath!
   }
   
+  var isPng = true
+  
   private var updateImageHandler: ((UIImage?) -> ())?
   private var generateImageHandler: ((UIImage?) -> ())?
   
@@ -101,9 +103,9 @@ class ImageContentModel: ComponentModel, IFile {
     }
   }
   
-  func updateImage(image: UIImage, userID: String, PublishID: String) {
+  func updateImage(image: UIImage, userID: String, PublishID: String, ispng: Bool) {
     needUpload = true
-    
+    isPng = ispng
     imageWidth = image.size.width
     imageHeight = image.size.height
     
@@ -114,18 +116,20 @@ class ImageContentModel: ComponentModel, IFile {
       editDelegate?.componentModelDidUpdate(self)
       imageID = aImageID
     }
-    key = pathByComponents([userID, PublishID, "\(aImageID).jpg"])
+    let exten = ispng ? ".png" : ".jpg"
+    key = pathByComponents([userID, PublishID, "\(aImageID)+\(exten)"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     
     updateImageHandler?(image)
   }
   
   override func getResourseData(handler: (NSData?, String?) -> ()) {
-    
+    let apng = isPng
     let aKey = attributes["ImagePath"] as! String
     KingfisherManager.sharedManager.cache.retrieveImageForKey(key, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
       if let aImage = image {
-        let data = UIImageJPEGRepresentation(image, 1)
+        
+        let data = apng ? UIImagePNGRepresentation(image) : UIImageJPEGRepresentation(image, 1.0)
         
         handler(data, aKey)
       } else {

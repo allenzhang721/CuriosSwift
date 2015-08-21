@@ -803,7 +803,7 @@ extension EditViewController {
   }
   
   
-  func addImage(image: UIImage, userID: String, publishID: String) {
+  func addImage(image: UIImage, userID: String, publishID: String, ispng: Bool) {
     
     EndEdit()
     
@@ -834,7 +834,7 @@ extension EditViewController {
         bookModel.setBookIcon(key)
       }
       
-      imageComponent.updateImage(image, userID: userID, PublishID: publishID)
+      imageComponent.updateImage(image, userID: userID, PublishID: publishID, ispng: ispng)
       let container = ContainerModel()
       container.Id = UniqueIDStringWithCount(count: 5)
       container.component = imageComponent
@@ -844,11 +844,11 @@ extension EditViewController {
     }
   }
   
-  func replaceImage(image: UIImage, userID: String, publishID: String) {
+  func replaceImage(image: UIImage, userID: String, publishID: String, ispng: Bool) {
     
     if let aMaskView = maskView,
       let imagecomponent = aMaskView.containerMomdel.component as? ImageContentModel {
-        imagecomponent.updateImage(image, userID: userID, PublishID: publishID)
+        imagecomponent.updateImage(image, userID: userID, PublishID: publishID, ispng: ispng)
     }
   }
   
@@ -1301,16 +1301,16 @@ extension EditViewController {
 //    assetslibaray
     
     // Selected Image
-    let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
-    let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
-    let image = UIImage(data: imageData)!
+//    let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+//    let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
+//    let image = UIImage(data: imageData)!
     
     let targetSize = CGSize(width: bookModel.width, height: bookModel.height)
     
-    ImageHelper.optimizeImageFromLibrary(MediaWithInfo: info, targetRect: targetSize, successBlock: { [weak self] (image, size) -> () in
+    ImageHelper.optimizeImageFromLibrary(MediaWithInfo: info, targetRect: targetSize, successBlock: { [weak self] (image, size, ispng) -> () in
       
       if let strongSelf = self {
-        strongSelf.isReplacedImage ? strongSelf.replaceImage(image, userID: userID, publishID: publishID) : strongSelf.addImage(image, userID: userID, publishID: publishID)
+        strongSelf.isReplacedImage ? strongSelf.replaceImage(image, userID: userID, publishID: publishID, ispng: ispng) : strongSelf.addImage(image, userID: userID, publishID: publishID, ispng: ispng)
         strongSelf.isReplacedImage = false
         picker.dismissViewControllerAnimated(true, completion: nil)
       }

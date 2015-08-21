@@ -15,7 +15,7 @@ class ImageHelper {
   class func optimizeImageFromLibrary(
     MediaWithInfo info: [NSObject : AnyObject],
     minimumTargetFileSize: Int64 = 1024 * 100,
-    targetRect rectSize: CGSize, successBlock: (UIImage, CGSize) -> (), failBlock:() -> ()) {
+    targetRect rectSize: CGSize, successBlock: (UIImage, CGSize, Bool) -> (), failBlock:() -> ()) {
       
       let library = ALAssetsLibrary()
       library.assetForURL(info[UIImagePickerControllerReferenceURL] as! NSURL, resultBlock: { (asset) -> Void in
@@ -26,8 +26,10 @@ class ImageHelper {
         let dimension = presentation.dimensions()
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
+        var ispng = true
+        
         if asize <= minimumTargetFileSize {
-          successBlock(image, dimension)
+          successBlock(image, dimension, true)
           return
         }
         
@@ -57,12 +59,12 @@ class ImageHelper {
         
         
         if uti != "png" {
-          
+          ispng = false
           let data = UIImageJPEGRepresentation(optimizeImage, 0.001)
           optimizeImage = UIImage(data: data)!
         }
         
-        successBlock(optimizeImage, optimizeSize)
+        successBlock(optimizeImage, optimizeSize, ispng)
         
         println(asize)
         println(dimension)
