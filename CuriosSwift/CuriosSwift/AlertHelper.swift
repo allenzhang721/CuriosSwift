@@ -10,17 +10,69 @@ import Foundation
 
 class AlertHelper {
   
+  //NETWRONGANDVERIFYFAIL
+  class func alert_netwrongandverifyfail() -> UIAlertController {
+    
+    //FAILGETZONE
+    
+    let title = localString("TIPS")
+    let message = localString("NETWRONGANDVERIFYFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
   
-//  CONTINUE = "继续";
-//  TIPS = "温馨提醒";
-//NEEDCONNECTED = "您的网络已中断，请先连接网络，建议在在 WiFi 下使用";
+  // 网络异常，请稍后再试。
+  class func alert_netwrong() -> UIAlertController {
+    
+    //FAILGETZONE
+    
+    let title = localString("TIPS")
+    let message = localString("REGISTERLAUNCHFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
+  // 获取当前地区信息失败
+  class func alert_failGetZone(canceled: (Bool) -> ()) -> UIAlertController {
+    
+    //FAILGETZONE
+    
+    let title = localString("TIPS")
+    let message = localString("FAILGETZONE")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: canceled)
+  }
+  
+  // 获取验证码失败
+  class func alert_smsfail() -> UIAlertController {
+    
+    let title = localString("TIPS")
+    let message = localString("SMSFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
+  
+  // 登录失败
+  class func alert_launchfail() -> UIAlertController {
+    
+    let title = localString("TIPS")
+    let message = localString("LAUNCHFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
   
   // 我们将发送验证码短信到这个号码
   class func alert_willSendVerify(userinfo:String, finished: (Bool) -> ()) -> UIAlertController {
     
     let title = localString("CONFIRMPHONE")
     let message = localString("WILLSENDVERIFY") + "\n" + userinfo
-    let confirm = localString("CONTINUE")
+    let confirm = localString("CONFIRM")
     let cancel = localString("CANCEL")
     
     return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
@@ -31,13 +83,13 @@ class AlertHelper {
     
     let title = localString("TIPS")
     let message = localString("VERIFYBACK")
-    let confirm = localString("CONTINUE")
-    let cancel = localString("CANCEL")
+    let confirm = localString("GOBACK")
+    let cancel = localString("WAITING")
     
     return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
   }
   
-  // 验证码不正确
+  // 验证码发送失败
   class func alert_verifyfail() -> UIAlertController {
     
     let title = localString("TIPS")
@@ -54,7 +106,7 @@ class AlertHelper {
     //HASREGISTERED
     let title = localString("TIPS")
     let message = localString("HASREGISTERED")
-    let confirm = localString("CONTINUE")
+    let confirm = localString("LOGIN")
     let cancel = localString("CANCEL")
     
     return AlertHelper.alert_both(title, message: message, cancelTitle: cancel, confirmTitle: confirm, finished: finished)
@@ -81,7 +133,7 @@ class AlertHelper {
     return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
   }
   
-  class func alert_internetBroken() -> UIAlertController {
+  class func alert_internetBroken(canceled: ((Bool) -> ())? = nil) -> UIAlertController {
     
 //    KNEW = "知道了";
 //    INTERNETBROKEN = "网络已关闭";
@@ -89,7 +141,7 @@ class AlertHelper {
     let message = localString("INTERNETBROKEN")
     let cancel = localString("KNEW")
     
-    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: canceled)
   }
   
   class func alert_internetconnection(finished: (Bool) -> ()) -> UIAlertController {

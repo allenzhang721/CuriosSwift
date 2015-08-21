@@ -31,6 +31,7 @@
 
 @interface AESCrypt : NSObject
 
++ (NSString *)hash256:(NSString *) message;
 + (NSString *)encrypt:(NSString *)message password:(NSString *)password;
 + (NSString *)decrypt:(NSString *)base64EncodedString password:(NSString *)password;
 

@@ -27,16 +27,36 @@ import SVProgressHUD
 
 class HUD {
   
+  class func register_registering() {
+    //  GETZONEINFO = "验证码错误";
+    let string = localString("REGISTERING")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+  }
   
-  // 登录：密码或者账户错误
-  
-  // 注册：验证码错误
-  
-  
-  
-  
+  class func register_smsfail() {
+    //  GETZONEINFO = "验证码错误";
+    let string = localString("SMSFAIL")
+    HUD.show_status(string, userInteractable: false, autodismiss: true)
+  }
   
   
+  class func register_getZoneInfoFail() {
+    //  GETZONEINFOfail = "获取位置失败";
+    let string = localString("GETZONEINFOFAIL")
+    HUD.show_status(string, userInteractable: false, autodismiss: true)
+  }
+  
+  class func register_getZoneInfo() {
+    //  GETZONEINFO = "获取位置";
+    let string = localString("GETZONEINFO")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+  }
+
+  class func register_sending() {
+    //  SENDING = "发送中";
+    let string = localString("SENDING")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+  }
   
   // 清理完成
   class func user_clean_finished() {
@@ -158,6 +178,16 @@ class HUD {
     dispatch_async(dispatch_get_main_queue(), { () -> Void in
     SVProgressHUD.dismiss()
     })
+  }
+  
+  class func dismiss(delay: NSTimeInterval) {
+    let time: NSTimeInterval = delay
+    let delay = dispatch_time(DISPATCH_TIME_NOW,
+      Int64(time * Double(NSEC_PER_SEC)))
+    dispatch_after(delay, dispatch_get_main_queue()) {
+      
+      SVProgressHUD.dismiss()
+    }
   }
 }
 

@@ -54,6 +54,20 @@
 
 @implementation AESCrypt
 
++ (NSString *)hash256:(NSString *) message {
+  
+  NSData *hashData = [[message dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash];
+  
+    Byte *aplainTextByte = (Byte *)[hashData bytes];
+    NSLog(@"%lu", (unsigned long)hashData.length);
+    for(int i=0;i<[hashData length];i++){
+      printf("%x",aplainTextByte[i]);
+    }
+  NSString *ss = [hashData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//  NSString *base64EncodedString = [NSString base64StringFromData:hashData length:[hashData length]];
+  return ss;
+}
+
 + (NSString *)encrypt:(NSString *)message password:(NSString *)password {
   
     NSData *encryptedData = [[message dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptedDataUsingKey:[[password dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] error:nil];

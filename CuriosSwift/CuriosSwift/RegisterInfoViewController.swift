@@ -9,12 +9,15 @@
 import UIKit
 import Kingfisher
 
-class RegisterInfoViewController: UIViewController, UINavigationControllerDelegate {
+class RegisterInfoViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate {
 
   @IBOutlet weak var launchButton: UIButton!
   var user: UserModel!
   weak var nicknameTextField: UITextField!
   
+  let maxCount = 20
+  
+  @IBOutlet var tapGesture: UITapGestureRecognizer!
   var userIconPath: String {
     
     get {
@@ -44,26 +47,54 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   
   func textFieldDidChanged(sender: AnyObject) {
     
-    user.nikename = nicknameTextField.text
+//    user.nikename = nicknameTextField.text
     
-    launchButton.enabled = !user.iconURL.isEmpty && !user.nikename.isEmpty ? true : false
+    let textField = nicknameTextField!
+    
+    let textCount = (textField.text as NSString).length
+    
+    if textCount <= maxCount {
+      user.nikename = textField.text
+    } else {
+      let string = textField.text as NSString
+      let subString = string.substringWithRange(NSMakeRange(0, min(textCount, maxCount)))
+      let subCount = (subString as NSString).length
+      textField.text = subString
+    }
+    
+    launchButton.enabled = !user.iconURL.isEmpty && (textCount >= 2 && textCount <= 20) ? true : false
+  }
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    
+    textField.resignFirstResponder()
+    
+    return true
+  }
+  
+  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    
+    let textCount = (textField.text as NSString).length
+    
+    if textCount >= maxCount {
+      if string == "" || range.length >= 1{
+        return true
+      }
+      return false
+    } else {
+      return true
+    }
   }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
   
   
   func begain() {
     
     title = localString("INFO")
     
+    
+    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
     launchButton.enabled = false
   }
   
@@ -78,6 +109,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   @IBAction func launchAction(sender: AnyObject) {
     let nickname = nicknameTextField.text
 
+    nicknameTextField.resignFirstResponder()
     // upload image & save nickName
 
     // update userInfo
@@ -89,23 +121,32 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
       // upload image
       let data = UIImageJPEGRepresentation(iconImage, 0.01)
       let key = userIconPath
-      
+      HUD.register_registering()
       UploadsManager.shareInstance.setCompeletedHandler({ [weak self] (finished) -> () in
         
         if finished {
           // update info
-          self?.updateUserInfo(nickname, iconurl: iconURL, completed: { [weak self] (finished) -> () in
+          self?.updateUserInfo(nickname, iconurl: iconURL, completed: { [weak self] (finished, usermodel) -> () in
             if finished {
+              HUD.dismiss()
               // launch delegate
-              self?.login()
+              self?.login(usermodel!)
+            } else {
+              HUD.dismiss()
+              self?.showLunchFail()
             }
           })
         }
       })
       
-      prepareUploadImageData(data!, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
+      prepareUploadImageData(data!, key: key, compeletedBlock: { [weak self] (success, theData, theKey, theToken) -> () in
+        if success {
+          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+        } else {
+          HUD.dismiss()
+          self?.showLunchFail()
+        }
         
-        UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
       })
       
       
@@ -114,14 +155,22 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
-  func login() {
+  func showLunchFail() {
     
+    let alert = AlertHelper.alert_netwrong()
+    presentViewController(alert, animated: true, completion: nil)
+    
+  }
+  
+  func login(launchUser: UserModel) {
+    
+    debugPrint.p("will launch user = \(user)")
     if let navigation = navigationController as? LaunchNaviViewController {
-      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+      navigation.launchDelegate?.navigationController(navigation, loginUser: launchUser)
     }
   }
   
-  func prepareUploadImageData(data: NSData, key: String, compeletedBlock:(NSData, String, String) -> ()) {
+  func prepareUploadImageData(data: NSData, key: String, compeletedBlock:(Bool, NSData, String, String) -> ()) {
     
     let para = GET_IMAGE_TOKEN_paras(key)
     
@@ -132,14 +181,16 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
         let keyToken = keyTokens[0]
         let token = keyToken["upToken"]!
         
-        compeletedBlock(data, key, token)
+        compeletedBlock(true, data, key, token)
+      } else {
+        compeletedBlock(false, NSData(), "", "")
       }
       }.sendRequest()
   }
   
   
   
-  func updateUserInfo(nikename: String, iconurl: String, completed:(Bool) -> ()) {
+  func updateUserInfo(nikename: String, iconurl: String, completed:(Bool, UserModel?) -> ()) {
     
     let userID = user.userID
     let nickName = nikename
@@ -151,10 +202,14 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
     let cityID = "\(user.cityID)"
     
     let paras = UPDATE_USER_INFO_paras(userID, nickName, descri, aiconURL, sex, countryID, proviceID, cityID)
-    UpdateUserInfoRequest.requestWithComponents(UPDATE_USER_INFO, aJsonParameter: paras) { (json) -> Void in
+    UpdateUserInfoRequest.requestWithComponents(UPDATE_USER_INFO, aJsonParameter: paras) { (dic) -> Void in
       
-      debugPrint.p(json)
-      completed(true)
+      if let resultTypeStr  = dic["resultType"] as? String where resultTypeStr == "success" {
+        let user = RegisterHelper.userBy(dic)
+        completed(true, user)
+      } else {
+        completed(false, nil)
+      }
     }.sendRequest()
     
   }
@@ -222,6 +277,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
       let cell = tableView.dequeueReusableCellWithIdentifier("NicknameCell") as! UITableViewCell
       if let textfield = cell.viewWithTag(1001) as? UITextField {
         nicknameTextField = textfield
+        nicknameTextField.delegate = self
         textfield.text = user.nikename
       }
       
@@ -263,6 +319,7 @@ extension RegisterInfoViewController: UITableViewDataSource, UITableViewDelegate
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
+    nicknameTextField.resignFirstResponder()
     if indexPath.section == 0 && indexPath.row == 0 {
       
       showsheet()
@@ -297,4 +354,28 @@ extension RegisterInfoViewController: UIImagePickerControllerDelegate {
     tableView.reloadData()
     dismissViewControllerAnimated(true, completion: nil)
   }
+}
+
+
+extension RegisterInfoViewController: UIGestureRecognizerDelegate {
+  
+  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    switch gestureRecognizer {
+      
+    case let gesture where gesture == tapGesture:
+      let cells = tableView.visibleCells()
+      for cell in cells {
+        let location = gesture.locationInView(cell as? UIView)
+        if CGRectContainsPoint(cell.bounds, location) {
+          return false
+        }
+      }
+      return true
+    default:
+      return true
+    }
+    
+    
+  }
+  
 }

@@ -26,7 +26,7 @@ class BaseRequst {
     let testDomain = "http://192.168.1.105:8080/curiosService"
     var baseURL: String {
         
-        return testDomain
+        return officeDomain
     }
     typealias Result = ([String : AnyObject]) -> Void
     let requestComponents: [String]
@@ -81,6 +81,7 @@ class BaseRequst {
                         if let aDelegate = self.delegate{
                             aDelegate.requestFailed()
                         }
+                      self.result([String : AnyObject]())
                     }
                 }
                 else
@@ -90,6 +91,13 @@ class BaseRequst {
                             aDelegate.requestIOError(aError);
                         }
                     }
+                  
+                  if let jsondic = JSON as? [String : AnyObject] {
+                    self.result(jsondic)
+                  }else{
+                    self.result([String : AnyObject]())
+                    
+                  }
                     println("HTTP HTTP Request failed: \(error)")
                 }
         }

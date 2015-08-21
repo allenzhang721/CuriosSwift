@@ -81,7 +81,7 @@ class  CountryCodeHelper {
         
         completed(true, zones)
       } else {
-        completed(true, [Zone]())
+        completed(false, [Zone]())
       }
     }
   }

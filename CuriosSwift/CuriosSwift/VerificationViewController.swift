@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 class VerificationViewController: UIViewController, UINavigationBarDelegate {
   
   var phone: String = ""
   var areaCode: String = ""
   var password: String = ""
-
+  var timer: NSTimer?
+  
+  var timeCount = 60
+  let reachability = Reachability.reachabilityForInternetConnection()
+  
+  @IBOutlet weak var timeLable: UILabel!
+  @IBOutlet weak var reverifyButton: UIButton!
   @IBOutlet weak var phoneLabel: UILabel!
   @IBOutlet weak var nextButton: UIButton!
   @IBOutlet weak var textField: UITextField!
@@ -22,6 +29,8 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
       
       
       title = localString("SMSVERIFY")
+      
+      nextButton.enabled = false
       
       let ss = (phone as NSString)
       let secrtPhone = ss.stringByReplacingCharactersInRange(NSMakeRange(0, ss.length - 4), withString: "XXXXXX")
@@ -35,12 +44,91 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
       navigationItem.leftBarButtonItem = backItem
       
         // Do any additional setup after loading the view.
-    }
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
+      
+      begainTimer()
+  }
   
+  deinit {
+    timer?.invalidate()
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  func begainTimer() {
+    
+    if timer == nil {
+      timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateReverifyLabel", userInfo: nil, repeats: true)
+    }
+    
+    timeLable.hidden = false
+    reverifyButton.hidden = true
+    reverifyButton.userInteractionEnabled = false
+    timer!.fireDate = NSDate.distantPast() as! NSDate
+//    timer!.fire()
+  }
+  
+  func updateReverifyLabel() {
+    
+    println("timeCount = \(timeCount)")
+    
+    timeLable.text = "\(timeCount)"
+    
+    timeCount--
+
+    if timeCount == 0 {
+      timeCount = 60
+      
+      timeLable.hidden = true
+      reverifyButton.hidden = false
+      timeLable.text = localString("RESENDINGSMS")
+      reverifyButton.userInteractionEnabled = true
+      timer!.fireDate = NSDate.distantFuture() as! NSDate
+    }
+  }
+  
+  func textFieldDidChanged(sender: AnyObject) {
+    
+    let count = textField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+    if count < 4 || count > 6 {
+      nextButton.enabled = false
+    } else {
+      nextButton.enabled = true
+    }
+  }
+  @IBAction func reverifyAction(sender: AnyObject) {
+    
+    resend {[weak self] (success) -> () in
+      
+      if let strongSelf = self {
+        if success {
+          strongSelf.begainTimer()
+        }
+      }
+    }
+  }
   
   @IBAction func tapAction(sender: UITapGestureRecognizer) {
     
     textField.resignFirstResponder()
+  }
+  
+  func resend(successblock: (Bool) -> ()) {
+    HUD.register_sending()
+    CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: areaCode) {[weak self] (success) -> () in
+      HUD.dismiss()
+      successblock(success)
+    }
+  }
+  
+  override func viewDidDisappear(animated: Bool) {
+    
+    timeCount = 60
+    timeLable.hidden = true
+    reverifyButton.hidden = false
+    timeLable.text = localString("RESENDINGSMS")
+    reverifyButton.userInteractionEnabled = true
+    timer!.fireDate = NSDate.distantFuture() as! NSDate
+    
   }
   
 
@@ -51,6 +139,7 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
   
   func backAction(sender: AnyObject) {
     
+    textField.resignFirstResponder()
     let alert = AlertHelper.alert_verifyback { [weak self] (confirm) -> () in
       
       if confirm {
@@ -68,6 +157,10 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
   @IBAction func nextAction(sender: UIButton) {
     
 //    showRegisterInfoVC()
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.shownetwrongandverifyfail()
+      return
+    }
     
     let aphone = phone
     let aareaCode = areaCode
@@ -82,7 +175,7 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
           strongSelf.register(aphone, code: aareaCode, password: apassword)
           
         } else {
-          self?.verifyfail()
+          self?.showverifyfail()
           debugPrint.p("verification is fail !")
           
         }
@@ -90,7 +183,13 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     })
   }
   
-  func verifyfail() {
+  func shownetwrongandverifyfail() {
+    
+    let alert = AlertHelper.alert_netwrongandverifyfail()
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  func showverifyfail() {
     
     let alert = AlertHelper.alert_verifyfail()
     presentViewController(alert, animated: true, completion: nil)

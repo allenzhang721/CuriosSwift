@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
   
+  let reachability = Reachability.reachabilityForInternetConnection()
   @IBOutlet weak var breathView: RippleView!
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -49,12 +51,16 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     controller.dismissViewControllerAnimated(false, completion: nil)
   }
   
+  func navigationControllerDidNetBroken(controller: LaunchNaviViewController) {
+//    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   func showMoreLogin() {
     
 //    LOGIN = "登录";
 //    REGISTER = "注册";
 //    CANCEL
-    
+
     let login = UIAlertAction(title: localString("LOGIN"), style: .Default) {[unowned self] (action) -> Void in
       
       self.showPhoneRegisterVC(true)
@@ -78,7 +84,19 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     presentViewController(alert, animated: true, completion: nil)
   }
   
+  func needConnectNet() {
+    
+    let alert = AlertHelper.alert_needConnected()
+    presentViewController(alert, animated: true, completion: nil)
+    
+  }
+  
   func showPhoneRegisterVC(login: Bool) {
+    
+//    if reachability.currentReachabilityStatus == .NotReachable {
+//      self.needConnectNet()
+//      return
+//    }
     
     if let navi = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LaunchNaviViewController") as? LaunchNaviViewController,
     let phoneregister = navi.topViewController as? PhoneRegisterViewController {
