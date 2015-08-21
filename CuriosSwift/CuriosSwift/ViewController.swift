@@ -33,16 +33,9 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let encrptPassword = AESCrypt.hash256("123456789012345")
-    
-    debugPrint.p("encrptPassword = \(encrptPassword)")
-    
-//    notifier()
     didload();
-//    loadViewController()
     FontsManager.share.registerLocalFonts()
     self.loadViewController()
-    
   }
   
   override func viewDidAppear(animated: Bool) {

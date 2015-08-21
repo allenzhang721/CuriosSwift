@@ -1298,6 +1298,8 @@ extension EditViewController {
     let userID = UsersManager.shareInstance.getUserID()
     let publishID = bookModel.Id
     
+//    assetslibaray
+    
     // Selected Image
     let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
     let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)

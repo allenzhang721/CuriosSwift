@@ -63,12 +63,12 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
 
     let login = UIAlertAction(title: localString("LOGIN"), style: .Default) {[unowned self] (action) -> Void in
       
-      self.showPhoneRegisterVC(true)
+      self.showPhoneRegisterVC("Login")
     }
     
     let register = UIAlertAction(title: localString("REGISTER"), style: .Default) {[unowned self] (action) -> Void in
       
-      self.showPhoneRegisterVC(false)
+      self.showPhoneRegisterVC("Register")
     }
     
     let cancel = UIAlertAction(title: localString("CANCEL"), style: .Cancel) { (action) -> Void in
@@ -91,7 +91,7 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     
   }
   
-  func showPhoneRegisterVC(login: Bool) {
+  func showPhoneRegisterVC(type: String) {
     
 //    if reachability.currentReachabilityStatus == .NotReachable {
 //      self.needConnectNet()
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     
     if let navi = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LaunchNaviViewController") as? LaunchNaviViewController,
     let phoneregister = navi.topViewController as? PhoneRegisterViewController {
-      phoneregister.isLogin = login
+      phoneregister.type = type == "Login" ? .Login : .Register
       navi.launchDelegate = self
       
       dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in

@@ -57,12 +57,12 @@
 + (NSString *)hash256:(NSString *) message {
   
   NSData *hashData = [[message dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash];
-  
-    Byte *aplainTextByte = (Byte *)[hashData bytes];
-    NSLog(@"%lu", (unsigned long)hashData.length);
-    for(int i=0;i<[hashData length];i++){
-      printf("%x",aplainTextByte[i]);
-    }
+//  
+//    Byte *aplainTextByte = (Byte *)[hashData bytes];
+//    NSLog(@"%lu", (unsigned long)hashData.length);
+//    for(int i=0;i<[hashData length];i++){
+//      printf("%x",aplainTextByte[i]);
+//    }
   NSString *ss = [hashData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 //  NSString *base64EncodedString = [NSString base64StringFromData:hashData length:[hashData length]];
   return ss;

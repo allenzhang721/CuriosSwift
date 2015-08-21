@@ -22,6 +22,18 @@ class AlertHelper {
     return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
   }
   
+  // 修改失败
+  class func alert_modifyFail() -> UIAlertController {
+    
+    //  MODIFYSUCCESS
+    
+    let title = localString("TIPS")
+    let message = localString("MODIFYFAIL")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
   // 网络异常，请稍后再试。
   class func alert_netwrong() -> UIAlertController {
     

@@ -9,15 +9,23 @@
 import UIKit
 import ReachabilitySwift
 
+enum Type {
+  case Register, Login, FindPassword
+}
+
 class PhoneRegisterViewController: UIViewController {
   
+
   var isLogin = false
+  var type: Type = .Register  // Login, FindPassword
   
+  let findPasswordButtonTag = 3000
+  
+  @IBOutlet weak var findPasswordButton: UIButton!
   @IBOutlet weak var nextStepButton: UIButton!
   weak var areaCodeLabel: UILabel!
   weak var phoneTextField: UITextField!
   weak var passwordTextField: UITextField!
-  
   let reachability = Reachability.reachabilityForInternetConnection()
   
   struct Register {
@@ -34,29 +42,25 @@ class PhoneRegisterViewController: UIViewController {
       password = number
     }
 
-    func checkOKWith(zoneCode: String, rule: String) -> Bool {
+    func checkOKWith(zoneCode: String, rule: String, checkPassword: Bool = true) -> Bool {
       
       // get current zone code and rule
       if zoneCode != areacode {
         return false
       }
       
-      // basic check: password count
-      let passwordLength = password.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-      if passwordLength < 6 || passwordLength > 16 {
-        return false
+      if checkPassword {
+        // basic check: password count
+        let passwordLength = password.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        if passwordLength < 6 || passwordLength > 16 {
+          return false
+        }
       }
       
-      
       // phone rule
-      debugPrint.p("predicate = \(phone)*")
       let predicate = NSPredicate(format: "SELF MATCHES %@", rule)
       if !predicate.evaluateWithObject(phone) {
         return false
-      }
-
-      if !areacode.isEmpty && !phone.isEmpty && !password.isEmpty {
-        return true
       }
       
       return true
@@ -64,237 +68,99 @@ class PhoneRegisterViewController: UIViewController {
   }
   
   var supportZones: [CountryCodeHelper.Zone] = []
-  
   var currentZone: CountryCodeHelper.Zone?
   
   @IBOutlet weak var loginButton: UIButton!
-  
-  
+  @IBOutlet weak var tableView: UITableView!
   var defaultRegister:Register!
   
-  @IBOutlet weak var tableView: UITableView!
+  
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    begain()
     
-    loginButton.enabled = false
-    
+    begainDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
   }
   
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
+}
+
+
+
+
+
+// MARK: - 1. IBAction Method
+extension PhoneRegisterViewController {
   
-//  override func viewDidAppear(animated: Bool) {
-//    func showRegisterInfoVC() {
-//      if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
-//        
-//        navigationController?.pushViewController(infoVC, animated: true)
-//      }
-//      
-//      
-//    }
-//    showRegisterInfoVC()
-//  }
-  @IBAction func backAction(sender: AnyObject) {
-    
-    phoneTextField.resignFirstResponder()
-    passwordTextField.resignFirstResponder()
-    
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
-  
-  
-  @IBAction func tapAction(sender: UITapGestureRecognizer) {
-    
-    if let phone = phoneTextField {
-      phone.resignFirstResponder()
-    }
-    
-    if let passwor = passwordTextField {
-      passwor.resignFirstResponder()
-    }
-    
-    
-    
-  }
-  
-  
-  func begain() {
-    
-    if isLogin {
-      title = localString("LOGIN")
-      nextStepButton.setTitle(localString("LOGIN"), forState: UIControlState.Normal)
-    } else {
-      title = localString("REGISTER")
-      nextStepButton.setTitle(localString("NEXTSTEP"), forState: UIControlState.Normal)
-    }
-    
-    // current areaCode and country name
-    let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
-    let countryName = currentZoneInfo.0
-    let areaCode = currentZoneInfo.1
-    defaultRegister = Register(countryDisplayName: countryName, areacode: areaCode, phone: "", password: "")
-    
-    // zone
-    HUD.register_getZoneInfo()
-    CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
-      if let strongSelf = self {
-        
-        if success {
-          HUD.dismiss(0.5)
-          strongSelf.supportZones = zones
-          strongSelf.updateCurrentZoneWith(areaCode, zones: strongSelf.supportZones)
-        } else {
-          HUD.dismiss(0.5)
-//          HUD.register_getZoneInfoFail()
-          strongSelf.showFailGetZone()
-        }
-      }
-    }
-  }
-  
-  func updateCurrentZoneWith(zoneCode: String, zones: [CountryCodeHelper.Zone]) {
-    
-    let currentzone = zones.filter { zone -> Bool in
-      
-      return zone.zoneCode == zoneCode
-    }
-    
-    if currentzone.count > 0 {
-      currentZone = currentzone.first!
-      debugPrint.p("currentZone = \(currentZone)")
-    }
-  }
-  
-  func showFailGetZone() {
-    
-    let alert = AlertHelper.alert_failGetZone {[weak self] (finished) -> () in
-      
-//      if let strongself = self {
-//        strongself.dismissViewControllerAnimated(true, completion: nil)
-//      }
-      
-    }
-    
-    presentViewController(alert, animated: true, completion: nil)
-  }
-  
-  func shownetwrongandverifyfail() {
-    
-    let alert = AlertHelper.alert_netwrongandverifyfail()
-    presentViewController(alert, animated: true, completion: nil)
-  }
-  
-  
+  // MARK: - Button
   @IBAction func loginAction(sender: UIButton) {
     
-    if reachability.currentReachabilityStatus == .NotReachable {
-      self.shownetwrongandverifyfail()
+    cancelFirstResponder()
+    
+    let result = beforeLoginAndRegister() // need next step
+    if result.0 == false {
       return
     }
     
-    let phone = defaultRegister.phone
-    let zone = defaultRegister.areacode
-    let password = defaultRegister.password
+    let phone = result.1!
+    let zone = result.2!
+    let encryptPassword = result.3!
     
-    phoneTextField.resignFirstResponder()
-    passwordTextField.resignFirstResponder()
-
+    switch type {
+    case .Register:
+      begainRegister(
+        phone,
+        zone: zone,
+        encryptPassword: encryptPassword)
+    case .Login:
+      begainLogin(
+        phone,
+        zone: zone,
+        encryptPassword: encryptPassword)
+    case .FindPassword:
+      begainFindPassword(
+        phone,
+        zone: zone)
+    default:
+      ()
+    }
     
-    let encrptPassword = AESCrypt.hash256(defaultRegister.password)
+  }
+  
+  @IBAction func backAction(sender: AnyObject) {
     
-    if isLogin {
-      HUD.launch_Loading()
-      RegisterHelper.phoneLogin(phone, password: encrptPassword, completed: {[weak self] (success, userModel) -> () in
-        
-        HUD.dismiss()
-        if success {
-          self?.login(userModel!)
-        } else {
-          // acount fail
-          self?.showAcountFail()
-        }
-      })
-      
+    cancelFirstResponder()
+    
+    if type == .FindPassword {
+      navigationController?.popViewControllerAnimated(true)
     } else {
-      let phones = "+ \(zone) \(phone)"
-      
-      let alert = AlertHelper.alert_willSendVerify(phones, finished: { [weak self] (confirm) -> () in
-        
-        if let StrongSelf = self {
-          
-          if confirm {
-            HUD.register_sending()
-            CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[weak self] (success) -> () in
-              HUD.dismiss(0.5)
-              if let strongSelf = self {
-                if success {
-                  self?.showVerificationVC()
-                } else {
-                  self?.showSMSFail()
-                }
-              }
-            }
-          }
-        }
-      })
-      
-      self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
-  }
-  
-  func showAcountFail() {
-    
-    let alert = AlertHelper.alert_countfail()
-    presentViewController(alert, animated: true, completion: nil)
-    
-  }
-  
-  func showSMSFail() {
-    
-    let alert = AlertHelper.alert_smsfail()
-    presentViewController(alert, animated: true, completion: nil)
-  }
-  
-  func login(user: UserModel) {
-    
-    if let navigation = navigationController as? LaunchNaviViewController {
-      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+      dismissViewControllerAnimated(true, completion: nil)
     }
   }
   
-  func showVerificationVC() {
-    
-    if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
-      
-//      let encrptPassword = AESCrypt.encrypt(defaultRegister.password, password: AESDecrptKey)
-      let encrptPassword = AESCrypt.hash256(defaultRegister.password)
-      
-      vc.phone = defaultRegister.phone
-      vc.areaCode = defaultRegister.areacode
-      vc.password = encrptPassword
-      
-//      debugPrint.p(defaultRegister.password)
-      navigationController?.pushViewController(vc, animated: true)
-    }
+  func findPasswordAction(sender: AnyObject) {
+    cancelFirstResponder()
+    showFindPasswordVC()
   }
-  
-  func showCountryVC() {
+
+  // MARK: - Gestures
+  @IBAction func tapAction(sender: UITapGestureRecognizer) {
     
-    if let countryVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("CountryTableViewController") as? CountryTableViewController {
-      
-      navigationController?.pushViewController(countryVC, animated: true)
-    }
+    cancelFirstResponder()
   }
 }
 
+
+
+// MARK: - 2. DataSource & Delegate
+
 extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate {
+  
+  // MARK: - TableView
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
@@ -306,7 +172,12 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return 3
+    switch type {
+    case .FindPassword:
+      return 2
+    default:
+      return 3
+    }
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -351,6 +222,11 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
           }
           textField.text = defaultRegister.password
         }
+        
+//        if let button = cell.viewWithTag(findPasswordButtonTag) as? UIButton {
+//          
+//        }
+        
         return cell
       }
     }
@@ -358,8 +234,303 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
     return cell
   }
+  
+  // MARK: - TextField
+  
+  func textFieldDidChanged(notification: NSNotification) {
+    
+    if currentZone == nil {
+      return
+    }
+    
+    let textField = notification.object as! UITextField
+    let zoneCode = currentZone!.zoneCode
+    let rule = currentZone!.phoneCheckRule
+    if textField.tag == 2001 {
+      //      println(textField.text)
+      let remove = removeBlank(textField.text)
+      defaultRegister.updatePhone(remove)
+      textField.text = appendBlank(remove)
+      if defaultRegister.checkOKWith(zoneCode, rule: rule, checkPassword: !(type == .FindPassword)) {
+        loginButton.enabled = true
+      } else {
+        loginButton.enabled = false
+      }
+    }
+    
+    if textField.tag == 2002 {
+      defaultRegister.updatePassword(textField.text)
+      if defaultRegister.checkOKWith(zoneCode, rule: rule, checkPassword: !(type == .FindPassword)) {
+        loginButton.enabled = true
+      } else {
+        loginButton.enabled = false
+      }
+    }
+  }
+  
 }
 
+// MARK: - 3. Function Method
+extension PhoneRegisterViewController {
+  
+  // MARK: - Life Cycle
+  
+  func begainDidLoad() {
+    
+    loginButton.enabled = false
+    
+    findPasswordButton.hidden = type == .Login ? false : true
+    findPasswordButton.addTarget(self, action: "findPasswordAction:", forControlEvents: UIControlEvents.TouchUpInside)
+    
+    if isLogin {
+      
+    } else {
+      
+    }
+    
+    switch type {
+    case .Login:
+      title = localString("LOGIN")
+      nextStepButton.setTitle(localString("LOGIN"), forState: UIControlState.Normal)
+    case .Register:
+      title = localString("REGISTER")
+      nextStepButton.setTitle(localString("NEXTSTEP"), forState: UIControlState.Normal)
+    case .FindPassword:
+      title = localString("FINDPASSWROD")
+      nextStepButton.setTitle(localString("NEXTSTEP"), forState: UIControlState.Normal)
+    default:
+      ()
+      
+    }
+    
+    // current areaCode and country name
+    let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
+    let countryName = currentZoneInfo.0
+    let areaCode = currentZoneInfo.1
+    defaultRegister = Register(countryDisplayName: countryName, areacode: areaCode, phone: "", password: "")
+    
+    // zone
+    HUD.register_getZoneInfo()
+    CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
+      if let strongSelf = self {
+        
+        if success {
+          HUD.dismiss(0.5)
+          strongSelf.supportZones = zones
+          strongSelf.updateCurrentZoneWith(areaCode, zones: strongSelf.supportZones)
+        } else {
+          HUD.dismiss(0.5)
+          //          HUD.register_getZoneInfoFail()
+          strongSelf.showFailGetZone()
+        }
+      }
+    }
+  }
+  
+  // MARK: - Find Password
+  
+  // TODO: 08.21.2015, begain Send FindPassword SMS
+  private func begainFindPassword(phone: String, zone: String) {
+    
+    let phones = "+ \(zone) \(phone)"
+    let alert = AlertHelper.alert_willSendVerify(phones, finished: { [weak self] (confirm) -> () in
+      
+      if let StrongSelf = self {
+        if confirm {
+          HUD.register_sending()
+          CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[weak self] (success) -> () in
+            HUD.dismiss(0.5)
+            if let strongSelf = self {
+              if success {
+                self?.showVerifyFindPasswordVC(phone, areaCode: zone)
+              } else {
+                self?.showSMSFail()
+              }
+            }
+          }
+        }
+      }
+      })
+    self.presentViewController(alert, animated: true, completion: nil)
+    
+    
+    
+  }
+  
+  // MARK: - Login & Register
+  
+  private func beforeLoginAndRegister() -> (Bool, String?, String?, String?) {  // needNextStep, phone, zone, encryptPassword
+  
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.shownetwrongandverifyfail()
+      return (false, nil, nil, nil)
+    }
+    
+    let phone = defaultRegister.phone
+    let zone = defaultRegister.areacode
+    let password = defaultRegister.password
+    let encrptPassword = AESCrypt.hash256(defaultRegister.password)
+    
+    return (true, phone, zone, encrptPassword)
+  }
+  
+  private func begainLogin(phone: String, zone: String, encryptPassword: String) {
+    
+    HUD.launch_Loading()
+    RegisterHelper.phoneLogin(phone, password: encryptPassword, completed: {[weak self] (success, userModel) -> () in
+      
+      HUD.dismiss()
+      if success {
+        self?.login(userModel!)
+      } else {
+        // acount fail
+        self?.showAcountFail()
+      }
+      })
+  }
+  
+  private func begainRegister(phone: String, zone: String, encryptPassword: String) {
+    
+    let phones = "+ \(zone) \(phone)"
+    let alert = AlertHelper.alert_willSendVerify(phones, finished: { [weak self] (confirm) -> () in
+      
+      if let StrongSelf = self {
+        if confirm {
+          HUD.register_sending()
+          CountryCodeHelper.getVerificationCodeBySMSWithPhone(phone, zoneCode: zone) {[weak self] (success) -> () in
+            HUD.dismiss(0.5)
+            if let strongSelf = self {
+              if success {
+                self?.showVerificationVC()
+              } else {
+                self?.showSMSFail()
+              }
+            }
+          }
+        }
+      }
+      })
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  private func login(user: UserModel) {
+    
+    if let navigation = navigationController as? LaunchNaviViewController {
+      navigation.launchDelegate?.navigationController(navigation, loginUser: user)
+    }
+  }
+  
+  func updateCurrentZoneWith(zoneCode: String, zones: [CountryCodeHelper.Zone]) {
+    
+    let currentzone = zones.filter { zone -> Bool in
+      
+      return zone.zoneCode == zoneCode
+    }
+    
+    if currentzone.count > 0 {
+      currentZone = currentzone.first!
+      debugPrint.p("currentZone = \(currentZone)")
+    }
+  }
+  
+  
+  
+  // MARK: - FirstResponder
+  func cancelFirstResponder() {
+    
+    if let phone = phoneTextField {
+      phone.resignFirstResponder()
+    }
+    
+    if let passwor = passwordTextField {
+      passwor.resignFirstResponder()
+    }
+  }
+  
+  
+  // MARK: - Show ViewController
+  func showVerificationVC() {
+    
+    if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
+      
+      //      let encrptPassword = AESCrypt.encrypt(defaultRegister.password, password: AESDecrptKey)
+      let encrptPassword = AESCrypt.hash256(defaultRegister.password)
+      vc.type = .Register
+      vc.phone = defaultRegister.phone
+      vc.areaCode = defaultRegister.areacode
+      vc.password = encrptPassword
+      
+      navigationController?.pushViewController(vc, animated: true)
+    }
+  }
+  
+  func showCountryVC() {
+    
+    if let countryVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("CountryTableViewController") as? CountryTableViewController {
+      
+      navigationController?.pushViewController(countryVC, animated: true)
+    }
+  }
+  
+  func showFindPasswordVC() {
+    
+    if let findPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("PhoneRegisterViewController") as? PhoneRegisterViewController {
+      findPasswordVC.type = .FindPassword
+      navigationController?.pushViewController(findPasswordVC, animated: true)
+    }
+  }
+  
+  // TODO: 08.21.2015, 3. Show SMSVerifyVC as! VerifyViewController
+  func showVerifyFindPasswordVC(phone: String, areaCode: String) {
+    if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
+      
+      //      let encrptPassword = AESCrypt.encrypt(defaultRegister.password, password: AESDecrptKey)
+      let encrptPassword = AESCrypt.hash256(defaultRegister.password)
+      vc.type = .FindPassword
+      vc.phone = phone
+      vc.areaCode = areaCode
+      vc.password = encrptPassword
+      
+      navigationController?.pushViewController(vc, animated: true)
+    }
+  }
+  
+  // MARK: - Show Alert
+  private func showFailGetZone() {
+    
+    let alert = AlertHelper.alert_failGetZone {[weak self] (finished) -> () in
+      
+      //      if let strongself = self {
+      //        strongself.dismissViewControllerAnimated(true, completion: nil)
+      //      }
+    }
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  private func shownetwrongandverifyfail() {
+    
+    let alert = AlertHelper.alert_netwrongandverifyfail()
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  private func showAcountFail() {
+  
+  let alert = AlertHelper.alert_countfail()
+  presentViewController(alert, animated: true, completion: nil)
+  
+  }
+  
+  func showSMSFail() {
+    
+    let alert = AlertHelper.alert_smsfail()
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+}
+
+
+// MARK: - 4. Helper Method
 extension PhoneRegisterViewController: UITextFieldDelegate {
   
   
@@ -412,36 +583,7 @@ extension PhoneRegisterViewController: UITextFieldDelegate {
     return blank
   }
   
-  func textFieldDidChanged(notification: NSNotification) {
-    
-    if currentZone == nil {
-      return
-    }
-    
-    let textField = notification.object as! UITextField
-    let zoneCode = currentZone!.zoneCode
-    let rule = currentZone!.phoneCheckRule
-    if textField.tag == 2001 {
-//      println(textField.text)
-      let remove = removeBlank(textField.text)
-      defaultRegister.updatePhone(remove)
-      textField.text = appendBlank(remove)
-      if defaultRegister.checkOKWith(zoneCode, rule: rule) {
-        loginButton.enabled = true
-      } else {
-        loginButton.enabled = false
-      }
-    }
-    
-    if textField.tag == 2002 {
-      defaultRegister.updatePassword(textField.text)
-      if defaultRegister.checkOKWith(zoneCode, rule: rule) {
-        loginButton.enabled = true
-      } else {
-        loginButton.enabled = false
-      }
-    }
-  }
+  
 }
 
 

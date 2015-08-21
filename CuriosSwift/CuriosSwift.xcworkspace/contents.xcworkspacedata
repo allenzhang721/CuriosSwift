@@ -2,10 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CuriosSwift/PhoneLoginViewController.swift">
-   </FileRef>
-   <FileRef
-      location = "group:CuriosSwift/LaunchNaviViewController.swift">
+      location = "group:CuriosSwift/ResetPasswordViewController.swift">
    </FileRef>
    <FileRef
       location = "group:CuriosSwift.xcodeproj">

@@ -9,6 +9,40 @@
 import Foundation
 
 
+
+
+// MARK: - user/changePassword
+let USER_CHANGEPASSWORD = ["user", "changePassword"]
+func USER_CHANGEPASSWORD_paras (
+  userID: String,
+  newPassword: String
+  
+  ) -> String {
+    
+    let data = [
+      "userID": userID,
+      "newPassword": newPassword
+    ]
+    return dicToJson(data)
+}
+
+
+//user/changePasswordByPhone
+let USER_CHANGEPASSWORD_PHONE = ["user", "changePasswordByPhone"]
+func USER_CHANGEPASSWORD_PHONE_paras (
+  phone: String,
+  newpassword: String
+  
+  ) -> String {
+    
+    let data = [
+      "phone": phone,
+      "newPassword": newpassword
+    ]
+    return dicToJson(data)
+}
+
+
 // MARK: - Login
 let USER_LOGIN = ["user", "login"]
 func USER_LOGIN_paras (
@@ -23,12 +57,6 @@ func USER_LOGIN_paras (
     ]
     return dicToJson(data)
 }
-
-
-
-
-
-
 
 
 

@@ -9,7 +9,13 @@
 import UIKit
 import ReachabilitySwift
 
-class VerificationViewController: UIViewController, UINavigationBarDelegate {
+enum VerifyType {
+  case Register, FindPassword
+}
+
+class VerificationViewController: UIViewController {
+  
+  var type: VerifyType = .Register
   
   var phone: String = ""
   var areaCode: String = ""
@@ -54,38 +60,75 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
-  func begainTimer() {
+  override func viewDidDisappear(animated: Bool) {
     
-    if timer == nil {
-      timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateReverifyLabel", userInfo: nil, repeats: true)
-    }
+    timeCount = 60
+    timeLable.hidden = true
+    reverifyButton.hidden = false
+    timeLable.text = localString("RESENDINGSMS")
+    reverifyButton.userInteractionEnabled = true
+    timer!.fireDate = NSDate.distantFuture() as! NSDate
     
-    timeLable.hidden = false
-    reverifyButton.hidden = true
-    reverifyButton.userInteractionEnabled = false
-    timer!.fireDate = NSDate.distantPast() as! NSDate
-//    timer!.fire()
   }
-  
-  func updateReverifyLabel() {
-    
-    println("timeCount = \(timeCount)")
-    
-    timeLable.text = "\(timeCount)"
-    
-    timeCount--
 
-    if timeCount == 0 {
-      timeCount = 60
-      
-      timeLable.hidden = true
-      reverifyButton.hidden = false
-      timeLable.text = localString("RESENDINGSMS")
-      reverifyButton.userInteractionEnabled = true
-      timer!.fireDate = NSDate.distantFuture() as! NSDate
+  
+
+  
+  
+  
+  
+  
+
+}
+
+// MARK: - 1. IBAction Method
+extension VerificationViewController {
+  
+  // MARK: - Button
+  @IBAction func nextAction(sender: UIButton) {
+    
+    let result = willNextStep()
+    
+    if result.0 == false {
+      return
     }
+    
+    let phone = result.1!
+    let areaCode = result.2!
+    let password = result.3!
+    
+    didNextStep(phone, areaCode: areaCode, password: password)
   }
   
+  func backAction(sender: AnyObject) {
+    
+    textField.resignFirstResponder()
+    let alert = AlertHelper.alert_verifyback { [weak self] (confirm) -> () in
+      
+      if confirm {
+        if let navigation = self?.navigationController as? LaunchNaviViewController {
+          navigation.popViewControllerAnimated(true)
+        }
+      }
+      
+    }
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  // MARK: - Gestures
+  @IBAction func tapAction(sender: UITapGestureRecognizer) {
+    
+    textField.resignFirstResponder()
+  }
+  
+  
+}
+
+// MARK: - 2. DataSource & Delegate
+extension VerificationViewController: UINavigationBarDelegate {
+  
+  // MARK: - Text Field
   func textFieldDidChanged(sender: AnyObject) {
     
     let count = textField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
@@ -107,10 +150,74 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     }
   }
   
-  @IBAction func tapAction(sender: UITapGestureRecognizer) {
+}
+
+// MARK: - 3. Function Method
+extension VerificationViewController {
+  
+  
+  // MARK: - Next Step
+  func willNextStep() -> (Bool, String?, String?, String?) {  // needNextStep, Phone, areaCode, password
     
-    textField.resignFirstResponder()
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.shownetwrongandverifyfail()
+      return (false, nil, nil, nil)
+    }
+    
+    let aphone = phone
+    let aareaCode = areaCode
+    let apassword = password
+    
+    return (true, aphone, aareaCode, apassword)
+    
   }
+  
+  func didNextStep(phone: String, areaCode: String, password: String) {
+    
+    switch type {
+    case .Register:
+      didNextStepRegister(phone, areaCode: areaCode, password: password)
+    case .FindPassword:
+      didNextStepFindPassword(phone, areaCode: areaCode, password: password)
+    }
+  }
+  
+  func didNextStepRegister(phone: String, areaCode: String, password: String) {
+    
+    CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
+      if let strongSelf = self {
+        if success {
+          debugPrint.p("verification is success !")
+          strongSelf.register(phone, code: areaCode, password: password)
+          
+        } else {
+          self?.showverifyfail()
+          debugPrint.p("verification is fail !")
+          
+        }
+      }
+      })
+  }
+  
+  func didNextStepFindPassword(phone: String, areaCode: String, password: String) {
+  
+    CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
+      if let strongSelf = self {
+        if success {
+          debugPrint.p("verification is success !")
+          strongSelf.showChangedPasswordVC(phone)
+          
+        } else {
+          self?.showverifyfail()
+          debugPrint.p("verification is fail !")
+          
+        }
+      }
+      })
+  }
+  
+  
+  // MARK: - Timer
   
   func resend(successblock: (Bool) -> ()) {
     HUD.register_sending()
@@ -120,78 +227,48 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     }
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  func begainTimer() {
     
-    timeCount = 60
-    timeLable.hidden = true
-    reverifyButton.hidden = false
-    timeLable.text = localString("RESENDINGSMS")
-    reverifyButton.userInteractionEnabled = true
-    timer!.fireDate = NSDate.distantFuture() as! NSDate
+    if timer == nil {
+      timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateReverifyLabel", userInfo: nil, repeats: true)
+    }
     
+    timeLable.hidden = false
+    reverifyButton.hidden = true
+    reverifyButton.userInteractionEnabled = false
+    timer!.fireDate = NSDate.distantPast() as! NSDate
+    //    timer!.fire()
   }
   
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-  
-  func backAction(sender: AnyObject) {
+  func updateReverifyLabel() {
     
-    textField.resignFirstResponder()
-    let alert = AlertHelper.alert_verifyback { [weak self] (confirm) -> () in
+    
+    timeLable.text = "\(timeCount)"
+    
+    timeCount--
+    
+    if timeCount == 0 {
+      timeCount = 60
+      
+      timeLable.hidden = true
+      reverifyButton.hidden = false
+      timeLable.text = localString("RESENDINGSMS")
+      reverifyButton.userInteractionEnabled = true
+      timer!.fireDate = NSDate.distantFuture() as! NSDate
+    }
+  }
+  
+  func login(user: UserModel) {
+    
+    let alert = AlertHelper.alert_hasRegistered { [weak self] (confirm) -> () in
       
       if confirm {
         if let navigation = self?.navigationController as? LaunchNaviViewController {
-          navigation.popViewControllerAnimated(true)
+          navigation.launchDelegate?.navigationController(navigation, loginUser: user)
         }
       }
-      
     }
     
-    presentViewController(alert, animated: true, completion: nil)
-  }
-    
-
-  @IBAction func nextAction(sender: UIButton) {
-    
-//    showRegisterInfoVC()
-    if reachability.currentReachabilityStatus == .NotReachable {
-      self.shownetwrongandverifyfail()
-      return
-    }
-    
-    let aphone = phone
-    let aareaCode = areaCode
-    let apassword = password
-    CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
-      
-      if let strongSelf = self {
-
-        if success {
-          debugPrint.p("verification is success !")
-          
-          strongSelf.register(aphone, code: aareaCode, password: apassword)
-          
-        } else {
-          self?.showverifyfail()
-          debugPrint.p("verification is fail !")
-          
-        }
-      }
-    })
-  }
-  
-  func shownetwrongandverifyfail() {
-    
-    let alert = AlertHelper.alert_netwrongandverifyfail()
-    presentViewController(alert, animated: true, completion: nil)
-  }
-  
-  func showverifyfail() {
-    
-    let alert = AlertHelper.alert_verifyfail()
     presentViewController(alert, animated: true, completion: nil)
   }
   
@@ -210,6 +287,8 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     }
   }
   
+  // MARK: - Show ViewController
+  
   func showRegisterInfoVC(user: UserModel) {
     if let infoVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("RegisterInfoViewController") as? RegisterInfoViewController {
       
@@ -218,27 +297,38 @@ class VerificationViewController: UIViewController, UINavigationBarDelegate {
     }
   }
   
-  func login(user: UserModel) {
+  func showChangedPasswordVC(phone: String) {
     
-   let alert = AlertHelper.alert_hasRegistered { [weak self] (confirm) -> () in
+    // TODO: 08.21.2015, Show Change password vc
+//    ResetPasswordViewController
+    if let resetVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("ResetPasswordViewController") as? ResetPasswordViewController {
       
-      if confirm {
-        if let navigation = self?.navigationController as? LaunchNaviViewController {
-          navigation.launchDelegate?.navigationController(navigation, loginUser: user)
-        }
-      }
+      resetVC.phone = phone
+      navigationController?.pushViewController(resetVC, animated: true)
     }
     
+    debugPrint.p("showChangedPasswordVC")
+  }
+  
+  
+  // MARK: - Show Alert
+  func shownetwrongandverifyfail() {
+    
+    let alert = AlertHelper.alert_netwrongandverifyfail()
     presentViewController(alert, animated: true, completion: nil)
   }
-    /*
-    // MARK: - Navigation
+  
+  func showverifyfail() {
+    
+    let alert = AlertHelper.alert_verifyfail()
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+// MARK: - 4. Helper Method
+extension VerificationViewController {
 
+  
 }

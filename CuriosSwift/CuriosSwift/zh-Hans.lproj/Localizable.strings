@@ -57,9 +57,10 @@ CLEANNING = "正在清理";
 CLEANED = "清理完毕";
 GOBACK = "返回";
 WAITING = "等待";
-
+FINDPASSWROD = "找回密码";
 // Alert
 TIPS = "温馨提醒";
+MODIFYFAIL = "修改失败";
 
 // HUD
 SENDING = "发送中";
