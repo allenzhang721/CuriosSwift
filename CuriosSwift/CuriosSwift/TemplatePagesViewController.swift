@@ -17,9 +17,7 @@ class TemplatePagesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
+      
         // Do any additional setup after loading the view.
         loadTemplateWithId(templateBookId)
     }
@@ -58,7 +56,6 @@ class TemplatePagesViewController: UIViewController {
                 //            }
                 return pageModels
             } else {
-                
                 return nil
             }
     }

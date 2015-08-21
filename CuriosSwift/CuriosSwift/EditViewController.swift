@@ -1304,11 +1304,30 @@ extension EditViewController {
     let selectedImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
     let imageData = UIImageJPEGRepresentation(selectedImage, 0.001)
     let image = UIImage(data: imageData)!
-
-    isReplacedImage ? replaceImage(image, userID: userID, publishID: publishID) : addImage(image, userID: userID, publishID: publishID)
-    isReplacedImage = false
     
-    picker.dismissViewControllerAnimated(true, completion: nil)
+    let targetSize = CGSize(width: bookModel.width, height: bookModel.height)
+    
+    ImageHelper.optimizeImageFromLibrary(MediaWithInfo: info, targetRect: targetSize, successBlock: { [weak self] (image, size) -> () in
+      
+      if let strongSelf = self {
+        strongSelf.isReplacedImage ? strongSelf.replaceImage(image, userID: userID, publishID: publishID) : strongSelf.addImage(image, userID: userID, publishID: publishID)
+        strongSelf.isReplacedImage = false
+        picker.dismissViewControllerAnimated(true, completion: nil)
+      }
+      
+      
+    }) { [weak self]() -> () in
+      
+      if let strongSelf = self {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+      }
+      
+    }
+    
+    
+    
+    
+    
   }
 }
 

@@ -63,7 +63,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CountryCell" textLabel="Jv8-jK-lau" detailTextLabel="Nq1-gA-peA" style="IBUITableViewCellStyleValue2" id="h6B-TF-xhA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CountryCell" textLabel="Jv8-jK-lau" detailTextLabel="Nq1-gA-peA" style="IBUITableViewCellStyleValue2" id="h6B-TF-xhA">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h6B-TF-xhA" id="a3G-5q-xzN">

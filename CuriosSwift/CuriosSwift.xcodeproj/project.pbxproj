@@ -202,6 +202,7 @@
 		2CCB022D1B7B840100DDADF3 /* AddTemplateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */; };
 		2CCE648E1B870BD800386F2B /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE648D1B870BD800386F2B /* ResetPasswordViewController.swift */; };
 		2CCE64901B87141200386F2B /* ChangePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE648F1B87141200386F2B /* ChangePasswordRequest.swift */; };
+		2CCE64C41B87506D00386F2B /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE64C31B87506C00386F2B /* ImageHelper.swift */; };
 		2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */; };
 		2CD3AF881B12BEFA008319A8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF871B12BEFA008319A8 /* UserModel.swift */; };
 		2CD3AF8A1B12C1C2008319A8 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3AF891B12C1C2008319A8 /* UsersManager.swift */; };
@@ -475,6 +476,7 @@
 		2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTemplateRequest.swift; sourceTree = "<group>"; };
 		2CCE648D1B870BD800386F2B /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		2CCE648F1B87141200386F2B /* ChangePasswordRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequest.swift; sourceTree = "<group>"; };
+		2CCE64C31B87506C00386F2B /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		2CD1B8E21B2821C200AA0D8E /* ToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsBar.swift; sourceTree = "<group>"; };
 		2CD3AF871B12BEFA008319A8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CD3AF891B12C1C2008319A8 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */,
 				2C6273D41B82101700B4369F /* AddressBookUI.framework in Frameworks */,
 				2C6273D21B82101100B4369F /* AddressBook.framework in Frameworks */,
 				2C6273D01B82100700B4369F /* MessageUI.framework in Frameworks */,
@@ -581,7 +584,6 @@
 				2CFDFD691B1EE91800246F59 /* AGCommon.framework in Frameworks */,
 				2CB362301B60DA14007F96FB /* ShareSDKiPadDefaultShareViewUI.framework in Frameworks */,
 				2CFDFD681B1EE91800246F59 /* WeChatConnection.framework in Frameworks */,
-				2CB4BD891AE47A0F00DF6019 /* AssetsLibrary.framework in Frameworks */,
 				15C720740303EA9EEA28DB02 /* Pods_CuriosSwift.framework in Frameworks */,
 				2CFDFD6E1B1EE91800246F59 /* ShareSDK.framework in Frameworks */,
 			);
@@ -994,6 +996,7 @@
 				2C6273D51B82139600B4369F /* CountryCodeHelper.swift */,
 				2C6273D71B82D49400B4369F /* RegisterHelper.swift */,
 				2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */,
+				2CCE64C31B87506C00386F2B /* ImageHelper.swift */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1381,6 +1384,7 @@
 				2C7763591B0566C8000DDFB2 /* ComponentImageNode.swift in Sources */,
 				2C7AE88F1AE8E2A400ACEB65 /* UUIDGenerator.swift in Sources */,
 				2C9495AB1B56821A00D77EE2 /* EditToolBarSettingDelegate.swift in Sources */,
+				2CCE64C41B87506D00386F2B /* ImageHelper.swift in Sources */,
 				2C5526B61B4A7181000F2C7D /* ImageTokenRequest.swift in Sources */,
 				2C8028AC1B6B4CF600FCB7B2 /* BlackCatDownloader.swift in Sources */,
 				2C4D81051B5349A200A93383 /* RequestURL.swift in Sources */,
