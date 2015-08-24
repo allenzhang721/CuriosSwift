@@ -22,20 +22,25 @@ class BookListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
   
+  @IBOutlet weak var nonBookView: UIView!
   let reachability = Reachability.reachabilityForInternetConnection()
   var bookList = [BookListModel]()
   var delegate: BookListViewControllerDelegate?
-  var needRefresh = true
+  var needRefresh = false
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      addRefreshControl()
       
+      tableView.hidden = true
+      nonBookView.hidden = true
+      
+      addRefreshControl()
+//      updateViews()
       HUD.save_sync()
       ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
         
         if compeleted {
-          HUD.dismiss()
+          HUD.dismiss(0.5)
         }
       }  //
     }
@@ -44,10 +49,11 @@ class BookListViewController: UIViewController {
     navigationController?.navigationBarHidden = false
     delegate?.viewController(self, needHiddenStateBar: false)
     
-    if needRefresh {
-      needRefresh = false
-      tableView.header.beginRefreshing()
-    }
+//    if needRefresh {
+//      needRefresh = false
+//      tableView.header.beginRefreshing()
+//    }
+    refreshBooklist()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -63,6 +69,11 @@ class BookListViewController: UIViewController {
     }
   }
   
+  @IBAction func changeToTemplateAction(sender: AnyObject) {
+    
+    tabBarController?.selectedIndex = 0
+  }
+  
   func addRefreshControl() {
     
     tableView.header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "refreshBooklist")
@@ -76,7 +87,6 @@ class BookListViewController: UIViewController {
     } else {
       tableView.footer = nil
     }
-    
   }
   
   func refreshBooklist() {
@@ -91,6 +101,7 @@ class BookListViewController: UIViewController {
         self.tableView.reloadData()
         self.tableView.header.endRefreshing()
         self.needFooter()
+        self.updateViews()
       })
     }
   }
@@ -104,8 +115,17 @@ class BookListViewController: UIViewController {
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.tableView.reloadData()
         self.tableView.footer.endRefreshing()
+        self.updateViews()
       })
     }
+  }
+  
+  func updateViews() {
+    let noBook = bookList.count <= 0
+    
+    tableView.hidden = noBook
+    nonBookView.hidden = !noBook
+  
   }
 }
 
@@ -148,6 +168,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
           self.bookList.removeAtIndex(indexPath.item)
           self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
           self.needFooter()
+          self.updateViews()
         } else {
         }
         

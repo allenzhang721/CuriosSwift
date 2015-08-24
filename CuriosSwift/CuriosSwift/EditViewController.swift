@@ -402,7 +402,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
           
           editNavigationViewController.didSelectedBlock = {[unowned self](snapshot, json) -> () in
             
-            debugPrint.p("newPageJSOn = \(json)")
             if let page: PageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: json as! [NSObject : AnyObject], error: nil) as? PageModel {
               
               // change Page id

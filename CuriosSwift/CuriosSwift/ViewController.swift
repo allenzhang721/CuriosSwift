@@ -114,8 +114,9 @@ extension ViewController {
   func loadBookListViewController() {
     
     let bookListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(MainStoryboard.viewControllers.bookListNavigationController) as! UINavigationController
-    let bookvc = bookListVC.topViewController as! BookListViewController
-    bookvc.delegate = self
+    let tabVC = bookListVC.topViewController as! UITabBarController
+//    bookvc.delegate = self
+    tabVC.tabBar.tintColor = UIColor(hexString: "#4894ED")
     addChildViewController(bookListVC)
     view.addSubview(bookListVC.view)
   }

@@ -25,6 +25,7 @@
 		2C1825D81B28031400F3B59E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1825D71B28031400F3B59E /* Alamofire.framework */; };
 		2C1825DA1B28103B00F3B59E /* user in Resources */ = {isa = PBXBuildFile; fileRef = 2C1825D91B28103B00F3B59E /* user */; };
 		2C18D83B1AF37C4C00722179 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18D83A1AF37C4C00722179 /* Nodes.swift */; };
+		2C2240C91B8B1209000C8CEA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2240C81B8B1209000C8CEA /* Images.xcassets */; };
 		2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */; };
 		2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */; };
 		2C29E0E31B4F3FA00064C2F1 /* MJExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C29E0E21B4F3FA00064C2F1 /* MJExtension.framework */; };
@@ -182,7 +183,6 @@
 		2CB4BD541AE337EA00DF6019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */; };
 		2CB4BD561AE337EA00DF6019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD551AE337EA00DF6019 /* ViewController.swift */; };
 		2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD571AE337EA00DF6019 /* Main.storyboard */; };
-		2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */; };
 		2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */; };
 		2CB4BD6A1AE337EB00DF6019 /* CuriosSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD691AE337EB00DF6019 /* CuriosSwiftTests.swift */; };
 		2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4BD731AE33A8D00DF6019 /* Models.swift */; };
@@ -291,6 +291,7 @@
 		2C1825D71B28031400F3B59E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/build/Release-iphoneos/Pods-CuriosSwift/Alamofire.framework"; sourceTree = "<group>"; };
 		2C1825D91B28103B00F3B59E /* user */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user; sourceTree = "<group>"; };
 		2C18D83A1AF37C4C00722179 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
+		2C2240C81B8B1209000C8CEA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAttributeSetter.swift; sourceTree = "<group>"; };
 		2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMaskAttributeSetter.swift; sourceTree = "<group>"; };
 		2C29E0E21B4F3FA00064C2F1 /* MJExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MJExtension.framework; path = "Pods/build/Debug-iphoneos/Pods-CuriosSwift/MJExtension.framework"; sourceTree = "<group>"; };
@@ -451,7 +452,6 @@
 		2CB4BD531AE337EA00DF6019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CB4BD551AE337EA00DF6019 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2CB4BD581AE337EA00DF6019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2CB4BD5D1AE337EA00DF6019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2CB4BD631AE337EB00DF6019 /* CuriosSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuriosSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB4BD681AE337EB00DF6019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -856,10 +856,10 @@
 				2C8A8F391B42727A00606CCF /* UploadSettingAnimation.swift */,
 				2CBC16BF1B15D34200F46541 /* LocalTemplateViewController.swift */,
 				2C5D46B81B3CF1A4001D77FF /* UploadSettingViewController.swift */,
+				2C2240C81B8B1209000C8CEA /* Images.xcassets */,
 				2CB4BD571AE337EA00DF6019 /* Main.storyboard */,
 				2CF293531B32C03D00539F76 /* Independent.storyboard */,
 				2C6273BB1B81D18600B4369F /* Login.storyboard */,
-				2CB4BD5A1AE337EA00DF6019 /* Images.xcassets */,
 				2CB4BD5C1AE337EA00DF6019 /* LaunchScreen.xib */,
 				2CB4BD511AE337EA00DF6019 /* Supporting Files */,
 			);
@@ -1246,6 +1246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6273CB1B820FAA00B4369F /* SMS_SDKLocalizable.strings in Resources */,
+				2C2240C91B8B1209000C8CEA /* Images.xcassets in Resources */,
 				2CB362361B60DA14007F96FB /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
 				2CB4BD591AE337EA00DF6019 /* Main.storyboard in Resources */,
 				2CE121E51B45436400FB10C5 /* TextInputView.xib in Resources */,
@@ -1258,7 +1259,6 @@
 				2CB362341B60DA14007F96FB /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */,
 				2C6273BC1B81D18600B4369F /* Login.storyboard in Resources */,
 				2CB4BD5E1AE337EA00DF6019 /* LaunchScreen.xib in Resources */,
-				2CB4BD5B1AE337EA00DF6019 /* Images.xcassets in Resources */,
 				2C92EA801B413F6A00ABFABB /* Font in Resources */,
 				2C4777D51B4E055E00B47F9A /* page.json in Resources */,
 				2CB3622D1B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle in Resources */,

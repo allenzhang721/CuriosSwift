@@ -60,7 +60,7 @@ class BookModel: Model, IFile, PageModelEditDelegate {
       "mainbackgroundAlpha" : "MainBackgroundAlpha",
       "icon"                : "FileIcon",
       "pageModels"          : "Pages",
-      "publishURL"          : "AuthorIDP"
+      "publishURL"          : "publishURL"
     ]
   }
   

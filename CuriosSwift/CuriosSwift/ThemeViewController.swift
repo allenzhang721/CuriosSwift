@@ -27,19 +27,24 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     let layout = ThemeLayout()
     layout.scrollDirection = .Horizontal
-    let width = view.bounds.width
-    let height = view.bounds.height
-    let top = height * 0
-    let bottom = height * 0.1
-    let itemHeight = height * 0.6
-    let itemWidth = width * 0.6
-    let left = width * 0.2
+    let width = collectionView.bounds.width
+    let height = collectionView.bounds.height
+//    let top = height * 0
+//    let bottom = height * 0.1
+    let top: CGFloat = 64.0 + 44.0 + 10.0
+    let bottom: CGFloat = 64.0 + 44.0 + 10.0
+    let itemHeight: CGFloat = height - top - bottom - 44.0
+    let ss = ceil(itemHeight * 640.0 / 1008.0)
+    let itemWidth: CGFloat = ss
+    debugPrint.p("itemWidth = \(itemWidth)")
+    let left = (width - itemWidth) / 2.0
     let right = left
     let lineMin: CGFloat = 50.0
     
     layout.minimumLineSpacing = lineMin
     layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     layout.sectionInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    layout.scrollDirection = .Horizontal
     
     return layout
   }
@@ -48,18 +53,17 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
   
     override func viewDidLoad() {
         super.viewDidLoad()
+//      navigationController?.navigationBarHidden = true
       
-      navigationController?.navigationBarHidden = true
-      
+      collectionView.decelerationRate = UIScrollViewDecelerationRateFast
       collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
-      collectionView.decelerationRate = 0.1
-      collectionView.setCollectionViewLayout(defaultLayout, animated: false)
       
       if ThemesManager.shareInstance.getThemeList().count <= 0 {
         ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
           
           //          self.appThemes(themes)
           self.collectionView.reloadData()
+          debugPrint.p("contentSize = \(self.collectionView.contentSize)")
           self.setupbackgroundImage()
         }
       } else {
@@ -76,6 +80,8 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
   override func viewDidAppear(animated: Bool) {
     
     self.setupbackgroundImage()
+    collectionView.setCollectionViewLayout(defaultLayout, animated: false)
+    
   }
   
   override func prefersStatusBarHidden() -> Bool {
@@ -95,6 +101,7 @@ extension ThemeViewController {
   // MARK: - CollectionView DataSource
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
+    debugPrint.p("contentSize = \(self.collectionView.contentSize)")
     return ThemesManager.shareInstance.getThemeList().count
   }
 
@@ -125,48 +132,11 @@ extension ThemeViewController {
   }
   
   // MARK: - CollectionView Delegate
-  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    
-//    let themeID = themeList[indexPath.item].themeID
-//    
-//    TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
-//      if templates.count <= 0 {
-//        return
-//      }
-//      let templateURL = templates[0].templateURL
-//        
-//        let url = NSURL(string: templateURL)!
-//      
-//      // Fetch Request
-//      Alamofire.request(.POST, url, parameters: nil)
-//        .validate(statusCode: 200..<300)
-//        .responseJSON{ (request, response, JSON, error) in
-//          if (error == nil)
-//          {
-//            
-//            if let jsondic = JSON as? [NSObject : AnyObject] {
-//              
-//              let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
-//              
-//              // change Page ID
-//              pageModel.Id = UniqueIDStringWithCount(count: 8)
-//              self.createANewBookWithPageModel(pageModel)
-//            }
-//          }
-//          else
-//          {
-//            if let aError = error{
-//            
-//            }
-//            println("HTTP HTTP Request failed: \(error)")
-//          }
-//      }
-//    }
-  }
-  
-  
   
   func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    
+//    scrollView.bounds.origin = CGPointZero
+//    debugPrint.p(scrollView.bounds.origin)
     
     setupbackgroundImage()
     
