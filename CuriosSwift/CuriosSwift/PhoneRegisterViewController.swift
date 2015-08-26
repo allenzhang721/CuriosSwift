@@ -53,6 +53,10 @@ class PhoneRegisterViewController: UIViewController {
 
     func checkOKWith(zoneCode: String, rule: String, checkPassword: Bool = true) -> Bool {
       
+      if !(!countryDisplayName.isEmpty && !areacode.isEmpty && !phone.isEmpty && !password.isEmpty) {
+        return false
+      }
+      
       // get current zone code and rule
       if zoneCode != areacode {
         return false
@@ -195,7 +199,8 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
       if let cell = tableView.dequeueReusableCellWithIdentifier("CountryCell") as? UITableViewCell {
         println("CountryCell")
 //        cell.detailTextLabel?.textColor = UIColor(hexString: "#4894ED")
-        cell.detailTextLabel?.text = defaultRegister.countryDisplayName
+        let countryName = defaultRegister.countryDisplayName
+        cell.detailTextLabel?.text = countryName.isEmpty ? localString("SELECTCOUNTRY") : countryName
         return cell
       }
     }
@@ -207,7 +212,8 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
         
         if let label = cell.viewWithTag(1002) as? UILabel {
           areaCodeLabel = label
-          areaCodeLabel.text = "+ " + defaultRegister.areacode
+          let areaCode = defaultRegister.areacode
+          areaCodeLabel.text = areaCode.isEmpty ? "+ ?" : "+ " + defaultRegister.areacode
         }
         
         if let textField = cell.viewWithTag(2001) as? UITextField {
@@ -340,7 +346,6 @@ extension PhoneRegisterViewController {
       nextStepButton.setTitle(localString("NEXTSTEP"), forState: UIControlState.Normal)
     default:
       ()
-      
     }
     
     // current areaCode and country name

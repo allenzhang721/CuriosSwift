@@ -18,7 +18,7 @@ class SearchTableViewController: UITableViewController {
   
   weak var searchDelegate: searchControllerResultsDelegate?
   
-  var searchResult: Dictionary<String, Array<CountryZone>>!
+  var searchResult = Dictionary<String, Array<CountryZone>>()
   
   var keys: [String] {
     get {

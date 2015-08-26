@@ -21,11 +21,14 @@ class  CountryCodeHelper {
   }
   
   class func currentCountryDisplayNameAreaCodeCountryCode() -> (String, String, String) {
-    let local = NSLocale.currentLocale()
-    let countryCode = local.objectForKey(NSLocaleCountryCode) as! String
-    let areaCode = CountryCodeHelper.defaultCodes[countryCode]
-    let countryName = local.displayNameForKey(NSLocaleCountryCode, value: countryCode)
-    return (countryName!, areaCode!, countryCode)
+    let local = NSLocale.autoupdatingCurrentLocale()
+    if let countryCode = local.objectForKey(NSLocaleCountryCode) as? String,
+      let areaCode = CountryCodeHelper.defaultCodes[countryCode],
+      let countryName = local.displayNameForKey(NSLocaleCountryCode, value: countryCode){
+      return (countryName, areaCode, countryCode)
+    } else {
+      return ("", "", "")
+    }
   }
   
   /*
