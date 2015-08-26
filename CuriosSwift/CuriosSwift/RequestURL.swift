@@ -14,7 +14,6 @@ func dicToJson(dic: [String: AnyObject]) -> String {
   let string = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
 //  let encryptString = AESCrypt.encrypt(string, password: aesKey)
   
-//  debugPrint.p("String = \(string) /n enString = \(encryptString)")
   
   return string
 }

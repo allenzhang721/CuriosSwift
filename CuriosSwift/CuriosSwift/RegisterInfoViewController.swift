@@ -164,7 +164,6 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   
   func login(launchUser: UserModel) {
     
-    debugPrint.p("will launch user = \(user)")
     if let navigation = navigationController as? LaunchNaviViewController {
       navigation.launchDelegate?.navigationController(navigation, loginUser: launchUser)
     }

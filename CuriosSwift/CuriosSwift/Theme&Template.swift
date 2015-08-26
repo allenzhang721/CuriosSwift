@@ -66,8 +66,8 @@ func GET_THEME_LIST_ALL_paras(start: Int, size: Int) -> String {
   return dicToJson(data)
 }
 
-let GET_THEME_LIST = ["template", "themeList"]
-//let GET_THEME_LIST = ["template", "formalThemeList"]
+//let GET_THEME_LIST = ["template", "themeList"] // 开发版
+let GET_THEME_LIST = ["template", "formalThemeList"]   // 正式版
 func GET_THEME_LIST_paras(start: Int, size: Int) -> String {
   let data = [
     "start":start,
@@ -77,8 +77,8 @@ func GET_THEME_LIST_paras(start: Int, size: Int) -> String {
 
 
 // MARK: - get template list
-let GET_TEMPLATE_LIST = ["template","templateList"]
-//let GET_TEMPLATE_LIST = ["template","formalTemplateList"]
+//let GET_TEMPLATE_LIST = ["template","templateList"]  // 开发版
+let GET_TEMPLATE_LIST = ["template","formalTemplateList"]   // 正式版
 func GET_TEMPLATE_LIST_paras(themeID: String, start: Int, size: Int) -> String {
   let data: [String: AnyObject] = [
     "themeID":themeID,

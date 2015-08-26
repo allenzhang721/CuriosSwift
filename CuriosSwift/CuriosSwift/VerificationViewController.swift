@@ -55,6 +55,11 @@ class VerificationViewController: UIViewController {
       begainTimer()
   }
   
+//  override func viewDidAppear(animated: Bool) {
+//    
+//    register( "1111111111", code: "1", password: "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=")
+//  }
+  
   deinit {
     timer?.invalidate()
     NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -187,12 +192,12 @@ extension VerificationViewController {
     CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
       if let strongSelf = self {
         if success {
-          debugPrint.p("verification is success !")
+//          debugPrint.p("verification is success !")
           strongSelf.register(phone, code: areaCode, password: password)
           
         } else {
           self?.showverifyfail()
-          debugPrint.p("verification is fail !")
+//          debugPrint.p("verification is fail !")
           
         }
       }
@@ -204,12 +209,12 @@ extension VerificationViewController {
     CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
       if let strongSelf = self {
         if success {
-          debugPrint.p("verification is success !")
+//          debugPrint.p("verification is success !")
           strongSelf.showChangedPasswordVC(phone)
           
         } else {
           self?.showverifyfail()
-          debugPrint.p("verification is fail !")
+//          debugPrint.p("verification is fail !")
           
         }
       }
@@ -307,7 +312,7 @@ extension VerificationViewController {
       navigationController?.pushViewController(resetVC, animated: true)
     }
     
-    debugPrint.p("showChangedPasswordVC")
+//    debugPrint.p("showChangedPasswordVC")
   }
   
   

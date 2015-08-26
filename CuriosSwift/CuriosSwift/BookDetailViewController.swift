@@ -79,7 +79,6 @@ class BookDetailViewController: UIViewController,UINavigationControllerDelegate 
     tableView.rowHeight = UITableViewAutomaticDimension
     
     let iconURL = NSURL(string: bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL))!
-    debugPrint.p("iconURL = \(iconURL)")
     KingfisherManager.sharedManager.retrieveImageWithURL(iconURL, optionsInfo: .None, progressBlock: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
       if error != nil {
         println(error)

@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/PhoneRegisterViewController.swift"
-            timestampString = "461843914.071744"
+            timestampString = "462195745.020195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "loginAction(_:)"
             landmarkType = "5">
          </BreakpointContent>

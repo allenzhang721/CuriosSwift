@@ -40,7 +40,6 @@ class  CountryCodeHelper {
     SMS_SDK.getVerificationCodeBySMSWithPhone(phone, zone: zoneCode) { (error) -> Void in
       
       if error == nil {
-        debugPrint.p("验证码发送成功")
         compelted(true)
       } else {
         compelted(false)
@@ -71,7 +70,7 @@ class  CountryCodeHelper {
   class func getZone(completed:(Bool, [Zone]) -> ()) {
     SMS_SDK.getZone { (state, array) -> Void in
       if state.value == 1 {
-        debugPrint.p("get the area code sucessfully")
+//        debugPrint.p("get the area code sucessfully")
         
         let zones = array.map({ (zoneDic) -> Zone in
           let zoneCode = zoneDic["zone"] as! String

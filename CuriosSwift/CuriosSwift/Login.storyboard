@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HLa-vt-Kx3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HLa-vt-Kx3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
@@ -197,16 +197,69 @@
                         <outlet property="loginButton" destination="3co-J0-a6Z" id="g07-Da-H3x"/>
                         <outlet property="nextStepButton" destination="3co-J0-a6Z" id="CQu-w2-04g"/>
                         <outlet property="tableView" destination="HLa-vt-Kx3" id="1Qo-is-wWM"/>
+                        <outlet property="tapGesture" destination="iON-Iv-3fr" id="SsF-Ih-gWY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uxx-2l-HlD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="iON-Iv-3fr">
                     <connections>
                         <action selector="tapAction:" destination="TRN-bC-20E" id="gBD-d5-jc3"/>
+                        <outlet property="delegate" destination="TRN-bC-20E" id="n9J-As-1Ou"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1820" y="594"/>
+        </scene>
+        <!--Countries View Controller-->
+        <scene sceneID="LdI-9J-3X4">
+            <objects>
+                <viewController storyboardIdentifier="CountriesViewController" id="orB-sS-7CU" customClass="CountriesViewController" customModule="CuriosSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qHT-i6-adu"/>
+                        <viewControllerLayoutGuide type="bottom" id="WhS-rV-oM1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Zq-U4-8rf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0ye-vK-KMH">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Gjp-OG-6cX">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gjp-OG-6cX" id="QQz-Ik-eTx">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="orB-sS-7CU" id="JMM-Zv-5MI"/>
+                                    <outlet property="delegate" destination="orB-sS-7CU" id="ZCX-bF-OCn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0ye-vK-KMH" firstAttribute="leading" secondItem="8Zq-U4-8rf" secondAttribute="leading" id="3eU-a9-ygu"/>
+                            <constraint firstAttribute="trailing" secondItem="0ye-vK-KMH" secondAttribute="trailing" id="D4p-a3-zY7"/>
+                            <constraint firstItem="0ye-vK-KMH" firstAttribute="bottom" secondItem="WhS-rV-oM1" secondAttribute="top" id="Uss-pb-0gO"/>
+                            <constraint firstItem="0ye-vK-KMH" firstAttribute="top" secondItem="8Zq-U4-8rf" secondAttribute="top" constant="44" id="qFK-2P-mlD"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="tablewVIew" destination="0ye-vK-KMH" id="5VK-gF-vBq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KFm-Jx-aHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1820" y="1262"/>
         </scene>
         <!--Country Table View Controller-->
         <scene sceneID="5TD-g8-bl2">

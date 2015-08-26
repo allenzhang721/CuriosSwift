@@ -36,7 +36,6 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
     let itemHeight: CGFloat = height - top - bottom - 44.0
     let ss = ceil(itemHeight * 640.0 / 1008.0)
     let itemWidth: CGFloat = ss
-    debugPrint.p("itemWidth = \(itemWidth)")
     let left = (width - itemWidth) / 2.0
     let right = left
     let lineMin: CGFloat = 50.0
@@ -63,7 +62,6 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
           
           //          self.appThemes(themes)
           self.collectionView.reloadData()
-          debugPrint.p("contentSize = \(self.collectionView.contentSize)")
           self.setupbackgroundImage()
         }
       } else {
@@ -100,8 +98,6 @@ extension ThemeViewController {
   
   // MARK: - CollectionView DataSource
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-    debugPrint.p("contentSize = \(self.collectionView.contentSize)")
     return ThemesManager.shareInstance.getThemeList().count
   }
 

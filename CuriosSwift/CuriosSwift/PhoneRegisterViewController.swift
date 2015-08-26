@@ -21,6 +21,7 @@ class PhoneRegisterViewController: UIViewController {
   
   let findPasswordButtonTag = 3000
   
+  @IBOutlet var tapGesture: UITapGestureRecognizer!
   @IBOutlet weak var findPasswordButton: UIButton!
   @IBOutlet weak var nextStepButton: UIButton!
   weak var areaCodeLabel: UILabel!
@@ -30,9 +31,17 @@ class PhoneRegisterViewController: UIViewController {
   
   struct Register {
     var countryDisplayName: String
-    var areacode: String
+    var areacode: String // 86
     var phone: String
     var password: String
+    
+    mutating func updateCountryName(aname: String) {
+      countryDisplayName = aname
+    }
+    
+    mutating func updateAreaCode(code: String) {
+      areacode = code
+    }
     
     mutating func updatePhone(number: String) {
       
@@ -158,7 +167,7 @@ extension PhoneRegisterViewController {
 
 // MARK: - 2. DataSource & Delegate
 
-extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate {
+extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CountriesViewControllerDelegate {
   
   // MARK: - TableView
   
@@ -166,7 +175,7 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     
     if indexPath.item == 0 {
       
-      showCountryVC()
+      showCountriesVC()
     }
   }
   
@@ -268,6 +277,37 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     }
   }
   
+  // MARK: - Gestures
+  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    switch gestureRecognizer {
+    case let gesture where gesture == tapGesture:
+      return phoneTextField.isFirstResponder() || passwordTextField.isFirstResponder()
+      
+    default:
+      return false
+    }
+  }
+  
+  
+  // MARK: - Countries
+  func countriesViewController(viewController: CountriesViewController, didSelectedZoneCode zoneCode: String, countryName name: String) {
+    
+    defaultRegister.updateAreaCode(zoneCode)
+    defaultRegister.updateCountryName(name)
+    updateCurrentZoneWith(zoneCode, zones: supportZones)
+    tableView.reloadData()
+    
+    let zoneCode = currentZone!.zoneCode
+    let rule = currentZone!.phoneCheckRule
+    if defaultRegister.checkOKWith(zoneCode, rule: rule, checkPassword: !(type == .FindPassword)) {
+      loginButton.enabled = true
+    } else {
+      loginButton.enabled = false
+    }
+    navigationController?.popViewControllerAnimated(true)
+  }
+  
 }
 
 // MARK: - 3. Function Method
@@ -327,9 +367,11 @@ extension PhoneRegisterViewController {
     }
   }
   
+  // MARK: - Country Code
+  
+  
   // MARK: - Find Password
   
-  // TODO: 08.21.2015, begain Send FindPassword SMS
   private func begainFindPassword(phone: String, zone: String) {
     
     let phones = "+ \(zone) \(phone)"
@@ -429,7 +471,6 @@ extension PhoneRegisterViewController {
     
     if currentzone.count > 0 {
       currentZone = currentzone.first!
-      debugPrint.p("currentZone = \(currentZone)")
     }
   }
   
@@ -449,6 +490,15 @@ extension PhoneRegisterViewController {
   
   
   // MARK: - Show ViewController
+  
+  func showCountriesVC() {
+    
+    if let contriesVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("CountriesViewController") as? CountriesViewController {
+      contriesVC.selectedDelegate = self
+      navigationController?.pushViewController(contriesVC, animated: true)
+    }
+  }
+  
   func showVerificationVC() {
     
     if let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("VerificationViewController") as? VerificationViewController {
