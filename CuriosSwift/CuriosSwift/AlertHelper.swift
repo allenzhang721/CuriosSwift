@@ -10,6 +10,18 @@ import Foundation
 
 class AlertHelper {
   
+//  WECHAT_NOT_INSTALLED
+  class func alert_wechatNotInstalled() -> UIAlertController {
+    
+    //FAILGETZONE
+    
+    let title = localString("TIPS")
+    let message = localString("WECHAT_NOT_INSTALLED")
+    let cancel = localString("KNEW")
+    
+    return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: nil)
+  }
+  
   //NETWRONGANDVERIFYFAIL
   class func alert_netwrongandverifyfail() -> UIAlertController {
     

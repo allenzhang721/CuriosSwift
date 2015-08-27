@@ -28,7 +28,6 @@ let getPublishID = ["publish", "getPublishID"] // get a new ID when create a new
 //let getImageToken = ["upload", "imageUptoken"] // upload resourse(image) file / data's token
 
 let GET_PUBLISH_ID = ["publish", "getPublishID"]
-
 let GET_PUBLISH_TOKEN = ["upload", "publishUptoken"]
 func GET_PUBLISH_TOKEN_paras (key: String) -> String {
   

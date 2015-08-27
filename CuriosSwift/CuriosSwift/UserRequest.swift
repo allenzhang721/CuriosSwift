@@ -97,19 +97,19 @@ class UserRequest :NSObject{
             }
             if resultTypeStr == "success" {
                 var newUser = UserModel()
-              newUser.userID = (dic["userID"] as? String)!
-              newUser.nikename = (dic["nikeName"] as? String)!
-              newUser.descri = (dic["description"] as? String)!
-              newUser.iconURL = (dic["iconURL"] as? String)!
-              newUser.sex = (dic["sex"] as? Int)!
-              newUser.email = (dic["email"] as? String)!
-              newUser.areacode = (dic["areacode"] as? String)!
-              newUser.phone = (dic["phone"] as? String)!
-              newUser.weixin = (dic["weixin"] as? String)!
-              newUser.weibo = (dic["weibo"] as? String)!
-              newUser.countryID = (dic["countryID"] as? Int)!
-              newUser.provinceID = (dic["provinceID"] as? Int)!
-              newUser.cityID = (dic["cityID"] as? Int)!
+              newUser.userID = dic["userID"] as? String ?? ""
+              newUser.nikename = dic["nikeName"] as? String ?? ""
+              newUser.descri = dic["description"] as? String ?? ""
+              newUser.iconURL = dic["iconURL"] as? String ?? ""
+              newUser.sex = dic["sex"] as? Int ?? 0
+              newUser.email = dic["email"] as? String ?? ""
+              newUser.areacode = dic["areacode"] as? String ?? ""
+              newUser.phone = dic["phone"] as? String ?? ""
+              newUser.weixin = dic["weixin"] as? String ?? ""
+              newUser.weibo = dic["weibo"] as? String ?? ""
+              newUser.countryID = dic["countryID"] as? Int ?? 0
+              newUser.provinceID = dic["provinceID"] as? Int ?? 0
+              newUser.cityID = dic["cityID"] as? Int ?? 0
                 
                 if let aDelegate = self.registerDelegate{
                     aDelegate.requestSuccess(newUser, resultIndex: resultMes);

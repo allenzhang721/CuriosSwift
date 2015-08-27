@@ -18,6 +18,7 @@ RESENDINGSMS = "重新发送";
 
 // Login
 NEXTSTEP = "下一步";
+SELECTCOUNTRY = "请选择您的国家";
 
 /*
  
@@ -58,8 +59,10 @@ CLEANED = "清理完毕";
 GOBACK = "返回";
 WAITING = "等待";
 FINDPASSWROD = "找回密码";
+WECHAT_NOT_INSTALLED = "你还未安装微信，请先安装微信。或者可以选择点击\"更多\"->\"登录\"进行登录";
+
 // Alert
-TIPS = "温馨提醒";
+TIPS = "温馨提示";
 MODIFYFAIL = "修改失败";
 
 // HUD

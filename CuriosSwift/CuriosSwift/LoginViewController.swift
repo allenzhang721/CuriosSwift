@@ -113,12 +113,17 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
   
   @IBAction func LoginAction(sender: UIButton) {
     
+    if !WXApi.isWXAppInstalled() {
+      let alert = AlertHelper.alert_wechatNotInstalled()
+      presentViewController(alert, animated: true, completion: nil)
+      return
+    }
+    
     let authOptions = ShareSDK.authOptionsWithAutoAuth(true, allowCallback: true, authViewStyle: SSAuthViewStyleFullScreenPopup, viewDelegate: nil, authManagerViewDelegate: nil);
     
     HUD.launch_Loading()
     ShareSDK.getUserInfoWithType(ShareTypeWeixiSession, authOptions: authOptions) { (result, userInfo, error) -> Void in
       //
-      
       
       if result {
         let userId = userInfo.uid()
