@@ -268,8 +268,12 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   
   func thumbnailImage(image: UIImage, size: CGSize) -> UIImage {
     
-    UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
-    image.drawInRect(CGRect(origin: CGPointZero, size: size))
+    let maxScale = max(size.width / image.size.width, size.height / image.size.height)
+    let width = image.size.width * maxScale
+    let height = image.size.height * maxScale
+    let imageSize = CGSize(width: width, height: height)
+    UIGraphicsBeginImageContextWithOptions(imageSize, true, maxScale)
+    image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
     let aImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return aImage
@@ -282,7 +286,7 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
     
     let aSelectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
     let small = thumbnailImage(aSelectedImage, size: CGSize(width: 320, height: 320))
-    let imageData = UIImageJPEGRepresentation(small, 0)
+    let imageData = UIImageJPEGRepresentation(small, 0.01)
     let selectedImage = UIImage(data: imageData)!
     
 //    UIWebView

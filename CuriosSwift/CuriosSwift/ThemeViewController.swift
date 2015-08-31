@@ -32,7 +32,7 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
 //    let top = height * 0
 //    let bottom = height * 0.1
     let top: CGFloat = 64.0 + 44.0 + 10.0
-    let bottom: CGFloat = 64.0 + 44.0 + 10.0
+    let bottom: CGFloat = 64.0 + 44.0 + 5.0
     let itemHeight: CGFloat = height - top - bottom - 44.0
     let ss = ceil(itemHeight * 640.0 / 1008.0)
     let itemWidth: CGFloat = ss
@@ -75,10 +75,15 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
 //      }
     }
   
+  var demoTheme: ThemeModel {
+    return ThemesManager.shareInstance.getThemeList()[0]
+  }
+  
   override func viewDidAppear(animated: Bool) {
     
     self.setupbackgroundImage()
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
+    updateSelectBorder()
     
   }
   
@@ -110,6 +115,16 @@ extension ThemeViewController {
       imageView.contentMode = .ScaleAspectFill
       imageView.clipsToBounds = true
       cell.backgroundView = imageView
+      imageView.backgroundColor = UIColor.whiteColor()
+      imageView.layer.cornerRadius = 8.0
+      cell.layer.borderWidth = 0.5
+      cell.layer.cornerRadius = 8.0
+      cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2).CGColor
+//      cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: 8).CGPath
+      cell.layer.shadowColor = UIColor.darkGrayColor().CGColor
+      cell.layer.shadowOffset = CGSize(width: 0, height: 1)
+      cell.layer.shadowOpacity = 0.5
+      cell.layer.shadowRadius = 0.5
     }
     
     if let imageView = cell.backgroundView as? UIImageView {
@@ -123,20 +138,19 @@ extension ThemeViewController {
         imageView.image = image
       })
     }
-
     return cell
   }
   
   // MARK: - CollectionView Delegate
   
-  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-    
-//    scrollView.bounds.origin = CGPointZero
-//    debugPrint.p(scrollView.bounds.origin)
-    
-    setupbackgroundImage()
-    
-  }
+//  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+//    
+////    scrollView.bounds.origin = CGPointZero
+////    debugPrint.p(scrollView.bounds.origin)
+//    
+//    setupbackgroundImage()
+//    
+//  }
   
   func setupbackgroundImage() {
     
@@ -176,6 +190,49 @@ extension ThemeViewController {
         
         })
     }
+  }
+  
+  // MARK: - ScrollView Delegate
+  func resetSeletctBorder() {
+    
+    if let indexPath = getCurrentIndexPath() {
+      let cells = collectionView.visibleCells() as! [UICollectionViewCell]
+      
+      for cell in cells {
+        cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2).CGColor
+      }
+    }
+  }
+  
+  func updateSelectBorder() {
+    if let indexPath = getCurrentIndexPath() {
+      let cells = collectionView.visibleCells() as! [UICollectionViewCell]
+      
+      for cell in cells {
+        
+        if let aIndexPath = collectionView.indexPathForCell(cell) where aIndexPath.compare(indexPath) == .OrderedSame {
+          cell.layer.borderColor = UIColor.blueColor().colorWithAlphaComponent(0.2).CGColor
+        } else {
+          cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2).CGColor
+        }
+      }
+    }
+  }
+  
+  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    resetSeletctBorder()
+  }
+  
+  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    
+    updateSelectBorder()
+//    setupbackgroundImage()
+  }
+  
+  func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    
+    updateSelectBorder()
+//    setupbackgroundImage()
   }
 }
 

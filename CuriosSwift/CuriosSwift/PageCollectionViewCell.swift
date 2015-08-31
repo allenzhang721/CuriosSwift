@@ -204,8 +204,8 @@ extension PageCollectionViewCell {
             needEndEdit = true
             aContainerModel.setSelectedState(false)
             
-            // create text snapshot when deseleted
             if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
+              debugPrint.p("text begain cache snapshot image")
               let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
               // should get text/ image snapshot
               let abounds = containerNode.bounds
@@ -214,10 +214,14 @@ extension PageCollectionViewCell {
               let image = UIGraphicsGetImageFromCurrentImageContext()!
               UIGraphicsEndImageContext()
               
-              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1)
+//              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1)
+              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1, completed: {[weak self] () -> () in
+                
+                self?.delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+              })
+            } else {
+              delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
             }
-            
-            delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
           }
         }
         if needEndEdit {

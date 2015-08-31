@@ -118,7 +118,7 @@ extension MaskView {
     
     if gestureRecognizer == tap {
       
-      let deleteRegion = retangle(CGSizeMake(40, 40), CGPoint(x: 0, y: bounds.height))
+      let deleteRegion = retangle(CGSizeMake(20, 20), CGPoint(x: 0, y: bounds.height))
       let editRegion = retangle(CGSize(width: 40, height: 40), CGPointZero)
       
       let location = gestureRecognizer.locationInView(self)
@@ -262,7 +262,7 @@ extension MaskView {
     let rec = retangle(bounds.size, CGPointMake(bounds.size.width / 2.0, bounds.size.height / 2.0))
     let resizePannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, bounds.size.height))
     let rotationPannel = retangle(CGSizeMake(40, 40), CGPointMake(bounds.size.width, 0))
-    let deletePannel = retangle(CGSizeMake(40, 40), CGPointMake(0, bounds.height))
+    let deletePannel = retangle(CGSizeMake(20, 20), CGPointMake(0, bounds.height))
     let setPannel = retangle(CGSizeMake(40, 40), CGPointMake(0, 0))
     return union(setPannel ,union(deletePannel, union(rotationPannel, (union(rec, resizePannel)))))(point)
   }
@@ -273,7 +273,7 @@ extension MaskView {
   
   func tapAction(sender: UITapGestureRecognizer) {
     
-    let deleteRegion = retangle(CGSizeMake(40, 40), CGPoint(x: 0, y: bounds.height))
+    let deleteRegion = retangle(CGSizeMake(20, 20), CGPoint(x: 0, y: bounds.height))
     let editRegion = retangle(CGSize(width: 40, height: 40), CGPointZero)
     
     let location = sender.locationInView(self)

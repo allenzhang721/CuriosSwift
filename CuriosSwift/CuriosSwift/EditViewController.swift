@@ -758,13 +758,27 @@ extension EditViewController {
 // MARK: - Action  - New
 extension EditViewController {
   
-  func retriveThumbnailImage(image: UIImage, size: CGSize) -> UIImage {
+//  func retriveThumbnailImage(image: UIImage, size: CGSize) -> UIImage {
+//    let scale: CGFloat = (image.size.width > size.width && image.size.height > size.height) ? 0.5 : 1.0
+//  UIGraphicsBeginImageContextWithOptions(size, true, scale)
+////  image.drawInRect(CGRect(origin: CGPointZero, size: size))
+//  image.drawAtPoint(CGPointZero)
+//  let aImage = UIGraphicsGetImageFromCurrentImageContext()
+//  UIGraphicsEndImageContext()
+//  return aImage
+//  }
   
-  UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
-  image.drawInRect(CGRect(origin: CGPointZero, size: size))
-  let aImage = UIGraphicsGetImageFromCurrentImageContext()
-  UIGraphicsEndImageContext()
-  return aImage
+  func retriveThumbnailImage(image: UIImage, size: CGSize) -> UIImage {
+    
+    let maxScale = max(size.width / image.size.width, size.height / image.size.height)
+    let width = image.size.width * maxScale
+    let height = image.size.height * maxScale
+    let imageSize = CGSize(width: width, height: height)
+    UIGraphicsBeginImageContextWithOptions(imageSize, true, maxScale)
+    image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
+    let aImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return aImage
   }
   
   func addText(text: String) {
@@ -826,9 +840,14 @@ extension EditViewController {
       imageComponent.imageID = imageID
       
       if bookModel.isDefaultIcon() {
-        let key = pathByComponents([userID, publishID, "\(imageID).jpg"])
+        let key = pathByComponents([userID, publishID, "icon.jpg"])
         let cacheKey = ServePathsManger.imagePath!.stringByAppendingString(key).stringByAppendingString(ICON_THUMBNAIL)
-        let thumbNail = retriveThumbnailImage(image, size: CGSize(width: 120, height: 120))
+        debugPrint.p("cacheKey = \(cacheKey)")
+        let thumbNail = retriveThumbnailImage(image, size: CGSize(width: 320, height: 320))
+        
+        let iconData = UIImageJPEGRepresentation(thumbNail, 1.0)
+        uploadIcon(iconData)
+        
         KingfisherManager.sharedManager.cache.storeImage(thumbNail, forKey: cacheKey)
         bookModel.setBookIcon(key)
       }
@@ -1831,6 +1850,12 @@ extension EditViewController {
   
   func bookDetailViewControllerDidChangeIcon(iconData: NSData) {
     
+    uploadIcon(iconData)
+    
+  }
+  
+  func uploadIcon(iconData: NSData) {
+    
     let userID = UsersManager.shareInstance.getUserID()
     let publishID = bookModel.Id
     let icon = "icon.jpg"
@@ -1839,6 +1864,7 @@ extension EditViewController {
     prepareUploadImageData(iconData, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
       UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
     })
+    
   }
 }
 

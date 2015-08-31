@@ -25,7 +25,7 @@ class ThemeLayout: UICollectionViewFlowLayout {
         let distance = visualRect.midX - attribute.center.x
         let normalDistance = distance / activeDistance
         if abs(distance) <= activeDistance {
-          let scale = 1 + 0.1 * (1 - abs(normalDistance))
+          let scale = 1 + 0.2 * (1 - abs(normalDistance))
           attribute.transform3D = CATransform3DMakeScale(scale, scale, 1.0);
           attribute.zIndex = 1;
         }

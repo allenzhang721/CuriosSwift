@@ -70,10 +70,11 @@ class UploadsManager {
         
         if response == nil {
           self.failCount += 1
+          debugPrint.p("upload failed")
         }
         
         if self.finishCount == self.totalCount {
-//          debugPrint.p("upload compeleted")
+          debugPrint.p("upload compeleted")
           self.finished = true
           self.compeletedBlock?(true)
         }

@@ -83,6 +83,16 @@ class TextContentModel: ComponentModel {
     
   }
   
+  var state: String? {
+    set {
+      attributes["textImageState"] = newValue
+    }
+    
+    get {
+      return attributes["textImageState"] as? String
+    }
+  }
+  
   var key: String? {
     
     get {
@@ -252,6 +262,30 @@ class TextContentModel: ComponentModel {
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
   }
   
+  func cacheSnapshotImage(image: UIImage, userID: String, PublishID: String, completed: (() -> ())?) {
+    
+    
+    
+    removeCacheImage()
+    let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
+    if aImageID != imageID {
+      imageID = aImageID
+    }
+    //    let newID = aImageID + UniqueIDStringWithCount(count: 4)
+    key = pathByComponents([userID, PublishID, "\(aImageID).png"])
+    let aKey = key
+    
+    state = "begain cache text Image = \(aKey)"
+    debugPrint.p("begain cache text Image = \(aKey)")
+    
+    KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
+    KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!, toDisk: false) { [unowned self] () -> () in
+      debugPrint.p("finished cache text Image = \(aKey)")
+      self.state = "finished cache text Image = \(aKey)"
+      completed?()
+    }
+  }
+  
   func removeCacheImage() {
     if let aKey = key {
       KingfisherManager.sharedManager.cache.removeImageForKey(aKey)
@@ -261,16 +295,23 @@ class TextContentModel: ComponentModel {
   override func getResourseData(handler: (NSData?, String?) -> ()) {
     
 //    let aKey = attributes["ImagePath"] as! String
+
     if let aKey = key {
       KingfisherManager.sharedManager.cache.retrieveImageForKey(aKey, options: KingfisherManager.DefaultOptions) {[unowned self] (image, type) -> () in
         if let aImage = image {
+          debugPrint.p("will upload text Image")
+          self.state = "did upload text Image"
           let data = UIImagePNGRepresentation(aImage)
           handler(data, aKey)
         } else {
+          self.state = "fail get text image and cancel upload"
+          debugPrint.p("fail get text image and cancel upload")
           handler(nil, nil)
         }
       }
     } else {
+      self.state = "fail get textimage Key and cancel upload"
+      debugPrint.p("fail get textimage Key and cancel upload")
       handler(nil, nil)
     }
     
@@ -281,7 +322,7 @@ class TextContentModel: ComponentModel {
     return ""
   }
   
-  override func uploadInfo(userID: String, publishID: String, pageID: String) {
+//  override func uploadInfo(userID: String, publishID: String, pageID: String) {
     //        super.uploadInfo(userID, publishID: publishID, pageID: pageID)
     
 //    if needUpload {
@@ -299,5 +340,5 @@ class TextContentModel: ComponentModel {
 //    FileUplodRequest.uploadFileWithKeyFile([key:value])
 //    
 //    println("TextimageModel:key:\(key)")
-  }
+//  }
 }
