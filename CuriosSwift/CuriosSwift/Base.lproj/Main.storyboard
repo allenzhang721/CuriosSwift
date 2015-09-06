@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -416,7 +416,7 @@
                                     <constraint firstAttribute="height" constant="44" id="2Lm-yF-yAa"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem image="B5EBC2F1-2D6D-49A0-825D-74E822421D4F" id="kDW-9R-aLX">
+                                    <barButtonItem image="6981D457-E6AD-4E2A-B38D-8001EF701941" id="kDW-9R-aLX">
                                         <connections>
                                             <action selector="backAction:" destination="9wI-9n-chE" id="ctP-AQ-G0j"/>
                                         </connections>
@@ -1327,8 +1327,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add_Button" width="100" height="58"/>
-        <image name="B5EBC2F1-2D6D-49A0-825D-74E822421D4F" width="19" height="15">
+        <image name="6981D457-E6AD-4E2A-B38D-8001EF701941" width="19" height="15">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1417,6 +1416,7 @@ pxK2EroSwRLJEtYS2xLdEt8S5BLsEu8S9BL8Ev8TERMUExkAAAAAAAACAQAAAAAAAAA+AAAAAAAAAAAA
 AAAAAAATGw
 </mutableData>
         </image>
+        <image name="Add_Button" width="100" height="58"/>
         <image name="BarIcon_Theme" width="16" height="16"/>
         <image name="BarIcon_products" width="11" height="16"/>
         <image name="Launch_Button" width="89" height="89"/>

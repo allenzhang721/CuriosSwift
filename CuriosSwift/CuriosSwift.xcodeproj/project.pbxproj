@@ -32,6 +32,9 @@
 		2C2240C91B8B1209000C8CEA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2240C81B8B1209000C8CEA /* Images.xcassets */; };
 		2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */; };
 		2C25EE6F1B0729100087EE6F /* IMaskAttributeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */; };
+		2C28B0E01B9BC1480051C5B7 /* MaskableInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28B0DF1B9BC1480051C5B7 /* MaskableInterface.swift */; };
+		2C28B0E21B9BD4E30051C5B7 /* EditToolAddMaskPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28B0E11B9BD4E30051C5B7 /* EditToolAddMaskPannel.swift */; };
+		2C28B0E41B9BE7EF0051C5B7 /* MasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28B0E31B9BE7EF0051C5B7 /* MasksManager.swift */; };
 		2C29E0E31B4F3FA00064C2F1 /* MJExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C29E0E21B4F3FA00064C2F1 /* MJExtension.framework */; };
 		2C29E0E51B4F3FA40064C2F1 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C29E0E41B4F3FA40064C2F1 /* Kingfisher.framework */; };
 		2C2BDE681B41363F0091A2F4 /* FontPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BDE671B41363F0091A2F4 /* FontPannel.swift */; };
@@ -150,6 +153,9 @@
 		2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */; };
 		2C9495BB1B57C0CF00D77EE2 /* EditToolLevelPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */; };
 		2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */; };
+		2C94BD261B9C23EB0030CF68 /* MaskHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94BD251B9C23EB0030CF68 /* MaskHelper.swift */; };
+		2C94BD281B9C4F760030CF68 /* CuriosMaskKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94BD271B9C4F760030CF68 /* CuriosMaskKit.swift */; };
+		2C94BD2A1B9C51F00030CF68 /* CuriosMaskKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94BD291B9C51F00030CF68 /* CuriosMaskKit+Extension.swift */; };
 		2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */; };
 		2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0343F1B4572C000EFA603 /* ColorPickView.swift */; };
 		2CA034421B45734F00EFA603 /* ColorPickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CA034411B45734F00EFA603 /* ColorPickView.xib */; };
@@ -304,6 +310,9 @@
 		2C2240C81B8B1209000C8CEA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C25EE6C1B0728970087EE6F /* IAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAttributeSetter.swift; sourceTree = "<group>"; };
 		2C25EE6E1B0729100087EE6F /* IMaskAttributeSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMaskAttributeSetter.swift; sourceTree = "<group>"; };
+		2C28B0DF1B9BC1480051C5B7 /* MaskableInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskableInterface.swift; sourceTree = "<group>"; };
+		2C28B0E11B9BD4E30051C5B7 /* EditToolAddMaskPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolAddMaskPannel.swift; sourceTree = "<group>"; };
+		2C28B0E31B9BE7EF0051C5B7 /* MasksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasksManager.swift; sourceTree = "<group>"; };
 		2C29E0E21B4F3FA00064C2F1 /* MJExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MJExtension.framework; path = "Pods/build/Debug-iphoneos/Pods-CuriosSwift/MJExtension.framework"; sourceTree = "<group>"; };
 		2C29E0E41B4F3FA40064C2F1 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = "Pods/build/Debug-iphoneos/Pods-CuriosSwift/Kingfisher.framework"; sourceTree = "<group>"; };
 		2C2BDE671B41363F0091A2F4 /* FontPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPannel.swift; sourceTree = "<group>"; };
@@ -423,6 +432,9 @@
 		2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolTextAlingmentPannel.swift; sourceTree = "<group>"; };
 		2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolLevelPannel.swift; sourceTree = "<group>"; };
 		2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolAnimationPannel.swift; sourceTree = "<group>"; };
+		2C94BD251B9C23EB0030CF68 /* MaskHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskHelper.swift; sourceTree = "<group>"; };
+		2C94BD271B9C4F760030CF68 /* CuriosMaskKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuriosMaskKit.swift; sourceTree = "<group>"; };
+		2C94BD291B9C51F00030CF68 /* CuriosMaskKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CuriosMaskKit+Extension.swift"; sourceTree = "<group>"; };
 		2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CA0343F1B4572C000EFA603 /* ColorPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickView.swift; sourceTree = "<group>"; };
 		2CA034411B45734F00EFA603 /* ColorPickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickView.xib; sourceTree = "<group>"; };
@@ -743,6 +755,7 @@
 				2C9495B41B57BDB600D77EE2 /* EditToolSettingPannelFactory.swift */,
 				2C9495B21B57413600D77EE2 /* EditToolTextFontPannel.swift */,
 				2C9495B61B57C01100D77EE2 /* EditToolTextColorPannel.swift */,
+				2C28B0E11B9BD4E30051C5B7 /* EditToolAddMaskPannel.swift */,
 				2C9495B81B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift */,
 				2C9495BA1B57C0CF00D77EE2 /* EditToolLevelPannel.swift */,
 				2C9495BC1B57C13E00D77EE2 /* EditToolAnimationPannel.swift */,
@@ -1011,6 +1024,9 @@
 				2C6273D71B82D49400B4369F /* RegisterHelper.swift */,
 				2CD3FA341B842E8400CA0ABB /* LoginHelper.swift */,
 				2CCE64C31B87506C00386F2B /* ImageHelper.swift */,
+				2C94BD251B9C23EB0030CF68 /* MaskHelper.swift */,
+				2C94BD271B9C4F760030CF68 /* CuriosMaskKit.swift */,
+				2C94BD291B9C51F00030CF68 /* CuriosMaskKit+Extension.swift */,
 			);
 			name = Utilty;
 			sourceTree = "<group>";
@@ -1037,6 +1053,7 @@
 				2CD8078C1B0B2B5A008B286B /* IUser.swift */,
 				2CD3AF8D1B12C5D7008319A8 /* IBook.swift */,
 				2CFC89DE1B18730800B8BA13 /* ITemplateSelector.swift */,
+				2C28B0DF1B9BC1480051C5B7 /* MaskableInterface.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -1070,6 +1087,7 @@
 				2CAC965E1B54E7A600BA5291 /* ThemesManager.swift */,
 				2CAC96651B54F6CD00BA5291 /* TemplatesManager.swift */,
 				2C3361261B58ED4400E1B276 /* AnimationsManager.swift */,
+				2C28B0E31B9BE7EF0051C5B7 /* MasksManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1226,7 +1244,7 @@
 				TargetAttributes = {
 					2CB4BD4D1AE337EA00DF6019 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = LKNH59573E;
+						DevelopmentTeam = AJ6S3UXN3E;
 					};
 					2CB4BD621AE337EB00DF6019 = {
 						CreatedOnToolsVersion = 6.3;
@@ -1355,6 +1373,7 @@
 				2C77635B1B056704000DDFB2 /* ComponentTextNode.swift in Sources */,
 				2CAC966A1B550AE500BA5291 /* List&Edit&Save&Publish.swift in Sources */,
 				2CAC96631B54F54400BA5291 /* TemplateRequest.swift in Sources */,
+				2C28B0E21B9BD4E30051C5B7 /* EditToolAddMaskPannel.swift in Sources */,
 				2CE9D5CF1B0B35B300D92538 /* BookListTableViewCell.swift in Sources */,
 				2C9495A91B5681DA00D77EE2 /* EditToolBar.swift in Sources */,
 				2CB3621F1B60C4AF007F96FB /* ShareController.swift in Sources */,
@@ -1448,6 +1467,7 @@
 				2C8028AE1B6B4CF600FCB7B2 /* BlackCatOptions.swift in Sources */,
 				2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */,
 				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
+				2C28B0E01B9BC1480051C5B7 /* MaskableInterface.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C5526E81B4CC533000F2C7D /* PublishRequest.swift in Sources */,
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
@@ -1463,6 +1483,7 @@
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
 				2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */,
+				2C94BD2A1B9C51F00030CF68 /* CuriosMaskKit+Extension.swift in Sources */,
 				2C62F2171B672568007DA47F /* LocalStringHelper.swift in Sources */,
 				2C69242E1B4686BA00CC327D /* ColorItem.swift in Sources */,
 				2C6273C51B82059800B4369F /* CountryTableViewController.swift in Sources */,
@@ -1480,6 +1501,7 @@
 				2C8028AF1B6B4CF600FCB7B2 /* BlackCatOptionsInfo.swift in Sources */,
 				2CA8F0BF1B3940CD0063E964 /* PublishIDRequest.swift in Sources */,
 				2CFC89DF1B18730800B8BA13 /* ITemplateSelector.swift in Sources */,
+				2C94BD261B9C23EB0030CF68 /* MaskHelper.swift in Sources */,
 				2CD3FA8E1B84863200CA0ABB /* NSString+Base64.m in Sources */,
 				2C63DD311B16920D006249D8 /* TemplateListModel.swift in Sources */,
 				2C8926851B7B58A500DBA9F0 /* ThemeListSelectedViewController.swift in Sources */,
@@ -1517,6 +1539,7 @@
 				2CBF584C1B1EC7690053102A /* RippleView.swift in Sources */,
 				2C6273D61B82139600B4369F /* CountryCodeHelper.swift in Sources */,
 				2C0359931B5104BF00B66574 /* TextEditorTransitionAnimation.swift in Sources */,
+				2C94BD281B9C4F760030CF68 /* CuriosMaskKit.swift in Sources */,
 				2C828A081AEF4D93004D4223 /* CUEditableTextNode.swift in Sources */,
 				2C0A69C61B5B44F200A6CF1A /* EditNavigationViewController.swift in Sources */,
 				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,
@@ -1528,6 +1551,7 @@
 				2C62F2231B687869007DA47F /* AlertHelper.swift in Sources */,
 				2C362AD01B5BF21C00F80012 /* ThemeLayout.swift in Sources */,
 				2CD3FA8D1B84863200CA0ABB /* NSData+CommonCrypto.m in Sources */,
+				2C28B0E41B9BE7EF0051C5B7 /* MasksManager.swift in Sources */,
 				2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
@@ -1665,8 +1689,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1700,7 +1724,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
+				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1813,8 +1837,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1848,7 +1872,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
+				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1861,8 +1885,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHANG YONGQUAN (5797F57Q2L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1896,7 +1920,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
+				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

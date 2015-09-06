@@ -282,7 +282,7 @@ extension EditToolBar {
       
     case let component as ImageContentModel:
       type = .Image
-      barItems = [ "animation", "level"]
+      barItems = [ "animation", "Mask", "level"]
       
       
     default:
@@ -323,6 +323,9 @@ extension EditToolBar {
       level()
       case "animation":
       animation()
+      
+      case "Mask":
+      addMask()
       
     default:
       return
@@ -545,6 +548,10 @@ extension EditToolBar {
   
   func textColor() {
     settingDelegate?.editToolBar(self, didSelectedTextColor: containerModel!)
+  }
+  
+  func addMask() {
+    settingDelegate?.editToolBar(self, didSelectedAddMask: containerModel!)
   }
 }
 

@@ -1006,13 +1006,14 @@ extension EditViewController {
     let icon = bookModel.icon
     let index = "index.html"
     let publishURL = pathByComponents([userID, publishID,index])
+    let publishResURL = pathByComponents([userID, publishID, "res", "curiosRes.json"])
     
-    let string = PUBLISH_FILE_paras(userID, publishID, publishURL, publisherIconURL: icon, publishTitle: atitle, publishDesc: desc)
+    let string = PUBLISH_FILE_paras(userID, publishID, publishURL, publishResURL, publisherIconURL: icon, publishTitle: atitle, publishDesc: desc)
     PublishFileRequest.requestWithComponents(PUBLISH_FILE, aJsonParameter: string) { (json) -> Void in
     }.sendRequest()
   }
   
-  func showPreviewControllerWithUrl(url: String) {
+  func showPreviewControllerWithUrl(url: String, completion: (() -> Void)?) {
     
     HUD.dismiss()
     if let previewNavVC = UIStoryboard(name: "Independent", bundle: nil).instantiateViewControllerWithIdentifier("PreviewNavigationController") as? UINavigationController {
@@ -1020,7 +1021,8 @@ extension EditViewController {
       if let previewVC = previewNavVC.topViewController as? PreviewViewController {
         previewVC.urlString = url
         previewVC.delegate = self
-        presentViewController(previewNavVC, animated: true, completion: nil)
+//        presentViewController(previewNavVC, animated: true, completion: nil)
+        presentViewController(previewNavVC, animated: true, completion: completion)
       }
     }
   }
@@ -1299,6 +1301,7 @@ extension EditViewController {
     presentViewController(sheet, animated: true, completion: nil)
   }
   
+
   // show Image Picker
   private func showImagePicker(type: UIImagePickerControllerSourceType) {
     
@@ -1370,12 +1373,12 @@ extension EditViewController {
 extension EditViewController {
   
   
-  func begainToPreview(completedBlock:(String?) -> ()) {
+  func begainToPreview(completedBlock:(String?, Bool) -> ()) {
     
     // 1. book whether in server
     if isUploaded && !bookModel.needUpload && !bookModel.isEditedTitle() && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
       let publishURL = bookModel.retrivePublishURL()!
-       completedBlock(publishURL)
+       completedBlock(publishURL, false)
       return
     }
     
@@ -1386,21 +1389,21 @@ extension EditViewController {
         begainUploadCuriosRes({[unowned self] (completed) -> () in
           
           self.willPreview({ (publishURL) -> () in
-            completedBlock(publishURL)
+            completedBlock(publishURL, true)
           })
         })
         return
         
       } else {
         willPreview({ (publishURL) -> () in
-          completedBlock(publishURL)
+          completedBlock(publishURL, true)
         })
       }
     } else {
       begainUploadCuriosRes({[unowned self] (completed) -> () in
         
         self.willPreview({ (publishURL) -> () in
-          completedBlock(publishURL)
+          completedBlock(publishURL, true)
         })
         })
     }
@@ -1767,9 +1770,6 @@ extension EditViewController {
   }
 }
 
-
-
-
 // MARK: - EditToolBar Delegate
 extension EditViewController {
   
@@ -1800,16 +1800,24 @@ extension EditViewController {
     
 //    EndEdit()
     HUD.preview_preparing()
-    begainToPreview {[unowned self] (publishURL) -> () in
+    begainToPreview {[unowned self] (publishURL, delay) -> () in
       
       
       if let publishURL = publishURL {
-        HUD.dismiss()
-        self.showPreviewControllerWithUrl(publishURL)
+//        HUD.dismiss()
+        
+        let time: NSTimeInterval = delay ? 1.0 : 0.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW,
+          Int64(time * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+          
+          self.showPreviewControllerWithUrl(publishURL, completion: { () -> Void in
+            HUD.dismiss()
+          })
+        }
       } else {
         HUD.preview_fail()
       }
-      
     }
     
 //    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && isUploaded && !bookModel.publishURLIsEmpty() {

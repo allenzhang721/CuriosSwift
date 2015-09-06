@@ -9,6 +9,7 @@
 import UIKit
 import Mantle
 import Alamofire
+import Kingfisher
 
 protocol ThemeViewControllerDelegate: NSObjectProtocol {
   
@@ -166,29 +167,51 @@ extension ThemeViewController {
       let snapshot = backgroundImageView.snapshotViewAfterScreenUpdates(false)
       view.insertSubview(snapshot, belowSubview: backgroundImageView)
       //      backgroundImageView.alpha = 0
-      let image = backgroundImageView.image
+
       
-      backgroundImageView.kf_setImageWithURL(url, placeholderImage: image, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
-        
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
+//      backgroundImageView.layer.contents =
+      
+        KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
           
-          self?.backgroundImageView.alpha = 0.5
-          }, completion: { (finished) -> Void in
-        })
-        
-//        self?.backgroundImageView.image = image
-        
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-          
-          self?.backgroundImageView.alpha = 1
-          }, completion: { (finished) -> Void in
+//          self.backgroundImageView.layer.contents = (image as! CGImageRef)
+          if error == nil {
+            let transition = CATransition()
             
-            if finished {
-              snapshot.removeFromSuperview()
-            }
+            transition.startProgress = 0.0
+            transition.endProgress = 1.0
+            transition.duration = 0.4
+            
+            self.backgroundImageView.layer.contents = image!.CGImage
+            self.backgroundImageView.layer.addAnimation(transition, forKey: "contents")
+          }
+          
+          
+
         })
-        
-        })
+      
+      
+      
+//      backgroundImageView.kf_setImageWithURL(url, placeholderImage: image, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
+//        
+//        UIView.animateWithDuration(0.5, animations: { () -> Void in
+//          
+//          self?.backgroundImageView.alpha = 0.5
+//          }, completion: { (finished) -> Void in
+//        })
+//        
+////        self?.backgroundImageView.image = image
+//        
+//        UIView.animateWithDuration(0.5, animations: { () -> Void in
+//          
+//          self?.backgroundImageView.alpha = 1
+//          }, completion: { (finished) -> Void in
+//            
+//            if finished {
+//              snapshot.removeFromSuperview()
+//            }
+//        })
+//        
+//        })
     }
   }
   
@@ -226,13 +249,13 @@ extension ThemeViewController {
   func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     
     updateSelectBorder()
-//    setupbackgroundImage()
+    setupbackgroundImage()
   }
   
   func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
     
     updateSelectBorder()
-//    setupbackgroundImage()
+    setupbackgroundImage()
   }
 }
 

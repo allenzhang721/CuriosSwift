@@ -81,6 +81,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
   func loadUrl() {
     let time = Int(floor(NSDate().timeIntervalSince1970 * 1000))
     let url = NSURL(string: urlString + "?v=\(time)#edit")!
+    debugPrint.p(url)
     let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 30)
     webView.loadRequest(request)
   }

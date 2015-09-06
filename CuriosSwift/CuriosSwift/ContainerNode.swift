@@ -63,6 +63,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
       
         component = containerModel.component.createComponent()
+      updateMask()
       
         if let aCom = component as? ASDisplayNode {
             addSubnode(aCom)
@@ -149,6 +150,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
       
       let origin = self?.frame.origin
       self?.containerModel.setOnScreenOrigin(origin!)
+      
     }
     
     containerModel.centerChangeListener.bind("ContainerNode_\(randID)") {[weak self] postion -> Void in
@@ -161,10 +163,21 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
       
       self?.view.bounds.size.width += size.width
       self?.view.bounds.size.height += size.height
+      
+      if let strongself = self where strongself.updateMask() {
+
+      }
+      
     }
     
     containerModel.rotationListener.bind("ContainerNode_\(randID)") {[weak self] angle -> Void in
       self?.view.transform = CGAffineTransformMakeRotation(angle)
+    }
+    
+    containerModel.maskTypeListener.bind("ContainerNode_\(randID)") {[weak self] maskType -> Void in
+      if let strongself = self where strongself.updateMask() {
+      }
+//      self?.view.transform = CGAffineTransformMakeRotation(angle)
     }
   }
   
@@ -183,6 +196,7 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     containerModel.centerChangeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.sizeChangeListener.removeActionWithID("ContainerNode_\(randID)")
     containerModel.rotationListener.removeActionWithID("ContainerNode_\(randID)")
+    containerModel.maskTypeListener.removeActionWithID("ContainerNode_\(randID)")
   }
   
   deinit {
@@ -408,6 +422,62 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
         }
     }
 }
+
+// MARK: - Interface
+extension ContainerNode: MaskableInterface {
+  
+  func updateMask() -> Bool {
+    
+    if let maskType = containerModel.maskType, let maskAttribute = MasksManager.maskTypes[maskType]  where !maskType.isEmpty && containerModel.component is ImageContentModel {
+      var rect = bounds
+      if maskAttribute.fixed {
+        let ratio = min(bounds.width / maskAttribute.width, bounds.height / maskAttribute.height)
+        let size = CGSize(width: maskAttribute.width * ratio, height: maskAttribute.height * ratio)
+        let origin = CGPointMake((bounds.width - size.width) / 2.0, (bounds.height - size.height) / 2.0)
+          rect = CGRect(origin: origin, size: size)
+      }
+      
+      if let shapeMask = view.layer.mask as? CAShapeLayer {
+        shapeMask.path = MasksManager.bezierPathWithMask(maskType, atFrame: rect).CGPath
+      } else {
+        let layer = CAShapeLayer()
+        layer.frame = rect
+        layer.path = MasksManager.bezierPathWithMask(maskType, atFrame: rect).CGPath
+        view.layer.mask = layer
+      }
+      
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  func starsPath(#frame: CGRect) -> CAShapeLayer {
+    
+    //// Star Drawing
+    var bezierPath = UIBezierPath()
+    bezierPath.moveToPoint(CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.39899 * frame.width, frame.minY + 0.04769 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48167 * frame.width, frame.minY + 0.09523 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.20511 * frame.width, frame.minY + 0.01851 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.31632 * frame.width, frame.minY + 0.00015 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.24644 * frame.width, frame.minY + 0.00880 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.01424 * frame.width, frame.minY + 0.23251 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16377 * frame.width, frame.minY + 0.02823 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.06852 * frame.width, frame.minY + 0.05943 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.10472 * frame.width, frame.minY + 0.56732 * frame.height), controlPoint1: CGPointMake(frame.minX + -0.03228 * frame.width, frame.minY + 0.41978 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.09168 * frame.width, frame.minY + 0.55123 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.25924 * frame.width, frame.minY + 0.77582 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.11775 * frame.width, frame.minY + 0.58342 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.24045 * frame.width, frame.minY + 0.74547 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.35287 * frame.width, frame.minY + 0.99576 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.28824 * frame.width, frame.minY + 0.82268 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.31114 * frame.width, frame.minY + 0.85575 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.96099 * frame.width, frame.minY + 0.47874 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.42177 * frame.width, frame.minY + 0.95971 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.76130 * frame.width, frame.minY + 0.80283 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.93203 * frame.width, frame.minY + 0.08639 * frame.height), controlPoint1: CGPointMake(frame.minX + 1.02496 * frame.width, frame.minY + 0.32331 * frame.height), controlPoint2: CGPointMake(frame.minX + 1.01891 * frame.width, frame.minY + 0.17151 * frame.height))
+    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85190 * frame.width, frame.minY + -0.00398 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.65041 * frame.width, frame.minY + -0.09394 * frame.height))
+    bezierPath.closePath()
+    //    UIColor.grayColor().setFill()
+    //    starPath.fill()
+    let layer = CAShapeLayer()
+    layer.frame = frame
+    layer.path = bezierPath.CGPath
+    
+    return layer
+  }
+}
+
+
 
 // MARK: - private method
 extension ContainerNode {

@@ -39,7 +39,11 @@ extension EditToolPannel {
     updateSettingPannelByKey("TextAlignment", aContainerModel: containerModel)
   }
   
-  // image - none
+  // image - mask
+  func editToolBar(toolBar: EditToolBar, didSelectedAddMask containerModel: ContainerModel) {
+    updateSettingPannelByKey("Mask", aContainerModel: containerModel)
+  }
+  
 }
 
 //MARK: - settingPannel

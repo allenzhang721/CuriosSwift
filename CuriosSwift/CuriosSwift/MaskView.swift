@@ -232,6 +232,12 @@ extension MaskView {
   
   func addPannels() {
     
+    let deletePannelImage = UIImage(named: "Editor_DeletePannel")
+    deletePannel = UIImageView(image: deletePannelImage)
+    deletePannel.bounds.size = CGSizeMake(25, 25)
+    deletePannel.center = CGPointMake(0, bounds.height)
+    addSubview(deletePannel)
+    
     let settingPannelImage = UIImage(named: "Editor_SettingPannel")
     settingPannel = UIImageView(image: settingPannelImage)
     settingPannel.bounds.size = CGSizeMake(25, 25)
@@ -250,11 +256,7 @@ extension MaskView {
     rotationPannel.center = CGPointMake(bounds.width, 0)
     addSubview(rotationPannel)
     
-    let deletePannelImage = UIImage(named: "Editor_DeletePannel")
-    deletePannel = UIImageView(image: deletePannelImage)
-    deletePannel.bounds.size = CGSizeMake(25, 25)
-    deletePannel.center = CGPointMake(0, bounds.height)
-    addSubview(deletePannel)
+    
   }
   
   override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
@@ -278,12 +280,12 @@ extension MaskView {
     
     let location = sender.locationInView(self)
     switch location {
-    case let point where deleteRegion(point):
-      delegate?.maskViewDidSelectedDeleteItem(self, deletedContainerModel: containerMomdel)
-      
     case let point where editRegion(point):
       delegate?.maskViewDidSelectedEditItem(self, EditedContainerModel: containerMomdel)
       
+    case let point where deleteRegion(point):
+      delegate?.maskViewDidSelectedDeleteItem(self, deletedContainerModel: containerMomdel)
+
     default:
       return
     }
@@ -395,7 +397,7 @@ extension MaskView {
           let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
           let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
           
-          if !heightBool {
+          if !heightBool && !widthBool {
             containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
             containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
             let scale = bounds.width / panBeginSize.width

@@ -21,6 +21,7 @@ protocol EditToolBarDelegate: NSObjectProtocol {
   func editToolBarDidSelectedAddImage(toolBar: EditToolBar)
   func editToolBarDidSelectedAddText(toolBar: EditToolBar)
   func editToolBarDidSelectedCancel(toolBar: EditToolBar)
+ 
   
 }
 
@@ -35,7 +36,8 @@ protocol EditToolBarSettingDelegate: NSObjectProtocol {
   func editToolBar(toolBar: EditToolBar, didSelectedTextColor containerModel: ContainerModel)
   func editToolBar(toolBar: EditToolBar, didSelectedTextAlignment containerModel: ContainerModel)
   
-  // image - none
+  // image - mask
+  func editToolBar(toolBar: EditToolBar, didSelectedAddMask containerModel: ContainerModel)
   
 }
 

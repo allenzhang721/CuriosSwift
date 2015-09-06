@@ -25,6 +25,29 @@ class ContainerModel: Model, ComponentModelDelegate {
   
   let boundsSlope = "com.botai.Curios.ContainerModel.boundsSlope"
   let metaDataSlope = "com.botai.Curios.ContainerModel.metaDataSlope"
+  
+  var mask: [String : AnyObject] = [:]
+  
+  /*
+  
+  "Mask":{
+  "MaskType":""
+  "width":"" // optional
+  "height":"" // optional
+  "resizeType":"free"\"fix"
+  }
+  
+  */
+  
+  var maskType: String? {
+    set {
+      mask["MaskType"] = newValue
+    }
+    
+    get {
+      return mask["MaskType"] as? String
+    }
+  }
     
   struct Slope {
       
@@ -106,6 +129,7 @@ class ContainerModel: Model, ComponentModelDelegate {
   var animationNameListener = Dynamic("None")
   var levelChangedListener = Dynamic(true)
   var lockChangedListener = Dynamic(false)
+  var maskTypeListener = Dynamic("")
   
   
   required init!(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer) {
@@ -236,6 +260,17 @@ class ContainerModel: Model, ComponentModelDelegate {
     editDelegate?.containerModelDidUpdate(self)
   }
   
+  func setMaskTypeName(type: String) {
+    
+    maskType = type
+    
+    maskTypeListener.value = type
+    
+    
+    
+    editDelegate?.containerModelDidUpdate(self)
+  }
+  
 //  struct correctRange {
 //    let correctPoint: CGFloat = 0.0
 //    let distance: CGFloat = 1.5 * angleToRan
@@ -296,7 +331,8 @@ class ContainerModel: Model, ComponentModelDelegate {
       "animations" : "Animations",
 //      "behaviors" : "Behaviors",
       "effects" : "Effects",
-      "component" : "Component"
+      "component" : "Component",
+      "mask" : "Mask"
     ]
   }
   

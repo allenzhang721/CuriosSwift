@@ -29,6 +29,9 @@ class EditToolSettingPannelFactory {
       case "TextColor":
       return EditToolTextColorPannel(aContainerModel: containerModel)
       
+      case "Mask":
+      return EditToolAddMaskPannel(aContainerModel: containerModel)
+      
     default:
       return EditToolSettingPannel(aContainerModel: containerModel)
     }
