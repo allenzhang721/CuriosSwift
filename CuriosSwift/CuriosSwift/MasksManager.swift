@@ -21,15 +21,15 @@ class MasksManager {
     
     return [
       "RoundRetangle": MaskAttribute(width: 100, height: 100, fixed: false),
-      "Triangle": MaskAttribute(width: 100, height: 100, fixed: false),
+      "IsocelesTriangle": MaskAttribute(width: 100, height: 100, fixed: false),
       "Circle": MaskAttribute(width: 100, height: 100, fixed: false),
       "Diamond": MaskAttribute(width: 100, height: 200, fixed: false),  //菱形[数]\ pentagon
       "Pentagon": MaskAttribute(width: 100, height: 100, fixed: false), //五边形
       "Pentagram": MaskAttribute(width: 100, height: 100, fixed: true), //五角星
-      "Heart": MaskAttribute(width: 132, height: 125, fixed: true),
-      "Fan": MaskAttribute(width: 506, height: 314, fixed: true),
+      "HeartShape": MaskAttribute(width: 132, height: 125, fixed: true),
+      "FanShape": MaskAttribute(width: 506, height: 314, fixed: true),
       //      "Cross": MaskAttribute(width: 100, height: 100, fixed: false),
-      "X": MaskAttribute(width: 100, height: 100, fixed: false)
+      "XShape": MaskAttribute(width: 100, height: 100, fixed: false)
     ]
     
   }
@@ -67,7 +67,7 @@ class MasksManager {
     switch type {
     case "RoundRetangle":
       return CuriosMaskKit.drawRoundRetanglePath(frame: frame)
-    case "Triangle":
+    case "IsocelesTriangle":
       return CuriosMaskKit.drawTrianglePath(frame: frame)
     case "Circle":
       return CuriosMaskKit.drawCirclePath(frame: frame)
@@ -77,11 +77,11 @@ class MasksManager {
       return CuriosMaskKit.drawPentagonPath(frame: frame)
     case "Pentagram":
       return CuriosMaskKit.drawPentagramPath(frame: frame)
-    case "Heart":
+    case "HeartShape":
       return CuriosMaskKit.drawHeartPath(frame: frame)
-    case "Fan":
+    case "FanShape":
       return CuriosMaskKit.drawFanPath(frame: frame)
-    case "X":
+    case "XShape":
       return CuriosMaskKit.drawXPath(frame: frame)
     default:
       return UIBezierPath()
@@ -94,7 +94,7 @@ class MasksManager {
     switch type {
     case "RoundRetangle":
       return CuriosMaskKit.imageOfRoundRetangle(frame: frame)
-    case "Triangle":
+    case "IsocelesTriangle":
       return CuriosMaskKit.imageOfTriangle(frame: frame)
     case "Circle":
       return CuriosMaskKit.imageOfCircle(frame: frame)
@@ -104,11 +104,11 @@ class MasksManager {
       return CuriosMaskKit.imageOfPentagon(frame: frame)
     case "Pentagram":
       return CuriosMaskKit.imageOfPentagram(frame: frame)
-    case "Heart":
+    case "HeartShape":
       return CuriosMaskKit.imageOfHeart(frame: frame)
-    case "Fan":
+    case "FanShape":
       return CuriosMaskKit.imageOfFan(frame: frame)
-    case "X":
+    case "XShape":
       return CuriosMaskKit.imageOfX(frame: frame)
     default:
       return nil
