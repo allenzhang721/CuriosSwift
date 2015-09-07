@@ -16,7 +16,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditToolBar.swift"
@@ -29,14 +29,14 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "@objc CuriosSwift.EditToolBar.showHiddenLayout.getter : ObjectiveC.UICollectionViewFlowLayout"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.850561"
+                  timestampString = "463310308.697439"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "112"
@@ -44,14 +44,14 @@
                   offsetFromSymbolStart = "80">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.showHiddenLayout.getter : ObjectiveC.UICollectionViewFlowLayout"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.850841"
+                  timestampString = "463310308.697618"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "112"
@@ -59,34 +59,34 @@
                   offsetFromSymbolStart = "69">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.(changedToModel in _D91274C8646010A085FD652FD4F248FD) (CuriosSwift.EditToolBar)(CuriosSwift.ContainerModel) -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.85109"
+                  timestampString = "463310308.697789"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "112"
                   endingLineNumber = "112"
-                  offsetFromSymbolStart = "991">
+                  offsetFromSymbolStart = "980">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.(updateConstraintsWithState in _D91274C8646010A085FD652FD4F248FD) (CuriosSwift.EditToolBar)() -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.85127"
+                  timestampString = "463310308.697973"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "112"
                   endingLineNumber = "112"
-                  offsetFromSymbolStart = "902">
+                  offsetFromSymbolStart = "888">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -94,7 +94,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditToolBar.swift"
@@ -107,14 +107,14 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "@objc CuriosSwift.EditToolBar.defaultLayout.getter : ObjectiveC.UICollectionViewFlowLayout"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.852555"
+                  timestampString = "463310308.699247"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -122,14 +122,14 @@
                   offsetFromSymbolStart = "424">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.defaultLayout.getter : ObjectiveC.UICollectionViewFlowLayout"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.852759"
+                  timestampString = "463310308.699432"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -137,14 +137,14 @@
                   offsetFromSymbolStart = "413">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.(setupContentView in _D91274C8646010A085FD652FD4F248FD) (CuriosSwift.EditToolBar)() -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.852947"
+                  timestampString = "463310308.699609"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -152,14 +152,14 @@
                   offsetFromSymbolStart = "4349">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.updateWithModel (CuriosSwift.EditToolBar)(Swift.Optional&lt;CuriosSwift.ContainerModel&gt;) -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.853125"
+                  timestampString = "463310308.699787"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -167,36 +167,116 @@
                   offsetFromSymbolStart = "2299">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.(changedToModel in _D91274C8646010A085FD652FD4F248FD) (CuriosSwift.EditToolBar)(CuriosSwift.ContainerModel) -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.853296"
+                  timestampString = "463310308.699962"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "2203">
+                  offsetFromSymbolStart = "2166">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of CuriosSwift.EditToolBar.(updateConstraintsWithState in _D91274C8646010A085FD652FD4F248FD) (CuriosSwift.EditToolBar)() -&gt; ()"
                   moduleName = "CuriosSwift"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
-                  timestampString = "463304584.853468"
+                  timestampString = "463310308.700135"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "2332">
+                  offsetFromSymbolStart = "2282">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/EditToolBar.swift"
+            timestampString = "463305281.534894"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
+            landmarkName = "collectionView(_:didSelectItemAtIndexPath:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.EditToolBar.collectionView (CuriosSwift.EditToolBar)(ObjectiveC.UICollectionView, didSelectItemAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
+                  timestampString = "463305281.537836"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "706"
+                  endingLineNumber = "706"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc CuriosSwift.EditToolBar.collectionView (CuriosSwift.EditToolBar)(ObjectiveC.UICollectionView, didSelectItemAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditToolBar.swift"
+                  timestampString = "463305281.538111"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "706"
+                  endingLineNumber = "706"
+                  offsetFromSymbolStart = "42">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/MaskView.swift"
+            timestampString = "463313167.787987"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "panAction(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/MaskView.swift"
+            timestampString = "463313167.787987"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "panAction(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

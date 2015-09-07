@@ -120,7 +120,7 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     let number = barItems.count
     
 //    let lineSpace = number > 2 ? (width - trail - leading - CGFloat(number) * itemSideLength) / CGFloat((number - 1)) : 20
-        let lineSpace: CGFloat = (width - trail - leading - CGFloat(number) * itemSideLength) / 4
+        let lineSpace: CGFloat = (width - trail - leading - 4 * itemSideLength) / 4
     layout.minimumLineSpacing = lineSpace
     layout.sectionInset = inset
     layout.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
@@ -703,7 +703,7 @@ extension EditToolBar {
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredVertically, animated: true)
+    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
     
     if actived == false && containerModel != nil {
       actived = true
