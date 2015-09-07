@@ -20,14 +20,19 @@ class  CountryCodeHelper {
     return defaultCodes.count
   }
   
-  class func currentCountryDisplayNameAreaCodeCountryCode() -> (String, String, String) {
+  class func currentCountryDisplayNameAreaCodeCountryCode() -> (String, String, String) {  // 国家名称，区号，国家代号
     let local = NSLocale.autoupdatingCurrentLocale()
     if let countryCode = local.objectForKey(NSLocaleCountryCode) as? String,
       let areaCode = CountryCodeHelper.defaultCodes[countryCode],
       let countryName = local.displayNameForKey(NSLocaleCountryCode, value: countryCode){
       return (countryName, areaCode, countryCode)
     } else {
-      return ("", "", "")
+      
+      if let language = NSBundle.mainBundle().preferredLocalizations[0] as? String where language == "en" {
+        return ("美国", "1", "US")
+      } else {
+        return ("中国", "86", "CN")
+      }
     }
   }
   
@@ -72,6 +77,7 @@ class  CountryCodeHelper {
   
   class func getZone(completed:(Bool, [Zone]) -> ()) {
     SMS_SDK.getZone { (state, array) -> Void in
+      
       if state.value == 1 {
 //        debugPrint.p("get the area code sucessfully")
         

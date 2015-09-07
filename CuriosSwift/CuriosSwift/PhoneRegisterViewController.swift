@@ -25,8 +25,8 @@ class PhoneRegisterViewController: UIViewController {
   @IBOutlet weak var findPasswordButton: UIButton!
   @IBOutlet weak var nextStepButton: UIButton!
   weak var areaCodeLabel: UILabel!
-  weak var phoneTextField: UITextField!
-  weak var passwordTextField: UITextField!
+  weak var phoneTextField: UITextField?
+  weak var passwordTextField: UITextField?
   let reachability = Reachability.reachabilityForInternetConnection()
   
   struct Register {
@@ -110,7 +110,7 @@ class PhoneRegisterViewController: UIViewController {
 extension PhoneRegisterViewController {
   
   // MARK: - Button
-  @IBAction func loginAction(sender: UIButton) {
+  @IBAction func loginAction(sender: UIButton?) {
     
     cancelFirstResponder()
     
@@ -171,7 +171,7 @@ extension PhoneRegisterViewController {
 
 // MARK: - 2. DataSource & Delegate
 
-extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CountriesViewControllerDelegate {
+extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate,CountriesViewControllerDelegate {
   
   // MARK: - TableView
   
@@ -252,6 +252,17 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
   
   // MARK: - TextField
   
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    if textField == phoneTextField {
+      passwordTextField?.becomeFirstResponder()
+    } else {
+      phoneTextField?.resignFirstResponder()
+      passwordTextField?.resignFirstResponder()
+//      loginAction(nil)
+    }
+    return true
+  }
+  
   func textFieldDidChanged(notification: NSNotification) {
     
     if currentZone == nil {
@@ -288,7 +299,7 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     
     switch gestureRecognizer {
     case let gesture where gesture == tapGesture:
-      return phoneTextField.isFirstResponder() || passwordTextField.isFirstResponder()
+      return passwordTextField?.isFirstResponder() ?? false || phoneTextField?.isFirstResponder() ?? false
       
     default:
       return false
@@ -357,6 +368,7 @@ extension PhoneRegisterViewController {
     // zone
     HUD.register_getZoneInfo()
     CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
+      
       if let strongSelf = self {
         
         if success {
@@ -368,6 +380,8 @@ extension PhoneRegisterViewController {
           //          HUD.register_getZoneInfoFail()
           strongSelf.showFailGetZone()
         }
+      } else {
+        HUD.dismiss(0.5)
       }
     }
   }

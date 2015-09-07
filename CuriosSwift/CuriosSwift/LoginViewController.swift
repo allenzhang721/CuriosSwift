@@ -11,30 +11,68 @@ import ReachabilitySwift
 
 class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
   
+  
+  @IBOutlet weak var phoneLoginView: UIView!
+  @IBOutlet weak var wechatLoginButton: UIButton!
+  @IBOutlet weak var moreButton: UIButton!
+  
   let reachability = Reachability.reachabilityForInternetConnection()
   @IBOutlet weak var breathView: RippleView!
   override func viewDidLoad() {
     super.viewDidLoad()
+
     
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    setup()
+  }
+  
+  func setup() {
+    
+    phoneLoginView.hidden = true
+    wechatLoginButton.hidden = true
+    breathView.hidden = true
+    moreButton.hidden = true
+    
+    if !WXApi.isWXAppInstalled() {
+      
+      showPhoneLogin()
+    } else {
+      showWechatLogin()
+//      showPhoneLogin()
+    }
+  }
+  
+  func showPhoneLogin() {
+    
+    phoneLoginView.hidden = false
+    wechatLoginButton.hidden = true
+    breathView.hidden = true
+    moreButton.hidden = true
+    
+  }
+  
+  func showWechatLogin() {
+    
+    phoneLoginView.hidden = true
+    wechatLoginButton.hidden = false
+    breathView.hidden = false
+    moreButton.hidden = false
     breathView.addBreathAnimation()
-    // Do any additional setup after loading the view.
+    
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  @IBAction func PhoneLoginAction(sender: AnyObject) {
+    
+    showPhoneRegisterVC("Login")
   }
   
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+  @IBAction func phoneRegisterAction(sender: AnyObject) {
+    
+    showPhoneRegisterVC("Register")
   }
-  */
+  
   
   @IBAction func moreLoginAction(sender: UIButton) {
     
@@ -42,9 +80,7 @@ class LoginViewController: UIViewController, IRegisterDelegate, LaunchDelegate {
     showMoreLogin()
     
   }
-  
-  
-  
+
   func navigationController(controller: LaunchNaviViewController, loginUser user: UserModel) {
     
     saveUserInfo(user)

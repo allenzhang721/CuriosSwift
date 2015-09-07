@@ -93,11 +93,34 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     let leading: CGFloat = 10.0
     let inset = UIEdgeInsets(top: 0, left: leading, bottom:  0, right: trail)
     let itemSideLength: CGFloat = 40
-    let width = collectionView.bounds.width
+    let width = bounds.width
     
     let number = barItems.count
     
     let lineSpace = number > 2 ? (width - trail - leading - CGFloat(number) * itemSideLength) / CGFloat((number - 1)) : 20
+//    let lineSpace: CGFloat = 20
+    layout.minimumLineSpacing = lineSpace
+    layout.sectionInset = inset
+    layout.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
+    
+    return layout
+  }
+  
+  var showHiddenLayout: UICollectionViewFlowLayout {
+    
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .Horizontal
+    
+    let trail: CGFloat = 10.0
+    let leading: CGFloat = 10.0
+    let inset = UIEdgeInsets(top: 0, left: leading, bottom:  0, right: trail)
+    let itemSideLength: CGFloat = 40
+    let width = collectionView.bounds.width
+    
+    let number = barItems.count
+    
+//    let lineSpace = number > 2 ? (width - trail - leading - CGFloat(number) * itemSideLength) / CGFloat((number - 1)) : 20
+        let lineSpace: CGFloat = (width - trail - leading - CGFloat(number) * itemSideLength) / 4
     layout.minimumLineSpacing = lineSpace
     layout.sectionInset = inset
     layout.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
@@ -162,6 +185,10 @@ extension EditToolBar {
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
   }
   
+  private func updateItemActiveLayout() {
+    collectionView.setCollectionViewLayout(showHiddenLayout, animated: false)
+  }
+  
   private func setupConstraints() {
     
     let width = bounds.width
@@ -200,7 +227,7 @@ extension EditToolBar {
         containerModel = nil
         changeToDefault()
         setNeedsUpdateConstraints()
-//        updateConstraintsWithState()
+
         return
       }
       
@@ -208,7 +235,7 @@ extension EditToolBar {
         actived = false
         containerModel = nil
         changeToDefault()
-//        updateConstraintsWithState()
+
         delegate?.editToolBarDidDeactived(self)
         setNeedsUpdateConstraints()
         return
@@ -218,7 +245,7 @@ extension EditToolBar {
       if containerModel == nil && actived == false {
         containerModel = aContainerModel
         changedToModel(aContainerModel!)
-//        updateConstraintsWithState()
+
         delegate?.editToolBar(self, didChangedToContainerModel: aContainerModel!)
         setNeedsUpdateConstraints()
         return
@@ -278,20 +305,23 @@ extension EditToolBar {
     case let component as TextContentModel:
       type = .Text
       barItems = ["textFont", "textColor", "textAlignment", "animation", "level"]
-      
+      collectionView.reloadData()
+      updateItemActiveLayout()
       
     case let component as ImageContentModel:
       type = .Image
-      barItems = [ "animation", "Mask", "level"]
+      barItems = ["Mask", "animation", "level"]
       
+      collectionView.reloadData()
+      updateItemActiveLayout()
       
     default:
       changeToDefault()
       
     }
     
-    collectionView.reloadData()
-    updateItemLayout()
+//    collectionView.reloadData()
+//    updateItemActiveLayout()
     // nil - setting \ add Image \ add Text \ Preview
     
     
@@ -477,8 +507,13 @@ extension EditToolBar {
       collectionView.snp_updateConstraints({ (make) -> Void in
         make.width.equalTo(width - buttonWidth)
       })
-        
-        collectionView.setCollectionViewLayout(defaultLayout, animated: true)
+      
+      layoutIfNeeded()
+//        collectionView.setCollectionViewLayout(showHiddenLayout, animated: false)
+//      UIView.animateWithDuration(0.2, animations: { () -> Void in
+//        self.layoutIfNeeded()
+//      })
+      updateItemActiveLayout()
     }
     
     func hiddenCancelButton() {
@@ -492,7 +527,12 @@ extension EditToolBar {
         make.right.equalTo(self).offset(buttonWidth)
       })
       
-        collectionView.setCollectionViewLayout(defaultLayout, animated: true)
+      layoutIfNeeded()
+//        collectionView.setCollectionViewLayout(defaultLayout, animated: false)
+//      UIView.animateWithDuration(0.2, animations: { () -> Void in
+//        self.layoutIfNeeded()
+//      })
+      updateItemLayout()
     }
     
     if containerModel != nil {
@@ -502,10 +542,10 @@ extension EditToolBar {
       hiddenCancelButton()
     }
     
+//    UIView.animateWithDuration(0.2, animations: { () -> Void in
+//      self.layoutIfNeeded()
+//    })
     
-    UIView.animateWithDuration(0.2, animations: { () -> Void in
-      self.layoutIfNeeded()
-    })
   }
 }
 
@@ -602,7 +642,7 @@ extension EditToolBar {
     
     super.updateConstraints()
     
-    updateItemLayout()
+//    updateItemLayout()
   }
 }
 
@@ -663,12 +703,12 @@ extension EditToolBar {
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
+    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredVertically, animated: true)
     
     if actived == false && containerModel != nil {
       actived = true
 //      collectionView.reloadData()
-      updateConstraintsWithState()
+//      updateConstraintsWithState()
       delegate?.editToolBar(self, activedWithContainerModel: containerModel!)
     }
     

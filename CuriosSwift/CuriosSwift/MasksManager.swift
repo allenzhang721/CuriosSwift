@@ -20,16 +20,16 @@ class MasksManager {
   static var maskTypes: [String: MaskAttribute] {
     
     return [
-      "RoundRetangle": MaskAttribute(width: 100, height: 100, fixed: false),
       "IsocelesTriangle": MaskAttribute(width: 100, height: 100, fixed: false),
-      "Circle": MaskAttribute(width: 100, height: 100, fixed: false),
       "Diamond": MaskAttribute(width: 100, height: 200, fixed: false),  //菱形[数]\ pentagon
+      "RoundRetangle": MaskAttribute(width: 100, height: 100, fixed: false),
       "Pentagon": MaskAttribute(width: 100, height: 100, fixed: false), //五边形
+      "Circle": MaskAttribute(width: 100, height: 100, fixed: false),
+      "XShape": MaskAttribute(width: 100, height: 100, fixed: true),
       "Pentagram": MaskAttribute(width: 100, height: 100, fixed: true), //五角星
-      "HeartShape": MaskAttribute(width: 132, height: 125, fixed: true),
       "FanShape": MaskAttribute(width: 506, height: 314, fixed: true),
+      "HeartShape": MaskAttribute(width: 132, height: 125, fixed: true)
       //      "Cross": MaskAttribute(width: 100, height: 100, fixed: false),
-      "XShape": MaskAttribute(width: 100, height: 100, fixed: false)
     ]
     
   }
