@@ -93,7 +93,7 @@ class EditToolBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     let leading: CGFloat = 10.0
     let inset = UIEdgeInsets(top: 0, left: leading, bottom:  0, right: trail)
     let itemSideLength: CGFloat = 40
-    let width = bounds.width
+    let width = collectionView.bounds.width
     
     let number = barItems.count
     
@@ -477,6 +477,8 @@ extension EditToolBar {
       collectionView.snp_updateConstraints({ (make) -> Void in
         make.width.equalTo(width - buttonWidth)
       })
+        
+        collectionView.setCollectionViewLayout(defaultLayout, animated: true)
     }
     
     func hiddenCancelButton() {
@@ -490,6 +492,7 @@ extension EditToolBar {
         make.right.equalTo(self).offset(buttonWidth)
       })
       
+        collectionView.setCollectionViewLayout(defaultLayout, animated: true)
     }
     
     if containerModel != nil {
@@ -660,6 +663,7 @@ extension EditToolBar {
   }
   
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
     
     if actived == false && containerModel != nil {
       actived = true
@@ -672,6 +676,7 @@ extension EditToolBar {
     currentKey = key
     performSelectorWithKey(key)
   }
+    
   
 }
 
