@@ -310,7 +310,8 @@ extension EditToolBar {
       
     case let component as ImageContentModel:
       type = .Image
-      barItems = ["Mask", "animation", "level"]
+//      barItems = ["Mask", "animation", "level"]
+      barItems = ["animation", "level"]
       
       collectionView.reloadData()
       updateItemActiveLayout()

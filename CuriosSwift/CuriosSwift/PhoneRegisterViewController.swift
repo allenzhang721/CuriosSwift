@@ -53,7 +53,8 @@ class PhoneRegisterViewController: UIViewController {
 
     func checkOKWith(zoneCode: String, rule: String, checkPassword: Bool = true) -> Bool {
       
-      if !(!countryDisplayName.isEmpty && !areacode.isEmpty && !phone.isEmpty && !password.isEmpty) {
+      debugPrint.p("zoneCode = \(zoneCode), rule = \(rule)")
+      if !(!countryDisplayName.isEmpty && !areacode.isEmpty && !phone.isEmpty && (checkPassword ? !password.isEmpty : true)) {
         return false
       }
       
@@ -80,12 +81,19 @@ class PhoneRegisterViewController: UIViewController {
     }
   }
   
-  var supportZones: [CountryCodeHelper.Zone] = []
+  var supportZones: [CountryCodeHelper.Zone] = CountryCodeHelper.defaultZones()
   var currentZone: CountryCodeHelper.Zone?
   
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
-  var defaultRegister:Register!
+  var defaultRegister:Register = {
+    
+    // current areaCode and country name
+    let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
+    let countryName = currentZoneInfo.0
+    let areaCode = currentZoneInfo.1
+    return Register(countryDisplayName: countryName, areacode: areaCode, phone: "", password: "")
+  }()
   
   
 
@@ -94,6 +102,7 @@ class PhoneRegisterViewController: UIViewController {
     super.viewDidLoad()
     
     begainDidLoad()
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
   }
   
@@ -359,32 +368,35 @@ extension PhoneRegisterViewController {
       ()
     }
     
-    // current areaCode and country name
     let currentZoneInfo = CountryCodeHelper.currentCountryDisplayNameAreaCodeCountryCode()
     let countryName = currentZoneInfo.0
     let areaCode = currentZoneInfo.1
-    defaultRegister = Register(countryDisplayName: countryName, areacode: areaCode, phone: "", password: "")
     
     // zone
-    HUD.register_getZoneInfo()
-    CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
-      
-      if let strongSelf = self {
-        
-        if success {
-          HUD.dismiss(0.5)
-          strongSelf.supportZones = zones
-          strongSelf.updateCurrentZoneWith(areaCode, zones: strongSelf.supportZones)
-        } else {
-          HUD.dismiss(0.5)
-          //          HUD.register_getZoneInfoFail()
-          strongSelf.showFailGetZone()
-        }
-      } else {
-        HUD.dismiss(0.5)
-      }
-    }
+    
+    updateCurrentZoneWith(areaCode, zones: supportZones)
+    
+//    HUD.register_getZoneInfo()
+//    CountryCodeHelper.getZone {[weak self] (success, zones) -> () in
+//      
+//      if let strongSelf = self {
+//        
+//        if success {
+//          HUD.dismiss(0.5)
+//          strongSelf.supportZones = zones
+//          strongSelf.updateCurrentZoneWith(areaCode, zones: strongSelf.supportZones)
+//        } else {
+//          HUD.dismiss(0.5)
+//          //          HUD.register_getZoneInfoFail()
+//          strongSelf.showFailGetZone()
+//        }
+//      } else {
+//        HUD.dismiss(0.5)
+//      }
+//    }
   }
+  
+  
   
   // MARK: - Country Code
   
