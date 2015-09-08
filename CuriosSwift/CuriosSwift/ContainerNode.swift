@@ -92,6 +92,23 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
   func updateSize() {
     let newSize = calculateSizeThatFits(CGSize(width: CGFloat.max, height: CGFloat.max))
     containerModel.updateOnScreenSize(newSize)
+    updateSubSize()
+  }
+  
+  func updateSubSize() {
+    
+    if let subNode = component as? ASTextNode {
+  
+      let minTextSize = subNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
+      let minContainerWidth = bounds.width
+      let minContainerHeight = bounds.height
+      let subNodeX = (minContainerWidth) / 2.0
+      let subNodeY = (minContainerHeight) / 2.0
+//      let subFrame = CGRect(origin: , size: )
+      subNode.position = CGPoint(x: subNodeX, y: subNodeY)
+      subNode.bounds.size = minTextSize
+//      debugPrint.p("minTextSize = \(minTextSize) \n subNodeFrame = \(subNode.frame) \n bounds = \(bounds)")
+    }
     
   }
   
@@ -100,7 +117,18 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     if let subNode = component as? ASTextNode {
       
       let minTextSize = subNode.measure(constrainedSize)
-      return CGSize(width: minTextSize.width, height: minTextSize.height + 10)
+//      let ratio = minTextSize.width / minTextSize.height
+//      debugPrint.p("minTextSize = \(minTextSize) /n subNodeFrame = \(subNode.frame)")
+      let minContainerWidth = minTextSize.width < 30.0 ? 30.0 : minTextSize.width
+      let minContainerHeight = minTextSize.height < 30.0 ? 30.0 : minTextSize.height
+//      let subNodeX = (minContainerWidth - minTextSize.width) / 2.0
+//      let subNodeY = (minContainerHeight - minTextSize.height) / 2.0
+//      let subFrame = CGRect(origin: CGPoint(x: subNodeX, y: subNodeY), size: minTextSize)
+//      subNode.frame = subFrame
+      
+      let size = CGSize(width: minContainerWidth, height: minContainerHeight + 10)
+      return size
+//      return CGSize(width: minTextSize.width, height: minTextSize.height + 10)
     } else {
       return bounds.size
     }
@@ -161,8 +189,10 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
     
     containerModel.sizeChangeListener.bind("ContainerNode_\(randID)") {[weak self] size -> Void in
       
-      self?.view.bounds.size.width += size.width
-      self?.view.bounds.size.height += size.height
+      self?.bounds.size.width += size.width
+      self?.bounds.size.height += size.height
+      
+      self?.updateSubSize()
       
       if let strongself = self where strongself.updateMask() {
 
@@ -451,30 +481,6 @@ extension ContainerNode: MaskableInterface {
       return false
     }
   }
-  
-  func starsPath(#frame: CGRect) -> CAShapeLayer {
-    
-    //// Star Drawing
-    var bezierPath = UIBezierPath()
-    bezierPath.moveToPoint(CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.39899 * frame.width, frame.minY + 0.04769 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48167 * frame.width, frame.minY + 0.09523 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.20511 * frame.width, frame.minY + 0.01851 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.31632 * frame.width, frame.minY + 0.00015 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.24644 * frame.width, frame.minY + 0.00880 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.01424 * frame.width, frame.minY + 0.23251 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16377 * frame.width, frame.minY + 0.02823 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.06852 * frame.width, frame.minY + 0.05943 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.10472 * frame.width, frame.minY + 0.56732 * frame.height), controlPoint1: CGPointMake(frame.minX + -0.03228 * frame.width, frame.minY + 0.41978 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.09168 * frame.width, frame.minY + 0.55123 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.25924 * frame.width, frame.minY + 0.77582 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.11775 * frame.width, frame.minY + 0.58342 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.24045 * frame.width, frame.minY + 0.74547 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.35287 * frame.width, frame.minY + 0.99576 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.28824 * frame.width, frame.minY + 0.82268 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.31114 * frame.width, frame.minY + 0.85575 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.96099 * frame.width, frame.minY + 0.47874 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.42177 * frame.width, frame.minY + 0.95971 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.76130 * frame.width, frame.minY + 0.80283 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.93203 * frame.width, frame.minY + 0.08639 * frame.height), controlPoint1: CGPointMake(frame.minX + 1.02496 * frame.width, frame.minY + 0.32331 * frame.height), controlPoint2: CGPointMake(frame.minX + 1.01891 * frame.width, frame.minY + 0.17151 * frame.height))
-    bezierPath.addCurveToPoint(CGPointMake(frame.minX + 0.50256 * frame.width, frame.minY + 0.17349 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85190 * frame.width, frame.minY + -0.00398 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.65041 * frame.width, frame.minY + -0.09394 * frame.height))
-    bezierPath.closePath()
-    //    UIColor.grayColor().setFill()
-    //    starPath.fill()
-    let layer = CAShapeLayer()
-    layer.frame = frame
-    layer.path = bezierPath.CGPath
-    
-    return layer
-  }
 }
 
 
@@ -522,8 +528,17 @@ extension ContainerNode {
     
     override func layout() {
         for subNode in subnodes as! [ASDisplayNode] {
+          if let textNode = subNode as? ASTextNode {
+            let size = textNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
+            let x = (bounds.width - size.width) / 2.0
+            let y = (bounds.height - size.height) / 2.0
+            textNode.frame = CGRect(x: x, y: y, width: size.width, height: size.height + 10)
+//            containerModel.component
+          } else {
             subNode.frame = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height)
+          }
+          
         }
     }
-    
+  
 }

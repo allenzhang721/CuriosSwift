@@ -301,9 +301,10 @@ extension MaskView {
     case .Began:
       
       if let compoenent = containerMomdel.component as? TextContentModel {
-        
-        panBeginSize = bounds.size
-        ratio = bounds.width / bounds.height
+        let textSize = compoenent.retriveTextRectSize()
+        panBeginSize = textSize
+        debugPrint.p("begainTextSize = \(textSize)")
+        ratio = textSize.width / textSize.height
         begainFontSize = compoenent.getFontSize()
       }
       
@@ -391,20 +392,59 @@ extension MaskView {
           let minWidth: CGFloat = 30.0
           let minHeight: CGFloat = 30.0
           
-          let widthBool = width <= minWidth
-          let heightBool = height <= minHeight
+          let textSize = panBeginSize
           
-          let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
-          let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
+          let targetminWidthScale = minWidth / textSize.width
+          let targetminHeightScale = minHeight / textSize.height
+          let targetScale = max(targetminWidthScale, targetminHeightScale)
+          let targetWdith = targetScale * textSize.width
+          let targetHeight = targetScale * textSize.height
           
-          if !heightBool && !widthBool {
-            containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
+          let widthLimited = width <= minWidth
+          let heightLimited = height <= minHeight
+          
+          let finalWidth = widthLimited ? minWidth : width
+          let finalHeight = heightLimited ? minHeight : height
+          
+          let finalTransitionX = widthLimited ? 0 : transition.x
+          let finalTransitionY = heightLimited ? 0: transition.y
+
+          
+          let widthScale = finalWidth / textSize.width
+          let heighScale = finalHeight / textSize.height
+          let minScale = min(widthScale, heighScale)
+          
+          let r = finalWidth / finalHeight
+          
+          if !widthLimited && !heightLimited && !(fabs(r - ratio) < 0.1) {
+            let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
+            let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
+
+            textComponent.setFontSize(begainFontSize * minScale)
+            containerMomdel.setSizeChange(CGSize(width:sizeChangeWidth, height: sizeChangeHeight))
             containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
-            let scale = bounds.width / panBeginSize.width
-            textComponent.setFontSize(scale * begainFontSize)
+          } else {
+            
+            let sizeChangeWidth = (ratio < 1.0) ? 0 : (finalWidth <= targetWdith ? finalTransitionX : 0)
+            let sizeChangeHeight = (ratio > 1.0) ? 0 : (finalHeight <= targetHeight ? finalTransitionY : 0)
+            
+            textComponent.setFontSize(begainFontSize * minScale)
+            containerMomdel.setSizeChange(CGSize(width:sizeChangeWidth, height: sizeChangeHeight))
+            containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
           }
+
+//
           
-         
+          
+          
+//          if !heightBool && !widthBool {
+//            containerMomdel.setSizeChange(CGSize(width: sizeChangeWidth, height: sizeChangeHeight))
+//            containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
+//            let scale = bounds.width / panBeginSize.width
+//            textComponent.setFontSize(scale * begainFontSize)
+//          }
+          
+          
          
 //          containerMomdel.setOriginChange(CGPoint(x: 0 - transition.y * ratio / 2.0 + transitionx.x / 2.0, y:0 - transition.y / 2.0 + transitionx.y / 2.0))
 

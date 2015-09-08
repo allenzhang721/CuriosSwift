@@ -17,7 +17,6 @@ class ComponentTextNode: ASTextNode, ITextComponent {
         self.componentModel = aComponentModel
         super.init()
         userInteractionEnabled = false
-      
       componentModel.updateAttributeStringBlock { [weak self] (attributeString) -> () in
         
         self?.updateByAttributeString(attributeString)

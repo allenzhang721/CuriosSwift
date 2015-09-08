@@ -121,6 +121,15 @@ class TextContentModel: ComponentModel {
      return str.boundingRectWithSize(CGSize(width: CGFloat.max, height: CGFloat.max), options: NSStringDrawingOptions(0), context: nil).size
   }
   
+  func retriveTextRectSize() -> CGSize {
+    
+    let string = getAttributeString()
+    let size = string.size()
+    
+    debugPrint.p("String = \n \(string), size = \(size)")
+    return size
+  }
+  
   func retriveColor() -> String {
     return attributes["TextColor"] as! String
   }
