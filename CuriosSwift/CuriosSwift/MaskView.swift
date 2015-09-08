@@ -416,13 +416,14 @@ extension MaskView {
           
           let r = finalWidth / finalHeight
           
-          if !widthLimited && !heightLimited && !(fabs(r - ratio) < 0.1) {
+          if !widthLimited && !heightLimited {
             let sizeChangeHeight = ratio >= 1 ? transition.x / ratio : transition.y
             let sizeChangeWidth = ratio >= 1 ? transition.x : transition.y * ratio
 
             textComponent.setFontSize(begainFontSize * minScale)
             containerMomdel.setSizeChange(CGSize(width:sizeChangeWidth, height: sizeChangeHeight))
             containerMomdel.setCenterChange(CGPoint(x: sizeChangeWidth / 2.0, y: sizeChangeHeight / 2.0))
+            
           } else {
             
             let sizeChangeWidth = (ratio < 1.0) ? 0 : (finalWidth <= targetWdith ? finalTransitionX : 0)
