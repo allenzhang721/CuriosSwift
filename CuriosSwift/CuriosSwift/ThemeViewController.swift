@@ -55,6 +55,14 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
         super.viewDidLoad()
 //      navigationController?.navigationBarHidden = true
       
+      HUD.save_sync()
+      ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
+        
+        if compeleted {
+          HUD.dismiss(0.5)
+        }
+      }  //
+      
       collectionView.decelerationRate = UIScrollViewDecelerationRateFast
       collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
       
