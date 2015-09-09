@@ -1727,6 +1727,7 @@
 					"\"pop\"",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
 				PRODUCT_NAME = CuriosSwift;
 				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
@@ -1875,6 +1876,7 @@
 					"\"pop\"",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
 				PRODUCT_NAME = CuriosSwift;
 				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
@@ -1923,6 +1925,7 @@
 					"\"pop\"",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
 				PRODUCT_NAME = CuriosSwift;
 				PROVISIONING_PROFILE = "37016302-e70e-4d2c-8fb9-f4821916c503";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
