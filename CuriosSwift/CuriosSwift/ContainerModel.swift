@@ -323,7 +323,7 @@ class ContainerModel: Model, ComponentModelDelegate {
       "x" : "ContainerX",
       "y" : "ContainerY",
 //      "locked" : "Editable",
-      "width" : "ContaienrWidth",
+      "width" : "ContainerWidth",
       "height" : "ContainerHeight",
       "containerAngle" : "ContainerRotation",
       "alpha" : "ContainerAplha",

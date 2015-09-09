@@ -416,7 +416,7 @@
                                     <constraint firstAttribute="height" constant="44" id="2Lm-yF-yAa"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem image="B31017C4-1724-4428-AFC7-D25F9A6E541C" id="kDW-9R-aLX">
+                                    <barButtonItem image="0295E485-958C-40C0-9028-0281F291300C" id="kDW-9R-aLX">
                                         <connections>
                                             <action selector="backAction:" destination="9wI-9n-chE" id="ctP-AQ-G0j"/>
                                         </connections>
@@ -557,6 +557,7 @@
                     <connections>
                         <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
                         <outlet property="doubleTapGesture" destination="RI9-qc-HIO" id="CVg-QA-zw7"/>
+                        <outlet property="generateTemplateButton" destination="eYN-JS-8bL" id="8UH-SX-BxR"/>
                         <outlet property="singleTapGesture" destination="SEq-lk-81G" id="G3R-mP-5pT"/>
                         <outlet property="topToolBar" destination="8rs-4Q-GNL" id="mQ3-pi-boT"/>
                     </connections>
@@ -1375,8 +1376,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add_Button" width="100" height="58"/>
-        <image name="B31017C4-1724-4428-AFC7-D25F9A6E541C" width="19" height="15">
+        <image name="0295E485-958C-40C0-9028-0281F291300C" width="19" height="15">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1465,6 +1465,7 @@ pxK2EroSwRLJEtYS2xLdEt8S5BLsEu8S9BL8Ev8TERMUExkAAAAAAAACAQAAAAAAAAA+AAAAAAAAAAAA
 AAAAAAATGw
 </mutableData>
         </image>
+        <image name="Add_Button" width="100" height="58"/>
         <image name="BarIcon_Theme" width="16" height="16"/>
         <image name="BarIcon_products" width="11" height="16"/>
         <image name="Launch_Button" width="89" height="89"/>

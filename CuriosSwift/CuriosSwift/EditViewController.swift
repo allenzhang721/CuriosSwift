@@ -42,6 +42,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   }
   
   // UI
+  @IBOutlet weak var generateTemplateButton: UIBarButtonItem!
   
     @IBOutlet weak var templatebutton: UIBarButtonItem!
   var isUploaded = false   // bookModel in server
@@ -157,6 +158,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     // show the template Maker Button
     
 //    templatebutton = nil
+    generateTemplateButton = UIBarButtonItem(customView: UIView(frame: CGRectZero))
     
     
     SmallLayout.delegate = self
