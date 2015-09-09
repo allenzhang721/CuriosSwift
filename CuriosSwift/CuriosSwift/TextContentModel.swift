@@ -125,8 +125,6 @@ class TextContentModel: ComponentModel {
     
     let string = getAttributeString()
     let size = string.size()
-    
-    debugPrint.p("String = \n \(string), size = \(size)")
     return size
   }
   
@@ -285,11 +283,9 @@ class TextContentModel: ComponentModel {
     let aKey = key
     
     state = "begain cache text Image = \(aKey)"
-    debugPrint.p("begain cache text Image = \(aKey)")
     
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!)
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key!, toDisk: false) { [unowned self] () -> () in
-      debugPrint.p("finished cache text Image = \(aKey)")
       self.state = "finished cache text Image = \(aKey)"
       completed?()
     }

@@ -17,8 +17,6 @@ class ImageHelper {
     minimumTargetFileSize: Int64 = 1024 * 100,
     targetRect rectSize: CGSize, successBlock: (UIImage, CGSize, Bool) -> (), failBlock:() -> ()) {
       
-      debugPrint.p(info)
-      
       if let referenceURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
         
         let library = ALAssetsLibrary()

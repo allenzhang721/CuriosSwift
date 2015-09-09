@@ -42,9 +42,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   }
   
   // UI
-  @IBOutlet weak var generateTemplateButton: UIBarButtonItem!
-  
-    @IBOutlet weak var templatebutton: UIBarButtonItem!
   var isUploaded = false   // bookModel in server
   
   var begainThemeID: String?
@@ -158,7 +155,6 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
     // show the template Maker Button
     
 //    templatebutton = nil
-    generateTemplateButton = UIBarButtonItem(customView: UIView(frame: CGRectZero))
     
     
     SmallLayout.delegate = self
@@ -270,7 +266,6 @@ extension EditViewController: GenerateTemplateViewControllerDataSource {
   func generateTemplateViewControllerChangedPageJsonData(ViewController: GenerateTemplateViewController) -> NSData {
     
     let pagejson = MTLJSONAdapter.JSONDictionaryFromModel(currentPageModel, error: nil)
-    debugPrint.p(pagejson)
     let originData = NSJSONSerialization.dataWithJSONObject(pagejson, options: NSJSONWritingOptions(0), error: nil)!
     return originData
 //    let string = NSString(data: originData!, encoding: NSUTF8StringEncoding) as! String
@@ -845,7 +840,6 @@ extension EditViewController {
       if bookModel.isDefaultIcon() {
         let key = pathByComponents([userID, publishID, "icon.jpg"])
         let cacheKey = ServePathsManger.imagePath!.stringByAppendingString(key).stringByAppendingString(ICON_THUMBNAIL)
-        debugPrint.p("cacheKey = \(cacheKey)")
         let thumbNail = retriveThumbnailImage(image, size: CGSize(width: 320, height: 320))
         
         let iconData = UIImageJPEGRepresentation(thumbNail, 1.0)
@@ -1212,7 +1206,6 @@ extension EditViewController {
     collectionView.scrollEnabled = false
     let aCenter = onView.convertPoint(onViewCenter, toView: view)
     addMask(aCenter, size: size, angle: angle, targetContainerModel: container)
-    
     container.setSelectedState(true)
     
     editToolBar.updateWithModel(container)

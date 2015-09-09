@@ -107,7 +107,6 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
 //      let subFrame = CGRect(origin: , size: )
       subNode.position = CGPoint(x: subNodeX, y: subNodeY)
       subNode.bounds.size = minTextSize
-//      debugPrint.p("minTextSize = \(minTextSize) \n subNodeFrame = \(subNode.frame) \n bounds = \(bounds)")
     }
     
   }
@@ -118,7 +117,6 @@ class ContainerNode: ASDisplayNode, IContainer, ContainerModelDelegate {
       
       let minTextSize = subNode.measure(constrainedSize)
 //      let ratio = minTextSize.width / minTextSize.height
-//      debugPrint.p("minTextSize = \(minTextSize) /n subNodeFrame = \(subNode.frame)")
       let minContainerWidth = minTextSize.width < 30.0 ? 30.0 : minTextSize.width
       let minContainerHeight = minTextSize.height < 30.0 ? 30.0 : minTextSize.height
 //      let subNodeX = (minContainerWidth - minTextSize.width) / 2.0

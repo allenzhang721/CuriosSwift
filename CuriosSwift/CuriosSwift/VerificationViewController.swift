@@ -192,12 +192,10 @@ extension VerificationViewController {
     CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
       if let strongSelf = self {
         if success {
-//          debugPrint.p("verification is success !")
           strongSelf.register(phone, code: areaCode, password: password)
           
         } else {
           self?.showverifyfail()
-//          debugPrint.p("verification is fail !")
           
         }
       }
@@ -209,12 +207,10 @@ extension VerificationViewController {
     CountryCodeHelper.commit(textField.text, compelted: { [weak self] (success) -> () in
       if let strongSelf = self {
         if success {
-//          debugPrint.p("verification is success !")
           strongSelf.showChangedPasswordVC(phone)
           
         } else {
           self?.showverifyfail()
-//          debugPrint.p("verification is fail !")
           
         }
       }
@@ -312,7 +308,6 @@ extension VerificationViewController {
       navigationController?.pushViewController(resetVC, animated: true)
     }
     
-//    debugPrint.p("showChangedPasswordVC")
   }
   
   

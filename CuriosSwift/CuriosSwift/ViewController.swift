@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     
     let local = NSLocale.currentLocale()
-    debugPrint.p(local.objectForKey(NSLocaleCountryCode))
+
     
     didload();
     FontsManager.share.registerLocalFonts()

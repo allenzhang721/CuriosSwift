@@ -205,7 +205,6 @@ extension PageCollectionViewCell {
             aContainerModel.setSelectedState(false)
             
             if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
-              debugPrint.p("text begain cache snapshot image")
               let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
               // should get text/ image snapshot
               let abounds = containerNode.bounds
@@ -392,8 +391,7 @@ extension PageCollectionViewCell {
             
             let alpha = pageModel.pageBackgroundAlpha
             
-            contentNode.backgroundColor = color
-            contentNode.alpha = alpha
+            contentNode.backgroundColor = color.colorWithAlphaComponent(alpha)
         }
     }
   

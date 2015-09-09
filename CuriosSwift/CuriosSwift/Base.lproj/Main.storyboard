@@ -416,7 +416,7 @@
                                     <constraint firstAttribute="height" constant="44" id="2Lm-yF-yAa"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem image="0295E485-958C-40C0-9028-0281F291300C" id="kDW-9R-aLX">
+                                    <barButtonItem image="2F1B173C-CCFA-4162-822E-3CE983A7F4B1" id="kDW-9R-aLX">
                                         <connections>
                                             <action selector="backAction:" destination="9wI-9n-chE" id="ctP-AQ-G0j"/>
                                         </connections>
@@ -557,7 +557,6 @@
                     <connections>
                         <outlet property="collectionView" destination="oQp-6G-LwW" id="oQO-c1-XAb"/>
                         <outlet property="doubleTapGesture" destination="RI9-qc-HIO" id="CVg-QA-zw7"/>
-                        <outlet property="generateTemplateButton" destination="eYN-JS-8bL" id="8UH-SX-BxR"/>
                         <outlet property="singleTapGesture" destination="SEq-lk-81G" id="G3R-mP-5pT"/>
                         <outlet property="topToolBar" destination="8rs-4Q-GNL" id="mQ3-pi-boT"/>
                     </connections>
@@ -1376,7 +1375,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0295E485-958C-40C0-9028-0281F291300C" width="19" height="15">
+        <image name="2F1B173C-CCFA-4162-822E-3CE983A7F4B1" width="19" height="15">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

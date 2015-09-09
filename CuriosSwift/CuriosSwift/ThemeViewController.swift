@@ -155,7 +155,6 @@ extension ThemeViewController {
 //  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
 //    
 ////    scrollView.bounds.origin = CGPointZero
-////    debugPrint.p(scrollView.bounds.origin)
 //    
 //    setupbackgroundImage()
 //    
@@ -317,14 +316,12 @@ extension ThemeViewController {
 //    Alamofire.request(.POST, url, parameters: nil)
 //      .validate(statusCode: 200..<300)
 //      .responseJSON{ (request, response, JSON, error) in
-//        
-//         debugPrint.p(JSON)
+//
 //        if (error == nil)
 //        {
 //          
 //          if let jsondic = JSON as? [NSObject : AnyObject] {
 //            
-//            debugPrint.p(jsondic)
 ////            let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
 ////            pageModel.Id = UniqueIDStringWithCount(count: 8)
 ////            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)

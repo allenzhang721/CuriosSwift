@@ -148,8 +148,6 @@ extension CountriesViewController {
         let options: NSStringCompareOptions = NSStringCompareOptions.CaseInsensitiveSearch | NSStringCompareOptions.DiacriticInsensitiveSearch
         let rangeLatin = NSMakeRange(0, latin.length)
         let rangeName = NSMakeRange(0, name.length)
-        
-        debugPrint.p("latin = \(latin), name = \(name), rangeLatin =\(rangeLatin), rangeName = \(rangeName)")
         let findlatin = latin.rangeOfString(text, options: options, range: rangeLatin).length > 0
         let findName = name.rangeOfString(text, options: options, range: rangeName).length > 0
         

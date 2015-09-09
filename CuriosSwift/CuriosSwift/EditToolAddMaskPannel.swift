@@ -142,11 +142,7 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
         }
       })
     }
-    
-    
-    
-    
-    
+
     return cell
   }
   
@@ -157,7 +153,7 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
     let type = masks[indexPath.item]
 //    currentColor = color
 //    textComponent.setTextColor(color)
-    debugPrint.p("type = \(type)")
+
     container.setMaskTypeName(type)
   }
   

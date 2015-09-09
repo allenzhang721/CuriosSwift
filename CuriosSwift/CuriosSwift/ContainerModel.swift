@@ -196,7 +196,6 @@ class ContainerModel: Model, ComponentModelDelegate {
     } else {
       println("ContainerModel not set Editting Delegate")
     }
-    
   }
   
   func setSelectedState(select: Bool) {

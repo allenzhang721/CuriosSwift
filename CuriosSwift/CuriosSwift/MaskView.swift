@@ -303,7 +303,6 @@ extension MaskView {
       if let compoenent = containerMomdel.component as? TextContentModel {
         let textSize = compoenent.retriveTextRectSize()
         panBeginSize = textSize
-        debugPrint.p("begainTextSize = \(textSize)")
         ratio = textSize.width / textSize.height
         begainFontSize = compoenent.getFontSize()
       }

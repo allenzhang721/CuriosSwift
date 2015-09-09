@@ -53,7 +53,6 @@ class PhoneRegisterViewController: UIViewController {
 
     func checkOKWith(zoneCode: String, rule: String, checkPassword: Bool = true) -> Bool {
       
-      debugPrint.p("zoneCode = \(zoneCode), rule = \(rule)")
       if !(!countryDisplayName.isEmpty && !areacode.isEmpty && !phone.isEmpty && (checkPassword ? !password.isEmpty : true)) {
         return false
       }
