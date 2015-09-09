@@ -461,8 +461,8 @@ extension ContainerNode: MaskableInterface {
     if let maskType = containerModel.maskType, let maskAttribute = MasksManager.maskTypes[maskType]  where !maskType.isEmpty && containerModel.component is ImageContentModel {
       var rect = bounds
       if maskAttribute.fixed {
-        let ratio = min(bounds.width / maskAttribute.width, bounds.height / maskAttribute.height)
-        let size = CGSize(width: maskAttribute.width * ratio, height: maskAttribute.height * ratio)
+//        let ratio = min(bounds.width / maskAttribute.width, bounds.height / maskAttribute.height)
+        let size = maskAttribute.sizeToFit(rect.size)
         let origin = CGPointMake((bounds.width - size.width) / 2.0, (bounds.height - size.height) / 2.0)
           rect = CGRect(origin: origin, size: size)
       }
@@ -471,7 +471,7 @@ extension ContainerNode: MaskableInterface {
         shapeMask.path = MasksManager.bezierPathWithMask(maskType, atFrame: rect).CGPath
       } else {
         let layer = CAShapeLayer()
-        layer.frame = rect
+        layer.frame = bounds
         layer.path = MasksManager.bezierPathWithMask(maskType, atFrame: rect).CGPath
         view.layer.mask = layer
       }
