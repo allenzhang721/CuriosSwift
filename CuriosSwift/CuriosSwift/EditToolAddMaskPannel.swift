@@ -10,6 +10,7 @@ import UIKit
 
 class EditToolAddMaskPannel: EditToolSettingPannel  {
 
+  let masks = MasksManager.maskTypes.keys.array.sorted(<)
   var collectionView: UICollectionView!
   var currentMask: String!
   var container: ContainerModel!
@@ -40,6 +41,7 @@ class EditToolAddMaskPannel: EditToolSettingPannel  {
   override init(aContainerModel: ContainerModel) {
     self.container = aContainerModel
     super.init(aContainerModel: aContainerModel)
+    currentMask = aContainerModel.maskType ?? "ANone"
 //    textComponent = aContainerModel.component as! TextContentModel
 //    currentColor = textComponent.retriveColor()
     setupContentView()
@@ -47,6 +49,18 @@ class EditToolAddMaskPannel: EditToolSettingPannel  {
   
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    begain()
+  }
+  
+  override func begain() {
+    
+    let fontNames = masks as NSArray
+    let index = fontNames.indexOfObject(currentMask)
+    collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
   }
 }
 
@@ -70,19 +84,6 @@ extension EditToolAddMaskPannel {
     collectionView.setCollectionViewLayout(defaultLayout, animated: false)
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    begain()
-  }
-  
-  override func begain() {
-    
-    let colors = ColorManager.shareInstance.defaultColors as NSArray
-//    let index = colors.indexOfObject(currentColor)
-    
-//    collectionView.selectItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-  }
-  
   override func updateConstraints() {
     
     collectionView.snp_makeConstraints { (make) -> Void in
@@ -100,7 +101,7 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    return MasksManager.maskTypes.keys.array.count
+    return masks.count
   }
   
   // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -109,8 +110,13 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EditorAddMaskCell", forIndexPath: indexPath) as! UICollectionViewCell
     
 //    cell.backgroundColor = UIColor.yellowColor()
-    let type = MasksManager.maskTypes.keys.array[indexPath.item]
-    if let imageView = cell.backgroundView as? UIImageView {
+    if !(cell.selectedBackgroundView is UIImageView) {
+      let image = UIImage(named: "Editor_Selected")
+      cell.selectedBackgroundView = UIImageView(image: image)
+    }
+    
+    let type = masks[indexPath.item]
+    if let imageView = cell.backgroundView?.viewWithTag(1024) as? UIImageView {
       MasksManager.imageOfMask(type, AtFrame: cell.bounds, completed: { (image, success) -> () in
         if success {
           dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -119,8 +125,15 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
         }
       })
     } else {
-      let imageView = UIImageView(frame: cell.bounds)
-      cell.backgroundView = imageView
+      cell.layer.borderWidth = 0.5
+      cell.layer.borderColor = UIColor.darkGrayColor().CGColor
+      cell.layer.cornerRadius = 8
+      let view = UIView(frame: CGRectZero)
+      cell.backgroundView = view
+      let imageView = UIImageView(frame: CGRectInset(cell.bounds, 15, 15))
+      imageView.tag = 1024
+      imageView.contentMode = .ScaleAspectFit
+      cell.backgroundView!.addSubview(imageView)
       MasksManager.imageOfMask(type, AtFrame: cell.bounds, completed: { (image, success) -> () in
         if success {
           dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -141,7 +154,7 @@ extension EditToolAddMaskPannel: UICollectionViewDelegate, UICollectionViewDataS
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
 //    let type = MasksManager.maskTypes.keys.array[indexPath.item]
-    let type = MasksManager.maskTypes.keys.array[indexPath.item]
+    let type = masks[indexPath.item]
 //    currentColor = color
 //    textComponent.setTextColor(color)
     debugPrint.p("type = \(type)")

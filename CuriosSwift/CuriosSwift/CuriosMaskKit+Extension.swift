@@ -10,6 +10,14 @@ import Foundation
 
 extension CuriosMaskKit {
   
+  public class func drawNonePath(#frame: CGRect) -> UIBezierPath {
+    
+    //// Bezier Drawing
+    //// Rectangle Drawing
+    let rectanglePath = UIBezierPath(roundedRect: frame, cornerRadius: 0)
+    return rectanglePath
+  }
+  
   public class func drawXPath(#frame: CGRect) -> UIBezierPath {
 
     //// Bezier Drawing
