@@ -46,22 +46,21 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
     contentNodeView = nil
     contentNode = nil
   }
+  
+  func rgbToColor(rgbString: String) -> UIColor {
     
-    func rgbToColor(rgbString: String) -> UIColor {
-        
-        if rgbString.isEmpty {
-            return UIColor.whiteColor()
-        }
-        let rgb = rgbString.componentsSeparatedByString(",")
-        let r = rgb[0].toInt()!
-        let g = rgb[1].toInt()!
-        let b = rgb[2].toInt()!
-        
-        return UIColor(red: CGFloat(r) / 255.0 , green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1.0)
+    if rgbString.isEmpty {
+      return UIColor.whiteColor()
     }
+    let rgb = rgbString.componentsSeparatedByString(",")
+    let r = rgb[0].toInt()!
+    let g = rgb[1].toInt()!
+    let b = rgb[2].toInt()!
+    
+    return UIColor(red: CGFloat(r) / 255.0 , green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1.0)
+  }
   
   func configCell(aPageModel: PageModel, queue: NSOperationQueue) {
-    
     
     if let oldOperation = nodeRenderOperation {
       oldOperation.cancel()
@@ -140,7 +139,7 @@ extension PageCollectionViewCell {
   func removeContainerByModel(model: ContainerModel) {
     
     if let aContentNode = contentNode,
-       let containerNodes = aContentNode.subnodes as? [ContainerNode] {
+      let containerNodes = aContentNode.subnodes as? [ContainerNode] {
         for containerNode in containerNodes {
           if containerNode.containAcontainer(model) {
             containerNode.removeFromSupernode()
@@ -167,92 +166,136 @@ extension PageCollectionViewCell {
   
   // single selected
   func singleTap(onScreenPoint: CGPoint) {
+    if let aContentNode = contentNode,
+      let subNodes = aContentNode.subnodes where subNodes.count > 0  {
+        
+        let reverseSubNodes = subNodes.reverse() as! [ContainerNode]
+        func pointInContainerNode(node: ContainerNode?) {
+          // tap on containerModel - begain Edit
+          if let containerModel = node?.containerModel {
+            if containerModel.selected {
+              
+              // will selected
+            } else {
+              
+              // cancel selected
+//              for aContainerModel in pageModel.containers {
+//                
+//                if aContainerModel.selected {
+//                  aContainerModel.setSelectedState(false)
+//                  delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+//                }
+//              }
+              
+              for containerNode in reverseSubNodes {
+                
+                if containerNode.containerModel.selected {
+                  let aContainerModel = containerNode.containerModel
+//                  needEndEdit = true
+                  aContainerModel.setSelectedState(false)
+                  
+                  if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
+                    let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
+                    // should get text/ image snapshot
+                    let abounds = containerNode.bounds
+                    UIGraphicsBeginImageContextWithOptions(abounds.size, false, 2 / aspectRatio)
+                    containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: true)
+                    let image = UIGraphicsGetImageFromCurrentImageContext()!
+                    UIGraphicsEndImageContext()
 
-    if contentNode?.subnodes.count <= 0 {
-      return
-    }
-    
-    let aContentNode = contentNode!
-    let reverseSubNodes = aContentNode.subnodes.reverse() as! [ContainerNode]
-    
-    func pointInContainerNode(node: ContainerNode?) {
-      // tap on containerModel - begain Edit
-      if let containerModel = node?.containerModel {
-        if containerModel.selected {
-          
-          // will selected
-        } else {
-          
-          for aContainerModel in pageModel.containers {
+                    aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1, completed: {[weak self] () -> () in
+                      
+                      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self?.delegate?.pageDidDeSelected(self!.pageModel, deselectedContainer: aContainerModel)
+                      })
+                      //                    if needEndEdit {
+                      //                      self?.delegate?.pageDidEndEdit(self!.pageModel)
+                      //                    }
+                      })
+                  } else {
+                    delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+                    //                  if needEndEdit {
+                    //                    self.delegate?.pageDidEndEdit(pageModel)
+                    //                  }
+                  }
+                }
+              }
+              
+              containerModel.setSelectedState(true)
+              delegate?.pageDidSelected(pageModel, selectedContainer: containerModel, onView: aContentNode.view, onViewCenter: node!.view.center, size: node!.view.bounds.size, angle: containerModel.rotation)
+            }
             
-            if aContainerModel.selected {
-              aContainerModel.setSelectedState(false)
-              delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+            // tap on nothing - End Edit
+          } else {
+            var needEndEdit = false
+            for containerNode in reverseSubNodes {
+              
+              if containerNode.containerModel.selected {
+                let aContainerModel = containerNode.containerModel
+                needEndEdit = true
+                aContainerModel.setSelectedState(false)
+                
+                if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
+                  let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
+                  // should get text/ image snapshot
+                  let abounds = containerNode.bounds
+                  UIGraphicsBeginImageContextWithOptions(abounds.size, false, 1 / aspectRatio)
+                  containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: true)
+                  let image = UIGraphicsGetImageFromCurrentImageContext()!
+                  UIGraphicsEndImageContext()
+                  
+                  //              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1)
+                  aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1, completed: {[weak self] () -> () in
+                    
+                    self?.delegate?.pageDidDeSelected(self!.pageModel, deselectedContainer: aContainerModel)
+//                    if needEndEdit {
+//                      self?.delegate?.pageDidEndEdit(self!.pageModel)
+//                    }
+                    })
+                } else {
+                  delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+//                  if needEndEdit {
+//                    self.delegate?.pageDidEndEdit(pageModel)
+//                  }
+                }
+              }
+            }
+            if needEndEdit {
+              delegate?.pageDidEndEdit(pageModel)
             }
           }
-          containerModel.setSelectedState(true)
-          delegate?.pageDidSelected(pageModel, selectedContainer: containerModel, onView: aContentNode.view, onViewCenter: node!.view.center, size: node!.view.bounds.size, angle: containerModel.rotation)
         }
         
-      // tap on nothing - End Edit
-      } else {
-        var needEndEdit = false
-        for containerNode in reverseSubNodes {
+        func cancelNodes() {
           
-          if containerNode.containerModel.selected {
-            let aContainerModel = containerNode.containerModel
-            needEndEdit = true
-            aContainerModel.setSelectedState(false)
-            
-            if let aComponent = aContainerModel.component as? TextContentModel where aComponent.needUpload {
-              let userIDandPublishID: (String, String) = pageCellDelegate!.pageCollectionViewCellGetUserIDandPublishID(self)
-              // should get text/ image snapshot
-              let abounds = containerNode.bounds
-              UIGraphicsBeginImageContextWithOptions(abounds.size, false, 1 / aspectRatio)
-              containerNode.view.drawViewHierarchyInRect(abounds, afterScreenUpdates: true)
-              let image = UIGraphicsGetImageFromCurrentImageContext()!
-              UIGraphicsEndImageContext()
-              
-//              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1)
-              aComponent.cacheSnapshotImage(image, userID: userIDandPublishID.0, PublishID: userIDandPublishID.1, completed: {[weak self] () -> () in
-                
-                self?.delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
-              })
-            } else {
-              delegate?.pageDidDeSelected(pageModel, deselectedContainer: aContainerModel)
+        }
+        
+        var findNode: ContainerNode? = nil
+        
+        if CGRectContainsPoint(bounds, onScreenPoint) {
+          for subNode in reverseSubNodes {
+            let point = convertPoint(onScreenPoint, toView: subNode.view)
+            if CGRectContainsPoint(subNode.bounds, point) {
+              findNode = subNode
+              break
             }
           }
         }
-        if needEndEdit {
-          delegate?.pageDidEndEdit(pageModel)
-        }
-      }
+        
+        pointInContainerNode(findNode)
+        
     }
-    
-    var findNode: ContainerNode? = nil
-    
-    if CGRectContainsPoint(bounds, onScreenPoint) {
-      for subNode in reverseSubNodes {
-        let point = convertPoint(onScreenPoint, toView: subNode.view)
-        if CGRectContainsPoint(subNode.view.bounds, point) {
-          findNode = subNode
-          break
-        }
-      }
-    }
-    
-    pointInContainerNode(findNode)
   }
   
   // double selected
   func doubleTap(onScreenPoint: CGPoint) {
     
-    if contentNode?.subnodes.count <= 0 {
-      return
-    }
+    if let aContentNode = contentNode,
+      let subNodes = aContentNode.subnodes where subNodes.count > 0  {
     
-    let aContentNode = contentNode!
-    let reverseSubNodes = aContentNode.subnodes.reverse() as! [ContainerNode]
+//    let aContentNode = contentNode!
+    let reverseSubNodes = subNodes.reverse() as! [ContainerNode]
     
     func pointInContainerNode(node: ContainerNode) {
       let containerModel = node.containerModel
@@ -266,6 +309,7 @@ extension PageCollectionViewCell {
         break
       }
     }
+  }
   }
   //
   
@@ -310,7 +354,7 @@ extension PageCollectionViewCell {
   func cancelDelegate() {
     delegate = nil
   }
-
+  
   func saveInfo() {
     //
     //        for container in containers {
@@ -368,7 +412,7 @@ extension PageCollectionViewCell {
 extension PageCollectionViewCell {
   
   
-   func update() {
+  func update() {
     
     if let aContentNode = contentNode {
       aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
@@ -381,26 +425,26 @@ extension PageCollectionViewCell {
     
     return false
   }
+  
+  
+  func updateColorAndAlpha() {
     
-    
-    func updateColorAndAlpha() {
-        
-        if let contentNode = contentNode {
-            
-            let color = rgbToColor(pageModel.pageBackgroundColor)
-            
-            let alpha = pageModel.pageBackgroundAlpha
-            
-            contentNode.backgroundColor = color.colorWithAlphaComponent(alpha)
-        }
+    if let contentNode = contentNode {
+      
+      let color = rgbToColor(pageModel.pageBackgroundColor)
+      
+      let alpha = pageModel.pageBackgroundAlpha
+      
+      contentNode.backgroundColor = color.colorWithAlphaComponent(alpha)
     }
+  }
   
   private func configPageWithPageModel(aPageModel: PageModel, queue: NSOperationQueue) -> NSOperation {
     
     // background
-    let color = rgbToColor(aPageModel.pageBackgroundColor)
+    let color = rgbToColor(aPageModel.pageBackgroundColor).colorWithAlphaComponent(aPageModel.pageBackgroundAlpha)
     
-    let alpha = aPageModel.pageBackgroundAlpha
+    let alpha: CGFloat = 1.0
     // cell alpha
     
     let operation = NSBlockOperation()
@@ -455,14 +499,15 @@ extension PageCollectionViewCell {
     aContentNode.layerBacked = false
     
     for containerModel in aPageModel.containers {
+      
       let aContainerNode = getContainerWithModel(containerModel) as ContainerNode
       aContentNode.addSubnode(aContainerNode)
-//      aContainerNode.page = self
+      //      aContainerNode.page = self
     }
     
     return aContentNode
   }
-
+  
   
   private func getContainerWithModel(aContainerModel: ContainerModel) -> ContainerNode {
     
@@ -473,7 +518,7 @@ extension PageCollectionViewCell {
     let size = aContainerNode.measure(CGSize(width: CGFloat.max, height: CGFloat.max))
     aContainerNode.bounds.size = size
     aContainerModel.setOnScreenSize(size)
-//    aContainerNode.bindingContainerModel()
+    //    aContainerNode.bindingContainerModel()
     return aContainerNode
   }
   

@@ -205,7 +205,6 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     
     if indexPath.item == 0 {
       if let cell = tableView.dequeueReusableCellWithIdentifier("CountryCell") as? UITableViewCell {
-        println("CountryCell")
 //        cell.detailTextLabel?.textColor = UIColor(hexString: "#4894ED")
         let countryName = defaultRegister.countryDisplayName
         cell.detailTextLabel?.text = countryName.isEmpty ? localString("SELECTCOUNTRY") : countryName
@@ -215,7 +214,6 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     
     if indexPath.item == 1 {
       if let cell = tableView.dequeueReusableCellWithIdentifier("PhoneCell") as? UITableViewCell {
-        println("PhoneCell")
         
         
         if let label = cell.viewWithTag(1002) as? UILabel {
@@ -237,7 +235,6 @@ extension PhoneRegisterViewController: UITableViewDataSource, UITableViewDelegat
     
     if indexPath.item == 2 {
       if let cell = tableView.dequeueReusableCellWithIdentifier("PasswordCell") as? UITableViewCell {
-        println("PasswordCell")
         if let textField = cell.viewWithTag(2002) as? UITextField {
           passwordTextField = textField
           if textField.delegate == nil {

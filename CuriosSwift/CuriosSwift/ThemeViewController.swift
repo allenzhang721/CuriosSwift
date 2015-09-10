@@ -280,6 +280,8 @@ extension ThemeViewController {
       
       // 1. theme Style 
       retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
+        
+        
       
         // 2. templateURL
         TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in

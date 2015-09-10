@@ -51,14 +51,17 @@ class UserViewController: UIViewController {
     HUD.user_cleaning()
     KingfisherManager.sharedManager.cache.clearDiskCacheWithCompletionHandler { () -> () in
       
-      let time: NSTimeInterval = 1.0
-      let delay = dispatch_time(DISPATCH_TIME_NOW,
-        Int64(time * Double(NSEC_PER_SEC)))
-      dispatch_after(delay, dispatch_get_main_queue()) {
-        HUD.user_clean_finished()
+      BlackCatManager.sharedManager.cache.clearDiskCacheWithCompletionHandler({ () -> () in
         
-      }
-      
+        let time: NSTimeInterval = 1.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW,
+          Int64(time * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+          HUD.user_clean_finished()
+          
+        }
+        
+      })
     }
   }
   

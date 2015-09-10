@@ -271,8 +271,6 @@ class TextContentModel: ComponentModel {
   
   func cacheSnapshotImage(image: UIImage, userID: String, PublishID: String, completed: (() -> ())?) {
     
-    
-    
     removeCacheImage()
     let aImageID = imageID ?? UniqueIDStringWithCount(count: 8)
     if aImageID != imageID {

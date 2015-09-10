@@ -117,7 +117,7 @@ class ImageContentModel: ComponentModel, IFile {
       imageID = aImageID
     }
     let exten = ispng ? ".png" : ".jpg"
-    key = pathByComponents([userID, PublishID, "\(aImageID)+\(exten)"])
+    key = pathByComponents([userID, PublishID, "\(aImageID)" + "\(exten)"])
     KingfisherManager.sharedManager.cache.storeImage(image, forKey: key)
     
     updateImageHandler?(image)
