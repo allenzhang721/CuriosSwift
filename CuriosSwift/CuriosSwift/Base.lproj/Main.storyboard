@@ -416,7 +416,7 @@
                                     <constraint firstAttribute="height" constant="44" id="2Lm-yF-yAa"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem image="E67A33C5-C827-4AB7-B5EB-A9AC631E6878" id="kDW-9R-aLX">
+                                    <barButtonItem image="D381ECF7-7FA7-4781-B351-869E68D3216E" id="kDW-9R-aLX">
                                         <connections>
                                             <action selector="backAction:" destination="9wI-9n-chE" id="ctP-AQ-G0j"/>
                                         </connections>
@@ -628,14 +628,27 @@
                                     <outlet property="delegate" destination="WKd-eX-8bM" id="Diz-Sr-A1F"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAP-4u-r9P">
+                                <rect key="frame" x="16" y="30" width="568" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ocP-v0-iJG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gNf-NT-yY8" firstAttribute="bottom" secondItem="w7j-lo-tXp" secondAttribute="top" id="2qb-JE-Lwh"/>
+                            <constraint firstItem="AAP-4u-r9P" firstAttribute="leading" secondItem="UOj-Wt-Xca" secondAttribute="leadingMargin" id="36z-pJ-8Ej"/>
                             <constraint firstItem="gNf-NT-yY8" firstAttribute="leading" secondItem="UOj-Wt-Xca" secondAttribute="leading" id="591-tw-vaO"/>
                             <constraint firstItem="gNf-NT-yY8" firstAttribute="top" secondItem="UOj-Wt-Xca" secondAttribute="top" id="G7a-hs-hZe"/>
+                            <constraint firstItem="AAP-4u-r9P" firstAttribute="trailing" secondItem="UOj-Wt-Xca" secondAttribute="trailingMargin" id="nfZ-KO-su4"/>
                             <constraint firstAttribute="trailing" secondItem="gNf-NT-yY8" secondAttribute="trailing" id="p4f-vK-ssH"/>
+                            <constraint firstItem="AAP-4u-r9P" firstAttribute="top" secondItem="yB2-ue-nz0" secondAttribute="bottom" constant="10" id="yap-ai-NUC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qNH-9Y-rsL"/>
@@ -1378,7 +1391,7 @@
         <image name="Add_Button" width="100" height="58"/>
         <image name="BarIcon_Theme" width="16" height="16"/>
         <image name="BarIcon_products" width="11" height="16"/>
-        <image name="E67A33C5-C827-4AB7-B5EB-A9AC631E6878" width="19" height="15">
+        <image name="D381ECF7-7FA7-4781-B351-869E68D3216E" width="19" height="15">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

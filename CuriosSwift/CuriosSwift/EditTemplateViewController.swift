@@ -140,6 +140,13 @@ extension EditTemplateViewController {
     if cell.backgroundView == nil {
       cell.backgroundView = UIImageView(frame: cell.bounds)
       
+      let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: cell.bounds.height + 0), size: CGSize(width: cell.bounds.width, height: 30)))
+      label.tag = 100
+      label.text = ""
+      label.textAlignment = .Center
+      cell.contentView.addSubview(label)
+      cell.clipsToBounds = false
+      
       cell.backgroundView!.layer.shadowRadius = 1
       cell.backgroundView!.layer.shadowOpacity = 0.5
       cell.backgroundView!.layer.shadowPath = UIBezierPath(rect: cell.bounds).CGPath
@@ -165,6 +172,11 @@ extension EditTemplateViewController {
 //        })
       })
     }
+    
+    if let label = cell.viewWithTag(100) as? UILabel {
+      label.text = template.templateName
+    }
+    
     return cell
   }
   
