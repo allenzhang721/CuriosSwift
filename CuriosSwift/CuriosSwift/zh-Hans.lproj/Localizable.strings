@@ -90,6 +90,8 @@ REGISTERING = "注册中";
 LAUNCHING = "登录中";
 LAUNCHFAIL = "登录失败，请确实是否连接网络";
 LOADING = "正在加载";
+CREATING = "创建中";
+OPENING = "打开中";
 
 //booklist
 ADDBOOKBUTTON = "添加";

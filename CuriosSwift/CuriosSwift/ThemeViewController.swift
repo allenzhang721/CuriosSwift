@@ -9,6 +9,7 @@
 import UIKit
 import Mantle
 import Alamofire
+import ReachabilitySwift
 import Kingfisher
 
 protocol ThemeViewControllerDelegate: NSObjectProtocol {
@@ -22,6 +23,7 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var titleText: UIBarButtonItem!
   
+  let reachability = Reachability.reachabilityForInternetConnection()
   weak var delegate: ThemeViewControllerDelegate?
   
   var defaultLayout: UICollectionViewFlowLayout {
@@ -270,35 +272,20 @@ extension ThemeViewController {
 // MARK: -
 extension ThemeViewController {
   
-  @IBAction func createBook(sender: AnyObject) {
+  @IBAction func createBook(sender: AnyObject?) {
     
-    if let currentIndexPath = getCurrentIndexPath() {
-      
-      let theme = ThemesManager.shareInstance.getThemeList()[currentIndexPath.item]
-      let themeID = theme.themeID
-      let themeURL = theme.themeURL
-      
-      // 1. theme Style 
-      retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.needConnectNet()
+    } else if reachability.currentReachabilityStatus != .ReachableViaWiFi  {
+      let alert = AlertHelper.alert_internetconnection {[unowned self] (confirmed) -> () in
         
-        
-      
-        // 2. templateURL
-        TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
-          if templates.count <= 0 {
-            return
-          }
-          
-          let templateURL = templates[0].templateURL
-          
-          // 3. first template
-          self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
-            
-            // 4. create a new book
-            self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute)
-          })
+        if confirmed {
+          self.createBook()
         }
-      })
+      }
+      presentViewController(alert, animated: true, completion: nil)
+    } else {
+      self.createBook()
     }
   }
   
@@ -370,11 +357,66 @@ extension ThemeViewController {
   
   @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
     
-    createBook(sender)
+//    createBook(sender)
+    
+    if reachability.currentReachabilityStatus == .NotReachable {
+      self.needConnectNet()
+    } else if reachability.currentReachabilityStatus != .ReachableViaWiFi  {
+      let alert = AlertHelper.alert_internetconnection {[unowned self] (confirmed) -> () in
+        
+        if confirmed {
+          self.createBook()
+        }
+      }
+      presentViewController(alert, animated: true, completion: nil)
+    } else {
+      self.createBook()
+    }
   }
   
+  func needConnectNet() {
+    
+    let alert = AlertHelper.alert_needConnected()
+    presentViewController(alert, animated: true, completion: nil)
+    
+  }
   
-  
+  func createBook() {
+    
+    if let currentIndexPath = getCurrentIndexPath() {
+      
+      let theme = ThemesManager.shareInstance.getThemeList()[currentIndexPath.item]
+      let themeID = theme.themeID
+      let themeURL = theme.themeURL
+      
+      HUD.editor_creating()
+      // 1. theme Style
+      retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
+        
+        
+        
+        // 2. templateURL
+        TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
+          if templates.count <= 0 {
+            return
+          }
+          
+          let templateURL = templates[0].templateURL
+          
+          // 3. first template
+          self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
+            
+            // 4. create a new book
+            self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute) { () -> Void in
+              
+              HUD.dismiss()
+            }
+            })
+        }
+        })
+    }
+  }
+
   
   @IBAction func cancelAction(sender: UIBarButtonItem) {
     
@@ -405,7 +447,7 @@ extension ThemeViewController {
     return collectionView.indexPathForItemAtPoint(CGPoint(x: offsetMiddleX, y: offsetMiddleY))
   }
   
-  func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?) {
+  func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?, completed: (() -> Void)?) {
     
     PublishIDRequest.requestWithComponents(GET_PUBLISH_ID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
@@ -421,6 +463,7 @@ extension ThemeViewController {
             self.configBookModel(aBookModel, attribute: attributes)
           }
           self.showEditViewControllerWithBook(aBookModel, begainThemeID: begainThemeID,isUploaded: false)
+          completed?()
         }
       }
     }.sendRequest()

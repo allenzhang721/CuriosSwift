@@ -127,6 +127,43 @@ class BookListViewController: UIViewController {
     nonBookView.hidden = !noBook
   
   }
+  
+  
+  func openBook(index: Int) {
+    
+    // open a book
+    let bookitem = bookList[index]
+    let time = Int(floor(NSDate().timeIntervalSince1970 * 1000))
+    let aurl = bookitem.publishResURL + "?v=\(time)"
+    
+    HUD.editor_opening()
+    // Fetch Request
+    needRefresh = true
+    Alamofire.request(.POST, aurl, parameters: nil)
+      .validate(statusCode: 200..<300)
+      .responseJSON{ (request, response, JSON, error) in
+        
+        if (error == nil)
+        {
+          if let jsondic = JSON as? [NSObject : AnyObject] {
+            
+            let bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! BookModel
+            
+            self.showEditViewControllerWithBook(bookModel, begainThemeID: nil, isUploaded: true)
+          }
+          HUD.dismiss()
+        }
+        else
+        {
+          if let aError = error{
+            
+          }
+          HUD.dismiss()
+          println("HTTP HTTP Request failed: \(error)")
+        }
+    }
+  }
+  
 }
 
 
@@ -182,48 +219,22 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
       
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      let index = indexPath.row
       
-      // open a book
-      let bookitem = bookList[indexPath.row]
-      let time = Int(floor(NSDate().timeIntervalSince1970 * 1000))
-      let aurl = bookitem.publishResURL + "?v=\(time)"
-      
-      // Fetch Request
-      needRefresh = true
-      Alamofire.request(.POST, aurl, parameters: nil)
-        .validate(statusCode: 200..<300)
-        .responseJSON{ (request, response, JSON, error) in
+      if reachability.currentReachabilityStatus == .NotReachable {
+        self.needConnectNet()
+      } else if reachability.currentReachabilityStatus != .ReachableViaWiFi  {
+        let alert = AlertHelper.alert_internetconnection {[unowned self] (confirmed) -> () in
           
-          if (error == nil)
-          {
-            if let jsondic = JSON as? [NSObject : AnyObject] {
-              
-              let bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! BookModel
-              
-              self.showEditViewControllerWithBook(bookModel, begainThemeID: nil, isUploaded: true)
-            }
+          if confirmed {
+            self.openBook(index)
           }
-          else
-          {
-            if let aError = error{
-              
-            }
-            println("HTTP HTTP Request failed: \(error)")
-          }
+        }
+        presentViewController(alert, animated: true, completion: nil)
+      } else {
+        self.openBook(index)
       }
       
-      
-      
-      
-      
-//      PublishIDRequest.requestWithComponents(getPublishID, aJsonParameter: nil) {[unowned self] (json) -> Void in
-//        
-//        if let publishID = json["newID"] as? String {
-//          self.getBookWithBookID(publishID, getBookHandler: { [unowned self] (book) -> () in
-//            self.showEditViewControllerWithBook(book)
-//            })
-//        }
-//      }.sendRequest()
     }
 }
 

@@ -125,6 +125,12 @@ extension EditThemeViewController {
       label.textAlignment = .Center
       cell.contentView.addSubview(label)
       cell.clipsToBounds = false
+      
+      cell.backgroundView!.layer.shadowRadius = 1
+      cell.backgroundView!.layer.shadowOpacity = 0.5
+      cell.backgroundView!.layer.shadowPath = UIBezierPath(rect: cell.bounds).CGPath
+      cell.backgroundView!.layer.shadowOffset = CGSize(width: 1, height: 1)
+      cell.backgroundView!.layer.shadowColor = UIColor.darkGrayColor().CGColor
     }
     
     let themeItem = ThemesManager.shareInstance.getThemeList()[indexPath.item]

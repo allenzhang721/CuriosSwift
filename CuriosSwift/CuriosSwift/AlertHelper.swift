@@ -10,6 +10,8 @@ import Foundation
 
 class AlertHelper {
   
+
+  
 //  WECHAT_NOT_INSTALLED
   class func alert_wechatNotInstalled() -> UIAlertController {
     
@@ -168,6 +170,7 @@ class AlertHelper {
     return AlertHelper.alert_cancel(title, message: message, cancelTitle: cancel, canceled: canceled)
   }
   
+  //NEEDCHANGETOWIFI = "您现在使用的是蜂窝数据，建议在在 WiFi 下使用，要继续吗？";
   class func alert_internetconnection(finished: (Bool) -> ()) -> UIAlertController {
     
     let title = localString("TIPS")

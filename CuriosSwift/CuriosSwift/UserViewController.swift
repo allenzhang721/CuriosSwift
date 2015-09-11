@@ -23,6 +23,11 @@ class UserViewController: UIViewController {
 
   func setupView() {
     
+    let backImage = UIImage(named: "Template_Back")
+    let backItem = UIBarButtonItem(image: backImage, landscapeImagePhone: nil, style: .Plain, target: self, action: "backAction:")
+    //      navigationItem.backBarButtonItem = backItem
+    navigationItem.leftBarButtonItem = backItem
+    
     iconImageView.alpha = 0
 //    backgroundImageView.alpha = 0
     
@@ -33,7 +38,8 @@ class UserViewController: UIViewController {
     println(urlString)
     let url = NSURL(string: urlString)!
     
-    iconImageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
+    let iconImage = UIImage(named: "placeholder")
+    iconImageView.kf_setImageWithURL(url, placeholderImage: iconImage, optionsInfo: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
       
       self?.iconImageView.image = image
 //      self?.backgroundImageView.image = image
@@ -45,7 +51,15 @@ class UserViewController: UIViewController {
     }
     
     
+    
+    
   }
+  
+  func backAction(sender: AnyObject) {
+    
+    navigationController?.popViewControllerAnimated(true)
+  }
+  
   @IBAction func CleanCache(sender: AnyObject) {
     
     HUD.user_cleaning()

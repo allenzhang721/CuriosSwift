@@ -27,6 +27,20 @@ import SVProgressHUD
 
 class HUD {
   
+  //  CREATING = "创建中";
+  class func editor_creating() {
+    let string = localString("CREATING")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+
+  }
+  
+  //  OPENING = "打开中";
+  class func editor_opening() {
+    let string = localString("OPENING")
+    HUD.show_status(string, userInteractable: false, autodismiss: false)
+    
+  }
+  
   class func register_registering() {
     //  GETZONEINFO = "验证码错误";
     let string = localString("REGISTERING")
