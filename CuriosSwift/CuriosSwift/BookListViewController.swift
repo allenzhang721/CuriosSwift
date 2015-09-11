@@ -149,6 +149,7 @@ class BookListViewController: UIViewController {
             
             let bookModel = MTLJSONAdapter.modelOfClass(BookModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! BookModel
             
+            
             self.showEditViewControllerWithBook(bookModel, begainThemeID: nil, isUploaded: true)
           }
           HUD.dismiss()

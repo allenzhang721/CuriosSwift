@@ -449,6 +449,7 @@ extension ThemeViewController {
   
   func createANewBookWithPageModel(pageModel: PageModel, begainThemeID: String? ,bookAttribute: [String: AnyObject]?, completed: (() -> Void)?) {
     
+    let userID = UsersManager.shareInstance.getUserID()
     PublishIDRequest.requestWithComponents(GET_PUBLISH_ID, aJsonParameter: nil) {[unowned self] (json) -> Void in
       
       if let newID = json["newID"] as? String {
@@ -456,11 +457,13 @@ extension ThemeViewController {
         self.getBookWithBookID(newID) {[unowned self] (aBookModel) -> () in
           
           aBookModel.insertPageModelsAtIndex([pageModel], FromIndex: 0)
+          
           aBookModel.resetNeedAddFile()
           aBookModel.resetNeedUpload()
 //          aBookModel.pageModels.append(pageModel)
           if let attributes = bookAttribute {
             self.configBookModel(aBookModel, attribute: attributes)
+            aBookModel.authorID = userID
           }
           self.showEditViewControllerWithBook(aBookModel, begainThemeID: begainThemeID,isUploaded: false)
           completed?()
