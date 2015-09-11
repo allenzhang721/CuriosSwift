@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/UserViewController.swift"
+            timestampString = "463654245.297884"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "commentUsAction(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.UserViewController.commentUsAction (CuriosSwift.UserViewController)(Swift.AnyObject) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/UserViewController.swift"
+                  timestampString = "463654245.645068"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc CuriosSwift.UserViewController.commentUsAction (CuriosSwift.UserViewController)(Swift.AnyObject) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/UserViewController.swift"
+                  timestampString = "463654245.645348"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "45">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

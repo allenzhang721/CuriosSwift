@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 
 class UserViewController: UIViewController {
+  
+  let AppID = "1001460693"
 
   @IBOutlet weak var userNameLabel: UILabel!
 //  @IBOutlet weak var backgroundImageView: UIImageView!
@@ -54,6 +56,15 @@ class UserViewController: UIViewController {
     
     
   }
+  
+  @IBAction func commentUsAction(sender: AnyObject) {
+    
+    let url = NSURL(string: "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(AppID)")
+    
+    UIApplication.sharedApplication().openURL(url!)
+    
+  }
+  
   
   func backAction(sender: AnyObject) {
     
