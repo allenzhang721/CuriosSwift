@@ -28,7 +28,7 @@ class UserViewController: UIViewController {
     //      navigationItem.backBarButtonItem = backItem
     navigationItem.leftBarButtonItem = backItem
     
-    iconImageView.alpha = 0
+//    iconImageView.alpha = 0
 //    backgroundImageView.alpha = 0
     
     let userName = UsersManager.shareInstance.user.nikename
@@ -41,7 +41,7 @@ class UserViewController: UIViewController {
     let iconImage = UIImage(named: "placeholder")
     iconImageView.kf_setImageWithURL(url, placeholderImage: iconImage, optionsInfo: nil) {[weak self] (image, error, cacheType, imageURL) -> () in
       
-      self?.iconImageView.image = image
+//      self?.iconImageView.image = image
 //      self?.backgroundImageView.image = image
       UIView.animateWithDuration(0.3, animations: { () -> Void in
         self?.iconImageView.alpha = 1
