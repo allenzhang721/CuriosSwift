@@ -62,6 +62,8 @@ class PageCollectionViewCell: UICollectionViewCell, PageModelDelegate, IPage, Ic
   
   func configCell(aPageModel: PageModel, queue: NSOperationQueue) {
     
+    debugPrint.p(" configCell ")
+    
     if let oldOperation = nodeRenderOperation {
       oldOperation.cancel()
     }
@@ -414,6 +416,7 @@ extension PageCollectionViewCell {
   
   func update() {
     
+    debugPrint.p("cell.Update scale = \(scale)")
     if let aContentNode = contentNode {
       aContentNode.transform = CATransform3DMakeScale(scale, scale, 1)
       contentNodeView!.center = contentView.center

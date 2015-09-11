@@ -109,10 +109,13 @@ class smallLayout: UICollectionViewFlowLayout {
     if let attributes = att {
       for attribute in attributes as! [UICollectionViewLayoutAttributes] {
         
-        if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCollectionViewCell {
-          cell.scale = minScale
-          cell.update()
-        }
+//        if let cell = collectionView?.cellForItemAtIndexPath(attribute.indexPath) as? PageCollectionViewCell {
+//          debugPrint.p("attributescount = \(attributes.count) \n layout Cell minScale = \(minScale)")
+//          cell.scale = minScale
+//          cell.update()
+//        } else {
+//          debugPrint.p("not pageCell")
+//        }
         
         if isSameIndexPath(placeholderIndexPath, rhs: attribute.indexPath) {
 //           attribute.alpha = 0

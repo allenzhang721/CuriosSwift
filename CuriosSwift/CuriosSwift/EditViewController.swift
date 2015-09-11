@@ -1665,6 +1665,7 @@ extension EditViewController {
     }, completion: { (finished) -> Void in
       
       if finished {
+        debugPrint.p("Did Insert")
         layout.invalidateLayout()
         self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
       }
@@ -1684,6 +1685,7 @@ extension EditViewController {
     }, completion: { (finished) -> Void in
     
       if finished {
+        debugPrint.p("Did Move")
         layout.allowChangedItem = true
       }
     })
@@ -1700,7 +1702,7 @@ extension EditViewController {
   }
   
   func layoutDidEndSelected(layout: smallLayout) {
-    
+    debugPrint.p("Did End")
     layout.invalidateLayout()
   }
   
@@ -2202,6 +2204,9 @@ extension EditViewController: UICollectionViewDataSource, UICollectionViewDelega
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PageCollectionViewCell
     cell.backgroundColor = UIColor.whiteColor()
     cell.pageCellDelegate = self
+    if let asmallLayout = collectionView.collectionViewLayout as? smallLayout {
+      cell.scale = asmallLayout.minScale
+    }
     cell.configCell(bookModel.pageModels[indexPath.item], queue: queue)
     
     cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
