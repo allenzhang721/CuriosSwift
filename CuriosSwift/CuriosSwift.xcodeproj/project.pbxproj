@@ -118,6 +118,8 @@
 		2C7BA27E1B66257C00894102 /* DeletePublishFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */; };
 		2C7BA2811B671F7C00894102 /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BA2801B671F7C00894102 /* HUDHelper.swift */; };
 		2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */; };
+		2C7D0F651BA808D4005B667D /* GuideLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D0F641BA808D4005B667D /* GuideLineView.swift */; };
+		2C7D0F671BA80957005B667D /* GuideLineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D0F661BA80957005B667D /* GuideLineTool.swift */; };
 		2C7D12221B1FFF6C0096819D /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12211B1FFF6C0096819D /* SwiftColors.swift */; };
 		2C7D12251B200D060096819D /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12241B200D060096819D /* Region.swift */; };
 		2C7D12271B200FB50096819D /* CuriosKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D12261B200FB50096819D /* CuriosKit.swift */; };
@@ -398,6 +400,8 @@
 		2C7BA27D1B66257C00894102 /* DeletePublishFileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePublishFileRequest.swift; sourceTree = "<group>"; };
 		2C7BA2801B671F7C00894102 /* HUDHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDHelper.swift; sourceTree = "<group>"; };
 		2C7BAE8D1B0902E7002B752A /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		2C7D0F641BA808D4005B667D /* GuideLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideLineView.swift; sourceTree = "<group>"; };
+		2C7D0F661BA80957005B667D /* GuideLineTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideLineTool.swift; sourceTree = "<group>"; };
 		2C7D12211B1FFF6C0096819D /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColors.swift; sourceTree = "<group>"; };
 		2C7D12241B200D060096819D /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		2C7D12261B200FB50096819D /* CuriosKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuriosKit.swift; sourceTree = "<group>"; };
@@ -958,6 +962,7 @@
 				2C7763661B056C9C000DDFB2 /* PageCollectionViewCell.swift */,
 				2C4388881AF7BCB40084236F /* FakePageView.swift */,
 				2C2FB2421B4FD50E000F0FFA /* MaskView.swift */,
+				2C7D0F641BA808D4005B667D /* GuideLineView.swift */,
 				2C99EE721B001C360023FEC1 /* TemplateCollectionViewCell.swift */,
 				2CE9D5CE1B0B35B300D92538 /* BookListTableViewCell.swift */,
 			);
@@ -1091,6 +1096,7 @@
 				2CAC96651B54F6CD00BA5291 /* TemplatesManager.swift */,
 				2C3361261B58ED4400E1B276 /* AnimationsManager.swift */,
 				2C28B0E31B9BE7EF0051C5B7 /* MasksManager.swift */,
+				2C7D0F661BA80957005B667D /* GuideLineTool.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1460,6 +1466,7 @@
 				2CD909DC1AF8D4CD0028223C /* ContainerMaskView.swift in Sources */,
 				2C9495B11B57409C00D77EE2 /* EditToolSettingPannel.swift in Sources */,
 				2C6273EA1B8345C600B4369F /* RegisterInfoViewController.swift in Sources */,
+				2C7D0F651BA808D4005B667D /* GuideLineView.swift in Sources */,
 				2C9147B81B08462400579E4A /* ComponentModel.swift in Sources */,
 				2CCE64901B87141200386F2B /* ChangePasswordRequest.swift in Sources */,
 				2CAC965B1B54E49500BA5291 /* TemplateModel.swift in Sources */,
@@ -1482,6 +1489,7 @@
 				2C9495BD1B57C13E00D77EE2 /* EditToolAnimationPannel.swift in Sources */,
 				2C362A9D1B5B5C5600F80012 /* EditNaviAimation.swift in Sources */,
 				2C8A8F3A1B42727A00606CCF /* UploadSettingAnimation.swift in Sources */,
+				2C7D0F671BA80957005B667D /* GuideLineTool.swift in Sources */,
 				2C62F2251B68AF0F007DA47F /* TextInputTitleViewController.swift in Sources */,
 				2C2FB2451B4FE48B000F0FFA /* Effect.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,

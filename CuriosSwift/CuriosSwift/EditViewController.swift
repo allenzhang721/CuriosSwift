@@ -57,6 +57,7 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   var editDeletedButton: UIImageView?
   
   var maskView: MaskView?
+  var guideLineView: GuideLineView?
   var toolState: ToolState = .endEdit
   @IBOutlet weak var topToolBar: UIToolbar!
   @IBOutlet weak var collectionView: UICollectionView!
@@ -880,6 +881,8 @@ extension EditViewController {
     view.insertSubview(maskView!, aboveSubview: collectionView)
   }
   
+  
+  
   func removeMaskByModel(targetContainerModel containerModel: ContainerModel) {
     
     if let aMaskView = maskView where aMaskView.containerMomdel == containerModel {
@@ -1152,6 +1155,42 @@ extension EditViewController {
 
 // MARK: - MaskViewDelgate - New
 extension EditViewController {
+  
+  func maskViewBeganChanged(mask: MaskView) {
+    
+    if let maskView = maskView,
+      let currenIndexPath = getCurrentIndexPath(),
+      let pageCell = collectionView.cellForItemAtIndexPath(currenIndexPath) as? PageCollectionViewCell {
+      
+        let frame = collectionView.convertRect(pageCell.frame, toView: view)
+        guideLineView?.removeFromSuperview()
+        guideLineView = GuideLineView(frame: frame)
+        guideLineView!.alpha = 0
+        view.insertSubview(guideLineView!, belowSubview: maskView)
+        UIView.animateWithDuration(0.2, animations: { [weak self] () -> Void in
+          self?.guideLineView?.alpha = 1
+        })
+    }
+    
+    debugPrint.p("maskViewBeganChanged")
+  }
+  
+  func maskViewDidChanged(mask: MaskView) {
+    debugPrint.p("maskViewDidChanged")
+  }
+  
+  func maskViewStopChanged(mask: MaskView) {
+    debugPrint.p("maskViewStopChanged")
+    
+    if let guideLineView = guideLineView {
+      UIView.animateWithDuration(0.2, animations: {[weak self] () -> Void in
+        self?.guideLineView?.alpha = 0
+        
+      }, completion: {[weak self] (finished) -> Void in
+        self?.guideLineView?.removeFromSuperview()
+      })
+    }
+  }
   
   func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel) {
     

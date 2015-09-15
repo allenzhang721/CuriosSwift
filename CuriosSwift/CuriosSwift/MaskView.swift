@@ -8,11 +8,14 @@
 
 import UIKit
 
-protocol MaskViewDelegate: NSObjectProtocol {
-  
+@objc protocol MaskViewDelegate: NSObjectProtocol {
+//  func maskViewWillAppear(mask: MaskView)
+//  func maskViewDidAppear(mask: MaskView)
   func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel)
   func maskViewDidSelectedEditItem(mask: MaskView, EditedContainerModel containerModel: ContainerModel)
-  
+  optional func maskViewBeganChanged(mask: MaskView)
+  optional func maskViewDidChanged(mask: MaskView)
+  optional func maskViewStopChanged(mask: MaskView)
 }
 
 class MaskView: UIView, UIGestureRecognizerDelegate {
@@ -307,6 +310,8 @@ extension MaskView {
         begainFontSize = compoenent.getFontSize()
       }
       
+      delegate?.maskViewBeganChanged?(self)
+      
       containerMomdel.updateSlopes()
       
       let position = sender.locationInView(self)
@@ -326,6 +331,8 @@ extension MaskView {
       }
       
     case .Changed:
+      
+      delegate?.maskViewDidChanged?(self)
       
       switch controlStyle {
         
@@ -469,6 +476,9 @@ extension MaskView {
       setNeedsDisplay()
       
     case .Cancelled, .Ended:
+      
+      delegate?.maskViewStopChanged?(self)
+      
       return
     default:
       return
