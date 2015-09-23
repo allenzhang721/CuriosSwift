@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CuriosSwift/UserViewController.swift"
-            timestampString = "463654245.297884"
+            filePath = "CuriosSwift/EditViewController.swift"
+            timestampString = "464703368.79545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "commentUsAction(_:)"
+            startingLineNumber = "1906"
+            endingLineNumber = "1906"
+            landmarkName = "editToolBarDidSelectedPreview(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CuriosSwift/EditViewController.swift"
-            timestampString = "463999185.99411"
+            timestampString = "464688479.504684"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1709"
-            endingLineNumber = "1709"
-            landmarkName = "layout(_:willInsertSelectedItemAtIndexPath:)"
+            startingLineNumber = "689"
+            endingLineNumber = "689"
+            landmarkName = "saveAction(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CuriosSwift.EditViewController.saveAction (CuriosSwift.EditViewController)(ObjectiveC.UIBarButtonItem) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "464688479.515517"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "691"
+                  endingLineNumber = "691"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc CuriosSwift.EditViewController.saveAction (CuriosSwift.EditViewController)(ObjectiveC.UIBarButtonItem) -&gt; ()"
+                  moduleName = "CuriosSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiaostein/github_tower/CuriosSwift/CuriosSwift/CuriosSwift/EditViewController.swift"
+                  timestampString = "464688479.515722"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "691"
+                  endingLineNumber = "691"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CuriosSwift/EditViewController.swift"
+            timestampString = "464688575.42679"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
+            landmarkName = "saveAction(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

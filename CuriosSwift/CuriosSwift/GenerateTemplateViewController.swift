@@ -46,6 +46,8 @@ class GenerateTemplateViewController: UIViewController {
   @IBOutlet weak var alphaSlider: UISlider!
   @IBOutlet weak var alphaLabel: UILabel!
   
+  let uploader = UploadsManager()
+  
   var originPageTitle: String! {
     return dataSource?.generateTemplateViewControllerPageTitle(self)
   }
@@ -147,7 +149,7 @@ class GenerateTemplateViewController: UIViewController {
   
   func setUploadCompleted(templateID: String, themeID: String, completed: (Bool) -> ()) {
     
-    UploadsManager.shareInstance.setCompeletedHandler {[weak self] (finished) -> () in
+    uploader.setCompeletedHandler {[weak self] (finished, hasError) -> () in
       
       // add template
       self?.begainAddTemplate(templateID, themeID: themeID, completed: { (finished) -> () in
@@ -177,8 +179,8 @@ class GenerateTemplateViewController: UIViewController {
     let imageData = UIImagePNGRepresentation(pageSnapShot)
     let imagekey = pathByComponents([templateID, "icon.png"])
     // upload snapshot
-    prepareUploadImageData(imageData, key: imagekey) { (imageData, key, token) -> () in
-      UploadsManager.shareInstance.upload([imageData], keys: [key], tokens: [token])
+    prepareUploadImageData(imageData, key: imagekey) { [weak self] (imageData, key, token) -> () in
+      self?.uploader.upload([imageData], keys: [key], tokens: [token])
     }
   }
   
@@ -188,8 +190,8 @@ class GenerateTemplateViewController: UIViewController {
     let apageData =  pagejsonData
 //    // upload snapshot
 //    
-    prepareUploadImageData(apageData, key: key) { (pageData, key, token) -> () in
-      UploadsManager.shareInstance.upload([pageData], keys: [key], tokens: [token])
+    prepareUploadImageData(apageData, key: key) { [weak self] (pageData, key, token) -> () in
+      self?.uploader.upload([pageData], keys: [key], tokens: [token])
     }
   }
   

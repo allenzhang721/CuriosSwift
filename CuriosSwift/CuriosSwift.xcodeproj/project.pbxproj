@@ -179,6 +179,17 @@
 		2CAC966C1B5523AB00BA5291 /* UserEditListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */; };
 		2CAC966E1B55249100BA5291 /* UserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC966D1B55249100BA5291 /* UserListManager.swift */; };
 		2CAD7E2E1B3127C500DB8D10 /* PannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */; };
+		2CB1BC031BB1759200D1599D /* ExclusivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC001BB1759200D1599D /* ExclusivityController.swift */; };
+		2CB1BC041BB1759200D1599D /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC011BB1759200D1599D /* Operation.swift */; };
+		2CB1BC051BB1759200D1599D /* OperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC021BB1759200D1599D /* OperationQueue.swift */; };
+		2CB1BC091BB175CC00D1599D /* BlockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC061BB175CC00D1599D /* BlockObserver.swift */; };
+		2CB1BC0A1BB175CC00D1599D /* OperationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC071BB175CC00D1599D /* OperationObserver.swift */; };
+		2CB1BC0B1BB175CC00D1599D /* TimeoutObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC081BB175CC00D1599D /* TimeoutObserver.swift */; };
+		2CB1BC0D1BB1764B00D1599D /* OperationCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC0C1BB1764B00D1599D /* OperationCondition.swift */; };
+		2CB1BC151BB1780400D1599D /* Dictionary+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC101BB1780400D1599D /* Dictionary+Operations.swift */; };
+		2CB1BC161BB1780400D1599D /* NSLock+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC111BB1780400D1599D /* NSLock+Operations.swift */; };
+		2CB1BC171BB1780400D1599D /* NSOperation+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC121BB1780400D1599D /* NSOperation+Operations.swift */; };
+		2CB1BC1B1BB180C900D1599D /* OperationErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1BC1A1BB180C900D1599D /* OperationErrors.swift */; };
 		2CB3621F1B60C4AF007F96FB /* ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3621E1B60C4AF007F96FB /* ShareController.swift */; };
 		2CB3622D1B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CB362211B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle */; };
 		2CB3622E1B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB362221B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework */; };
@@ -212,6 +223,7 @@
 		2CCB02271B7B68FB00DDADF3 /* GetTemplateIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB02261B7B68FB00DDADF3 /* GetTemplateIDRequest.swift */; };
 		2CCB022A1B7B6A0700DDADF3 /* TemplateTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB02291B7B6A0700DDADF3 /* TemplateTokenRequest.swift */; };
 		2CCB022D1B7B840100DDADF3 /* AddTemplateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */; };
+		2CCC24461BB188A200902052 /* UploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC24451BB188A200902052 /* UploadOperation.swift */; };
 		2CCE648E1B870BD800386F2B /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE648D1B870BD800386F2B /* ResetPasswordViewController.swift */; };
 		2CCE64901B87141200386F2B /* ChangePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE648F1B87141200386F2B /* ChangePasswordRequest.swift */; };
 		2CCE64C41B87506D00386F2B /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE64C31B87506C00386F2B /* ImageHelper.swift */; };
@@ -461,6 +473,17 @@
 		2CAC966B1B5523AB00BA5291 /* UserEditListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEditListRequest.swift; sourceTree = "<group>"; };
 		2CAC966D1B55249100BA5291 /* UserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListManager.swift; sourceTree = "<group>"; };
 		2CAD7E2D1B3127C500DB8D10 /* PannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelItem.swift; sourceTree = "<group>"; };
+		2CB1BC001BB1759200D1599D /* ExclusivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExclusivityController.swift; sourceTree = "<group>"; };
+		2CB1BC011BB1759200D1599D /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		2CB1BC021BB1759200D1599D /* OperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationQueue.swift; sourceTree = "<group>"; };
+		2CB1BC061BB175CC00D1599D /* BlockObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObserver.swift; sourceTree = "<group>"; };
+		2CB1BC071BB175CC00D1599D /* OperationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationObserver.swift; sourceTree = "<group>"; };
+		2CB1BC081BB175CC00D1599D /* TimeoutObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeoutObserver.swift; sourceTree = "<group>"; };
+		2CB1BC0C1BB1764B00D1599D /* OperationCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationCondition.swift; sourceTree = "<group>"; };
+		2CB1BC101BB1780400D1599D /* Dictionary+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Operations.swift"; sourceTree = "<group>"; };
+		2CB1BC111BB1780400D1599D /* NSLock+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Operations.swift"; sourceTree = "<group>"; };
+		2CB1BC121BB1780400D1599D /* NSOperation+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSOperation+Operations.swift"; sourceTree = "<group>"; };
+		2CB1BC1A1BB180C900D1599D /* OperationErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationErrors.swift; sourceTree = "<group>"; };
 		2CB3621E1B60C4AF007F96FB /* ShareController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareController.swift; sourceTree = "<group>"; };
 		2CB362211B60DA14007F96FB /* ShareSDKFlatShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKFlatShareViewUI.bundle; sourceTree = "<group>"; };
 		2CB362221B60DA14007F96FB /* ShareSDKFlatShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKFlatShareViewUI.framework; sourceTree = "<group>"; };
@@ -501,6 +524,7 @@
 		2CCB02291B7B6A0700DDADF3 /* TemplateTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenRequest.swift; sourceTree = "<group>"; };
 		2CCB022B1B7B7DD200DDADF3 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		2CCB022C1B7B840100DDADF3 /* AddTemplateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTemplateRequest.swift; sourceTree = "<group>"; };
+		2CCC24451BB188A200902052 /* UploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadOperation.swift; sourceTree = "<group>"; };
 		2CCE648D1B870BD800386F2B /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		2CCE648F1B87141200386F2B /* ChangePasswordRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequest.swift; sourceTree = "<group>"; };
 		2CCE64C31B87506C00386F2B /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
@@ -806,6 +830,40 @@
 			name = dataModels;
 			sourceTree = "<group>";
 		};
+		2CB1BBFF1BB1757800D1599D /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1BC191BB180B600D1599D /* Conditions */,
+				2CB1BC0E1BB177F500D1599D /* Convenience Extensions */,
+				2CB1BC021BB1759200D1599D /* OperationQueue.swift */,
+				2CB1BC011BB1759200D1599D /* Operation.swift */,
+				2CB1BC001BB1759200D1599D /* ExclusivityController.swift */,
+				2CB1BC061BB175CC00D1599D /* BlockObserver.swift */,
+				2CB1BC071BB175CC00D1599D /* OperationObserver.swift */,
+				2CB1BC081BB175CC00D1599D /* TimeoutObserver.swift */,
+			);
+			name = Operation;
+			sourceTree = "<group>";
+		};
+		2CB1BC0E1BB177F500D1599D /* Convenience Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1BC101BB1780400D1599D /* Dictionary+Operations.swift */,
+				2CB1BC111BB1780400D1599D /* NSLock+Operations.swift */,
+				2CB1BC121BB1780400D1599D /* NSOperation+Operations.swift */,
+			);
+			name = "Convenience Extensions";
+			sourceTree = "<group>";
+		};
+		2CB1BC191BB180B600D1599D /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1BC1A1BB180C900D1599D /* OperationErrors.swift */,
+				2CB1BC0C1BB1764B00D1599D /* OperationCondition.swift */,
+			);
+			name = Conditions;
+			sourceTree = "<group>";
+		};
 		2CB362201B60DA14007F96FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -972,6 +1030,8 @@
 		2CB4BD841AE476CF00DF6019 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2CCC24441BB1888200902052 /* CuriosOperations */,
+				2CB1BBFF1BB1757800D1599D /* Operation */,
 				2CB4BD731AE33A8D00DF6019 /* Models.swift */,
 				2CFD5AD61B4F605F00473C44 /* Factory */,
 				2CFD5AD51B4F603400473C44 /* Manager */,
@@ -997,6 +1057,13 @@
 				2CC7BDAD1B652394001E7277 /* TransitionLayout.swift */,
 			);
 			name = Layouts;
+			sourceTree = "<group>";
+		};
+		2CCC24441BB1888200902052 /* CuriosOperations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CuriosOperations;
 			sourceTree = "<group>";
 		};
 		2CD3FA821B84861800CA0ABB /* AES256 */ = {
@@ -1090,12 +1157,13 @@
 				2C0355671B786D90005FC94B /* ServePathsManger.swift */,
 				2C69242F1B46894900CC327D /* ColorManager.swift */,
 				2C92EA7B1B413F3500ABFABB /* FontsManager.swift */,
-				2C4D81061B535FFC00A93383 /* UploadsManager.swift */,
 				2CAC966D1B55249100BA5291 /* UserListManager.swift */,
 				2CAC965E1B54E7A600BA5291 /* ThemesManager.swift */,
 				2CAC96651B54F6CD00BA5291 /* TemplatesManager.swift */,
 				2C3361261B58ED4400E1B276 /* AnimationsManager.swift */,
 				2C28B0E31B9BE7EF0051C5B7 /* MasksManager.swift */,
+				2CCC24451BB188A200902052 /* UploadOperation.swift */,
+				2C4D81061B535FFC00A93383 /* UploadsManager.swift */,
 				2C7D0F661BA80957005B667D /* GuideLineTool.swift */,
 			);
 			name = Manager;
@@ -1402,6 +1470,7 @@
 				2C6273E61B82EE7300B4369F /* VerificationViewController.swift in Sources */,
 				2CEBE7621B1C17FD00C34920 /* Animator.swift in Sources */,
 				2C9495AF1B57397500D77EE2 /* EditToolSettingPannelDelegate.swift in Sources */,
+				2CB1BC0D1BB1764B00D1599D /* OperationCondition.swift in Sources */,
 				2CB4BD741AE33A8D00DF6019 /* Models.swift in Sources */,
 				2CD3FA351B842E8400CA0ABB /* LoginHelper.swift in Sources */,
 				2C7BAE8E1B0902E7002B752A /* PreviewViewController.swift in Sources */,
@@ -1460,6 +1529,7 @@
 				2C6D58921B2A9E20002CFC3F /* AnimationPannel.swift in Sources */,
 				2C8028AB1B6B4CF600FCB7B2 /* BlackCatCache.swift in Sources */,
 				2CAC966E1B55249100BA5291 /* UserListManager.swift in Sources */,
+				2CB1BC041BB1759200D1599D /* Operation.swift in Sources */,
 				2CAC96591B54E3E500BA5291 /* ThemeModel.swift in Sources */,
 				2C3361271B58ED4400E1B276 /* AnimationsManager.swift in Sources */,
 				2CBC16C01B15D34200F46541 /* LocalTemplateViewController.swift in Sources */,
@@ -1476,12 +1546,14 @@
 				2C62F21F1B6798FA007DA47F /* ShareViewController.swift in Sources */,
 				2C8028B01B6B4CF600FCB7B2 /* BlackCatResultExtension.swift in Sources */,
 				2C8028AE1B6B4CF600FCB7B2 /* BlackCatOptions.swift in Sources */,
+				2CB1BC031BB1759200D1599D /* ExclusivityController.swift in Sources */,
 				2CA034401B4572C000EFA603 /* ColorPickView.swift in Sources */,
 				2C00AA3D1B2E6A2F00B718B9 /* PannelCell.swift in Sources */,
 				2C28B0E01B9BC1480051C5B7 /* MaskableInterface.swift in Sources */,
 				2C77635D1B056A7A000DDFB2 /* IContainer.swift in Sources */,
 				2C5526E81B4CC533000F2C7D /* PublishRequest.swift in Sources */,
 				2CF293A31B33B46900539F76 /* BookDetailInfoCell.swift in Sources */,
+				2CB1BC1B1BB180C900D1599D /* OperationErrors.swift in Sources */,
 				2C8926831B7B3D7C00DBA9F0 /* GenerateTemplateViewController.swift in Sources */,
 				2C9495B91B57C07B00D77EE2 /* EditToolTextAlingmentPannel.swift in Sources */,
 				2CCE648E1B870BD800386F2B /* ResetPasswordViewController.swift in Sources */,
@@ -1494,6 +1566,7 @@
 				2C2FB2451B4FE48B000F0FFA /* Effect.swift in Sources */,
 				2C00AABB1B3030E100B718B9 /* MultiObserver.swift in Sources */,
 				2CFC89DD1B18727700B8BA13 /* EditorTemplateNavigationController.swift in Sources */,
+				2CB1BC0A1BB175CC00D1599D /* OperationObserver.swift in Sources */,
 				2CA8F0C11B3947BB0063E964 /* PublishFileRequest.swift in Sources */,
 				2C94BD2A1B9C51F00030CF68 /* CuriosMaskKit+Extension.swift in Sources */,
 				2C62F2171B672568007DA47F /* LocalStringHelper.swift in Sources */,
@@ -1507,6 +1580,7 @@
 				2CD3FA8C1B84863200CA0ABB /* NSData+Base64.m in Sources */,
 				2CBAA8451B78828C00CE4883 /* FilePathsRequest.swift in Sources */,
 				2C0A69C41B5B44B000A6CF1A /* EditThemeViewController.swift in Sources */,
+				2CCC24461BB188A200902052 /* UploadOperation.swift in Sources */,
 				2C6273C11B81DA5900B4369F /* PhoneRegisterViewController.swift in Sources */,
 				2C6273DA1B82E24900B4369F /* Register&Login.swift in Sources */,
 				2C99EE731B001C360023FEC1 /* TemplateCollectionViewCell.swift in Sources */,
@@ -1534,16 +1608,20 @@
 				2C6924321B46914800CC327D /* ColorPickCollectionViewCell.swift in Sources */,
 				2CAC965D1B54E58E00BA5291 /* ThemeViewController.swift in Sources */,
 				2C362A9B1B5B57AA00F80012 /* EditTemplateViewController.swift in Sources */,
+				2CB1BC171BB1780400D1599D /* NSOperation+Operations.swift in Sources */,
 				2CD8078B1B0B2908008B286B /* BookListViewController.swift in Sources */,
 				2C9495AD1B57395100D77EE2 /* EditToolPannel.swift in Sources */,
 				2CD1B8E31B2821C200AA0D8E /* ToolsBar.swift in Sources */,
+				2CB1BC091BB175CC00D1599D /* BlockObserver.swift in Sources */,
 				2C5526B41B4A6DFD000F2C7D /* PublishTokenRequest.swift in Sources */,
 				2CC7BDAE1B652394001E7277 /* TransitionLayout.swift in Sources */,
 				2C4D81071B535FFC00A93383 /* UploadsManager.swift in Sources */,
+				2CB1BC0B1BB175CC00D1599D /* TimeoutObserver.swift in Sources */,
 				2CCB02271B7B68FB00DDADF3 /* GetTemplateIDRequest.swift in Sources */,
 				2C5427021B2A9B36007FF1DE /* EffectPannel.swift in Sources */,
 				2C9147B61B0845FA00579E4A /* ContainerModel.swift in Sources */,
 				2C25EE6D1B0728970087EE6F /* IAttributeSetter.swift in Sources */,
+				2CB1BC161BB1780400D1599D /* NSLock+Operations.swift in Sources */,
 				2C4B85021B5F36EE006B24FD /* UserViewController.swift in Sources */,
 				2CBC16BE1B15AE7F00F46541 /* LoginModel.swift in Sources */,
 				2C4D81091B53F10900A93383 /* UploadCompleteReqest.swift in Sources */,
@@ -1557,6 +1635,7 @@
 				2CF2939F1B33B43400539F76 /* BookDetailImageCell.swift in Sources */,
 				2C9495B71B57C01100D77EE2 /* EditToolTextColorPannel.swift in Sources */,
 				2CE121E31B45434200FB10C5 /* TextInputView.swift in Sources */,
+				2CB1BC151BB1780400D1599D /* Dictionary+Operations.swift in Sources */,
 				2C7BA2811B671F7C00894102 /* HUDHelper.swift in Sources */,
 				2CD3FA331B842CF100CA0ABB /* LaunchNaviViewController.swift in Sources */,
 				2C5427041B2A9B85007FF1DE /* FontAttributePannel.swift in Sources */,
@@ -1566,6 +1645,7 @@
 				2C28B0E41B9BE7EF0051C5B7 /* MasksManager.swift in Sources */,
 				2C6273E21B82E5B100B4369F /* RegisterWeixinRequest.swift in Sources */,
 				2C7D12251B200D060096819D /* Region.swift in Sources */,
+				2CB1BC051BB1759200D1599D /* OperationQueue.swift in Sources */,
 				2CFD5ADA1B4F60A400473C44 /* TextContentModel.swift in Sources */,
 				2CCB022A1B7B6A0700DDADF3 /* TemplateTokenRequest.swift in Sources */,
 				2C77636B1B05ABCA000DDFB2 /* IImageComponent.swift in Sources */,
@@ -1701,8 +1781,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1735,9 +1815,9 @@
 					"\"pop\"",
 					"-lc++",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION_OFF";
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
+				PROVISIONING_PROFILE = "53c93d43-1fac-4f20-aa2f-b88635bed7e7";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1850,8 +1930,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1884,9 +1964,9 @@
 					"\"pop\"",
 					"-lc++",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION_OFF";
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
+				PROVISIONING_PROFILE = "53c93d43-1fac-4f20-aa2f-b88635bed7e7";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1899,8 +1979,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Horner(Beijing)Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHANG YONGQUAN (LKNH59573E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos/Pods-CuriosSwift",
@@ -1933,9 +2013,9 @@
 					"\"pop\"",
 					"-lc++",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D MAKER_VERSION_OFF";
 				PRODUCT_NAME = CuriosSwift;
-				PROVISIONING_PROFILE = "35d88dc3-0dd9-4564-99f4-0103386b193b";
+				PROVISIONING_PROFILE = "53c93d43-1fac-4f20-aa2f-b88635bed7e7";
 				SWIFT_OBJC_BRIDGING_HEADER = "CuriosSwift/CuriosSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

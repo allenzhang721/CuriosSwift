@@ -1,6 +1,6 @@
 //
 //  ThemeViewController.swift
-//  
+//
 //
 //  Created by Emiaostein on 7/14/15.
 //
@@ -18,7 +18,7 @@ protocol ThemeViewControllerDelegate: NSObjectProtocol {
 }
 
 class ThemeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
-
+  
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var titleText: UIBarButtonItem!
@@ -32,8 +32,8 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
     layout.scrollDirection = .Horizontal
     let width = collectionView.bounds.width
     let height = collectionView.bounds.height
-//    let top = height * 0
-//    let bottom = height * 0.1
+    //    let top = height * 0
+    //    let bottom = height * 0.1
     let top: CGFloat = 64.0 + 44.0 + 10.0
     let bottom: CGFloat = 64.0 + 44.0 + 5.0
     let itemHeight: CGFloat = height - top - bottom - 44.0
@@ -53,38 +53,38 @@ class ThemeViewController: UIViewController, UICollectionViewDataSource, UIColle
   
   var themeList = [ThemeModel]()
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//      navigationController?.navigationBarHidden = true
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    //      navigationController?.navigationBarHidden = true
+    
+    HUD.save_sync()
+    ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
       
-      HUD.save_sync()
-      ServePathsManger.getServePaths { [unowned self] (compeleted) -> () in
-        
-        if compeleted {
-          HUD.dismiss(0.5)
-        }
-      }  //
-      
-      collectionView.decelerationRate = UIScrollViewDecelerationRateFast
-      collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
-      
-      if ThemesManager.shareInstance.getThemeList().count <= 0 {
-        ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
-          
-          //          self.appThemes(themes)
-          self.collectionView.reloadData()
-          self.setupbackgroundImage()
-        }
-      } else {
+      if compeleted {
+        HUD.dismiss(0.5)
       }
-
-//      ThemesManager.shareInstance.getThemes(0, size: 20) { [weak self](themes) -> () in
-//        
-//        self?.appThemes(themes)
-//        self?.collectionView.reloadData()
-//        
-//      }
+    }  //
+    
+    collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+    collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "themeCell")
+    
+    if ThemesManager.shareInstance.getThemeList().count <= 0 {
+      ThemesManager.shareInstance.getThemes(0, size: 20) { [unowned self](themes) -> () in
+        
+        //          self.appThemes(themes)
+        self.collectionView.reloadData()
+        self.setupbackgroundImage()
+      }
+    } else {
     }
+    
+    //      ThemesManager.shareInstance.getThemes(0, size: 20) { [weak self](themes) -> () in
+    //
+    //        self?.appThemes(themes)
+    //        self?.collectionView.reloadData()
+    //
+    //      }
+  }
   
   var demoTheme: ThemeModel {
     return ThemesManager.shareInstance.getThemeList()[0]
@@ -116,7 +116,7 @@ extension ThemeViewController {
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return ThemesManager.shareInstance.getThemeList().count
   }
-
+  
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("themeCell", forIndexPath: indexPath) as! UICollectionViewCell
@@ -131,7 +131,7 @@ extension ThemeViewController {
       cell.layer.borderWidth = 0.5
       cell.layer.cornerRadius = 8.0
       cell.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2).CGColor
-//      cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: 8).CGPath
+      //      cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: 8).CGPath
       cell.layer.shadowColor = UIColor.darkGrayColor().CGColor
       cell.layer.shadowOffset = CGSize(width: 0, height: 1)
       cell.layer.shadowOpacity = 0.5
@@ -141,7 +141,7 @@ extension ThemeViewController {
     if let imageView = cell.backgroundView as? UIImageView {
       
       let theme = ThemesManager.shareInstance.getThemeList()[indexPath.item]
-//      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")
+      //      let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=0.jpg")
       let url = NSURL(string: theme.themeIconURL)
       
       imageView.kf_setImageWithURL(url!, placeholderImage: UIImage(named: "cover"), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
@@ -154,21 +154,21 @@ extension ThemeViewController {
   
   // MARK: - CollectionView Delegate
   
-//  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//    
-////    scrollView.bounds.origin = CGPointZero
-//    
-//    setupbackgroundImage()
-//    
-//  }
+  //  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  //
+  ////    scrollView.bounds.origin = CGPointZero
+  //
+  //    setupbackgroundImage()
+  //
+  //  }
   
   func setupbackgroundImage() {
     
     if let indexPath = getCurrentIndexPath() {
       
       let theme = ThemesManager.shareInstance.getThemeList()[indexPath.item]
-//      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
-//      let string = urls[indexPath.item % 2]
+      //      let urls = ["http://img4.imgtn.bdimg.com/it/u=3984889015,3579614857&fm=21&gp=0.jpg", "http://img5.imgtn.bdimg.com/it/u=4088850196,318519569&fm=21&gp=1.jpg"]
+      //      let string = urls[indexPath.item % 2]
       let url = NSURL(string: theme.themeIconURL)!
       
       titleText.title = theme.themeName
@@ -176,51 +176,51 @@ extension ThemeViewController {
       let snapshot = backgroundImageView.snapshotViewAfterScreenUpdates(false)
       view.insertSubview(snapshot, belowSubview: backgroundImageView)
       //      backgroundImageView.alpha = 0
-
       
-//      backgroundImageView.layer.contents =
       
-        KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
+      //      backgroundImageView.layer.contents =
+      
+      KingfisherManager.sharedManager.retrieveImageWithURL(url, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
+        
+        //          self.backgroundImageView.layer.contents = (image as! CGImageRef)
+        if error == nil {
+          let transition = CATransition()
           
-//          self.backgroundImageView.layer.contents = (image as! CGImageRef)
-          if error == nil {
-            let transition = CATransition()
-            
-            transition.startProgress = 0.0
-            transition.endProgress = 1.0
-            transition.duration = 0.4
-            
-            self.backgroundImageView.layer.contents = image!.CGImage
-            self.backgroundImageView.layer.addAnimation(transition, forKey: "contents")
-          }
+          transition.startProgress = 0.0
+          transition.endProgress = 1.0
+          transition.duration = 0.4
           
-          
-
-        })
+          self.backgroundImageView.layer.contents = image!.CGImage
+          self.backgroundImageView.layer.addAnimation(transition, forKey: "contents")
+        }
+        
+        
+        
+      })
       
       
       
-//      backgroundImageView.kf_setImageWithURL(url, placeholderImage: image, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
-//        
-//        UIView.animateWithDuration(0.5, animations: { () -> Void in
-//          
-//          self?.backgroundImageView.alpha = 0.5
-//          }, completion: { (finished) -> Void in
-//        })
-//        
-////        self?.backgroundImageView.image = image
-//        
-//        UIView.animateWithDuration(0.5, animations: { () -> Void in
-//          
-//          self?.backgroundImageView.alpha = 1
-//          }, completion: { (finished) -> Void in
-//            
-//            if finished {
-//              snapshot.removeFromSuperview()
-//            }
-//        })
-//        
-//        })
+      //      backgroundImageView.kf_setImageWithURL(url, placeholderImage: image, optionsInfo: nil, completionHandler: { [weak self](image, error, cacheType, imageURL) -> () in
+      //
+      //        UIView.animateWithDuration(0.5, animations: { () -> Void in
+      //
+      //          self?.backgroundImageView.alpha = 0.5
+      //          }, completion: { (finished) -> Void in
+      //        })
+      //
+      ////        self?.backgroundImageView.image = image
+      //
+      //        UIView.animateWithDuration(0.5, animations: { () -> Void in
+      //
+      //          self?.backgroundImageView.alpha = 1
+      //          }, completion: { (finished) -> Void in
+      //
+      //            if finished {
+      //              snapshot.removeFromSuperview()
+      //            }
+      //        })
+      //
+      //        })
     }
   }
   
@@ -289,46 +289,50 @@ extension ThemeViewController {
     }
   }
   
-  func retriveThemeStyle(themeURL: String, completed: ([String:AnyObject]) -> ()) {
+  func retriveThemeStyle(themeURL: String, completed: ([String:AnyObject]?) -> ()) {
     
     let url = NSURL(string: themeURL)!
     
     BlackCatManager.sharedManager.retrieveDataWithURL(url, optionsInfo: nil, progressBlock: nil) { (data, error, cacheType, URL) -> () in
       
       
-        if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 as? [String: AnyObject] {
-            completed(dic)
-        }
+      if let dic = Dictionary<NSObject, AnyObject>.converFromData(data).0 as? [String: AnyObject] {
+        completed(dic)
+      } else {
+        completed(nil)
+      }
     }
     
     // Fetch Request
-//    Alamofire.request(.POST, url, parameters: nil)
-//      .validate(statusCode: 200..<300)
-//      .responseJSON{ (request, response, JSON, error) in
-//
-//        if (error == nil)
-//        {
-//          
-//          if let jsondic = JSON as? [NSObject : AnyObject] {
-//            
-////            let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
-////            pageModel.Id = UniqueIDStringWithCount(count: 8)
-////            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
-//          }
-//        }
-//        else
-//        {
-//          if let aError = error{
-//            
-//          }
-//          println("HTTP HTTP Request failed: \(error)")
-//        }
-//    }
+    //    Alamofire.request(.POST, url, parameters: nil)
+    //      .validate(statusCode: 200..<300)
+    //      .responseJSON{ (request, response, JSON, error) in
+    //
+    //        if (error == nil)
+    //        {
+    //
+    //          if let jsondic = JSON as? [NSObject : AnyObject] {
+    //
+    ////            let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
+    ////            pageModel.Id = UniqueIDStringWithCount(count: 8)
+    ////            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
+    //          }
+    //        }
+    //        else
+    //        {
+    //          if let aError = error{
+    //
+    //          }
+    //          println("HTTP HTTP Request failed: \(error)")
+    //        }
+    //    }
   }
   
-  func retriveFirstTemplatePage(templateURL: String, completed: (PageModel) -> ()) {
+  func retriveFirstTemplatePage(templateURL: String, completed: (PageModel?) -> ()) {
     
     let url = NSURL(string: templateURL)!
+    
+//    debugPrint.p("url = \(url)")
     // Fetch Request
     Alamofire.request(.POST, url, parameters: nil)
       .validate(statusCode: 200..<300)
@@ -341,7 +345,7 @@ extension ThemeViewController {
             let pageModel = MTLJSONAdapter.modelOfClass(PageModel.self, fromJSONDictionary: jsondic as [NSObject : AnyObject] , error: nil) as! PageModel
             pageModel.Id = UniqueIDStringWithCount(count: 8)
             completed(pageModel)
-//            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
+            //            self.createANewBookWithPageModel(pageModel, bookAttribute: nil)
           }
         }
         else
@@ -349,6 +353,7 @@ extension ThemeViewController {
           if let aError = error{
             
           }
+          completed(nil)
           println("HTTP HTTP Request failed: \(error)")
         }
     }
@@ -357,7 +362,7 @@ extension ThemeViewController {
   
   @IBAction func doubleTapAction(sender: UITapGestureRecognizer) {
     
-//    createBook(sender)
+    //    createBook(sender)
     
     if reachability.currentReachabilityStatus == .NotReachable {
       self.needConnectNet()
@@ -393,11 +398,15 @@ extension ThemeViewController {
       // 1. theme Style
       retriveThemeStyle(themeURL, completed: { [unowned self] (bookAttribute) -> () in
         
-        
+        if bookAttribute == nil {
+          HUD.dismiss()
+          return
+        }
         
         // 2. templateURL
         TemplatesManager.shareInstance.getTemplates(themeID, start: 0, size: 1) {[unowned self] (templates) -> () in
           if templates.count <= 0 {
+            HUD.dismiss()
             return
           }
           
@@ -406,17 +415,22 @@ extension ThemeViewController {
           // 3. first template
           self.retriveFirstTemplatePage(templateURL, completed: {[unowned self] (pagemodel) -> () in
             
-            // 4. create a new book
-            self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute) { () -> Void in
-              
+            if let pagemodel = pagemodel {
+              // 4. create a new book
+              self.createANewBookWithPageModel(pagemodel, begainThemeID: themeID , bookAttribute: bookAttribute) { () -> Void in
+                
+                HUD.dismiss()
+              }
+            } else {
               HUD.dismiss()
             }
+            
             })
         }
         })
     }
   }
-
+  
   
   @IBAction func cancelAction(sender: UIBarButtonItem) {
     
@@ -460,7 +474,7 @@ extension ThemeViewController {
           
           aBookModel.resetNeedAddFile()
           aBookModel.resetNeedUpload()
-//          aBookModel.pageModels.append(pageModel)
+          //          aBookModel.pageModels.append(pageModel)
           if let attributes = bookAttribute {
             self.configBookModel(aBookModel, attribute: attributes)
             aBookModel.authorID = userID
@@ -469,7 +483,7 @@ extension ThemeViewController {
           completed?()
         }
       }
-    }.sendRequest()
+      }.sendRequest()
   }
   
   func configBookModel(book: BookModel, attribute: [String: AnyObject]) {
@@ -501,7 +515,7 @@ extension ThemeViewController {
     
     if let type = attribute["FlipType"] as? String {
       switch type {
-        case "translate3d":
+      case "translate3d":
         book.flipType = .translate3d
       default:
         ()
@@ -512,7 +526,7 @@ extension ThemeViewController {
       switch type {
       case "ver":
         book.flipDirection = .ver
-        case "hor":
+      case "hor":
         book.flipDirection = .hor
       default:
         ()

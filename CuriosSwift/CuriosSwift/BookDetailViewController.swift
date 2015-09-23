@@ -268,11 +268,21 @@ extension BookDetailViewController: UITableViewDataSource, UITableViewDelegate, 
   
   func thumbnailImage(image: UIImage, size: CGSize) -> UIImage {
     
-    let maxScale = max(size.width / image.size.width, size.height / image.size.height)
-    let width = image.size.width * maxScale
-    let height = image.size.height * maxScale
+    let imageRate = image.size.width / image.size.height;
+    let sizeRate  = size.width / size.height;
+    let imageWidth  = image.size.width;
+    let imageHeight = image.size.height;
+    var maxScale:CGFloat;
+    if(imageRate > sizeRate){
+      maxScale = size.width / imageWidth;
+    }else{
+      maxScale = size.height / imageHeight;
+    }
+    let width = imageWidth * maxScale
+    let height = imageHeight * maxScale
+    
     let imageSize = CGSize(width: width, height: height)
-    UIGraphicsBeginImageContextWithOptions(imageSize, true, maxScale)
+    UIGraphicsBeginImageContextWithOptions(imageSize, true, 1.0)
     image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
     let aImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
@@ -286,18 +296,16 @@ extension BookDetailViewController: UIImagePickerControllerDelegate {
     
     let aSelectedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
     let small = thumbnailImage(aSelectedImage, size: CGSize(width: 320, height: 320))
-    let imageData = UIImageJPEGRepresentation(small, 0.01)
+    let imageData = UIImageJPEGRepresentation(small, 0.1)
     let selectedImage = UIImage(data: imageData)!
     
-//    UIWebView
-    let thumbnail = thumbnailImage(selectedImage, size: CGSize(width: 120, height: 120))
     
     let thumburl = bookIconUrlString.stringByAppendingString(ICON_THUMBNAIL)
     KingfisherManager.sharedManager.cache.removeImageForKey(thumburl)
     bookModel.setBookIcon(iconKey)
     let thumbnailKey = iconKeyUrl.stringByAppendingString(ICON_THUMBNAIL)
     KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: iconKeyUrl)
-    KingfisherManager.sharedManager.cache.storeImage(thumbnail, forKey: thumbnailKey)
+    KingfisherManager.sharedManager.cache.storeImage(selectedImage, forKey: thumbnailKey)
     needuploadIcon = true
     tableView.reloadData()
     dismissViewControllerAnimated(true, completion: nil)

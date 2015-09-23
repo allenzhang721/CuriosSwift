@@ -15,6 +15,8 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
   var user: UserModel!
   weak var nicknameTextField: UITextField!
   
+  let uploader = UploadsManager()
+  
   let maxCount = 20
   
   @IBOutlet var tapGesture: UITapGestureRecognizer!
@@ -122,7 +124,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
       let data = UIImageJPEGRepresentation(iconImage, 0.01)
       let key = userIconPath
       HUD.register_registering()
-      UploadsManager.shareInstance.setCompeletedHandler({ [weak self] (finished) -> () in
+      uploader.setCompeletedHandler({ [weak self] (finished, hasError) -> () in
         
         if finished {
           // update info
@@ -141,7 +143,7 @@ class RegisterInfoViewController: UIViewController, UINavigationControllerDelega
       
       prepareUploadImageData(data!, key: key, compeletedBlock: { [weak self] (success, theData, theKey, theToken) -> () in
         if success {
-          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+          self?.uploader.upload([theData], keys: [theKey], tokens: [theToken])
         } else {
           HUD.dismiss()
           self?.showLunchFail()

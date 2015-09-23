@@ -8,15 +8,18 @@
 
 import UIKit
 
-@objc protocol MaskViewDelegate: NSObjectProtocol {
+ protocol MaskViewDelegate: NSObjectProtocol {
 //  func maskViewWillAppear(mask: MaskView)
 //  func maskViewDidAppear(mask: MaskView)
   func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel)
   func maskViewDidSelectedEditItem(mask: MaskView, EditedContainerModel containerModel: ContainerModel)
-  optional func maskViewBeganChanged(mask: MaskView)
-  optional func maskViewDidChanged(mask: MaskView)
-  optional func maskViewStopChanged(mask: MaskView)
+  func maskViewCheckPoints(mask: MaskView) -> [CGPoint]
+  func maskViewBeganChanged(mask: MaskView)
+  func maskViewDidChanged(mask: MaskView)
+  func maskViewStopChanged(mask: MaskView)
 }
+
+
 
 class MaskView: UIView, UIGestureRecognizerDelegate {
   
@@ -34,6 +37,7 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   var deletePannel: UIImageView!
   
   var begainAngle: CGFloat = 0.0
+  var begainTransitionDistance: CGPoint = CGPointZero
   var beginSize: CGSize = CGSizeZero
   var panBeginSize: CGSize = CGSizeZero
   var pinchbegainFontSize: CGFloat = 0
@@ -43,6 +47,8 @@ class MaskView: UIView, UIGestureRecognizerDelegate {
   var ratio: CGFloat = 0.0 // bounds width / height
   var controlStyle: ControlStyle = .None
   var binding = false
+  
+  var checkPoints = [CGPoint]()
   
   static func maskWithCenter(center: CGPoint, size: CGSize, angle: CGFloat, targetContainerModel aContainerModel: ContainerModel) -> MaskView {
     
@@ -309,37 +315,50 @@ extension MaskView {
         ratio = textSize.width / textSize.height
         begainFontSize = compoenent.getFontSize()
       }
-      
-      delegate?.maskViewBeganChanged?(self)
+//      checkPoints = delegate?.maskViewCheckPoints?(self)
+      if let delegate = delegate {
+        checkPoints = delegate.maskViewCheckPoints(self)
+      }
+      delegate?.maskViewBeganChanged(self)
       
       containerMomdel.updateSlopes()
       
       let position = sender.locationInView(self)
+      let location = sender.locationInView(superview!)
       
       switch position {
       case let point where rotationRegion(point):
-        let location = sender.locationInView(superview!)
+        
         begainAngle = atan2(location.y - center.y, location.x - center.x)
         
         controlStyle = .Rotaion
       case let point where resizeRegion(point):
         controlStyle = .Resize
       case let point where rec(point):
+        begainTransitionDistance = CGPoint(x: location.x - frame.origin.x, y: location.y - frame.origin.y)
         controlStyle = .Transition
+        
       default:
         controlStyle = .None
       }
       
     case .Changed:
       
-      delegate?.maskViewDidChanged?(self)
+      delegate?.maskViewDidChanged(self)
       
       switch controlStyle {
         
       case .Transition:
-        let transition = sender.translationInView(superview!)
-        containerMomdel.setCenterChange(transition)
-        containerMomdel.setOriginChange(transition)
+        let location = sender.locationInView(superview!)
+//        let transition = sender.translationInView(superview!)
+//        let targetRect = CGRect(origin: CGPoint(x: CGRectGetMinX(frame) + transition.x, y: CGRectGetMinY(frame) + transition.y), size: frame.size)
+        let targetRect = CGRect(origin: CGPoint(x: location.x - begainTransitionDistance.x, y: location.y - begainTransitionDistance.y), size: frame.size)
+        
+        let recommandOrign = GuideLineTool.check(targetRect, acheckPoints: checkPoints).origin
+        let tran = CGPoint(x: recommandOrign.x - frame.minX, y: recommandOrign.y - frame.minY)
+        
+        containerMomdel.setCenterChange(tran)
+        containerMomdel.setOriginChange(tran)
         
       case .Resize:
         
@@ -458,6 +477,8 @@ extension MaskView {
           
         }
         
+        sender.setTranslation(CGPointZero, inView: self)
+        sender.setTranslation(CGPointZero, inView: superview!)
         
       case .Rotaion:
         let location = sender.locationInView(superview!)
@@ -467,17 +488,19 @@ extension MaskView {
         containerMomdel.setAngleChange(angDel)
         begainAngle = ang
         
+        sender.setTranslation(CGPointZero, inView: self)
+        sender.setTranslation(CGPointZero, inView: superview!)
       default:
         return
       }
       
-      sender.setTranslation(CGPointZero, inView: self)
-      sender.setTranslation(CGPointZero, inView: superview!)
+//      sender.setTranslation(CGPointZero, inView: self)
+//      sender.setTranslation(CGPointZero, inView: superview!)
       setNeedsDisplay()
       
     case .Cancelled, .Ended:
       
-      delegate?.maskViewStopChanged?(self)
+      delegate?.maskViewStopChanged(self)
       
       return
     default:

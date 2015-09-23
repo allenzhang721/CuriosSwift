@@ -7,29 +7,41 @@
 //
 
 import Foundation
-import Qiniu
+
 
 protocol UploadsManagerDelegate: NSObjectProtocol {
   
   func uploadsManager(manager: UploadsManager, didFinishedUpload finished: Bool)
 }
 
-class UploadsManager {
+struct UploadsData {
+  
+  let data: NSData
+  let key: String
+  let token: String
+  
+}
+
+class UploadsManager: NSObject {
   
   static let shareInstance = UploadsManager()
-  
-  let qnUploader = QNUploadManager(configuration: nil)
   
   private var finished = true
   private var totalCount = 0
   private var finishCount = 0
   private var failCount = 0
-  private var compeletedBlock: ((Bool) -> ())?
+  private var compeletedBlock: ((Bool, Bool) -> ())?
+  private var operations = [UploadOperation]()
+  private var failedOperations = [String: UploadOperation]()
   
-  // cancel
-  // finishedBlock: (finished) -> ()
-  // uploading: Bool
-  //
+  private let uploadQueue: OperationQueue
+  
+  override init() {
+    self.uploadQueue = OperationQueue()
+    super.init()
+    uploadQueue.delegate = self
+    uploadQueue.addObserver(self, forKeyPath: "operationCount", options: .New, context: nil)
+  }
   
   func uploadFinished() -> Bool {
 //    dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -38,7 +50,7 @@ class UploadsManager {
 //    })
   }
   
-  func setCompeletedHandler(block:((Bool) -> ())?) {
+  func setCompeletedHandler(block:((Bool, Bool) -> ())?) {   // completed, hasUploadFail
     compeletedBlock = block
   }
   
@@ -50,36 +62,57 @@ class UploadsManager {
     
     finished = false
     
-    totalCount += tokens.count
-    let cancelSignal = {[unowned self] () -> Bool in
-      return false
-    }
-    
-    let defaultOptions = QNUploadOption.defaultOptions()
-    let customOptions = QNUploadOption(mime: defaultOptions.mimeType, progressHandler:defaultOptions.progressHandler, params: defaultOptions.params, checkCrc: defaultOptions.checkCrc, cancellationSignal: cancelSignal)
+    var ops = [UploadOperation]()
     
     for index in 0..<keys.count {
-      
-      // upload data
       let data = datas[index]
       let key = keys[index]
       let token = tokens[index]
-      qnUploader.putData(data, key: key, token: token, complete: {[unowned self] (responseInfo, uploadKey, response) -> Void in
+      let operation = UploadOperation(aData: data, aKey: key, aToken: token)
+      
+      let blockObserver = BlockObserver(finishHandler: {[weak self] (operation, errors) -> Void in
         
-        self.finishCount += 1
-        
-        if response == nil {
-          self.failCount += 1
-          debugPrint.p("upload failed")
+        if let strongself = self {
+          // error and upload fails, cache the operation
+          if let operation = operation as? UploadOperation where !errors.isEmpty {
+            strongself.failedOperations[key] = operation
+          }
         }
+      })
+      operation.addObserver(blockObserver)
+      ops.append(operation)
+      operations.append(operation)
+    }
+    
+    uploadQueue.addOperations(ops, waitUntilFinished: false)
+  }
+  
+  override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    
+    if let queue = object as? OperationQueue, let count = change[NSKeyValueChangeNewKey] as? Int where keyPath == "operationCount" {
+      
+      if count <= 0 && operations.count <= 0 {
         
-        if self.finishCount == self.totalCount {
-          debugPrint.p("upload compeleted")
-          self.finished = true
-          self.compeletedBlock?(true)
+        if !finished {
+          finished = true
+          println("upload finished, failedCount: \(failedOperations.count)")
+          compeletedBlock?(true, failedOperations.count > 0)
         }
-        
-      }, option: customOptions)
+      }
+    }
+  }
+}
+
+extension UploadsManager: OperationQueueDelegate {
+  
+  func operationQueue(operationQueue: OperationQueue, willAddOperation operation: NSOperation) {
+  
+    for (i, aoperation) in enumerate(operations) {
+      
+      if aoperation === operation {
+        operations.removeAtIndex(i)
+        break
+      }
     }
   }
 }

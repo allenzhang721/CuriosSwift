@@ -8,6 +8,21 @@
 
 import Foundation
 
+func rint<T>(value: T,file: String = __FILE__, line: Int = __LINE__ ,function: String = __FUNCTION__) {
+  
+  //    #if DEBUG
+  
+  print("<\(file.lastPathComponent.stringByDeletingPathExtension) : \(line)>: \(function)")
+  print("\n\(value)")
+  print("\n-------\n")
+  
+  //      #else
+  
+  //      print(value)
+  
+  //    #endif
+}
+
 class debugPrint {
   
   // other swift flags : -D DEBUG

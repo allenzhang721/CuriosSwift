@@ -28,8 +28,11 @@ class ImageHelper {
           let dimension = presentation.dimensions()
           let image = info[UIImagePickerControllerOriginalImage] as! UIImage
           
-          var ispng = true
-          
+          var ispng = false
+          if uti == "png" {
+            ispng = false
+          }
+          debugPrint.p("asize = \(asize)");
           if asize <= minimumTargetFileSize {
             successBlock(image, dimension, true)
             return
@@ -59,10 +62,8 @@ class ImageHelper {
             optimizeSize = finalSize
           }
           
-          
-          if uti != "png" {
-            ispng = false
-            let data = UIImageJPEGRepresentation(optimizeImage, 0.001)
+          if !ispng {
+            let data = UIImageJPEGRepresentation(optimizeImage, 0.5)
             optimizeImage = UIImage(data: data)!
           }
           

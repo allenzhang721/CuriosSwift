@@ -11,6 +11,7 @@ import Mantle
 import pop
 import SnapKit
 import Kingfisher
+import ReachabilitySwift
 
 
 func exchange<T>(inout data: [T], i:Int, j:Int) {
@@ -63,6 +64,10 @@ class EditViewController: UIViewController, UIViewControllerTransitioningDelegat
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet var singleTapGesture: UITapGestureRecognizer!
   @IBOutlet var doubleTapGesture: UITapGestureRecognizer!
+  
+  let uploader = UploadsManager()
+  
+  let reachability = Reachability.reachabilityForInternetConnection()
   
   //Model
   var didLoadBegainConstraint = false
@@ -673,13 +678,24 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
     
   }
   
+  func needConnectNet() {
+    
+    let alert = AlertHelper.alert_needConnected()
+    presentViewController(alert, animated: true, completion: nil)
+    
+  }
   
   @IBAction func saveAction(sender: UIBarButtonItem) {
     
     
+    if reachability.currentReachabilityStatus == .NotReachable {
+      needConnectNet()
+      return
+    }
     EndEdit()
-    if UploadsManager.shareInstance.uploadFinished() && !bookModel.isNeedUpload() && !bookModel.isNeedAddFile() {
-      UploadsManager.shareInstance.setCompeletedHandler(nil)
+   
+    if uploader.uploadFinished() && !bookModel.isNeedUpload() && !bookModel.isNeedAddFile() {
+      uploader.setCompeletedHandler(nil)
       self.dismissViewControllerAnimated(true, completion: nil)
     } else {
       HUD.save_sync()
@@ -693,6 +709,8 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
             HUD.dismiss()
             self.dismissViewControllerAnimated(true, completion: nil)
           }
+        } else {
+          HUD.dismiss()
         }
       }
     }
@@ -769,11 +787,21 @@ extension EditViewController {
   
   func retriveThumbnailImage(image: UIImage, size: CGSize) -> UIImage {
     
-    let maxScale = max(size.width / image.size.width, size.height / image.size.height)
-    let width = image.size.width * maxScale
-    let height = image.size.height * maxScale
+    let imageRate = image.size.width / image.size.height;
+    let sizeRate  = size.width / size.height;
+    let imageWidth  = image.size.width;
+    let imageHeight = image.size.height;
+    var maxScale:CGFloat;
+    if(imageRate > sizeRate){
+      maxScale = size.width / imageWidth;
+    }else{
+      maxScale = size.height / imageHeight;
+    }
+    let width = imageWidth * maxScale
+    let height = imageHeight * maxScale
+    
     let imageSize = CGSize(width: width, height: height)
-    UIGraphicsBeginImageContextWithOptions(imageSize, true, maxScale)
+    UIGraphicsBeginImageContextWithOptions(imageSize, true, 1.0)
     image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
     let aImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
@@ -864,6 +892,19 @@ extension EditViewController {
     
     if let aMaskView = maskView,
       let imagecomponent = aMaskView.containerMomdel.component as? ImageContentModel {
+        
+        if bookModel.isDefaultIcon() {
+          let key = pathByComponents([userID, publishID, "icon.jpg"])
+          let cacheKey = ServePathsManger.imagePath!.stringByAppendingString(key).stringByAppendingString(ICON_THUMBNAIL)
+          let thumbNail = retriveThumbnailImage(image, size: CGSize(width: 320, height: 320))
+          
+          let iconData = UIImageJPEGRepresentation(thumbNail, 1.0)
+          uploadIcon(iconData)
+          
+          KingfisherManager.sharedManager.cache.storeImage(thumbNail, forKey: cacheKey)
+          bookModel.setBookIcon(key)
+        }
+        
         imagecomponent.updateImage(image, userID: userID, PublishID: publishID, ispng: ispng)
     }
   }
@@ -926,9 +967,9 @@ extension EditViewController {
         // upload data
         if let aKey = key {
           
-          self.prepareUploadImageData(data!, key: aKey, compeletedBlock: { (theData, theKey, theToken) -> () in
+          self.prepareUploadImageData(data!, key: aKey, compeletedBlock: { [weak self](theData, theKey, theToken) -> () in
             
-            UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+            self?.uploader.upload([theData], keys: [theKey], tokens: [theToken])
           })
         }
       }
@@ -955,9 +996,9 @@ extension EditViewController {
         let key = pathByComponents([userID, publishID, pageID, "icon.jpg"])
         let data = UIImageJPEGRepresentation(image, 0.01)
         
-        prepareUploadImageData(data!, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
+        prepareUploadImageData(data!, key: key, compeletedBlock: { [weak self] (theData, theKey, theToken) -> () in
           
-          UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+          self?.uploader.upload([theData], keys: [theKey], tokens: [theToken])
         })
       }
     }
@@ -1192,6 +1233,20 @@ extension EditViewController {
     }
   }
   
+  func maskViewCheckPoints(mask: MaskView) -> [CGPoint] {
+    
+    if let maskView = maskView,
+      let currenIndexPath = getCurrentIndexPath(),
+      let pageCell = collectionView.cellForItemAtIndexPath(currenIndexPath) as? PageCollectionViewCell {
+        
+        let frame = collectionView.convertRect(pageCell.frame, toView: view)
+        return GuideLineTool.checkPoints(frame)
+    } else {
+      return [CGPoint]()
+    }
+    
+  }
+  
   func maskViewDidSelectedDeleteItem(mask: MaskView, deletedContainerModel containerModel: ContainerModel) {
     
     if let currentIndexPath = getCurrentIndexPath() {
@@ -1411,7 +1466,7 @@ extension EditViewController {
   func begainToPreview(completedBlock:(String?, Bool) -> ()) {
     
     // 1. book whether in server
-    if isUploaded && !bookModel.needUpload && !bookModel.isEditedTitle() && !bookModel.publishURLIsEmpty() && UploadsManager.shareInstance.uploadFinished() {
+    if isUploaded && !bookModel.needUpload && !bookModel.isEditedTitle() && !bookModel.publishURLIsEmpty() && uploader.uploadFinished() {
       let publishURL = bookModel.retrivePublishURL()!
        completedBlock(publishURL, false)
       return
@@ -1468,15 +1523,15 @@ extension EditViewController {
   
   func begainUploadCuriosRes(completedBlock:(Bool) -> ()) {
     
-    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+    uploader.setCompeletedHandler {[weak self] (finished, hasError) -> () in
       
       completedBlock(finished)
-      UploadsManager.shareInstance.setCompeletedHandler(nil)
+      self?.uploader.setCompeletedHandler(nil)
     }
     
-    uploadCuriosRes { (datas, keys, tokens) -> () in
+    uploadCuriosRes { [weak self] (datas, keys, tokens) -> () in
       
-      UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+      self?.uploader.upload(datas, keys: keys, tokens: tokens)
     }
     
   }
@@ -1497,19 +1552,19 @@ extension EditViewController {
   //Upload main json and html file
   func prepareForPreivew(completedBlock:(Bool) -> ()) {
     
-    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+    uploader.setCompeletedHandler {[weak self] (finished, hasError) -> () in
       
       completedBlock(finished)
-      UploadsManager.shareInstance.setCompeletedHandler(nil)
+      self?.uploader.setCompeletedHandler(nil)
     }
     
     if !(!bookModel.isNeedUpload() && isUploaded) {
       self.isUploaded = true
       bookModel.resetNeedUpload()
       HUD.preview_upload()
-      uploadCuriosRes { (datas, keys, tokens) -> () in
+      uploadCuriosRes {[weak self] (datas, keys, tokens) -> () in
         
-        UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+        self?.uploader.upload(datas, keys: keys, tokens: tokens)
       }
     }
   }
@@ -1575,22 +1630,30 @@ extension EditViewController {
     let string = ADD_EDITED_FILE_paras(userID, bookID, addEditFilePath, publisherIconURL: icon, publishTitle: atitle, publishDesc: desc)
     
     AddEditFileRequest.requestWithComponents(ADD_EDITED_FILE, aJsonParameter: string) { (json) -> Void in
-      completedBlock(true)
+      if let resultType = json["resultType"] as? String where resultType == "success" {
+        completedBlock(true)
+      } else {
+        completedBlock(false)
+      }
+      
       }.sendRequest()
   }
   
   func prepareUploadBookModelToServer(completedBlock: (Bool) -> ()) {
     
-    UploadsManager.shareInstance.setCompeletedHandler {[unowned self] (finished) -> () in
+    uploader.setCompeletedHandler {[weak self] (finished, hasError) -> () in
       
       //      completedBlock(finished)
       if finished {
 
-        self.addEditFile({ (finished) -> () in
+        self?.addEditFile({ [weak self] (finished) -> () in
           
           if finished {
-            UploadsManager.shareInstance.setCompeletedHandler(nil)
+            self?.uploader.setCompeletedHandler(nil)
             completedBlock(true)
+          } else {
+            self?.uploader.setCompeletedHandler(nil)
+            completedBlock(false)
           }
         })
       }
@@ -1598,17 +1661,17 @@ extension EditViewController {
     
     if bookModel.isNeedUpload() {
       bookModel.resetNeedUpload()
-      uploadBookModelToserver { (datas, keys, tokens) -> () in
-        UploadsManager.shareInstance.upload(datas, keys: keys, tokens: tokens)
+      uploadBookModelToserver { [weak self] (datas, keys, tokens) -> () in
+        self?.uploader.upload(datas, keys: keys, tokens: tokens)
       }
     }
     
-    if UploadsManager.shareInstance.uploadFinished() && bookModel.isNeedAddFile() {
+    if uploader.uploadFinished() && bookModel.isNeedAddFile() {
       bookModel.resetNeedAddFile()
-      self.addEditFile({ (finished) -> () in
+      self.addEditFile({ [weak self] (finished) -> () in
         
         if finished {
-          UploadsManager.shareInstance.setCompeletedHandler(nil)
+          self?.uploader.setCompeletedHandler(nil)
           completedBlock(true)
         }
       })
@@ -1836,6 +1899,11 @@ extension EditViewController {
   func editToolBarDidSelectedPreview(toolBar: EditToolBar) {
     
 //    EndEdit()
+    if reachability.currentReachabilityStatus == .NotReachable {
+      needConnectNet()
+      return
+    }
+    
     HUD.preview_preparing()
     begainToPreview {[unowned self] (publishURL, delay) -> () in
       
@@ -1906,8 +1974,8 @@ extension EditViewController {
     let icon = "icon.jpg"
     let key = pathByComponents([userID, publishID, icon])
     
-    prepareUploadImageData(iconData, key: key, compeletedBlock: { (theData, theKey, theToken) -> () in
-      UploadsManager.shareInstance.upload([theData], keys: [theKey], tokens: [theToken])
+    prepareUploadImageData(iconData, key: key, compeletedBlock: { [weak self] (theData, theKey, theToken) -> () in
+      self?.uploader.upload([theData], keys: [theKey], tokens: [theToken])
     })
     
   }

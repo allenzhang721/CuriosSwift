@@ -359,7 +359,7 @@ class PreviewViewController: UIViewController, UIViewControllerTransitioningDele
                     let userID = UsersManager.shareInstance.getUserID()
                     println(userID)
                     let aPublishID = publishID
-                    let iconURL = userID + "/" + aPublishID + "/" + "icon.png"
+                    let iconURL = userID + "/" + aPublishID + "/" + "icon.jpg"
                     let publishURL = userID + "/" + aPublishID + "/" + "index.html"
                     
                     let bookModel = delegate!.previewControllerGetBookModel(self)
